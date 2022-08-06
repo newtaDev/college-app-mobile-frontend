@@ -1,1 +1,1 @@
-part of utils;
+part of app_utils;

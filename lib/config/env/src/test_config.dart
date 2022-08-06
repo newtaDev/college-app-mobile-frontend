@@ -1,4 +1,3 @@
-import '../../../shared/global/constants.dart';
 import '../env_config.dart';
 
 class TestEnvConfig implements BaseEnvConfig {
@@ -13,10 +12,10 @@ class TestEnvConfig implements BaseEnvConfig {
   String get storageHost => throw UnimplementedError();
 
   @override
-  String get oAuthClintIdIos => kOauthClintidIos;
+  String get oAuthClintIdIos => throw UnimplementedError();
 
   @override
-  String get oAuthClintIdWeb => kOauthClintidWeb;
+  String get oAuthClintIdWeb => throw UnimplementedError();
   @override
   String toString() {
     return 'TEST';

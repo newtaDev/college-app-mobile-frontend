@@ -1,16 +1,19 @@
 # flutter_bloc_temp
 
-A new Flutter project.
+A new Flutter Bloc Template project.
+## Project Structure
 
-## Getting Started
+In `/domain`
 
-This project is a starting point for a Flutter application.
+    - feature specific `entities`, `repository`, `use_cases`
 
-A few resources to get you started if this is your first Flutter project:
+In `/presentaion/features`
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+    - cubit can be feature specific
+    - widgets can be feature specific
+    - pages can be feature specific
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Packages
+### widgets_lib 
+    - should contain only common widgets 
+    - should not contain state mangement code in this package

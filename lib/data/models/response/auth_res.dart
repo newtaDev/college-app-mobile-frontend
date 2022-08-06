@@ -58,7 +58,7 @@ class UserData extends Equatable {
 
   factory UserData.fromMap(Map<String, dynamic> map) {
     return UserData(
-      name: map['name']  ,
+      name: map['name'],
       email: map['email'],
       sId: map['_id'],
       createdAt: map['createdAt'],

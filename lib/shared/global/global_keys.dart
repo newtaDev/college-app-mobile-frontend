@@ -1,2 +1,8 @@
+class GlobalKeys {
 //  Navigator key
-//  scaffold key
+
+//  Scaffold key
+
+// Widget keys
+
+}

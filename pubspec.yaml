@@ -39,6 +39,10 @@ dependencies:
   dartz: ^0.10.1
   get_it: ^7.2.0
   equatable: ^2.0.3
+  widgets_lib:
+    path: packages/widgets_lib
+  styles_lib:
+    path: packages/styles_lib
 
 dev_dependencies:
   flutter_test:

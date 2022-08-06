@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'config/app_config.dart';
-import 'presentation/views/auth/sign_in/cubit/signin_cubit.dart';
-import 'presentation/views/auth/sign_in/sign_in_page.dart';
-import 'presentation/views/auth/sign_up/cubit/signup_cubit.dart';
-import 'presentation/views/auth/sign_up/sign_up_page.dart';
-import 'presentation/views/home/home_page.dart';
+import 'presentation/features/auth/sign_in/cubit/signin_cubit.dart';
+import 'presentation/features/auth/sign_in/sign_in_page.dart';
+import 'presentation/features/auth/sign_up/cubit/signup_cubit.dart';
+import 'presentation/features/auth/sign_up/sign_up_page.dart';
+import 'presentation/features/home/home_page.dart';
 
 void main() async {
   await appConfig.config();
