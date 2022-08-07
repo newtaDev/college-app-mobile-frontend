@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:styles_lib/theme/themes.dart';
 
 import 'config/app_config.dart';
 import 'presentation/features/auth/sign_in/cubit/signin_cubit.dart';
@@ -21,9 +22,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: ThemeMode.light,
       routes: {
         '/sign_in': (ctx) => BlocProvider(
               create: (context) => getIt<SignInCubit>(),

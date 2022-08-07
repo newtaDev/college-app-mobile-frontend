@@ -27,7 +27,9 @@ class AppConfig {
     appEnv = AppEnv.config(AppEnvironment.dev);
     try {
       /// All Configurations
-      await _configDependencies();
+
+      /// Configuring get_it dependencies
+      registerGetItDependencies(this);
 
       _configStatus = 'OK';
       log(toString());
@@ -36,11 +38,6 @@ class AppConfig {
       log(toString());
       rethrow;
     }
-  }
-
-  Future<void> _configDependencies() async {
-    /// Configuring get_it dependencies
-    registerGetItDependencies(this);
   }
 
   @override
