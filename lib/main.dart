@@ -3,11 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styles_lib/theme/themes.dart';
 
 import 'config/app_config.dart';
-import 'presentation/features/auth/sign_in/cubit/signin_cubit.dart';
-import 'presentation/features/auth/sign_in/sign_in_page.dart';
-import 'presentation/features/auth/sign_up/cubit/signup_cubit.dart';
-import 'presentation/features/auth/sign_up/sign_up_page.dart';
-import 'presentation/features/home/home_page.dart';
+import 'cubits/auth/auth_cubit.dart';
+import 'cubits/home/home_cubit.dart';
+import 'cubits/my_app/my_app_cubit.dart';
+import 'presentation/router/app_router.dart';
 
 void main() async {
   await appConfig.config();
@@ -20,23 +19,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      themeMode: ThemeMode.light,
-      routes: {
-        '/sign_in': (ctx) => BlocProvider(
-              create: (context) => getIt<SignInCubit>(),
-              child: const SignInPage(),
-            ),
-        '/sign_up': (ctx) => BlocProvider(
-              create: (context) => getIt<SignUpCubit>(),
-              child: const SignUpPage(),
-            ),
-        '/home_page': (ctx) => const HomePage()
-      },
-      initialRoute: '/sign_in',
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(lazy: false, create: (context) => getIt<AuthCubit>()),
+        BlocProvider(lazy: false, create: (context) => getIt<MyAppCubit>()),
+        BlocProvider(create: (context) => getIt<HomeCubit>())
+      ],
+      child: MaterialApp.router(
+        title: 'Flutter bloc Demo',
+        theme: lightTheme,
+        darkTheme: darkTheme,
+        themeMode: ThemeMode.light,
+        routeInformationParser: AppRouter.router.routeInformationParser,
+        routerDelegate: AppRouter.router.routerDelegate,
+        routeInformationProvider: AppRouter.router.routeInformationProvider,
+      ),
     );
   }
 }

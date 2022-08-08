@@ -43,6 +43,7 @@ dependencies:
     path: packages/widgets_lib
   styles_lib:
     path: packages/styles_lib
+  go_router: ^4.2.7
 
 dev_dependencies:
   flutter_test:
