@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../domain/entities/auth_entitie.dart';
 import '../../../../shared/validators/auth_field_validator.dart';
@@ -35,7 +36,7 @@ class _SignInPageState extends State<SignInPage> {
     return BlocListener<SignInCubit, SignInState>(
       listener: (context, state) {
         if (state is SignInSuccessState) {
-          Navigator.of(context).pushNamed('/home_page');
+          context.go('/');
           return;
         }
         if (state is SignInErrorState) {
@@ -97,7 +98,7 @@ class _SignInPageState extends State<SignInPage> {
                   const SizedBox(height: 20),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushNamed('/sign_up');
+                      context.push('/sign_up');
                     },
                     child: const Text('Create account'),
                   )
