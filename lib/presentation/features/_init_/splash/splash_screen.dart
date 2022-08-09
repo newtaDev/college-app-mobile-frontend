@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../cubits/my_app/my_app_cubit.dart';
+import '../../../router/route_names.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -11,7 +12,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<MyAppCubit, AppState>(
       listener: (context, state) {
-        if (state is SplashLoadingDone) context.go('/sign_in');
+        if (state is SplashLoadingDone) context.goNamed(RouteNames.signInScreen);
       },
       child: Scaffold(
         body: Column(

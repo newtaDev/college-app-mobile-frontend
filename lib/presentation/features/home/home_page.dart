@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../router/route_names.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -13,9 +16,9 @@ class HomePage extends StatelessWidget {
             const Text('Loged in'),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushNamed('/sign_in');
+                context.goNamed(RouteNames.signInScreen);
               },
-              child: const Text('Close'),
+              child: const Text('Log out'),
             ),
           ],
         ),

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../domain/entities/auth_entitie.dart';
 import '../../../../shared/validators/auth_field_validator.dart';
+import '../../../router/route_names.dart';
 import 'cubit/signin_cubit.dart';
 
 class SignInPage extends StatefulWidget {
@@ -36,7 +37,7 @@ class _SignInPageState extends State<SignInPage> {
     return BlocListener<SignInCubit, SignInState>(
       listener: (context, state) {
         if (state is SignInSuccessState) {
-          context.go('/');
+          context.goNamed(RouteNames.homeScreen);
           return;
         }
         if (state is SignInErrorState) {
@@ -98,7 +99,7 @@ class _SignInPageState extends State<SignInPage> {
                   const SizedBox(height: 20),
                   GestureDetector(
                     onTap: () {
-                      context.push('/sign_up');
+                      context.pushNamed(RouteNames.signUpScreen);
                     },
                     child: const Text('Create account'),
                   )

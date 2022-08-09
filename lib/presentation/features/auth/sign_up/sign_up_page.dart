@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../domain/entities/auth_entitie.dart';
 import '../../../../shared/validators/auth_field_validator.dart';
+import '../../../router/route_names.dart';
 import 'cubit/signup_cubit.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -73,7 +75,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 BlocConsumer<SignUpCubit, SignUpState>(
                   listener: (context, state) {
                     if (state is SignUpSuccessState) {
-                      Navigator.of(context).pushNamed('/home_page');
+                      context.goNamed(RouteNames.homeScreen);
                       return;
                     }
                     if (state is SignUpErrorState) {
