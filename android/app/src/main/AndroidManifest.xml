@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.flutter_bloc_temp">
+    package="com.college_app_domain.college_app">
    <application
-        android:label="flutter_bloc_temp"
+        android:label="college_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

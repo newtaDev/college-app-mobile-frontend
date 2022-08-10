@@ -1,4 +1,4 @@
-package com.example.flutter_bloc_temp
+package com.college_app_domain.college_app
 
 import io.flutter.embedding.android.FlutterActivity
 
