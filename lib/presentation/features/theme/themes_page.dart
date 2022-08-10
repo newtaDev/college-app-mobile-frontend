@@ -3,29 +3,29 @@ import 'package:go_router/go_router.dart';
 
 import '../../router/route_names.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class ThemesPage extends StatelessWidget {
+  const ThemesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text('Themes')),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text('Loged in'),
             ElevatedButton(
               onPressed: () {
-                context.goNamed(RouteNames.themeScreen);
+                context.pushNamed(RouteNames.colorsScreen);
               },
-              child: const Text('Themes page'),
+              child: const Text('Colors Page'),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                context.goNamed(RouteNames.signInScreen);
+                context.pushNamed(RouteNames.typographyScreen);
               },
-              child: const Text('Log out'),
+              child: const Text('Typography Page'),
             ),
           ],
         ),

@@ -8,6 +8,9 @@ import '../features/auth/sign_in/sign_in_page.dart';
 import '../features/auth/sign_up/cubit/signup_cubit.dart';
 import '../features/auth/sign_up/sign_up_page.dart';
 import '../features/home/home_page.dart';
+import '../features/theme/colors_page.dart';
+import '../features/theme/themes_page.dart';
+import '../features/theme/typography_page.dart';
 import 'route_names.dart';
 
 /// Dont add to `getIt` bcz we are only using static properties
@@ -30,6 +33,23 @@ class AppRouter {
         builder: (context, state) => const HomePage(),
         routes: [
           ///
+        ],
+      ),
+      GoRoute(
+        name: RouteNames.themeScreen,
+        path: '/themes',
+        builder: (context, state) => const ThemesPage(),
+        routes: [
+          GoRoute(
+            name: RouteNames.typographyScreen,
+            path: 'typography',
+            builder: (context, state) => const TypographyPage(),
+          ),
+          GoRoute(
+            name: RouteNames.colorsScreen,
+            path: 'colors',
+            builder: (context, state) => const ColorsPage(),
+          ),
         ],
       ),
       GoRoute(

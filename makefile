@@ -12,8 +12,8 @@ help: ## This help dialog.
 		printf "%-30s %s\n" $$help_command $$help_info ; \
 	done
 
-setup: ## Formats cleans and install on the project.
-setup: format clean install
+cleanup: ## Format clean and install the project.
+cleanup: format clean install
 
 install: ## Install the whole project.
 	@./scripts/install.sh 
@@ -23,6 +23,8 @@ analyze: ## Analyze the whole project.
 
 clean: ## Cleaning the whole project.
 	@./scripts/clean.sh
+fix: ## fix dart/flutter warnigs/problems in the project.
+	@dart fix --apply
 
 localizations: ## Generate localizations for app.
 	@./scripts/localizations.sh 

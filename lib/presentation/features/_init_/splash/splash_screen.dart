@@ -12,7 +12,9 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<MyAppCubit, AppState>(
       listener: (context, state) {
-        if (state is SplashLoadingDone) context.goNamed(RouteNames.signInScreen);
+        if (state is SplashLoadingDone) {
+          context.goNamed(RouteNames.signInScreen);
+        }
       },
       child: Scaffold(
         body: Column(

@@ -4,6 +4,7 @@ final darkTheme = FlexThemeData.dark(
   colorScheme: _darkColorScheme,
   surfaceMode: FlexSurfaceMode.highScaffoldLowSurface,
   blendLevel: 6,
+  fontFamily: FontAssets.poppins,
   appBarStyle: FlexAppBarStyle.background,
   subThemesData: const FlexSubThemesData(
     useFlutterDefaults: true,
