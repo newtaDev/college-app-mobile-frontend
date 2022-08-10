@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
             const Text('Loged in'),
             ElevatedButton(
               onPressed: () {
-                context.goNamed(RouteNames.themeScreen);
+                context.pushNamed(RouteNames.themeScreen);
               },
               child: const Text('Themes page'),
             ),
