@@ -27,7 +27,7 @@ const _darkColorScheme = ColorScheme(
   surfaceVariant: Color(0xff161616),
   onSurfaceVariant: Color(0xffe3e3e3),
   inverseSurface: Color(0xff0e0e0e),
-  onInverseSurface: Color.fromARGB(255, 135, 134, 134),
+  onInverseSurface: Color(0xFF8CA1B8),
   inversePrimary: Color(0xff404143),
   shadow: Color(0xff000000),
 );
