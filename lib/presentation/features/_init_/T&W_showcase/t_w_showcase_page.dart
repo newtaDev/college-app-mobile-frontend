@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../router/route_names.dart';
+import '../../../router/route_names.dart';
 
-class ThemesPage extends StatelessWidget {
-  const ThemesPage({super.key});
+
+class ThemeAndWidgetsShaowcasePage extends StatelessWidget {
+  const ThemeAndWidgetsShaowcasePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +17,21 @@ class ThemesPage extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                context.pushNamed(RouteNames.colorsScreen);
+                context.pushNamed(RouteNames.showcaseWidgetsScreen);
+              },
+              child: const Text('Widgets Page'),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                context.pushNamed(RouteNames.showcaseColorsScreen);
               },
               child: const Text('Colors Page'),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                context.pushNamed(RouteNames.typographyScreen);
+                context.pushNamed(RouteNames.showcaseTypographyScreen);
               },
               child: const Text('Typography Page'),
             ),

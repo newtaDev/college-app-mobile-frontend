@@ -2,15 +2,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../config/app_config.dart';
+import '../features/_init_/T&W_showcase/colors_page.dart';
+import '../features/_init_/T&W_showcase/t_w_showcase_page.dart';
+import '../features/_init_/T&W_showcase/typography_page.dart';
+import '../features/_init_/T&W_showcase/widgets_page.dart';
 import '../features/_init_/splash/splash_screen.dart';
 import '../features/auth/sign_in/cubit/signin_cubit.dart';
 import '../features/auth/sign_in/sign_in_page.dart';
 import '../features/auth/sign_up/cubit/signup_cubit.dart';
 import '../features/auth/sign_up/sign_up_page.dart';
 import '../features/home/home_page.dart';
-import '../features/theme/colors_page.dart';
-import '../features/theme/themes_page.dart';
-import '../features/theme/typography_page.dart';
 import 'route_names.dart';
 
 /// Dont add to `getIt` bcz we are only using static properties
@@ -36,23 +37,6 @@ class AppRouter {
         ],
       ),
       GoRoute(
-        name: RouteNames.themeScreen,
-        path: '/themes',
-        builder: (context, state) => const ThemesPage(),
-        routes: [
-          GoRoute(
-            name: RouteNames.typographyScreen,
-            path: 'typography',
-            builder: (context, state) => const TypographyPage(),
-          ),
-          GoRoute(
-            name: RouteNames.colorsScreen,
-            path: 'colors',
-            builder: (context, state) => const ColorsPage(),
-          ),
-        ],
-      ),
-      GoRoute(
         name: RouteNames.signInScreen,
         path: '/sign_in',
         builder: (context, state) => BlocProvider(
@@ -67,6 +51,30 @@ class AppRouter {
           create: (context) => getIt<SignUpCubit>(),
           child: const SignUpPage(),
         ),
+      ),
+
+      /// Showcase Widgets and thems
+      GoRoute(
+        name: RouteNames.schowcaseThemeAndWidgetsScreen,
+        path: '/t_w_showcase',
+        builder: (context, state) => const ThemeAndWidgetsShaowcasePage(),
+        routes: [
+          GoRoute(
+            name: RouteNames.showcaseWidgetsScreen,
+            path: 'widgets',
+            builder: (context, state) => const WidgetsShowcasePage(),
+          ),
+          GoRoute(
+            name: RouteNames.showcaseTypographyScreen,
+            path: 'typography',
+            builder: (context, state) => const TypographyPage(),
+          ),
+          GoRoute(
+            name: RouteNames.showcaseColorsScreen,
+            path: 'colors',
+            builder: (context, state) => const ColorsPage(),
+          ),
+        ],
       ),
     ],
   );

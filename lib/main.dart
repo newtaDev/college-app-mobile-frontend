@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => getIt<HomeCubit>())
       ],
       child: MaterialApp.router(
-        title: 'Flutter bloc Demo',
+        title: 'College App',
         theme: lightTheme,
         darkTheme: darkTheme,
         themeMode: ThemeMode.light,
