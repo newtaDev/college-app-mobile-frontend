@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../config/app_config.dart';
+import '../../shared/global/enums.dart';
 import '../features/_init_/T&W_showcase/colors_page.dart';
 import '../features/_init_/T&W_showcase/t_w_showcase_page.dart';
 import '../features/_init_/T&W_showcase/typography_page.dart';
@@ -11,7 +12,7 @@ import '../features/auth/sign_in/cubit/signin_cubit.dart';
 import '../features/auth/sign_in/sign_in_page.dart';
 import '../features/auth/sign_up/cubit/signup_cubit.dart';
 import '../features/auth/sign_up/sign_up_page.dart';
-import '../features/home/home_page.dart';
+import '../features/dashboard/dashboard_page.dart';
 import 'route_names.dart';
 
 /// Dont add to `getIt` bcz we are only using static properties
@@ -20,7 +21,7 @@ class AppRouter {
   // static AppCubit appCubit = getIt<AppCubit>();
 
   static final router = GoRouter(
-    initialLocation: '/splash',
+    initialLocation: '/dashboard/home', //TODO: change location to /splash
     debugLogDiagnostics: true,
     routes: [
       GoRoute(
@@ -29,9 +30,18 @@ class AppRouter {
         builder: (context, state) => const SplashScreen(),
       ),
       GoRoute(
-        name: RouteNames.homeScreen,
+        name: RouteNames.dashboardScreen,
         path: '/',
-        builder: (context, state) => const HomePage(),
+        redirect: (state) => '/dashboard/home',
+      ),
+      GoRoute(
+        path: '/dashboard/:tab_name',
+        builder: (context, state) {
+          final tabName = DashboardPageTabs.fromName(
+            state.params['tab_name']!.toLowerCase(),
+          );
+          return DashboardPage(tabName: tabName ?? DashboardPageTabs.home);
+        },
         routes: [
           ///
         ],

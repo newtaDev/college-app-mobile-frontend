@@ -7,7 +7,7 @@ final lightTheme = FlexThemeData.light(
   appBarElevation: 12,
   fontFamily: FontAssets.poppins,
   subThemesData: const FlexSubThemesData(
-    useFlutterDefaults: true,
+    // useFlutterDefaults: true,
     useTextTheme: false,
     blendOnColors: false,
     textButtonRadius: 8,

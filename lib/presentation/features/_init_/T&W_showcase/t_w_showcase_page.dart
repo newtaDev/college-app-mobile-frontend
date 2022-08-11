@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../router/route_names.dart';
 
-
 class ThemeAndWidgetsShaowcasePage extends StatelessWidget {
   const ThemeAndWidgetsShaowcasePage({super.key});
 

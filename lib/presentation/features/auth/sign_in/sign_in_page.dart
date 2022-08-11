@@ -37,7 +37,7 @@ class _SignInPageState extends State<SignInPage> {
     return BlocListener<SignInCubit, SignInState>(
       listener: (context, state) {
         if (state is SignInSuccessState) {
-          context.goNamed(RouteNames.homeScreen);
+          context.goNamed(RouteNames.dashboardScreen);
           return;
         }
         if (state is SignInErrorState) {

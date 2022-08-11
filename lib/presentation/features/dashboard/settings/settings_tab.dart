@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../router/route_names.dart';
+import '../../../router/route_names.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class SettingsTab extends StatelessWidget {
+  const SettingsTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +13,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text('Loged in'),
-            ElevatedButton(
-              onPressed: () {
-                context.pushNamed(RouteNames.schowcaseThemeAndWidgetsScreen);
-              },
-              child: const Text('Themes page'),
-            ),
-            const SizedBox(height: 20),
+            const Text('Settings Tab'),
             ElevatedButton(
               onPressed: () {
                 context.goNamed(RouteNames.signInScreen);
