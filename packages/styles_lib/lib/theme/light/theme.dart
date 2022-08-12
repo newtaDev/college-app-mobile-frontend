@@ -27,4 +27,8 @@ final lightTheme = FlexThemeData.light(
   visualDensity: FlexColorScheme.comfortablePlatformDensity,
   // To use the playground font, add GoogleFonts package and uncomment
   // fontFamily: GoogleFonts.notoSans().fontFamily,
+).copyWith(
+  primaryColorLight: Colors.grey[200],
+  inputDecorationTheme: _textInputDecorationTheme(),
+  bottomNavigationBarTheme: _bottomNavBartheme(),
 );

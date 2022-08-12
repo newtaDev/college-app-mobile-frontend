@@ -8,5 +8,6 @@ part 'dark/text_theme.dart';
 part 'dark/color_scheme.dart';
 part 'dark/theme.dart';
 part 'light/text_theme.dart';
+part 'shared/components_theme.dart';
 part 'light/color_scheme.dart';
 part 'light/theme.dart';

@@ -27,4 +27,6 @@ final darkTheme = FlexThemeData.dark(
     timePickerDialogRadius: 18,
   ),
   visualDensity: FlexColorScheme.comfortablePlatformDensity,
+).copyWith(
+  inputDecorationTheme: _textInputDecorationTheme(),
 );
