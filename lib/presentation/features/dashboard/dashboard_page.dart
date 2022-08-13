@@ -24,33 +24,29 @@ class DashboardPage extends StatelessWidget {
       },
       child: Scaffold(
         body: _buildTabViews(context),
-        bottomNavigationBar: Card(
-          elevation: 8,
-          margin: EdgeInsets.zero,
-          child: BottomNavigationBar(
-            currentIndex: tabName.index,
-            onTap: (int index) {
-              final tapedTabName = DashboardPageTabs.values[index].name;
-              context.go('/dashboard/$tapedTabName');
-            },
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.chat_bubble),
-                label: 'Home',
-                // title: Text('Item 1'),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.beenhere),
-                label: 'Profile',
-                // title: Text('Item 2'),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.create_new_folder),
-                label: 'Setting',
-                // title: Text('Item 3'),
-              ),
-            ],
-          ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: tabName.index,
+          onTap: (int index) {
+            final tapedTabName = DashboardPageTabs.values[index].name;
+            context.go('/dashboard/$tapedTabName');
+          },
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.chat_bubble),
+              label: 'Home',
+              // title: Text('Item 1'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.beenhere),
+              label: 'Class room',
+              // title: Text('Item 2'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.create_new_folder),
+              label: 'Setting',
+              // title: Text('Item 3'),
+            ),
+          ],
         ),
       ),
     );
