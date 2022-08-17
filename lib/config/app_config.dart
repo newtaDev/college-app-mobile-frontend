@@ -1,7 +1,9 @@
 import 'dart:developer';
 
 import 'package:get_it/get_it.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
+import '../shared/global/hive_keys.dart';
 import 'dependencies/di.dart';
 import 'env/env_config.dart';
 
@@ -27,6 +29,7 @@ class AppConfig {
     appEnv = AppEnv.config(AppEnvironment.dev);
     try {
       /// All Configurations
+      await _registerHiveBoxes();
 
       /// Configuring get_it dependencies
       registerGetItDependencies(this);
@@ -38,6 +41,11 @@ class AppConfig {
       log(toString());
       rethrow;
     }
+  }
+
+  Future<void> _registerHiveBoxes() async {
+    await Hive.initFlutter();
+    await Hive.openBox<dynamic>(HiveKeys.authBox);
   }
 
   @override

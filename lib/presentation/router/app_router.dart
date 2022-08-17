@@ -8,7 +8,7 @@ import '../features/_init_/T&W_showcase/t_w_showcase_page.dart';
 import '../features/_init_/T&W_showcase/typography_page.dart';
 import '../features/_init_/T&W_showcase/widgets_page.dart';
 import '../features/_init_/splash/splash_screen.dart';
-import '../features/auth/sign_in/cubit/signin_cubit.dart';
+import '../features/attendance/attendance_page.dart';
 import '../features/auth/sign_in/sign_in_page.dart';
 import '../features/auth/sign_up/cubit/signup_cubit.dart';
 import '../features/auth/sign_up/sign_up_page.dart';
@@ -21,7 +21,8 @@ class AppRouter {
   // static AppCubit appCubit = getIt<AppCubit>();
 
   static final router = GoRouter(
-    initialLocation: '/dashboard/home', //TODO: change location to /splash
+    // initialLocation: '/dashboard/home/attendance', //TODO: change location to /splash
+    initialLocation: '/sign_in', //TODO: change location to /splash
     debugLogDiagnostics: true,
     routes: [
       GoRoute(
@@ -43,16 +44,17 @@ class AppRouter {
           return DashboardPage(tabName: tabName ?? DashboardPageTabs.home);
         },
         routes: [
-          ///
+          GoRoute(
+            name: RouteNames.attendanceScreen,
+            path: 'attendance',
+            builder: (context, state) => const AttendancePage(),
+          ),
         ],
       ),
       GoRoute(
         name: RouteNames.signInScreen,
         path: '/sign_in',
-        builder: (context, state) => BlocProvider(
-          create: (context) => getIt<SignInCubit>(),
-          child: const SignInPage(),
-        ),
+        builder: (context, state) => const SignInPage(),
       ),
       GoRoute(
         name: RouteNames.signUpScreen,

@@ -3,13 +3,21 @@ import 'dart:developer';
 
 class ApiErrorRes implements Exception {
   final int statusCode;
+  final String status;
   final String message;
   final String devMessage;
+  final Map<String, dynamic>? errorStack;
+  final Map<String, dynamic>? routeInfo;
   ApiErrorRes({
-    this.statusCode = 400,
+    this.status = 'ERROR',
+    this.statusCode = 500,
     this.message = 'Internal Server Error',
     this.devMessage = 'something went wrong',
-  });
+    this.errorStack,
+    this.routeInfo,
+  }) {
+    toString();
+  }
 
   ApiErrorRes copyWith({
     int? statusCode,
@@ -25,9 +33,12 @@ class ApiErrorRes implements Exception {
 
   factory ApiErrorRes.fromMap(Map<String, dynamic> map) {
     return ApiErrorRes(
-      statusCode: map['code']?.toInt() ?? 404,
-      message: map['error']['message'] ?? 'something went wrong',
-      devMessage: map['error']['devMessage'] ?? 'something went wrong',
+      status: map['status'],
+      statusCode: map['statuscode']?.toInt() ?? 404,
+      message: map['message'] ?? 'something went wrong',
+      devMessage: map['devMsg'] ?? 'something went wrong',
+      errorStack: map['errorStack'],
+      routeInfo: map['routeInfo'],
     );
   }
 
@@ -40,7 +51,7 @@ class ApiErrorRes implements Exception {
       'ApiErrorRes -\n  code: $statusCode\n  msg: $message\n  devMsg: $devMessage',
       name: 'ERROR',
     );
-    return super.toString();
+    return 'ApiErrorRes(statusCode: $statusCode, status: $status, message: $message, devMessage: $devMessage, errorStack: $errorStack, routeInfo: $routeInfo)';
   }
 }
 

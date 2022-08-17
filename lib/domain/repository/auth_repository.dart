@@ -6,4 +6,6 @@ import '../entities/auth_entitie.dart';
 abstract class AuthRepository {
   Future<Either<AuthRes, ApiErrorRes>> signUpUser(SignUpReq req);
   Future<Either<AuthRes, ApiErrorRes>> signInUser(SignInReq req);
+  Future<void> logoutUser();
+
 }

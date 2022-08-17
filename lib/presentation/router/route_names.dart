@@ -2,6 +2,7 @@ class RouteNames {
   static const splashScreen = 'splash';
   static const dashboardScreen = 'home';
   static const signInScreen = 'sign_in';
+  static const attendanceScreen = 'attendance';
   static const signUpScreen = 'sign_up';
 
   /// Showcase screens

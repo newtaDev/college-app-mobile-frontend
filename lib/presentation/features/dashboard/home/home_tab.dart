@@ -200,7 +200,7 @@ class _HomeTabState extends State<HomeTab> {
                             physics: !enableAnouncemetScrolling
                                 ? const NeverScrollableScrollPhysics()
                                 : const ClampingScrollPhysics(),
-                            children: [
+                            children: const [
                               ListTile(
                                 title: Text('Haii 1'),
                               ),

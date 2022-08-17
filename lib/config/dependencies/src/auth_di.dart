@@ -2,16 +2,24 @@ part of app_dependencies;
 
 void registerAuthDependencies() {
   getIt
-    ..registerFactory<AuthCubit>(AuthCubit.new)
+
+    /// repos
     ..registerSingleton<AuthRemoteDataSource>(AuthRemoteDataSource())
-    ..registerSingleton<AuthRepository>(AuthRepoImpl())
+    ..registerSingleton<AuthLocalDataSource>(AuthLocalDataSource())
+    ..registerSingleton<AuthRepository>(
+      AuthRepoImpl(
+        authLds: getIt<AuthLocalDataSource>(),
+        authRds: getIt<AuthRemoteDataSource>(),
+      ),
+    )
+
+    /// usecases
     ..registerSingleton<AuthUseCase>(
       AuthUseCase(authRepo: getIt<AuthRepository>()),
     )
-    ..registerFactory<SignInCubit>(
-      () => SignInCubit(useCase: getIt<AuthUseCase>()),
-    )
-    ..registerFactory<SignUpCubit>(
-      () => SignUpCubit(useCase: getIt<AuthUseCase>()),
+
+    /// Cubits
+    ..registerFactory<AuthCubit>(
+      () => AuthCubit(usecase: getIt<AuthUseCase>()),
     );
 }

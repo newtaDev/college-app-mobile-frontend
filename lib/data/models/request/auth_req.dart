@@ -29,26 +29,27 @@ class SignUpReq {
 class SignInReq {
   final String email;
   final String password;
+  final UserType userType;
   SignInReq({
     required this.email,
     required this.password,
+    required this.userType,
   });
 
   SignInReq copyWith({
     String? email,
     String? password,
+    UserType? userType,
   }) {
     return SignInReq(
       email: email ?? this.email,
       password: password ?? this.password,
+      userType: userType ?? this.userType,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'email': email,
-      'password': password,
-    };
+    return {'email': email, 'password': password, 'userType': userType.value};
   }
 
   String toJson() => json.encode(toMap());

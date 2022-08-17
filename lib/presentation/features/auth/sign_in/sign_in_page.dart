@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../cubits/auth/auth_cubit.dart';
 import '../../../../domain/entities/auth_entitie.dart';
+import '../../../../shared/global/enums.dart';
 import '../../../../shared/validators/auth_field_validator.dart';
 import '../../../router/route_names.dart';
-import 'cubit/signin_cubit.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -17,32 +18,22 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   String email = '';
   String password = '';
-  late final TextEditingController emailCtr;
-  @override
-  void initState() {
-    emailCtr = TextEditingController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    emailCtr.dispose();
-    super.dispose();
-  }
+  bool isTeacher = true;
 
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<SignInCubit>();
-    return BlocListener<SignInCubit, SignInState>(
+    final authCubit = context.read<AuthCubit>();
+    final textTheme = Theme.of(context).textTheme;
+    return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state is SignInSuccessState) {
+        if (state.status == AuthStatus.success) {
           context.goNamed(RouteNames.dashboardScreen);
           return;
         }
-        if (state is SignInErrorState) {
+        if (state.status == AuthStatus.failure) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.error.message)),
+            SnackBar(content: Text(state.error!.message)),
           );
           return;
         }
@@ -57,9 +48,8 @@ class _SignInPageState extends State<SignInPage> {
               child: Column(
                 children: [
                   TextFormField(
-                    controller: emailCtr,
                     decoration: const InputDecoration(
-                      hintText: 'Enter your email Id',
+                      hintText: 'Enter your Register No/email Id',
                     ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: AuthFieldValidator.validateEmail,
@@ -75,34 +65,49 @@ class _SignInPageState extends State<SignInPage> {
                     validator: AuthFieldValidator.passwordValidator,
                     onChanged: (val) => password = val,
                   ),
-                  const SizedBox(height: 40),
-                  BlocBuilder<SignInCubit, SignInState>(
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: isTeacher,
+                        onChanged: (val) {
+                          isTeacher = val ?? false;
+                          setState(() {});
+                        },
+                      ),
+                      const SizedBox(width: 5),
+                      Text(
+                        'Login as Teacher',
+                        style: textTheme.bodyMedium,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  BlocBuilder<AuthCubit, AuthState>(
                     builder: (context, state) {
-                      if (state is SignInLoadingState) {
+                      if (state.status == AuthStatus.loading) {
                         return const CircularProgressIndicator();
                       }
-
                       return ElevatedButton(
                         onPressed: () {
                           FocusScope.of(context).unfocus();
-                          if (!cubit.isValidInput(_formKey)) {
+                          if (!authCubit.isValidFormInput(_formKey)) {
                             return;
                           }
-                          cubit.singInUser(
-                            SignInReq(email: email, password: password),
+                          authCubit.singInUser(
+                            SignInReq(
+                              email: email,
+                              password: password,
+                              userType: isTeacher
+                                  ? UserType.teacher
+                                  : UserType.student,
+                            ),
                           );
                         },
                         child: const Text('Login'),
                       );
                     },
                   ),
-                  const SizedBox(height: 20),
-                  GestureDetector(
-                    onTap: () {
-                      context.pushNamed(RouteNames.signUpScreen);
-                    },
-                    child: const Text('Create account'),
-                  )
                 ],
               ),
             ),
