@@ -10,10 +10,21 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<MyAppCubit, AppState>(
+    return BlocListener<MyAppCubit, MyAppState>(
       listener: (context, state) {
-        if (state is SplashLoadingDone) {
+        if (state.splashStatus == SplashStatus.failed) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              const SnackBar(content: Text('Something Went wrong'),),
+            );
+        }
+        if (state.splashStatus == SplashStatus.neverLogedIn ||
+            state.splashStatus == SplashStatus.sessionExpired) {
           context.goNamed(RouteNames.signInScreen);
+        }
+        if (state.splashStatus == SplashStatus.loginSuccess) {
+          context.goNamed(RouteNames.dashboardScreen);
         }
       },
       child: Scaffold(

@@ -22,7 +22,7 @@ class AppRouter {
 
   static final router = GoRouter(
     // initialLocation: '/dashboard/home/attendance', //TODO: change location to /splash
-    initialLocation: '/sign_in', //TODO: change location to /splash
+    initialLocation: '/splash', //TODO: change location to /splash
     debugLogDiagnostics: true,
     routes: [
       GoRoute(

@@ -27,14 +27,16 @@ class _SignInPageState extends State<SignInPage> {
     final textTheme = Theme.of(context).textTheme;
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state.status == AuthStatus.success) {
+        if (state.status == AuthStatus.logedIn) {
           context.goNamed(RouteNames.dashboardScreen);
           return;
         }
         if (state.status == AuthStatus.failure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.error!.message)),
-          );
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(content: Text(state.error!.message)),
+            );
           return;
         }
       },

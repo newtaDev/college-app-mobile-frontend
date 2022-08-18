@@ -1,24 +1,20 @@
-part of auth_entitie;
+part of profile_entity;
 
-class StudentUserData extends UserData {
-  final String id;
-  final String name;
+class StudentProfileDataRes extends UserProfileData {
   final String email;
   final String collegeId;
   final String classId;
   final List<String> myOptionalSubjects;
-  final DateTime updatedAt;
-  final DateTime createdAt;
 
-  const StudentUserData({
-    required this.id,
-    required this.name,
+  const StudentProfileDataRes({
+    required super.id,
+    required super.name,
     required this.email,
     required this.collegeId,
     required this.classId,
     required this.myOptionalSubjects,
-    required this.updatedAt,
-    required this.createdAt,
+    required super.updatedAt,
+    required super.createdAt,
     required super.userType,
   });
 
@@ -35,8 +31,8 @@ class StudentUserData extends UserData {
     ];
   }
 
-  factory StudentUserData.fromMap(Map<String, dynamic> map) {
-    return StudentUserData(
+  factory StudentProfileDataRes.fromMap(Map<String, dynamic> map) {
+    return StudentProfileDataRes(
       id: map['_id'],
       name: map['name'],
       email: map['email'],
@@ -49,6 +45,7 @@ class StudentUserData extends UserData {
     );
   }
 
-  factory StudentUserData.fromJson(String source) =>
-      StudentUserData.fromMap(json.decode(source));
+  factory StudentProfileDataRes.fromJson(String source) =>
+      StudentProfileDataRes.fromMap(json.decode(source));
+
 }

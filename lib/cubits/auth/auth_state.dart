@@ -3,7 +3,8 @@ part of 'auth_cubit.dart';
 enum AuthStatus {
   initial,
   loading,
-  success,
+  logedIn,
+  logedOut,
   failure,
 }
 

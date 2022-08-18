@@ -1,14 +1,27 @@
 part of 'my_app_cubit.dart';
 
-abstract class AppState extends Equatable {
-  const AppState();
-
-  @override
-  List<Object> get props => [];
+enum SplashStatus {
+  loading,
+  sessionExpired,
+  failed,
+  neverLogedIn,
+  loginSuccess
 }
 
-class AppInitial extends AppState {}
+class MyAppState extends Equatable {
+  final SplashStatus splashStatus;
 
-class SplashLoading extends AppState {}
+  const MyAppState(this.splashStatus);
+  const MyAppState.init() : splashStatus = SplashStatus.loading;
 
-class SplashLoadingDone extends AppState {}
+  @override
+  List<Object> get props => [splashStatus];
+
+  MyAppState copyWith({
+    SplashStatus? splashStatus,
+  }) {
+    return MyAppState(
+      splashStatus ?? this.splashStatus,
+    );
+  }
+}

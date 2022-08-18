@@ -1,22 +1,17 @@
-part of auth_entitie;
+part of profile_entity;
 
-class TeacherUserData extends UserData {
-  final String id;
-  final String name;
+class TeacherProfileDataRes extends UserProfileData {
   final String email;
   final String collegeId;
 
-  final DateTime updatedAt;
-  final DateTime createdAt;
-
-  const TeacherUserData({
-    required this.id,
-    required this.name,
+  const TeacherProfileDataRes({
+    required super.id,
+    required super.name,
     required this.email,
     required this.collegeId,
     required super.userType,
-    required this.updatedAt,
-    required this.createdAt,
+    required super.updatedAt,
+    required super.createdAt,
   });
 
   @override
@@ -32,8 +27,8 @@ class TeacherUserData extends UserData {
     ];
   }
 
-  factory TeacherUserData.fromMap(Map<String, dynamic> map) {
-    return TeacherUserData(
+  factory TeacherProfileDataRes.fromMap(Map<String, dynamic> map) {
+    return TeacherProfileDataRes(
       id: map['_id'],
       name: map['name'],
       email: map['email'],
@@ -44,6 +39,6 @@ class TeacherUserData extends UserData {
     );
   }
 
-  factory TeacherUserData.fromJson(String source) =>
-      TeacherUserData.fromMap(json.decode(source));
+  factory TeacherProfileDataRes.fromJson(String source) =>
+      TeacherProfileDataRes.fromMap(json.decode(source));
 }

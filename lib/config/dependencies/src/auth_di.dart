@@ -12,6 +12,13 @@ void registerAuthDependencies() {
         authRds: getIt<AuthRemoteDataSource>(),
       ),
     )
+    ..registerSingleton<TokenRemoteDataSource>(TokenRemoteDataSource())
+    ..registerSingleton<TokenRepository>(
+      TokenRepoImpl(
+        tokenRds: getIt<TokenRemoteDataSource>(),
+        authLds: getIt<AuthLocalDataSource>(),
+      ),
+    )
 
     /// usecases
     ..registerSingleton<AuthUseCase>(

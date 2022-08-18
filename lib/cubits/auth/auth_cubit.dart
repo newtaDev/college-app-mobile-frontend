@@ -16,14 +16,14 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       (await usecase.authRepo.signInUser(req)).fold(
         (authRes) {
-          emit(state.copyWith(status: AuthStatus.success, authRes: authRes));
+          emit(state.copyWith(status: AuthStatus.logedIn, authRes: authRes));
         },
         (error) {
           emit(state.copyWith(status: AuthStatus.failure, error: error));
         },
       );
     } catch (e) {
-      final apiErrorRes = ApiErrorRes(devMessage: e.toString());
+      final apiErrorRes = ApiErrorRes(devMessage: 'User Login failed');
       emit(state.copyWith(status: AuthStatus.failure, error: apiErrorRes));
       rethrow;
     }
@@ -38,8 +38,11 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> logoutUser() async {
     try {
+      emit(state.copyWith(status: AuthStatus.loading));
       await usecase.authRepo.logoutUser();
+      emit(state.copyWith(status: AuthStatus.logedOut));
     } catch (e) {
+      emit(state.copyWith(status: AuthStatus.failure));
       rethrow;
     }
   }

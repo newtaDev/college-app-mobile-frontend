@@ -1,12 +1,17 @@
 part of auth_entitie;
 
 class AuthRes extends Equatable {
-  final String? status;
-  final String? accessToken;
-  final String? refreshToken;
-  final UserData? user;
+  final String status;
+  final String accessToken;
+  final String refreshToken;
+  final UserProfileData? user;
 
-  const AuthRes({this.status, this.accessToken, this.refreshToken, this.user});
+  const AuthRes({
+    required this.status,
+    required this.accessToken,
+    required this.refreshToken,
+    required this.user,
+  });
 
   @override
   List<Object?> get props => [status, accessToken, refreshToken, user];
@@ -18,22 +23,12 @@ class AuthRes extends Equatable {
       accessToken: res['accessToken'],
       refreshToken: res['refreshToken'],
       user: res['user'] != null
-          ? setUserData(
+          ? UserHelper.setUserData(
               userType: UserType.fromName(res['user']['userType'])!,
               user: res['user'],
             )
           : null,
     );
-  }
-  static UserData setUserData({
-    required UserType userType,
-    required Map<String, dynamic> user,
-  }) {
-    if (userType == UserType.teacher) {
-      return TeacherUserData.fromMap(user);
-    }
-    if (userType == UserType.student) {}
-    return StudentUserData.fromMap(user);
   }
 
   factory AuthRes.fromJson(String source) =>
@@ -43,7 +38,7 @@ class AuthRes extends Equatable {
     String? status,
     String? accessToken,
     String? refreshToken,
-    UserData? user,
+    UserProfileData? user,
   }) {
     return AuthRes(
       status: status ?? this.status,
@@ -52,14 +47,4 @@ class AuthRes extends Equatable {
       user: user ?? this.user,
     );
   }
-}
-
-class UserData extends Equatable {
-final UserType userType;
-  const UserData({
-    required this.userType,
-  });
-
-  @override
-  List<Object> get props => [userType];
 }
