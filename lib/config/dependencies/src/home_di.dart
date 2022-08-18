@@ -5,7 +5,7 @@ void registerHomeDependecies() {
     ..registerFactory<HomeCubit>(HomeCubit.new)
     ..registerFactory<MyAppCubit>(
       () => MyAppCubit(
-        tokenRepo: getIt<TokenRepository>(),
+        tokenRepo: getIt<TokenRepoImpl>(),
       ),
     );
 }

@@ -10,7 +10,6 @@ import '../../data/repositories/auth_repo_impl.dart';
 import '../../data/repositories/token_repo_iml.dart';
 import '../../domain/repository/auth_repository.dart';
 import '../../domain/repository/token_repository.dart';
-import '../../domain/use_cases/auth_use_case.dart';
 import '../app_config.dart';
 
 part 'src/auth_di.dart';

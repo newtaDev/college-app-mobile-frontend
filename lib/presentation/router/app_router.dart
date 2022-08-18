@@ -1,7 +1,5 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../config/app_config.dart';
 import '../../shared/global/enums.dart';
 import '../features/_init_/T&W_showcase/colors_page.dart';
 import '../features/_init_/T&W_showcase/t_w_showcase_page.dart';
@@ -10,8 +8,6 @@ import '../features/_init_/T&W_showcase/widgets_page.dart';
 import '../features/_init_/splash/splash_screen.dart';
 import '../features/attendance/attendance_page.dart';
 import '../features/auth/sign_in/sign_in_page.dart';
-import '../features/auth/sign_up/cubit/signup_cubit.dart';
-import '../features/auth/sign_up/sign_up_page.dart';
 import '../features/dashboard/dashboard_page.dart';
 import 'route_names.dart';
 
@@ -56,14 +52,14 @@ class AppRouter {
         path: '/sign_in',
         builder: (context, state) => const SignInPage(),
       ),
-      GoRoute(
-        name: RouteNames.signUpScreen,
-        path: '/sign_up',
-        builder: (context, state) => BlocProvider(
-          create: (context) => getIt<SignUpCubit>(),
-          child: const SignUpPage(),
-        ),
-      ),
+      // GoRoute(
+      //   name: RouteNames.signUpScreen,
+      //   path: '/sign_up',
+      //   builder: (context, state) => BlocProvider(
+      //     create: (context) => getIt<SignUpCubit>(),
+      //     child: const SignUpPage(),
+      //   ),
+      // ),
 
       /// Showcase Widgets and thems
       GoRoute(

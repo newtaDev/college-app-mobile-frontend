@@ -6,27 +6,22 @@ void registerAuthDependencies() {
     /// repos
     ..registerSingleton<AuthRemoteDataSource>(AuthRemoteDataSource())
     ..registerSingleton<AuthLocalDataSource>(AuthLocalDataSource())
-    ..registerSingleton<AuthRepository>(
+    ..registerSingleton<AuthRepoImpl>(
       AuthRepoImpl(
         authLds: getIt<AuthLocalDataSource>(),
         authRds: getIt<AuthRemoteDataSource>(),
       ),
     )
     ..registerSingleton<TokenRemoteDataSource>(TokenRemoteDataSource())
-    ..registerSingleton<TokenRepository>(
+    ..registerSingleton<TokenRepoImpl>(
       TokenRepoImpl(
         tokenRds: getIt<TokenRemoteDataSource>(),
         authLds: getIt<AuthLocalDataSource>(),
       ),
     )
 
-    /// usecases
-    ..registerSingleton<AuthUseCase>(
-      AuthUseCase(authRepo: getIt<AuthRepository>()),
-    )
-
     /// Cubits
     ..registerFactory<AuthCubit>(
-      () => AuthCubit(usecase: getIt<AuthUseCase>()),
+      () => AuthCubit(authRepo: getIt<AuthRepoImpl>()),
     );
 }
