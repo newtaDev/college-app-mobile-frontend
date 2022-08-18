@@ -47,5 +47,4 @@ class StudentProfileDataRes extends UserProfileData {
 
   factory StudentProfileDataRes.fromJson(String source) =>
       StudentProfileDataRes.fromMap(json.decode(source));
-
 }

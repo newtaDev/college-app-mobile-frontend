@@ -3,7 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../../../domain/entities/auth_entitie.dart';
 import '../../../shared/global/enums.dart';
 import '../../../shared/global/hive_keys.dart';
-import '../../../utils/src/jwt_decoder.dart';
+import '../../../utils/utils.dart';
 
 // local db services
 class AuthLocalDataSource {

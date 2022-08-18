@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import '../../../config/app_config.dart';
 import '../../../data/data_source/local/auth_lds.dart';
 import '../../../data/data_source/remote/token_rds.dart';
-import '../../../data/repositories/token_repo_iml.dart';
+import '../../../data/repositories/token_repo_impl.dart';
 
 class DioClient {
   static Dio getClient({

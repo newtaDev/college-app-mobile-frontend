@@ -26,6 +26,7 @@ class _SignInPageState extends State<SignInPage> {
     final authCubit = context.read<AuthCubit>();
     final textTheme = Theme.of(context).textTheme;
     return BlocListener<AuthCubit, AuthState>(
+      listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         if (state.status == AuthStatus.logedIn) {
           context.goNamed(RouteNames.dashboardScreen);

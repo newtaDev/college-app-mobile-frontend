@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 
-class ApiErrorRes implements Exception {
+import 'package:equatable/equatable.dart';
+
+class ApiErrorRes extends Equatable implements Exception {
   final int statusCode;
   final String status;
   final String message;
@@ -52,6 +54,18 @@ class ApiErrorRes implements Exception {
       name: 'ERROR',
     );
     return 'ApiErrorRes(statusCode: $statusCode, status: $status, message: $message, devMessage: $devMessage, errorStack: $errorStack, routeInfo: $routeInfo)';
+  }
+
+  @override
+  List<Object?> get props {
+    return [
+      statusCode,
+      status,
+      message,
+      devMessage,
+      errorStack,
+      routeInfo,
+    ];
   }
 }
 

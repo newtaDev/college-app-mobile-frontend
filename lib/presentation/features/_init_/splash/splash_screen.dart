@@ -16,7 +16,9 @@ class SplashScreen extends StatelessWidget {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
-              const SnackBar(content: Text('Something Went wrong'),),
+              const SnackBar(
+                content: Text('Something Went wrong'),
+              ),
             );
         }
         if (state.splashStatus == SplashStatus.neverLogedIn ||

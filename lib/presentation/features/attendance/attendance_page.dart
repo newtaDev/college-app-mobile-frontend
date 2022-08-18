@@ -1,11 +1,9 @@
-import 'dart:io';
-
-import 'package:dio/dio.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:styles_lib/assets/assets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styles_lib/theme/themes.dart';
+
+import 'cubit/attendance_cubit.dart';
 
 class AttendancePage extends StatefulWidget {
   const AttendancePage({super.key});
@@ -19,22 +17,15 @@ class _AttendancePageState extends State<AttendancePage> {
   int touchedIndex = -1;
   @override
   void initState() {
-    fetchApi();
+    getReports();
     super.initState();
   }
 
-  Response? res;
-  Future<void> fetchApi() async {
-    final dio = Dio(BaseOptions(connectTimeout: 5000));
-    res = await dio.get(
-      kIsWeb
-          ? 'http://localhost:1377/health'
-          : Platform.isAndroid
-              ? 'http://192.168.237.105:1377/health'
-              : 'http://localhost:1377/health',
-    );
-    print(res);
-    setState(() {});
+  Future<void> getReports() async {
+    await context.read<AttendanceCubit>().getReportOfSubjectsAndStudents();
+    await context
+        .read<AttendanceCubit>()
+        .getAbsentStudentsReportInEachSubject();
   }
 
   @override
@@ -52,16 +43,21 @@ class _AttendancePageState extends State<AttendancePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Class Subjects Report', style: textTheme.titleLarge),
-                Text('Total classes taken ${res?.data}',
-                    style: textTheme.bodySmall),
+                Text('Total classes taken', style: textTheme.bodySmall),
               ],
             ),
           ),
           SizedBox(
             height: 250,
-            child: BarChart(
-              mainBarData(),
-              swapAnimationDuration: animDuration,
+            child: BlocBuilder<AttendanceCubit, AttendanceState>(
+              buildWhen: (previous, current) =>
+                  previous.subjectStatus!= current.subjectStatus,
+              builder: (context, state) {
+                return BarChart(
+                  mainBarData(),
+                  swapAnimationDuration: animDuration,
+                );
+              },
             ),
           ),
         ],

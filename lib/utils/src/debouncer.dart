@@ -1,6 +1,4 @@
-import 'dart:async';
-
-import 'package:flutter/foundation.dart';
+part of app_utils;
 
 class Debouncer {
   Debouncer({

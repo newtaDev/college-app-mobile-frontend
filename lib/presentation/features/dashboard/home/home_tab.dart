@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:styles_lib/assets/assets.dart';
 import 'package:widgets_lib/widgets/widgets.dart';
+
+import '../../../../shared/global/enums.dart';
+import '../../../router/route_names.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -129,7 +133,14 @@ class _HomeTabState extends State<HomeTab> {
                     lable: 'Reports',
                     icon: const Icon(Icons.access_alarm_outlined),
                     backgroundSize: boxBgSize,
-                    onTap: () {},
+                    onTap: () {
+                      context.goNamed(
+                        RouteNames.attendanceScreen,
+                        params: {
+                          'tab_name': DashboardPageTabs.home.name,
+                        },
+                      );
+                    },
                   ),
                   IconButtonBox(
                     lable: 'Scan QR',

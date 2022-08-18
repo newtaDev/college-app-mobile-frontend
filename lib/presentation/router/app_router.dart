@@ -1,5 +1,7 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../config/app_config.dart';
 import '../../shared/global/enums.dart';
 import '../features/_init_/T&W_showcase/colors_page.dart';
 import '../features/_init_/T&W_showcase/t_w_showcase_page.dart';
@@ -7,6 +9,7 @@ import '../features/_init_/T&W_showcase/typography_page.dart';
 import '../features/_init_/T&W_showcase/widgets_page.dart';
 import '../features/_init_/splash/splash_screen.dart';
 import '../features/attendance/attendance_page.dart';
+import '../features/attendance/cubit/attendance_cubit.dart';
 import '../features/auth/sign_in/sign_in_page.dart';
 import '../features/dashboard/dashboard_page.dart';
 import 'route_names.dart';
@@ -43,7 +46,10 @@ class AppRouter {
           GoRoute(
             name: RouteNames.attendanceScreen,
             path: 'attendance',
-            builder: (context, state) => const AttendancePage(),
+            builder: (context, state) => BlocProvider(
+              create: (context) => getIt<AttendanceCubit>(),
+              child: const AttendancePage(),
+            ),
           ),
         ],
       ),
