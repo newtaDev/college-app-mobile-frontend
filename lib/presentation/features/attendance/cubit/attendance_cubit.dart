@@ -27,6 +27,9 @@ class AttendanceCubit extends Cubit<AttendanceState> {
             state.copyWith(
               subjectStatus: AttendanceStatus.success,
               subjectReports: subjectRes.responseData,
+              selectedSubjectId: (subjectRes.responseData?.isNotEmpty ?? false)
+                  ? subjectRes.responseData?.first.subjectId
+                  : null,
             ),
           );
         },
@@ -56,16 +59,20 @@ class AttendanceCubit extends Cubit<AttendanceState> {
   }
 
   Future<void> getAbsentStudentsReportInEachSubject({String? subjectId}) async {
-    emit(state.copyWith(studentStatus: AttendanceStatus.loading));
     try {
       final subjectReports = state.subjectReports;
-      if (subjectReports.isEmpty && subjectId == null) {
-        throw Exception('Subjects are Empty');
-      }
+      if (subjectReports.isEmpty && subjectId == null) return;
+      if (subjectId == state.selectedSubjectId) return;
+      emit(
+        state.copyWith(
+          studentStatus: AttendanceStatus.loading,
+          selectedSubjectId: subjectId,
+        ),
+      );
       final studentReq = EachStudentReportReq(
         classId: '62fa477900a727733494dc4b',
         currentSem: '1',
-        subjectId: subjectId ?? subjectReports.first.subjectId!,
+        subjectId: state.selectedSubjectId!,
       );
       (await attendanceRepo.getAbsentStudentsReportInEachSubject(studentReq))
           .fold(

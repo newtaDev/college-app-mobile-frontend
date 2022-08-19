@@ -9,7 +9,7 @@ import '../data_source/remote/attendance_rds.dart';
 class AttendanceRepoImpl implements AttendanceRepository {
   final AttendanceRemoteDataSource attendanceRds;
   AttendanceRepoImpl({required this.attendanceRds});
-  
+
   @override
   Future<Either<EachStudentReportRes, ApiErrorRes>>
       getAbsentStudentsReportInEachSubject(EachStudentReportReq req) async {

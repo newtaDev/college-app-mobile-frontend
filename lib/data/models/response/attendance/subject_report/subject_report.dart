@@ -23,8 +23,7 @@ class SubjectReports extends Equatable {
     this.subject,
   });
 
-  factory SubjectReports.fromMap(Map<String, dynamic> data) =>
-      SubjectReports(
+  factory SubjectReports.fromMap(Map<String, dynamic> data) => SubjectReports(
         totalAttendanceTaken: data['total_attendance_taken'] as int?,
         minStudentAbsent: data['minStudentAbsent'] as int?,
         maxStudentAbsent: data['maxStudentAbsent'] as int?,

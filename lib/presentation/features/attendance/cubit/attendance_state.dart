@@ -7,12 +7,14 @@ class AttendanceState extends Equatable {
   final AttendanceStatus studentStatus;
   final List<SubjectReports> subjectReports;
   final List<EachStudentReport> studentReports;
+  final String? selectedSubjectId;
   final ApiErrorRes? error;
   const AttendanceState({
     required this.subjectStatus,
     required this.studentStatus,
     required this.subjectReports,
     required this.studentReports,
+    this.selectedSubjectId,
     this.error,
   });
 
@@ -23,6 +25,7 @@ class AttendanceState extends Equatable {
       studentStatus,
       subjectReports,
       studentReports,
+      selectedSubjectId,
       error,
     ];
   }
@@ -31,6 +34,7 @@ class AttendanceState extends Equatable {
       : subjectStatus = AttendanceStatus.initial,
         studentStatus = AttendanceStatus.initial,
         error = null,
+        selectedSubjectId = null,
         studentReports = [],
         subjectReports = [];
 
@@ -39,6 +43,7 @@ class AttendanceState extends Equatable {
     AttendanceStatus? studentStatus,
     List<SubjectReports>? subjectReports,
     List<EachStudentReport>? studentReports,
+    String? selectedSubjectId,
     ApiErrorRes? error,
   }) {
     return AttendanceState(
@@ -46,6 +51,7 @@ class AttendanceState extends Equatable {
       studentStatus: studentStatus ?? this.studentStatus,
       subjectReports: subjectReports ?? this.subjectReports,
       studentReports: studentReports ?? this.studentReports,
+      selectedSubjectId: selectedSubjectId ?? this.selectedSubjectId,
       error: error ?? this.error,
     );
   }

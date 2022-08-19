@@ -64,41 +64,12 @@ class _HomeTabState extends State<HomeTab> {
           physics: const ClampingScrollPhysics(),
           children: [
             const SizedBox(height: 15),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: theme.primaryColorLight,
-                    radius: 30,
-                    child: Text(
-                      '👨🏻',
-                      style: theme.textTheme.headlineMedium,
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Newton Michael',
-                          style: theme.textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.w500,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          '@newta',
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            color: Colors.grey[600],
-                            fontWeight: FontWeight.w500,
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: ProfileListViewCard(
+                emoji: '👨🏻',
+                name: 'newton Michael',
+                userName: 'Newta',
               ),
             ),
             const SizedBox(height: 20),

@@ -1,6 +1,5 @@
 part of app_utils;
 
-
 class JwtDecoder {
   /// Decode a string JWT token into a `Map<String, dynamic>`
   /// containing the decoded JSON payload.

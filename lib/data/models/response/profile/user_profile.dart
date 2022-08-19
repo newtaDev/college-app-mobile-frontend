@@ -14,7 +14,6 @@ class UserProfileData extends Equatable {
     required this.userType,
   });
 
-
   @override
   List<Object> get props {
     return [

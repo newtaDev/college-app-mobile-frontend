@@ -1,4 +1,5 @@
 library app_utils;
+
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
