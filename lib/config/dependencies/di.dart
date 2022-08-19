@@ -10,7 +10,7 @@ import '../../data/data_source/remote/token_rds.dart';
 import '../../data/repositories/attendance_repo_impl.dart';
 import '../../data/repositories/auth_repo_impl.dart';
 import '../../data/repositories/token_repo_impl.dart';
-import '../../presentation/features/attendance/cubit/attendance_cubit.dart';
+import '../../presentation/features/reports/attendance/cubit/attendance_report_cubit.dart';
 import '../app_config.dart';
 
 part 'src/auth_di.dart';

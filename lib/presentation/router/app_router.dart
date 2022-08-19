@@ -8,10 +8,11 @@ import '../features/_init_/T&W_showcase/t_w_showcase_page.dart';
 import '../features/_init_/T&W_showcase/typography_page.dart';
 import '../features/_init_/T&W_showcase/widgets_page.dart';
 import '../features/_init_/splash/splash_screen.dart';
-import '../features/attendance/attendance_page.dart';
-import '../features/attendance/cubit/attendance_cubit.dart';
 import '../features/auth/sign_in/sign_in_page.dart';
 import '../features/dashboard/dashboard_page.dart';
+import '../features/reports/attendance/attendance_report_page.dart';
+import '../features/reports/attendance/cubit/attendance_report_cubit.dart';
+import '../features/reports/reports_screen.dart';
 import 'route_names.dart';
 
 /// Dont add to `getIt` bcz we are only using static properties
@@ -44,12 +45,19 @@ class AppRouter {
         },
         routes: [
           GoRoute(
-            name: RouteNames.attendanceScreen,
-            path: 'attendance',
-            builder: (context, state) => BlocProvider(
-              create: (context) => getIt<AttendanceCubit>(),
-              child: const AttendancePage(),
-            ),
+            name: RouteNames.reportsScreen,
+            path: 'reports',
+            builder: (context, state) => const ReportsScreen(),
+            routes: [
+              GoRoute(
+                name: RouteNames.attendanceReportScreen,
+                path: 'attendance',
+                builder: (context, state) => BlocProvider(
+                  create: (context) => getIt<AttendanceReportCubit>(),
+                  child: const AttendanceReportPage(),
+                ),
+              )
+            ],
           ),
         ],
       ),

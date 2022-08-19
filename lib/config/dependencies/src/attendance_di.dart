@@ -9,7 +9,7 @@ void registerAttendanceDependencies() {
       ),
     )
     ..registerFactory(
-      () => AttendanceCubit(
+      () => AttendanceReportCubit(
         attendanceRepo: getIt<AttendanceRepoImpl>(),
       ),
     );

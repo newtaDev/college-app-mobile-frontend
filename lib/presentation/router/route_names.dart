@@ -1,9 +1,10 @@
 class RouteNames {
-  static const splashScreen = 'splash';
-  static const dashboardScreen = 'home';
-  static const signInScreen = 'sign_in';
-  static const attendanceScreen = 'attendance';
-  static const signUpScreen = 'sign_up';
+  static const splashScreen = 'splash_screen';
+  static const dashboardScreen = 'home_screen';
+  static const signInScreen = 'sign_in_screen';
+  static const attendanceReportScreen = 'attendance_screen';
+  static const reportsScreen = 'reports_screen';
+  static const signUpScreen = 'sign_up_screen';
 
   /// Showcase screens
   static const schowcaseThemeAndWidgetsScreen = 'widgets_themes_showcase';

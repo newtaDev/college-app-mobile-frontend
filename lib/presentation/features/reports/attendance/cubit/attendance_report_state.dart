@@ -1,15 +1,15 @@
-part of 'attendance_cubit.dart';
+part of 'attendance_report_cubit.dart';
 
-enum AttendanceStatus { initial, loading, failure, success }
+enum AttendanceReportStatus { initial, loading, failure, success }
 
-class AttendanceState extends Equatable {
-  final AttendanceStatus subjectStatus;
-  final AttendanceStatus studentStatus;
+class AttendanceReportState extends Equatable {
+  final AttendanceReportStatus subjectStatus;
+  final AttendanceReportStatus studentStatus;
   final List<SubjectReports> subjectReports;
   final List<EachStudentReport> studentReports;
   final String? selectedSubjectId;
   final ApiErrorRes? error;
-  const AttendanceState({
+  const AttendanceReportState({
     required this.subjectStatus,
     required this.studentStatus,
     required this.subjectReports,
@@ -30,23 +30,23 @@ class AttendanceState extends Equatable {
     ];
   }
 
-  AttendanceState.init()
-      : subjectStatus = AttendanceStatus.initial,
-        studentStatus = AttendanceStatus.initial,
+  AttendanceReportState.init()
+      : subjectStatus = AttendanceReportStatus.initial,
+        studentStatus = AttendanceReportStatus.initial,
         error = null,
         selectedSubjectId = null,
         studentReports = [],
         subjectReports = [];
 
-  AttendanceState copyWith({
-    AttendanceStatus? subjectStatus,
-    AttendanceStatus? studentStatus,
+  AttendanceReportState copyWith({
+    AttendanceReportStatus? subjectStatus,
+    AttendanceReportStatus? studentStatus,
     List<SubjectReports>? subjectReports,
     List<EachStudentReport>? studentReports,
     String? selectedSubjectId,
     ApiErrorRes? error,
   }) {
-    return AttendanceState(
+    return AttendanceReportState(
       subjectStatus: subjectStatus ?? this.subjectStatus,
       studentStatus: studentStatus ?? this.studentStatus,
       subjectReports: subjectReports ?? this.subjectReports,

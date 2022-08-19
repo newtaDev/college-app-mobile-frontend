@@ -4,16 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styles_lib/theme/themes.dart';
 
-import 'cubit/attendance_cubit.dart';
+import '../../../../domain/entities/attendance_entity.dart';
+import 'cubit/attendance_report_cubit.dart';
 
-class AttendancePage extends StatefulWidget {
-  const AttendancePage({super.key});
+class AttendanceReportPage extends StatefulWidget {
+  const AttendanceReportPage({super.key});
 
   @override
-  State<AttendancePage> createState() => _AttendancePageState();
+  State<AttendanceReportPage> createState() => _AttendanceReportPageState();
 }
 
-class _AttendancePageState extends State<AttendancePage> {
+class _AttendanceReportPageState extends State<AttendanceReportPage> {
   final Duration animDuration = const Duration(milliseconds: 250);
   int touchedIndex = -1;
   @override
@@ -23,16 +24,15 @@ class _AttendancePageState extends State<AttendancePage> {
   }
 
   Future<void> getReports() async {
-    await context.read<AttendanceCubit>().getReportOfSubjectsAndStudents();
+    await context.read<AttendanceReportCubit>().getReportOfSubjectsAndStudents();
     await context
-        .read<AttendanceCubit>()
+        .read<AttendanceReportCubit>()
         .getAbsentStudentsReportInEachSubject();
   }
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -53,11 +53,11 @@ class _AttendancePageState extends State<AttendancePage> {
           ),
           const SubjectsBarChart(),
           Center(
-            child: BlocBuilder<AttendanceCubit, AttendanceState>(
+            child: BlocBuilder<AttendanceReportCubit, AttendanceReportState>(
               buildWhen: (previous, current) =>
                   previous.studentStatus != current.studentStatus,
               builder: (context, state) {
-                if (state.studentStatus == AttendanceStatus.loading) {
+                if (state.studentStatus == AttendanceReportStatus.loading) {
                   return const SizedBox(
                     height: 200,
                     child: CupertinoActivityIndicator(),
@@ -142,92 +142,9 @@ class _AttendancePageState extends State<AttendancePage> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      Text('Absent students', style: textTheme.titleLarge),
-                      Text(
-                        'Students absent in ${_subjectReport.subject?.name} class',
-                        style: textTheme.bodySmall,
-                      ),
-                      const Divider(),
-                      const SizedBox(height: 20),
-                      if (state.studentReports.isEmpty)
-                        const SizedBox(
-                          height: 200,
-                          width: double.maxFinite,
-                          child: Center(
-                            child: Text(
-                              'No absent students yet',
-                            ),
-                          ),
-                        ),
-                      ...List.generate(
-                        state.studentReports.length,
-                        (index) {
-                          final data = state.studentReports[index];
-                          final totalAttandanceTaken =
-                              _subjectReport.totalAttendanceTaken ?? 0;
-                          final absentClasses = data.absentClasses ?? 0;
-                          final percentageOfStudent = 100 -
-                              ((absentClasses / totalAttandanceTaken) * 100)
-                                  .toInt();
-                          final sizedOfAvathar = 30.toDouble();
-                          return Column(
-                            children: [
-                              Row(
-                                children: [
-                                  CircleAvatar(
-                                    backgroundColor: theme.primaryColorLight,
-                                    radius: sizedOfAvathar,
-                                    child: Text(
-                                      '👨🏻',
-                                      style: theme.textTheme.headlineMedium,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          data.student?.name ?? 'N/A',
-                                          style: theme.textTheme.titleMedium
-                                              ?.copyWith(
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        Text(
-                                          'Reg no: 00000000',
-                                          style: theme.textTheme.bodySmall
-                                              ?.copyWith(
-                                            color: Colors.grey[600],
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 5),
-                                        Text(
-                                          'Total Classes Absent: ${data.absentClasses}',
-                                          style: theme.textTheme.bodySmall
-                                              ?.copyWith(
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Text(
-                                    '$percentageOfStudent %',
-                                    style: textTheme.titleSmall,
-                                  )
-                                ],
-                              ),
-                              Divider(
-                                indent: sizedOfAvathar * 2,
-                                height: 30,
-                              )
-                            ],
-                          );
-                        },
+                      AbsentStudentsReport(
+                        studentReports: state.studentReports,
+                        subjectReports: _subjectReport,
                       ),
                     ],
                   ),
@@ -237,6 +154,109 @@ class _AttendancePageState extends State<AttendancePage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class AbsentStudentsReport extends StatelessWidget {
+  const AbsentStudentsReport({
+    super.key,
+    required this.studentReports,
+    required this.subjectReports,
+  });
+  final List<EachStudentReport> studentReports;
+  final SubjectReports subjectReports;
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Absent students', style: textTheme.titleLarge),
+        Text(
+          'Students absent in ${subjectReports.subject?.name} class',
+          style: textTheme.bodySmall,
+        ),
+        const Divider(),
+        const SizedBox(height: 20),
+        if (studentReports.isEmpty)
+          const SizedBox(
+            height: 200,
+            width: double.maxFinite,
+            child: Center(
+              child: Text(
+                'No absent students yet',
+              ),
+            ),
+          ),
+        ...List.generate(
+          studentReports.length,
+          (index) {
+            final data = studentReports[index];
+            final totalAttandanceTaken =
+                subjectReports.totalAttendanceTaken ?? 0;
+            final absentClasses = data.absentClasses ?? 0;
+            final percentageOfStudent =
+                100 - ((absentClasses / totalAttandanceTaken) * 100).toInt();
+            final sizedOfAvathar = 30.toDouble();
+            return Column(
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: theme.primaryColorLight,
+                      radius: sizedOfAvathar,
+                      child: Text(
+                        '👨🏻',
+                        style: theme.textTheme.headlineMedium,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            data.student?.name ?? 'N/A',
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.w500,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(
+                            'Reg no: 00000000',
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: Colors.grey[600],
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            'Total Classes Absent: ${data.absentClasses}',
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      '$percentageOfStudent %',
+                      style: textTheme.titleSmall,
+                    )
+                  ],
+                ),
+                Divider(
+                  indent: sizedOfAvathar * 2,
+                  height: 30,
+                )
+              ],
+            );
+          },
+        ),
+      ],
     );
   }
 }
@@ -255,17 +275,17 @@ class _SubjectsBarChartState extends State<SubjectsBarChart> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 200,
-      child: BlocBuilder<AttendanceCubit, AttendanceState>(
+      child: BlocBuilder<AttendanceReportCubit, AttendanceReportState>(
         buildWhen: (previous, current) =>
             previous.subjectStatus != current.subjectStatus ||
             previous.selectedSubjectId != current.selectedSubjectId,
         builder: (context, state) {
-          if (state.subjectStatus == AttendanceStatus.loading ||
-              state.subjectStatus == AttendanceStatus.initial) {
+          if (state.subjectStatus == AttendanceReportStatus.loading ||
+              state.subjectStatus == AttendanceReportStatus.initial) {
             return const Center(child: CircularProgressIndicator());
           }
           final _subjects = state.subjectReports;
-          if (state.subjectStatus == AttendanceStatus.failure ||
+          if (state.subjectStatus == AttendanceReportStatus.failure ||
               _subjects.isEmpty) {
             return const Center(child: Text('Not enough data to show reports'));
           }
@@ -305,7 +325,7 @@ class _SubjectsBarChartState extends State<SubjectsBarChart> {
                     final _subjectId = _subjects[touchedIndex].subjectId;
                     if (_subjectId != state.selectedSubjectId) {
                       context
-                          .read<AttendanceCubit>()
+                          .read<AttendanceReportCubit>()
                           .getAbsentStudentsReportInEachSubject(
                             subjectId: _subjectId,
                           );

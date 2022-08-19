@@ -106,7 +106,7 @@ class _HomeTabState extends State<HomeTab> {
                     backgroundSize: boxBgSize,
                     onTap: () {
                       context.goNamed(
-                        RouteNames.attendanceScreen,
+                        RouteNames.reportsScreen,
                         params: {
                           'tab_name': DashboardPageTabs.home.name,
                         },
