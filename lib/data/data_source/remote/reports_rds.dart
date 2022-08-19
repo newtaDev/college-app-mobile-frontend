@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 
-import '../../../domain/entities/attendance_entity.dart';
+import '../../../domain/entities/reports_entity.dart';
 import '../../../shared/helpers/network/dio_client.dart';
 
-class AttendanceRemoteDataSource {
+class ReportsRemoteDataSource {
   final client = DioClient.getClient();
 
   Future<Response> getAttendancesReportOfSubjects(SubjectReportReq req) {

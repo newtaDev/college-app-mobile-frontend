@@ -1,14 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../../domain/entities/attendance_entity.dart';
-import '../../../../../domain/repository/attendance_repository.dart';
+import '../../../../../domain/entities/reports_entity.dart';
+import '../../../../../domain/repository/reports_repository.dart';
 import '../../../../../shared/errors/api_errors.dart';
 
 part 'attendance_report_state.dart';
 
 class AttendanceReportCubit extends Cubit<AttendanceReportState> {
-  final AttendanceRepository attendanceRepo;
+  final ReportsRepository attendanceRepo;
   AttendanceReportCubit({
     required this.attendanceRepo,
   }) : super(AttendanceReportState.init());

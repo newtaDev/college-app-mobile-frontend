@@ -1,14 +1,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-import '../../domain/entities/attendance_entity.dart';
-import '../../domain/repository/attendance_repository.dart';
+import '../../domain/entities/reports_entity.dart';
+import '../../domain/repository/reports_repository.dart';
 import '../../shared/errors/api_errors.dart';
-import '../data_source/remote/attendance_rds.dart';
+import '../data_source/remote/reports_rds.dart';
 
-class AttendanceRepoImpl implements AttendanceRepository {
-  final AttendanceRemoteDataSource attendanceRds;
-  AttendanceRepoImpl({required this.attendanceRds});
+class ReportsRepoImpl implements ReportsRepository {
+  final ReportsRemoteDataSource attendanceRds;
+  ReportsRepoImpl({required this.attendanceRds});
 
   @override
   Future<Either<EachStudentReportRes, ApiErrorRes>>

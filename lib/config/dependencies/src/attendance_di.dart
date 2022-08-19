@@ -1,16 +1,16 @@
 part of app_dependencies;
 
-void registerAttendanceDependencies() {
+void registerReportsDependencies() {
   getIt
-    ..registerSingleton(AttendanceRemoteDataSource())
-    ..registerSingleton<AttendanceRepoImpl>(
-      AttendanceRepoImpl(
-        attendanceRds: getIt<AttendanceRemoteDataSource>(),
+    ..registerSingleton(ReportsRemoteDataSource())
+    ..registerSingleton<ReportsRepoImpl>(
+      ReportsRepoImpl(
+        attendanceRds: getIt<ReportsRemoteDataSource>(),
       ),
     )
     ..registerFactory(
       () => AttendanceReportCubit(
-        attendanceRepo: getIt<AttendanceRepoImpl>(),
+        attendanceRepo: getIt<ReportsRepoImpl>(),
       ),
     );
 }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styles_lib/theme/themes.dart';
 
-import '../../../../domain/entities/attendance_entity.dart';
+import '../../../../domain/entities/reports_entity.dart';
 import 'cubit/attendance_report_cubit.dart';
 
 class AttendanceReportPage extends StatefulWidget {

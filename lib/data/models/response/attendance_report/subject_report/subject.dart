@@ -1,4 +1,4 @@
-part of attendance_entity;
+part of reports_entity;
 
 class Subject extends Equatable {
   final String? id;
