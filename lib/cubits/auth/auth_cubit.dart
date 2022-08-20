@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../domain/entities/auth_entitie.dart';
 import '../../domain/repository/auth_repository.dart';
 import '../../shared/errors/api_errors.dart';
+import '../../utils/utils.dart';
 
 part 'auth_state.dart';
 

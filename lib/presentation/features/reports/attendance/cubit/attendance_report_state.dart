@@ -2,7 +2,7 @@ part of 'attendance_report_cubit.dart';
 
 enum AttendanceReportStatus { initial, loading, failure, success }
 
-class AttendanceReportState extends Equatable {
+class AttendanceReportState extends MyEquatable {
   final AttendanceReportStatus subjectStatus;
   final AttendanceReportStatus studentStatus;
   final List<SubjectReports> subjectReports;

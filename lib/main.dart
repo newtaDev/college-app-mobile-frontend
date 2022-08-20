@@ -1,3 +1,4 @@
+import 'package:college_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styles_lib/theme/themes.dart';
@@ -10,6 +11,7 @@ import 'presentation/router/app_router.dart';
 
 void main() async {
   await appConfig.config();
+  Bloc.observer = AppBlocObserver();
   runApp(const MyApp());
 }
 

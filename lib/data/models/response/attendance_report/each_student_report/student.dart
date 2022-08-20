@@ -1,6 +1,6 @@
 part of reports_entity;
 
-class Student extends Equatable {
+class Student extends MyEquatable {
   final String? id;
   final String? name;
   final String? email;

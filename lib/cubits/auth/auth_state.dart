@@ -8,7 +8,7 @@ enum AuthStatus {
   failure,
 }
 
-class AuthState extends Equatable {
+class AuthState extends MyEquatable {
   final AuthStatus status;
   final AuthRes? authRes;
   final ApiErrorRes? error;

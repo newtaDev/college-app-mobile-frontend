@@ -1,6 +1,6 @@
 part of reports_entity;
 
-class SubjectReports extends Equatable {
+class SubjectReports extends MyEquatable {
   final int? totalAttendanceTaken;
   final int? minStudentAbsent;
   final int? maxStudentAbsent;

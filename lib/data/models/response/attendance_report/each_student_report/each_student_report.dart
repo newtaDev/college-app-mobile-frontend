@@ -1,6 +1,6 @@
 part of reports_entity;
 
-class EachStudentReport extends Equatable {
+class EachStudentReport extends MyEquatable {
   final Student? student;
   final int? absentClasses;
 

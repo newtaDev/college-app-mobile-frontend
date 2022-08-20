@@ -1,6 +1,6 @@
 part of reports_entity;
 
-class EachStudentReportRes extends Equatable {
+class EachStudentReportRes extends MyEquatable {
   final String? status;
   final List<EachStudentReport>? responseData;
 

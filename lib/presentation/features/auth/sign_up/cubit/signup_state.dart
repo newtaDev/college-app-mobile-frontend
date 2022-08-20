@@ -1,6 +1,6 @@
 part of 'signup_cubit.dart';
 
-abstract class SignUpState extends Equatable {
+abstract class SignUpState extends MyEquatable {
   const SignUpState();
 
   @override

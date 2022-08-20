@@ -1,11 +1,11 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 
 import '../../config/app_config.dart';
 import '../../data/data_source/local/auth_lds.dart';
 import '../../domain/repository/token_repository.dart';
+import '../../utils/utils.dart';
 
 part 'my_app_state.dart';
 

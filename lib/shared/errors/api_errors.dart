@@ -3,7 +3,9 @@ import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
 
-class ApiErrorRes extends Equatable implements Exception {
+import '../../utils/utils.dart';
+
+class ApiErrorRes extends MyEquatable implements Exception {
   final int statusCode;
   final String status;
   final String message;

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../domain/entities/auth_entitie.dart';
 import '../../../../../domain/repository/auth_repository.dart';
 import '../../../../../shared/errors/api_errors.dart';
+import '../../../../../utils/utils.dart';
 
 part 'signup_state.dart';
 

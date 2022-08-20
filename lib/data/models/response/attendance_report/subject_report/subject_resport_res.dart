@@ -1,6 +1,6 @@
 part of reports_entity;
 
-class SubjectReportRes extends Equatable {
+class SubjectReportRes extends MyEquatable {
   final String? status;
   final List<SubjectReports>? responseData;
 

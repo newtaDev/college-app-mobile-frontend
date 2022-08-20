@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import '../../../../../domain/entities/reports_entity.dart';
 import '../../../../../domain/repository/reports_repository.dart';
 import '../../../../../shared/errors/api_errors.dart';
+import '../../../../../utils/utils.dart';
 
 part 'attendance_report_state.dart';
 

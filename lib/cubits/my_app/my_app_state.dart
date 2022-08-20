@@ -8,7 +8,7 @@ enum SplashStatus {
   loginSuccess
 }
 
-class MyAppState extends Equatable {
+class MyAppState extends MyEquatable {
   final SplashStatus splashStatus;
 
   const MyAppState(this.splashStatus);

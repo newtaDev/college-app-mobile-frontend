@@ -1,6 +1,6 @@
 part of reports_entity;
 
-class Subject extends Equatable {
+class Subject extends MyEquatable {
   final String? id;
   final String? name;
   final String? collegeId;

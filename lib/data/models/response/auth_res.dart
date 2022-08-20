@@ -1,6 +1,6 @@
 part of auth_entitie;
 
-class AuthRes extends Equatable {
+class AuthRes extends MyEquatable {
   final String status;
   final String accessToken;
   final String refreshToken;

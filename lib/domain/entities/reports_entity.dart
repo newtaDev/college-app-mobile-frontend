@@ -4,6 +4,8 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
+import '../../utils/utils.dart';
+
 part '../../data/models/response/attendance_report/each_student_report/each_student_report_res.dart';
 part '../../data/models/response/attendance_report/each_student_report/each_student_report.dart';
 part '../../data/models/response/attendance_report/each_student_report/student.dart';

@@ -1,6 +1,6 @@
 part of profile_entity;
 
-class UserProfileData extends Equatable {
+class UserProfileData extends MyEquatable {
   final String name;
   final String id;
   final DateTime createdAt;
