@@ -1,30 +1,33 @@
-part of reports_entity;
+import 'dart:convert';
 
-class Subject extends MyEquatable {
+
+import '../../../utils/utils.dart';
+
+class Course extends MyEquatable {
   final String? id;
   final String? name;
   final String? collegeId;
-  final String? courseId;
-  final bool? isMainSubject;
+  final int? totalSem;
+  final int? v;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  const Subject({
+  const Course({
     this.id,
     this.name,
     this.collegeId,
-    this.courseId,
-    this.isMainSubject,
+    this.totalSem,
+    this.v,
     this.createdAt,
     this.updatedAt,
   });
 
-  factory Subject.fromMap(Map<String, dynamic> data) => Subject(
+  factory Course.fromMap(Map<String, dynamic> data) => Course(
         id: data['_id'] as String?,
         name: data['name'] as String?,
         collegeId: data['collegeId'] as String?,
-        courseId: data['courseId'] as String?,
-        isMainSubject: data['isMainSubject'] as bool?,
+        totalSem: data['totalSem'] as int?,
+        v: data['__v'] as int?,
         createdAt: data['createdAt'] == null
             ? null
             : DateTime.parse(data['createdAt'] as String),
@@ -37,40 +40,39 @@ class Subject extends MyEquatable {
         '_id': id,
         'name': name,
         'collegeId': collegeId,
-        'courseId': courseId,
-        'isMainSubject': isMainSubject,
+        'totalSem': totalSem,
+        '__v': v,
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
       };
 
   /// `dart:convert`
   ///
-  /// Parses the string and returns the resulting Json object as [Subject].
-  factory Subject.fromJson(String data) {
-    return Subject.fromMap(json.decode(data) as Map<String, dynamic>);
+  /// Parses the string and returns the resulting Json object as [Course].
+  factory Course.fromJson(String data) {
+    return Course.fromMap(json.decode(data) as Map<String, dynamic>);
   }
 
   /// `dart:convert`
   ///
-  /// Converts [Subject] to a JSON string.
+  /// Converts [Course] to a JSON string.
   String toJson() => json.encode(toMap());
 
-  Subject copyWith({
+  Course copyWith({
     String? id,
     String? name,
     String? collegeId,
-    String? courseId,
-    bool? isMainSubject,
+    int? totalSem,
     int? v,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
-    return Subject(
+    return Course(
       id: id ?? this.id,
       name: name ?? this.name,
       collegeId: collegeId ?? this.collegeId,
-      courseId: courseId ?? this.courseId,
-      isMainSubject: isMainSubject ?? this.isMainSubject,
+      totalSem: totalSem ?? this.totalSem,
+      v: v ?? this.v,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -82,8 +84,8 @@ class Subject extends MyEquatable {
       id,
       name,
       collegeId,
-      courseId,
-      isMainSubject,
+      totalSem,
+      v,
       createdAt,
       updatedAt,
     ];

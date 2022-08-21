@@ -31,4 +31,5 @@ final lightTheme = FlexThemeData.light(
   primaryColorLight: Colors.grey[200],
   inputDecorationTheme: _textInputDecorationTheme(),
   bottomNavigationBarTheme: _bottomNavBartheme(),
+  elevatedButtonTheme: _elevatedButtonTheme(),
 );

@@ -13,6 +13,7 @@ import '../features/dashboard/dashboard_page.dart';
 import '../features/reports/attendance/attendance_report_page.dart';
 import '../features/reports/attendance/cubit/attendance_report_cubit.dart';
 import '../features/reports/reports_screen.dart';
+import '../features/selectables/selectables_page.dart';
 import 'route_names.dart';
 
 /// Dont add to `getIt` bcz we are only using static properties
@@ -65,6 +66,13 @@ class AppRouter {
         name: RouteNames.signInScreen,
         path: '/sign_in',
         builder: (context, state) => const SignInPage(),
+      ),
+      GoRoute(
+        name: RouteNames.selectableScreen,
+        path: '/selectables',
+        builder: (context, state) {
+          return const SelectablePage();
+        },
       ),
       // GoRoute(
       //   name: RouteNames.signUpScreen,

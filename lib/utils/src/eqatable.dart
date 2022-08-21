@@ -5,9 +5,10 @@ String mapPropsToString(Type runtimeType, List<Object?> props) =>
 
 class MyEquatable extends Equatable {
   const MyEquatable();
-  
+
   @override
-  List<Object?> get props => throw Exception('Implement Equatable Props in $runtimeType');
+  List<Object?> get props =>
+      throw Exception('Implement Equatable Props in $runtimeType');
 
   @override
   String toString() {

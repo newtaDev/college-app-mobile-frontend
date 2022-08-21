@@ -11,11 +11,13 @@ import '../../data/repositories/auth_repo_impl.dart';
 import '../../data/repositories/reports_impl.dart';
 import '../../data/repositories/token_repo_impl.dart';
 import '../../presentation/features/reports/attendance/cubit/attendance_report_cubit.dart';
+import '../../presentation/features/selectables/cubits/select_class_or_sem/select_class_and_sem_cubit.dart';
 import '../app_config.dart';
 
 part 'src/attendance_di.dart';
 part 'src/auth_di.dart';
 part 'src/home_di.dart';
+part 'src/common_di.dart';
 
 /// Manual `GetIt` dependency injection
 void registerGetItDependencies(AppConfig appConfig) {
@@ -24,4 +26,5 @@ void registerGetItDependencies(AppConfig appConfig) {
   registerAuthDependencies();
   registerHomeDependecies();
   registerReportsDependencies();
+  registerCommonDependencies();
 }

@@ -98,7 +98,9 @@ class _HomeTabState extends State<HomeTab> {
                     lable: 'Results',
                     icon: const Icon(Icons.access_alarm_outlined),
                     backgroundSize: boxBgSize,
-                    onTap: () {},
+                    onTap: () {
+                      context.pushNamed(RouteNames.selectableScreen);
+                    },
                   ),
                   IconButtonBox(
                     lable: 'Reports',

@@ -25,3 +25,14 @@ InputDecorationTheme _textInputDecorationTheme() {
     contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
   );
 }
+
+ElevatedButtonThemeData _elevatedButtonTheme() {
+  return ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      minimumSize: const Size.fromHeight(60),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+    ),
+  );
+}

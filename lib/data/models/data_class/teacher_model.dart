@@ -1,36 +1,38 @@
-part of reports_entity;
+import 'dart:convert';
 
-class Student extends MyEquatable {
+import '../../../utils/utils.dart';
+
+class TeacherModel extends MyEquatable {
   final String? id;
   final String? name;
   final String? email;
+  final String? password;
   final String? collegeId;
-  final String? classId;
   final String? userType;
-  final List<dynamic>? mySubjectIds;
+  final int? v;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  const Student({
+  const TeacherModel({
     this.id,
     this.name,
     this.email,
+    this.password,
     this.collegeId,
-    this.classId,
     this.userType,
-    this.mySubjectIds,
+    this.v,
     this.createdAt,
     this.updatedAt,
   });
 
-  factory Student.fromMap(Map<String, dynamic> data) => Student(
+  factory TeacherModel.fromMap(Map<String, dynamic> data) => TeacherModel(
         id: data['_id'] as String?,
         name: data['name'] as String?,
         email: data['email'] as String?,
+        password: data['password'] as String?,
         collegeId: data['collegeId'] as String?,
-        classId: data['classId'] as String?,
         userType: data['userType'] as String?,
-        mySubjectIds: data['mySubjectIds'] as List<dynamic>?,
+        v: data['__v'] as int?,
         createdAt: data['createdAt'] == null
             ? null
             : DateTime.parse(data['createdAt'] as String),
@@ -43,45 +45,47 @@ class Student extends MyEquatable {
         '_id': id,
         'name': name,
         'email': email,
+        'password': password,
         'collegeId': collegeId,
-        'classId': classId,
         'userType': userType,
-        'mySubjectIds': mySubjectIds,
+        '__v': v,
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
       };
 
   /// `dart:convert`
   ///
-  /// Parses the string and returns the resulting Json object as [Student].
-  factory Student.fromJson(String data) {
-    return Student.fromMap(json.decode(data) as Map<String, dynamic>);
+  /// Parses the string and returns the resulting Json object as [TeacherModel
+  /// ].
+  factory TeacherModel.fromJson(String data) {
+    return TeacherModel.fromMap(json.decode(data) as Map<String, dynamic>);
   }
 
   /// `dart:convert`
   ///
-  /// Converts [Student] to a JSON string.
+  /// Converts [TeacherModel
+  /// ] to a JSON string.
   String toJson() => json.encode(toMap());
 
-  Student copyWith({
+  TeacherModel copyWith({
     String? id,
     String? name,
     String? email,
+    String? password,
     String? collegeId,
-    String? classId,
     String? userType,
-    List<dynamic>? mySubjectIds,
+    int? v,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
-    return Student(
+    return TeacherModel(
       id: id ?? this.id,
       name: name ?? this.name,
       email: email ?? this.email,
+      password: password ?? this.password,
       collegeId: collegeId ?? this.collegeId,
-      classId: classId ?? this.classId,
       userType: userType ?? this.userType,
-      mySubjectIds: mySubjectIds ?? this.mySubjectIds,
+      v: v ?? this.v,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -93,10 +97,10 @@ class Student extends MyEquatable {
       id,
       name,
       email,
+      password,
       collegeId,
-      classId,
       userType,
-      mySubjectIds,
+      v,
       createdAt,
       updatedAt,
     ];

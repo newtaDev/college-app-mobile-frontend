@@ -29,4 +29,5 @@ final darkTheme = FlexThemeData.dark(
   visualDensity: FlexColorScheme.comfortablePlatformDensity,
 ).copyWith(
   inputDecorationTheme: _textInputDecorationTheme(),
+  elevatedButtonTheme: _elevatedButtonTheme(),
 );

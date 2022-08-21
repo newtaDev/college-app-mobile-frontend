@@ -24,7 +24,9 @@ class _AttendanceReportPageState extends State<AttendanceReportPage> {
   }
 
   Future<void> getReports() async {
-    await context.read<AttendanceReportCubit>().getReportOfSubjectsAndStudents();
+    await context
+        .read<AttendanceReportCubit>()
+        .getReportOfSubjectsAndStudents();
     await context
         .read<AttendanceReportCubit>()
         .getAbsentStudentsReportInEachSubject();
