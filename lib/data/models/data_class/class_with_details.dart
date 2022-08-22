@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-
 import '../../../utils/utils.dart';
 import 'college_model.dart';
 import 'course_model.dart';
@@ -35,7 +34,8 @@ class ClassWithDetails extends MyEquatable {
     this.updatedAt,
   });
 
-  factory ClassWithDetails.fromMap(Map<String, dynamic> data) => ClassWithDetails(
+  factory ClassWithDetails.fromMap(Map<String, dynamic> data) =>
+      ClassWithDetails(
         id: data['_id'] as String?,
         name: data['name'] as String?,
         classNumber: data['classNumber'] as int?,

@@ -1,5 +1,12 @@
 part of app_dependencies;
 
 void registerCommonDependencies() {
-  getIt.registerFactory<SelectClassAndSemCubit>(SelectClassAndSemCubit.new);
+  getIt
+    ..registerSingleton<CommonRemoteDataSource>(CommonRemoteDataSource())
+    ..registerSingleton<CommonRepoImpl>(
+      CommonRepoImpl(commonRds: getIt<CommonRemoteDataSource>()),
+    )
+    ..registerFactory<SelectClassAndSemCubit>(
+      () => SelectClassAndSemCubit(commonRepo: getIt<CommonRepoImpl>()),
+    );
 }

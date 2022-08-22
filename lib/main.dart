@@ -1,4 +1,3 @@
-import 'package:college_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styles_lib/theme/themes.dart';
@@ -7,7 +6,9 @@ import 'config/app_config.dart';
 import 'cubits/auth/auth_cubit.dart';
 import 'cubits/home/home_cubit.dart';
 import 'cubits/my_app/my_app_cubit.dart';
+import 'cubits/select_class_and_sem/select_class_and_sem_cubit.dart';
 import 'presentation/router/app_router.dart';
+import 'utils/utils.dart';
 
 void main() async {
   await appConfig.config();
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(lazy: false, create: (context) => getIt<AuthCubit>()),
         BlocProvider(lazy: false, create: (context) => getIt<MyAppCubit>()),
-        BlocProvider(create: (context) => getIt<HomeCubit>())
+        BlocProvider(create: (context) => getIt<HomeCubit>()),
+        BlocProvider(create: (context) => getIt<SelectClassAndSemCubit>()),
       ],
       child: MaterialApp.router(
         title: 'College App',

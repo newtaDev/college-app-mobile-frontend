@@ -2,7 +2,6 @@ library reports_entity;
 
 import 'dart:convert';
 
-
 import '../../data/models/data_class/student_model.dart';
 import '../../data/models/data_class/subject_model.dart';
 import '../../utils/utils.dart';

@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-
 import '../../../utils/utils.dart';
 
 class Course extends MyEquatable {

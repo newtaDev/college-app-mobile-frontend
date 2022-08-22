@@ -13,7 +13,7 @@ import '../features/dashboard/dashboard_page.dart';
 import '../features/reports/attendance/attendance_report_page.dart';
 import '../features/reports/attendance/cubit/attendance_report_cubit.dart';
 import '../features/reports/reports_screen.dart';
-import '../features/selectables/selectables_page.dart';
+import '../features/select_class_and_sem/select_class_and_sem_page.dart';
 import 'route_names.dart';
 
 /// Dont add to `getIt` bcz we are only using static properties
@@ -71,7 +71,7 @@ class AppRouter {
         name: RouteNames.selectableScreen,
         path: '/selectables',
         builder: (context, state) {
-          return const SelectablePage();
+          return const SelectClassAndSemPage();
         },
       ),
       // GoRoute(

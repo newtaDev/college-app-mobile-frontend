@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-
 import '../../../utils/utils.dart';
 import '../data_class/class_with_details.dart';
 
