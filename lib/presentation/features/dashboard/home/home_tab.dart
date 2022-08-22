@@ -99,7 +99,10 @@ class _HomeTabState extends State<HomeTab> {
                     icon: const Icon(Icons.access_alarm_outlined),
                     backgroundSize: boxBgSize,
                     onTap: () {
-                      context.pushNamed(RouteNames.selectableScreen);
+                      context.pushNamed(
+                        RouteNames.selectClassAndSemScreen,
+                        extra: 'Attendance',
+                      );
                     },
                   ),
                   IconButtonBox(

@@ -34,7 +34,7 @@ class SelectableClassesList extends StatelessWidget {
                     'Batch: ${_class.batch}',
                     'Total semesters: ${_class.course?.totalSem}',
                   ],
-                  onTap: () => cubit.selectClass(_class),
+                  onTap: () => cubit.setClass(_class),
                 ),
               ),
             );

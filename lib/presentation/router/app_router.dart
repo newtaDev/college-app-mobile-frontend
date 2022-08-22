@@ -68,10 +68,13 @@ class AppRouter {
         builder: (context, state) => const SignInPage(),
       ),
       GoRoute(
-        name: RouteNames.selectableScreen,
-        path: '/selectables',
+        name: RouteNames.selectClassAndSemScreen,
+        path: '/select_class_and_sem',
         builder: (context, state) {
-          return const SelectClassAndSemPage();
+          final appBarName = state.extra.toString();
+          return SelectClassAndSemPage(
+            appBarName: appBarName,
+          );
         },
       ),
       // GoRoute(

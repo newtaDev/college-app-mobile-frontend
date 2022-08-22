@@ -6,7 +6,8 @@ import '../../../cubits/select_class_and_sem/select_class_and_sem_cubit.dart';
 import 'selectable_layout.dart';
 
 class SelectClassAndSemPage extends StatefulWidget {
-  const SelectClassAndSemPage({super.key});
+  final String appBarName;
+  const SelectClassAndSemPage({super.key, required this.appBarName});
 
   @override
   State<SelectClassAndSemPage> createState() => _SelectClassAndSemPageState();
@@ -23,7 +24,7 @@ class _SelectClassAndSemPageState extends State<SelectClassAndSemPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Screen name'),
+        title: Text(widget.appBarName),
       ),
       body: BlocBuilder<SelectClassAndSemCubit, SelectClassAndSemState>(
         buildWhen: (previous, current) => previous.status != current.status,

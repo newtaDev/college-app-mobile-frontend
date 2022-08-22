@@ -40,7 +40,7 @@ class SelectableSemList extends StatelessWidget {
                 label: Text(
                   (index + 1).toString(),
                 ),
-                onPressed: () => cubit.selectSem(index + 1),
+                onPressed: () => cubit.setSemester(index + 1),
               );
             },
           ),

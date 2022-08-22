@@ -57,7 +57,7 @@ class SelectClassAndSemCubit extends Cubit<SelectClassAndSemState> {
     }
   }
 
-  void selectClass(ClassWithDetails selectedClass) {
+  void setClass(ClassWithDetails selectedClass) {
     emit(
       state.copyWith(
         selectedClass: selectedClass,
@@ -67,7 +67,7 @@ class SelectClassAndSemCubit extends Cubit<SelectClassAndSemState> {
     );
   }
 
-  void selectSem(int selectedSem) {
+  void setSemester(int selectedSem) {
     emit(state.copyWith(selectedSem: selectedSem));
   }
 }
