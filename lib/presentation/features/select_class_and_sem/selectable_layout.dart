@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../cubits/select_class_and_sem/select_class_and_sem_cubit.dart';
+import '../../../shared/global/enums.dart';
+import '../../router/route_names.dart';
 import 'widgets/selectable_classes_list.dart';
 import 'widgets/selectable_sem_list.dart';
 
@@ -56,7 +59,12 @@ class SelectableLayout extends StatelessWidget {
                 onPressed: !isTapabled
                     ? null
                     : () {
-                        ///
+                        context.goNamed(
+                          RouteNames.attendanceViewScreen,
+                          params: {
+                            'tab_name': DashboardPageTabs.home.name,
+                          },
+                        );
                       },
                 child: const Text('Continue'),
               );

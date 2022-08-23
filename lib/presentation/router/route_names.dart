@@ -3,7 +3,8 @@ class RouteNames {
   static const dashboardScreen = 'home_screen';
   static const signInScreen = 'sign_in_screen';
   static const selectClassAndSemScreen = 'selectable_screen';
-  static const attendanceReportScreen = 'attendance_screen';
+  static const attendanceReportScreen = 'attendance_report_screen';
+  static const attendanceViewScreen = 'attendance_view_screen';
   static const reportsScreen = 'reports_screen';
   static const signUpScreen = 'sign_up_screen';
 

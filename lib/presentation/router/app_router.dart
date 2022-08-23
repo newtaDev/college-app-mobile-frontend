@@ -8,6 +8,8 @@ import '../features/_init_/T&W_showcase/t_w_showcase_page.dart';
 import '../features/_init_/T&W_showcase/typography_page.dart';
 import '../features/_init_/T&W_showcase/widgets_page.dart';
 import '../features/_init_/splash/splash_screen.dart';
+import '../features/attendance/view_attendance/view_attendance_page.dart';
+import '../features/attendance/view_attendance/cubit/attendance_view_cubit.dart';
 import '../features/auth/sign_in/sign_in_page.dart';
 import '../features/dashboard/dashboard_page.dart';
 import '../features/reports/attendance/attendance_report_page.dart';
@@ -45,6 +47,16 @@ class AppRouter {
           return DashboardPage(tabName: tabName ?? DashboardPageTabs.home);
         },
         routes: [
+          GoRoute(
+              name: RouteNames.attendanceViewScreen,
+              path: 'attendance',
+              builder: (context, state) => BlocProvider(
+                    create: (context) => getIt<AttendanceViewCubit>(),
+                    child: const ViewAttendancePage(),
+                  ),
+              routes: [
+              
+              ]),
           GoRoute(
             name: RouteNames.reportsScreen,
             path: 'reports',
