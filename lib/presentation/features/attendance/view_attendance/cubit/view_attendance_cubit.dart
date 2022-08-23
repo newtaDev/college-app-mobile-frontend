@@ -4,21 +4,21 @@ import '../../../../../domain/repository/attendance_repository.dart';
 import '../../../../../shared/errors/api_errors.dart';
 import '../../../../../utils/utils.dart';
 
-part 'attendance_view_state.dart';
+part 'view_attendance_state.dart';
 
-class AttendanceViewCubit extends Cubit<AttendanceViewState> {
+class ViewAttendanceCubit extends Cubit<ViewAttendanceState> {
   final AttendanceRepository attendanceRepo;
-  AttendanceViewCubit({required this.attendanceRepo})
-      : super(const AttendanceViewState.init());
+  ViewAttendanceCubit({required this.attendanceRepo})
+      : super(const ViewAttendanceState.init());
 
   Future<void> getAllAttendance(AllAttendanceWithQueryReq req) async {
-    emit(state.copyWith(status: AttendanceViewStatus.loading));
+    emit(state.copyWith(status: ViewAttendanceStatus.loading));
     try {
       (await attendanceRepo.getAllAttendanceList(req)).fold(
         (res) {
           emit(
             state.copyWith(
-              status: AttendanceViewStatus.success,
+              status: ViewAttendanceStatus.success,
               attendanceWithCount: res.responseData,
             ),
           );
@@ -26,7 +26,7 @@ class AttendanceViewCubit extends Cubit<AttendanceViewState> {
         (error) {
           emit(
             state.copyWith(
-              status: AttendanceViewStatus.error,
+              status: ViewAttendanceStatus.error,
               error: error,
             ),
           );
@@ -36,7 +36,7 @@ class AttendanceViewCubit extends Cubit<AttendanceViewState> {
       final apiErrorRes = ApiErrorRes(devMessage: 'Fetching attendance failed');
       emit(
         state.copyWith(
-          status: AttendanceViewStatus.error,
+          status: ViewAttendanceStatus.error,
           error: apiErrorRes,
         ),
       );

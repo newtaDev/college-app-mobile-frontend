@@ -9,7 +9,7 @@ import '../../../../cubits/select_class_and_sem/select_class_and_sem_cubit.dart'
 import '../../../../domain/entities/attendance_entity.dart';
 import '../../../../shared/extensions/extentions.dart';
 import '../../../router/route_names.dart';
-import 'cubit/attendance_view_cubit.dart';
+import 'cubit/view_attendance_cubit.dart';
 
 class ViewAttendancePage extends StatefulWidget {
   const ViewAttendancePage({super.key});
@@ -22,7 +22,7 @@ class _ViewAttendancePageState extends State<ViewAttendancePage> {
   @override
   void initState() {
     final selectCubit = context.read<SelectClassAndSemCubit>();
-    context.read<AttendanceViewCubit>().getAllAttendance(
+    context.read<ViewAttendanceCubit>().getAllAttendance(
           AllAttendanceWithQueryReq(
             classId: selectCubit.state.selectedClass?.id,
             currentSem: selectCubit.state.selectedSem,
@@ -69,7 +69,7 @@ class AttendanceViewLayout extends StatelessWidget {
                 previous.selectedClass != current.selectedClass ||
                 previous.selectedSem != current.selectedSem,
             listener: (context, state) {
-              context.read<AttendanceViewCubit>().getAllAttendance(
+              context.read<ViewAttendanceCubit>().getAllAttendance(
                     AllAttendanceWithQueryReq(
                       classId: state.selectedClass?.id,
                       currentSem: state.selectedSem,
@@ -114,7 +114,7 @@ class AttendanceViewLayout extends StatelessWidget {
           ),
         ),
         const Divider(),
-        BlocBuilder<AttendanceViewCubit, AttendanceViewState>(
+        BlocBuilder<ViewAttendanceCubit, ViewAttendanceState>(
           buildWhen: (previous, current) => previous.status != current.status,
           builder: (context, state) {
             if (state.status.isInitial || state.status.isLoading) {

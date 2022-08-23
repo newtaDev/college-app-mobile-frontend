@@ -14,6 +14,6 @@ void registerReportsDependencies() {
       ),
     )
     ..registerFactory(
-      () => AttendanceViewCubit(attendanceRepo: getIt<AttendanceRepoImpl>()),
+      () => ViewAttendanceCubit(attendanceRepo: getIt<AttendanceRepoImpl>()),
     );
 }

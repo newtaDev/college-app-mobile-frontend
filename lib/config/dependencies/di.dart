@@ -13,7 +13,7 @@ import '../../data/repositories/auth_repo_impl.dart';
 import '../../data/repositories/common_repo_impl.dart';
 import '../../data/repositories/attendance_repo_impl.dart';
 import '../../data/repositories/token_repo_impl.dart';
-import '../../presentation/features/attendance/view_attendance/cubit/attendance_view_cubit.dart';
+import '../../presentation/features/attendance/view_attendance/cubit/view_attendance_cubit.dart';
 import '../../presentation/features/reports/attendance/cubit/attendance_report_cubit.dart';
 import '../app_config.dart';
 
