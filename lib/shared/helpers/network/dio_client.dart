@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 import '../../../config/app_config.dart';
 import '../../../data/data_source/local/auth_lds.dart';
@@ -21,12 +22,35 @@ class DioClient {
         );
     final _dio = Dio(_options);
     if (isAuthorized) {
-      _dio.interceptors.add(authorizedReqInterceptor(_options));
+      _dio.interceptors.add(authorizedReqInterceptor());
     }
+    _dio.interceptors.add(logReq());
     return _dio;
   }
 
-  static InterceptorsWrapper authorizedReqInterceptor(BaseOptions baseOptions) {
+  static InterceptorsWrapper logReq() {
+    return InterceptorsWrapper(
+      onRequest: (options, handler) {
+        final _req = {
+          'URL': options.uri,
+          'Method': options.method,
+          // 'headers' : options.headers,
+        };
+        debugPrint('REQUEST: \n${_req.toString()}');
+        return handler.next(options);
+      },
+      onError: (e, handler) {
+        debugPrint('API ERROR: \n${e.message}');
+        return handler.next(e);
+      },
+      onResponse: (res, handler) {
+        debugPrint('RESPONSE: \nstatus : OK\ncode : ${res.statusCode} - ${res.statusMessage}');
+        return handler.next(res);
+      },
+    );
+  }
+
+  static InterceptorsWrapper authorizedReqInterceptor() {
     final authLds = AuthLocalDataSource();
     final tokenRepo = TokenRepoImpl(
       authLds: authLds,
