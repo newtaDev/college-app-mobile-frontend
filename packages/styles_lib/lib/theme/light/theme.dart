@@ -4,7 +4,7 @@ final lightTheme = FlexThemeData.light(
   // scheme: FlexScheme.shark,
   colorScheme: _lightColorScheme,
   appBarStyle: FlexAppBarStyle.background,
-  appBarElevation: 12,
+  appBarElevation: 0.3,
   fontFamily: FontAssets.poppins,
   subThemesData: const FlexSubThemesData(
     // useFlutterDefaults: true,
