@@ -3,7 +3,7 @@ part of app_themes;
 BottomNavigationBarThemeData _bottomNavBartheme() =>
     const BottomNavigationBarThemeData(elevation: 8);
 
-InputDecorationTheme _textInputDecorationTheme() {
+InputDecorationTheme _textInputDecorationTheme({required bool isDarkMode}) {
   final _withoutBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(8),
     borderSide: BorderSide.none,
@@ -22,6 +22,7 @@ InputDecorationTheme _textInputDecorationTheme() {
       borderSide: BorderSide(color: _lightColorScheme.error, width: 2),
     ),
     filled: true,
+    fillColor: isDarkMode ? ColorsPallet.darkGrey : ColorsPallet.grey80,
     contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
   );
 }

@@ -8,7 +8,7 @@ const _darkColorScheme = ColorScheme(
   primaryContainer: Color(0xff313c42),
   onPrimaryContainer: Color(0xffdbdedf),
   secondary: Color(0xFF868686),
-  onSecondary: Color(0xff1e1a13),
+  onSecondary: Color(0xFF13141E),
   secondaryContainer: Color(0xFF1852D9),
   onSecondaryContainer: Color(0xffffedd5),
   tertiary: Color(0xFF1379DF),

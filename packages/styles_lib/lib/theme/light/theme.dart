@@ -29,7 +29,7 @@ final lightTheme = FlexThemeData.light(
   // fontFamily: GoogleFonts.notoSans().fontFamily,
 ).copyWith(
   primaryColorLight: Colors.grey[200],
-  inputDecorationTheme: _textInputDecorationTheme(),
+  inputDecorationTheme: _textInputDecorationTheme(isDarkMode: false),
   bottomNavigationBarTheme: _bottomNavBartheme(),
   elevatedButtonTheme: _elevatedButtonTheme(),
 );
