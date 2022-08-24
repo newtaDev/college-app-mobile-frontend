@@ -68,8 +68,8 @@ class _HomeTabState extends State<HomeTab> {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: ProfileListViewCard(
                 emoji: '👨🏻',
-                name: 'newton Michael',
-                userName: 'Newta',
+                title: 'newton Michael',
+                subtitle: '@Newta',
               ),
             ),
             const SizedBox(height: 20),
@@ -183,192 +183,19 @@ class _HomeTabState extends State<HomeTab> {
                             }
                             return true;
                           },
-                          child: ListView(
+                          child: ListView.builder(
                             physics: !enableAnouncemetScrolling
                                 ? const NeverScrollableScrollPhysics()
                                 : const ClampingScrollPhysics(),
-                            children: const [
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              ListTile(
-                                title: Text('Haii 1'),
-                              ),
-                            ],
+                            itemBuilder: (context, index) {
+                              return const Padding(
+                                padding: EdgeInsets.all(8),
+                                child: Text('data'),
+                              );
+                            },
                           ),
                         ),
-                        Center(
+                        const Center(
                           child: Text('2nd'),
                         ),
                       ],
