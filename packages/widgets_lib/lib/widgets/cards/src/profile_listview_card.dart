@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
 class ProfileListViewCard extends StatelessWidget {
-  final String name;
-  final String userName;
+  final String title;
+  final String subtitle;
   final String emoji;
+  final double avatarSize;
   const ProfileListViewCard({
     super.key,
-    required this.name,
-    required this.userName,
+    required this.title,
+    required this.subtitle,
     required this.emoji,
+    this.avatarSize = 30,
   });
 
   @override
@@ -19,7 +21,7 @@ class ProfileListViewCard extends StatelessWidget {
       children: [
         CircleAvatar(
           backgroundColor: theme.primaryColorLight,
-          radius: 30,
+          radius: avatarSize,
           child: Text(
             emoji,
             style: textTheme.headlineMedium,
@@ -31,14 +33,14 @@ class ProfileListViewCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                name,
+                title,
                 style: textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w500,
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
-                '@$userName',
+                subtitle,
                 style: textTheme.bodySmall?.copyWith(
                   color: Colors.grey[600],
                   fontWeight: FontWeight.w500,
