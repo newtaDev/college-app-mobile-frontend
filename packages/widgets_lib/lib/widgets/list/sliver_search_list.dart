@@ -1,34 +1,28 @@
 import 'package:flutter/material.dart';
 
 ///```dart
-///SizedBox(
-///  height: MediaQuery.of(context).size.height * 0.7,
-///  child: SearchList<String>(
-///    textController: textController,
-///    searchList: List.generate(
-///      300,
-///      (index) => 'name $index',
-///    ),
-///    searchCondition: (data, searchInput) {
-///      return data
-///          .toLowerCase()
-///          .contains(searchInput.toLowerCase());
-///    },
-///    searchItemBuilder: (context, searchList, searchIndex) {
-///      print(searchIndex);
-///      const avatarSize = 25.0;
-///      return GestureDetector(
-///        onTap: () {
-///          print(searchList[searchIndex]);
-///        },
-///        child: Text(searchList[searchIndex]),
-///      );
-///    },
-///  ),
-///),
-///```
-///
-class SearchList<T> extends StatefulWidget {
+/// SearchSliverList<String>(
+///   textController: textController2,
+///   searchList: List.generate(
+///     300,
+///     (index) => 'name $index',
+///   ),
+///   searchCondition: (data, searchInput) {
+///     return data.toLowerCase().contains(searchInput.toLowerCase());
+///   },
+///   searchItemBuilder: (context, searchList, searchIndex) {
+///     print(searchIndex);
+///     const avatarSize = 25.0;
+///     return GestureDetector(
+///       onTap: () {
+///         print(searchList[searchIndex]);
+///       },
+///       child: Text(searchList[searchIndex]),
+///     );
+///   },
+/// ),
+/// ```
+class SliverSearchList<T> extends StatefulWidget {
   final List<T> searchList;
   final Widget? emptyWidget;
   final TextEditingController textController;
@@ -39,7 +33,7 @@ class SearchList<T> extends StatefulWidget {
     List<T> searchList,
     int searchIndex,
   ) searchItemBuilder;
-  const SearchList({
+  const SliverSearchList({
     super.key,
     required this.searchList,
     this.emptyWidget,
@@ -50,10 +44,10 @@ class SearchList<T> extends StatefulWidget {
   });
 
   @override
-  State<SearchList<T>> createState() => _SearchListState<T>();
+  State<SliverSearchList<T>> createState() => _SliverSearchListState<T>();
 }
 
-class _SearchListState<T> extends State<SearchList<T>> {
+class _SliverSearchListState<T> extends State<SliverSearchList<T>> {
   List<T> _searchList = [];
   @override
   void initState() {
@@ -72,7 +66,7 @@ class _SearchListState<T> extends State<SearchList<T>> {
   void _textFieldListner() => _onSearch(widget.textController.text);
 
   @override
-  void didUpdateWidget(covariant SearchList<T> oldWidget) {
+  void didUpdateWidget(covariant SliverSearchList<T> oldWidget) {
     /// Just to support hot reload  (when widget changes)
     if (oldWidget.searchList != widget.searchList) {
       _searchList = List.from(widget.searchList);
@@ -84,15 +78,20 @@ class _SearchListState<T> extends State<SearchList<T>> {
   @override
   Widget build(BuildContext context) {
     if (_searchList.isEmpty) {
-      return widget.emptyWidget ?? const Text('Not found');
+      return SliverList(
+        delegate: SliverChildListDelegate(
+          [widget.emptyWidget ?? const Center(child: Text('No Results'))],
+        ),
+      );
     }
-    return ListView.builder(
-      itemCount: _searchList.length,
-      shrinkWrap: widget.shrinkWrap,
-      itemBuilder: (context, index) => widget.searchItemBuilder(
-        context,
-        _searchList,
-        index,
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        childCount: _searchList.length,
+        (context, index) => widget.searchItemBuilder(
+          context,
+          _searchList,
+          index,
+        ),
       ),
     );
   }
