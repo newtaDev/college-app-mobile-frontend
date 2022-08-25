@@ -5,14 +5,14 @@ import '../entities/attendance_entity.dart';
 import '../entities/reports_entity.dart';
 
 abstract class AttendanceRepository {
-  Future<Either<SubjectReportRes, ApiErrorRes>> getAttendancesReportOfSubjects(
+  Future<SubjectReportRes> getAttendancesReportOfSubjects(
     SubjectReportReq req,
   );
-  Future<Either<EachStudentReportRes, ApiErrorRes>>
+  Future<EachStudentReportRes>
       getAbsentStudentsReportInEachSubject(EachStudentReportReq req);
 
-  Future<Either<AttendanceWithCountRes, ApiErrorRes>> getAllAttendanceList(
+  Future<AttendanceWithCountRes> getAllAttendanceList(
     AllAttendanceWithQueryReq req,
   );
-  Future<Either<bool, ApiErrorRes>> createAttendance(CreateAttendanceReq req);
+  Future<bool> createAttendance(CreateAttendanceReq req);
 }

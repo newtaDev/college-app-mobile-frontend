@@ -12,66 +12,62 @@ class AttendanceRepoImpl implements AttendanceRepository {
   AttendanceRepoImpl({required this.attendanceRds});
 
   @override
-  Future<Either<EachStudentReportRes, ApiErrorRes>>
-      getAbsentStudentsReportInEachSubject(EachStudentReportReq req) async {
+  Future<EachStudentReportRes> getAbsentStudentsReportInEachSubject(
+    EachStudentReportReq req,
+  ) async {
     try {
       final res = await attendanceRds.getAbsentStudentsReportInEachSubject(req);
-      final attendanceRes = EachStudentReportRes.fromMap(res.data);
-      return Left(attendanceRes);
+      return EachStudentReportRes.fromMap(res.data);
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;
       final errorRes = ApiErrorRes.fromMap(e.response?.data);
-      return Right(errorRes);
+      throw errorRes;
     } catch (e) {
       rethrow;
     }
   }
 
   @override
-  Future<Either<SubjectReportRes, ApiErrorRes>> getAttendancesReportOfSubjects(
+  Future<SubjectReportRes> getAttendancesReportOfSubjects(
     SubjectReportReq req,
   ) async {
     try {
       final res = await attendanceRds.getAttendancesReportOfSubjects(req);
-      final attendanceRes = SubjectReportRes.fromMap(res.data);
-      return Left(attendanceRes);
+      return SubjectReportRes.fromMap(res.data);
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;
       final errorRes = ApiErrorRes.fromMap(e.response?.data);
-      return Right(errorRes);
+      throw errorRes;
     } catch (e) {
       rethrow;
     }
   }
 
   @override
-  Future<Either<AttendanceWithCountRes, ApiErrorRes>> getAllAttendanceList(
+  Future<AttendanceWithCountRes> getAllAttendanceList(
     AllAttendanceWithQueryReq req,
   ) async {
     try {
       final res = await attendanceRds.getAllAttendanceWithQueries(req);
-      final attendanceRes = AttendanceWithCountRes.fromMap(res.data);
-      return Left(attendanceRes);
+      return AttendanceWithCountRes.fromMap(res.data);
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;
       final errorRes = ApiErrorRes.fromMap(e.response?.data);
-      return Right(errorRes);
+      throw errorRes;
     } catch (e) {
       rethrow;
     }
   }
 
   @override
-  Future<Either<bool, ApiErrorRes>> createAttendance(
-    CreateAttendanceReq req,
-  ) async {
+  Future<bool> createAttendance(CreateAttendanceReq req) async {
     try {
       await attendanceRds.createAttendance(req);
-      return const Left(true);
+      return true;
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;
       final errorRes = ApiErrorRes.fromMap(e.response?.data);
-      return Right(errorRes);
+      throw errorRes;
     } catch (e) {
       rethrow;
     }

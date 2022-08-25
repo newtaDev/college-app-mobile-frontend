@@ -20,27 +20,25 @@ class AttendanceReportCubit extends Cubit<AttendanceReportState> {
       currentSem: '1',
     );
     try {
-      (await attendanceRepo.getAttendancesReportOfSubjects(subjectReq)).fold(
-        (subjectRes) {
-          emit(
-            state.copyWith(
-              subjectStatus: AttendanceReportStatus.success,
-              subjectReports: subjectRes.responseData,
-              selectedSubjectId: (subjectRes.responseData?.isNotEmpty ?? false)
-                  ? subjectRes.responseData?.first.subjectId
-                  : null,
-            ),
-          );
-        },
-        (error) {
-          emit(
-            state.copyWith(
-              subjectStatus: AttendanceReportStatus.failure,
-              subjectReports: [],
-              error: error,
-            ),
-          );
-        },
+      final subjectRes =
+          await attendanceRepo.getAttendancesReportOfSubjects(subjectReq);
+
+      emit(
+        state.copyWith(
+          subjectStatus: AttendanceReportStatus.success,
+          subjectReports: subjectRes.responseData,
+          selectedSubjectId: (subjectRes.responseData?.isNotEmpty ?? false)
+              ? subjectRes.responseData?.first.subjectId
+              : null,
+        ),
+      );
+    } on ApiErrorRes catch (apiError) {
+      emit(
+        state.copyWith(
+          subjectStatus: AttendanceReportStatus.failure,
+          subjectReports: [],
+          error: apiError,
+        ),
       );
     } catch (e) {
       final apiErrorRes = ApiErrorRes(
@@ -73,25 +71,21 @@ class AttendanceReportCubit extends Cubit<AttendanceReportState> {
         currentSem: '1',
         subjectId: state.selectedSubjectId!,
       );
-      (await attendanceRepo.getAbsentStudentsReportInEachSubject(studentReq))
-          .fold(
-        (studentRes) {
-          emit(
-            state.copyWith(
-              studentStatus: AttendanceReportStatus.success,
-              studentReports: studentRes.responseData,
-            ),
-          );
-        },
-        (error) {
-          emit(
-            state.copyWith(
-              studentStatus: AttendanceReportStatus.failure,
-              studentReports: [],
-              error: error,
-            ),
-          );
-        },
+      final studentRes =
+          await attendanceRepo.getAbsentStudentsReportInEachSubject(studentReq);
+      emit(
+        state.copyWith(
+          studentStatus: AttendanceReportStatus.success,
+          studentReports: studentRes.responseData,
+        ),
+      );
+    } on ApiErrorRes catch (apiError) {
+      emit(
+        state.copyWith(
+          studentStatus: AttendanceReportStatus.failure,
+          studentReports: [],
+          error: apiError,
+        ),
       );
     } catch (e) {
       final apiErrorRes = ApiErrorRes(

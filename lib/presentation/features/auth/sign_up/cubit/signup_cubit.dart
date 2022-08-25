@@ -16,10 +16,10 @@ class SignUpCubit extends Cubit<SignUpState> {
   Future<void> signUpUser(SignUpReq req) async {
     emit(const SignUpLoadingState());
     try {
-      (await authRepo.signUpUser(req)).fold(
-        (authRes) => emit(SignUpSuccessState(data: authRes)),
-        (error) => emit(SignUpErrorState(error: error)),
-      );
+      final res = await authRepo.signUpUser(req);
+      emit(SignUpSuccessState(data: res));
+    } on ApiErrorRes catch (apiError) {
+      emit(SignUpErrorState(error: apiError));
     } catch (e) {
       final apiErrorRes = ApiErrorRes(devMessage: e.toString());
       emit(SignUpErrorState(error: apiErrorRes));

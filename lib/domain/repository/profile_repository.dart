@@ -5,9 +5,9 @@ import '../../shared/global/enums.dart';
 import '../entities/profile_entity.dart';
 
 abstract class ProfileRepository {
-  Future<Either<ProfileRes, ApiErrorRes>> getProfileData({
+  Future<ProfileRes> getProfileData({
     required String id,
     required UserType userType,
   });
-  Future<Either<UserProfileData, ApiErrorRes>> updateProfile();
+  Future<UserProfileData> updateProfile();
 }

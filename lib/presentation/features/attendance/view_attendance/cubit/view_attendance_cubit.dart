@@ -14,23 +14,19 @@ class ViewAttendanceCubit extends Cubit<ViewAttendanceState> {
   Future<void> getAllAttendance(AllAttendanceWithQueryReq req) async {
     emit(state.copyWith(status: ViewAttendanceStatus.loading));
     try {
-      (await attendanceRepo.getAllAttendanceList(req)).fold(
-        (res) {
-          emit(
-            state.copyWith(
-              status: ViewAttendanceStatus.success,
-              attendanceWithCount: res.responseData,
-            ),
-          );
-        },
-        (error) {
-          emit(
-            state.copyWith(
-              status: ViewAttendanceStatus.error,
-              error: error,
-            ),
-          );
-        },
+      final res = await attendanceRepo.getAllAttendanceList(req);
+      emit(
+        state.copyWith(
+          status: ViewAttendanceStatus.success,
+          attendanceWithCount: res.responseData,
+        ),
+      );
+    } on ApiErrorRes catch (apiError) {
+      emit(
+        state.copyWith(
+          status: ViewAttendanceStatus.error,
+          error: apiError,
+        ),
       );
     } catch (e) {
       final apiErrorRes = ApiErrorRes(devMessage: 'Fetching attendance failed');

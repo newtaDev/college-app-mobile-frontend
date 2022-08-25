@@ -12,25 +12,24 @@ class ProfileRepoImpl implements ProfileRepository {
 
   ProfileRepoImpl({required this.profileRds});
   @override
-  Future<Either<ProfileRes, ApiErrorRes>> getProfileData({
+  Future<ProfileRes> getProfileData({
     required String id,
     required UserType userType,
   }) async {
     try {
       final res = await profileRds.getProfileData(id: id, userType: userType);
-      final attendanceRes = ProfileRes.fromMap(res.data);
-      return Left(attendanceRes);
+      return ProfileRes.fromMap(res.data);
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;
       final errorRes = ApiErrorRes.fromMap(e.response?.data);
-      return Right(errorRes);
+      throw errorRes;
     } catch (e) {
       rethrow;
     }
   }
 
   @override
-  Future<Either<UserProfileData, ApiErrorRes>> updateProfile() {
+  Future<UserProfileData> updateProfile() {
     // TODO: implement updateProfile
     throw UnimplementedError();
   }

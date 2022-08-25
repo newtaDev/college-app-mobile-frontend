@@ -17,33 +17,29 @@ class SelectClassAndSemCubit extends Cubit<SelectClassAndSemState> {
   Future<void> getClassesWithDetails() async {
     emit(state.copyWith(status: SelectClassAndSemStatus.loading));
     try {
-      (await commonRepo.getClassesWithDetails()).fold(
-        (data) {
-          if (state.selectedClass != null) {
-            final _selectedClass = data.responseData?.firstWhereSafe(
-              (element) => state.selectedClass!.id! == element.id,
-            );
-            if (_selectedClass == null ||
-                state.selectedSem == null ||
-                state.selectedSem! > _selectedClass.course!.totalSem!) {
-              emit(const SelectClassAndSemState.init());
-            }
-          }
-          emit(
-            state.copyWith(
-              status: SelectClassAndSemStatus.success,
-              classes: data.responseData,
-            ),
-          );
-        },
-        (error) {
-          emit(
-            state.copyWith(
-              status: SelectClassAndSemStatus.error,
-              error: error,
-            ),
-          );
-        },
+      final classRes = await commonRepo.getClassesWithDetails();
+      if (state.selectedClass != null) {
+        final _selectedClass = classRes.responseData?.firstWhereSafe(
+          (element) => state.selectedClass!.id! == element.id,
+        );
+        if (_selectedClass == null ||
+            state.selectedSem == null ||
+            state.selectedSem! > _selectedClass.course!.totalSem!) {
+          emit(const SelectClassAndSemState.init());
+        }
+      }
+      emit(
+        state.copyWith(
+          status: SelectClassAndSemStatus.success,
+          classes: classRes.responseData,
+        ),
+      );
+    } on ApiErrorRes catch (apiError) {
+      emit(
+        state.copyWith(
+          status: SelectClassAndSemStatus.error,
+          error: apiError,
+        ),
       );
     } catch (e) {
       final apiErrorRes = ApiErrorRes(devMessage: 'Getting classses failed');

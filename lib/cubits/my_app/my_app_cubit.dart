@@ -58,14 +58,11 @@ class MyAppCubit extends Cubit<MyAppState> {
         throw Exception('[userId] | [userType] should not be null');
       }
 
-      (await profileRepo.getProfileData(
+      final res = await profileRepo.getProfileData(
         id: authLds.userId!,
         userType: authLds.userType!,
-      ))
-          .fold(
-        (res) => profileCubit.setProfileData(res.responseData!),
-        (error) => throw error,
       );
+      profileCubit.setProfileData(res.responseData!);
     } catch (e) {
       rethrow;
     }

@@ -16,24 +16,17 @@ class CreateAttendanceCubit extends Cubit<CreateAttendanceState> {
   Future<void> cretateAttendance(CreateAttendanceReq req) async {
     emit(state.copyWith(status: CreateAttendanceStatus.loading));
     try {
-      (await attendanceRepo.createAttendance(req)).fold(
-        (res) {
-          emit(
-            state.copyWith(
-              status: CreateAttendanceStatus.success,
-              isCreated: true,
-            ),
-          );
-        },
-        (error) {
-          emit(
-            state.copyWith(
-              status: CreateAttendanceStatus.error,
-              isCreated: false,
-              error: error,
-            ),
-          );
-        },
+      await attendanceRepo.createAttendance(req);
+      emit(
+        state.copyWith(status: CreateAttendanceStatus.success, isCreated: true),
+      );
+    } on ApiErrorRes catch (apiError) {
+      emit(
+        state.copyWith(
+          status: CreateAttendanceStatus.error,
+          isCreated: false,
+          error: apiError,
+        ),
       );
     } catch (e) {
       final apiErrorRes = ApiErrorRes(devMessage: 'Creating attendance failed');

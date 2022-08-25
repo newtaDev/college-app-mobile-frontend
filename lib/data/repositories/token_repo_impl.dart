@@ -14,7 +14,7 @@ class TokenRepoImpl implements TokenRepository {
     required this.authLds,
   });
   @override
-  Future<Either<Response, ApiErrorRes>> reGenerateToken() async {
+  Future<Response> reGenerateToken() async {
     if (authLds.refreshToken == null) {
       throw Exception('Refresh token Not found');
     }
@@ -28,18 +28,18 @@ class TokenRepoImpl implements TokenRepository {
         accessToken: _data['accessToken'],
         refreshToken: _data['refreshToken'],
       );
-      return Left(res);
+      return res;
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;
       final errorRes = ApiErrorRes.fromMap(e.response?.data);
-      return Right(errorRes);
+      throw errorRes;
     } catch (e) {
       rethrow;
     }
   }
 
   @override
-  Future<Either<Response, ApiErrorRes>> decodeToken() {
+  Future<Response> decodeToken() {
     throw UnimplementedError();
   }
 }

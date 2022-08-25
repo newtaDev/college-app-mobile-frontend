@@ -16,31 +16,31 @@ class AuthRepoImpl implements AuthRepository {
     required this.authLds,
   });
   @override
-  Future<Either<AuthRes, ApiErrorRes>> signInUser(SignInReq req) async {
+  Future<AuthRes> signInUser(SignInReq req) async {
     try {
       final res = await authRds.signInUser(req);
       final authRes = AuthRes.fromMap(res.data);
       await authLds.saveAuthRes(authRes);
-      return Left(authRes);
+      return authRes;
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;
       final errorRes = ApiErrorRes.fromMap(e.response?.data);
-      return Right(errorRes);
+      throw errorRes;
     } catch (e) {
       rethrow;
     }
   }
 
   @override
-  Future<Either<AuthRes, ApiErrorRes>> signUpUser(SignUpReq req) async {
+  Future<AuthRes> signUpUser(SignUpReq req) async {
     try {
       final res = await authRds.signUpUser(req);
       final authRes = AuthRes.fromMap(res.data);
-      return Left(authRes);
+      return authRes;
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;
       final errorRes = ApiErrorRes.fromMap(e.response?.data);
-      return Right(errorRes);
+      throw errorRes;
     } catch (e) {
       rethrow;
     }

@@ -11,16 +11,14 @@ class CommonRepoImpl implements CommonRepository {
   CommonRepoImpl({required this.commonRds});
 
   @override
-  Future<Either<ClassWithDetailsRes, ApiErrorRes>>
-      getClassesWithDetails() async {
+  Future<ClassWithDetailsRes> getClassesWithDetails() async {
     try {
       final res = await commonRds.getClassesWithDetails();
-      final attendanceRes = ClassWithDetailsRes.fromMap(res.data);
-      return Left(attendanceRes);
+      return ClassWithDetailsRes.fromMap(res.data);
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;
       final errorRes = ApiErrorRes.fromMap(e.response?.data);
-      return Right(errorRes);
+      throw errorRes;
     } catch (e) {
       rethrow;
     }

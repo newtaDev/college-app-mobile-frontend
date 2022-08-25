@@ -15,14 +15,10 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> singInUser(SignInReq req) async {
     emit(state.copyWith(status: AuthStatus.loading));
     try {
-      (await authRepo.signInUser(req)).fold(
-        (authRes) {
-          emit(state.copyWith(status: AuthStatus.logedIn, authRes: authRes));
-        },
-        (error) {
-          emit(state.copyWith(status: AuthStatus.failure, error: error));
-        },
-      );
+      final res = await authRepo.signInUser(req);
+      emit(state.copyWith(status: AuthStatus.logedIn, authRes: res));
+    } on ApiErrorRes catch (apiError) {
+      emit(state.copyWith(status: AuthStatus.failure, error: apiError));
     } catch (e) {
       final apiErrorRes = ApiErrorRes(devMessage: 'User Login failed');
       emit(state.copyWith(status: AuthStatus.failure, error: apiErrorRes));
