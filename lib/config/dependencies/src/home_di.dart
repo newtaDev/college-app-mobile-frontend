@@ -6,7 +6,7 @@ void registerHomeDependecies() {
     ..registerSingleton<MyAppCubit>(
       MyAppCubit(
         tokenRepo: getIt<TokenRepoImpl>(),
-        profileCubit: getIt<MyProfileCubit>(),
+        userCubit: getIt<UserCubit>(),
         authLds: getIt<AuthLocalDataSource>(),
       ),
     );

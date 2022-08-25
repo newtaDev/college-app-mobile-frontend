@@ -1,4 +1,5 @@
 import '../entities/attendance_entity.dart';
+import '../entities/user_entity.dart';
 import '../entities/reports_entity.dart';
 
 abstract class AttendanceRepository {
@@ -12,5 +13,8 @@ abstract class AttendanceRepository {
   Future<AttendanceWithCountRes> getAllAttendanceList(
     AllAttendanceWithQueryReq req,
   );
+
   Future<bool> createAttendance(CreateAttendanceReq req);
+
+  Future<StudentUser> getAllStudentInClass(String classId);
 }

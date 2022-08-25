@@ -1,10 +1,10 @@
-part of profile_entity;
+part of user_entity;
 
-class StudentProfileData extends UserProfileData {
+class StudentUser extends UserDetails {
   final String classId;
   final List<String> myOptionalSubjects;
 
-  const StudentProfileData({
+  const StudentUser({
     required super.id,
     required super.name,
     required super.email,
@@ -29,8 +29,8 @@ class StudentProfileData extends UserProfileData {
     ];
   }
 
-  factory StudentProfileData.fromMap(Map<String, dynamic> map) {
-    return StudentProfileData(
+  factory StudentUser.fromMap(Map<String, dynamic> map) {
+    return StudentUser(
       id: map['_id'],
       name: map['name'],
       email: map['email'],
@@ -43,6 +43,6 @@ class StudentProfileData extends UserProfileData {
     );
   }
 
-  factory StudentProfileData.fromJson(String source) =>
-      StudentProfileData.fromMap(json.decode(source));
+  factory StudentUser.fromJson(String source) =>
+      StudentUser.fromMap(json.decode(source));
 }

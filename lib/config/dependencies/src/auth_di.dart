@@ -1,6 +1,6 @@
 part of app_dependencies;
 
-void registerAuthAndProfileDependencies() {
+void registerAuthDependencies() {
   getIt
 
     /// repos
@@ -18,16 +18,13 @@ void registerAuthAndProfileDependencies() {
         tokenRds: getIt<TokenRemoteDataSource>(),
         authLds: getIt<AuthLocalDataSource>(),
       ),
+    )
+
+    /// Cubits
+    ..registerSingleton<AuthCubit>(
+      AuthCubit(
+        authRepo: getIt<AuthRepoImpl>(),
+        userCubit: getIt<UserCubit>(),
+      ),
     );
-
-  /// profile dependency
-  registerProfileDependencies();
-
-  /// Cubits
-  getIt.registerSingleton<AuthCubit>(
-    AuthCubit(
-      authRepo: getIt<AuthRepoImpl>(),
-      myProfileCubit: getIt<MyProfileCubit>(),
-    ),
-  );
 }

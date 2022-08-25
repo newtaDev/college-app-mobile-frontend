@@ -36,7 +36,8 @@ class DioClient {
         return handler.next(options);
       },
       onError: (e, handler) {
-        debugPrint('API ERROR: \n${e.message}');
+        debugPrint('--- API ERROR ---');
+        debugPrint(e.message);
         return handler.next(e);
       },
       onResponse: (res, handler) {

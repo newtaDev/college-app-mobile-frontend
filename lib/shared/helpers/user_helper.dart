@@ -1,15 +1,15 @@
-import '../../domain/entities/profile_entity.dart';
+import '../../domain/entities/user_entity.dart';
 import '../global/enums.dart';
 
 class UserHelper {
-  static UserProfileData setUserData({
+  static UserDetails setUserData({
     required UserType userType,
     required Map<String, dynamic> user,
   }) {
     if (userType == UserType.teacher) {
-      return TeacherProfileData.fromMap(user);
+      return TeacherUser.fromMap(user);
     }
     if (userType == UserType.student) {}
-    return StudentProfileData.fromMap(user);
+    return StudentUser.fromMap(user);
   }
 }

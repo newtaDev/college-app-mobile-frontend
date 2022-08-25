@@ -1,13 +1,13 @@
-part of profile_entity;
+part of user_entity;
 
-class ProfileRes extends MyEquatable {
+class UserDetailsRes extends MyEquatable {
   final String? status;
-  final UserProfileData? responseData;
+  final UserDetails? responseData;
 
-  const ProfileRes({this.status, this.responseData});
+  const UserDetailsRes({this.status, this.responseData});
 
-  factory ProfileRes.fromMap(Map<String, dynamic> data) {
-    return ProfileRes(
+  factory UserDetailsRes.fromMap(Map<String, dynamic> data) {
+    return UserDetailsRes(
       status: data['status'] as String?,
       responseData: data['responseData'] != null
           ? UserHelper.setUserData(
@@ -20,9 +20,9 @@ class ProfileRes extends MyEquatable {
 
   /// `dart:convert`
   ///
-  /// Parses the string and returns the resulting Json object as [ProfileRes].
-  factory ProfileRes.fromJson(String data) {
-    return ProfileRes.fromMap(
+  /// Parses the string and returns the resulting Json object as [UserDetailsRes].
+  factory UserDetailsRes.fromJson(String data) {
+    return UserDetailsRes.fromMap(
       json.decode(data) as Map<String, dynamic>,
     );
   }
@@ -30,11 +30,11 @@ class ProfileRes extends MyEquatable {
   @override
   List<Object?> get props => [status, responseData];
 
-  ProfileRes copyWith({
+  UserDetailsRes copyWith({
     String? status,
-    UserProfileData? responseData,
+    UserDetails? responseData,
   }) {
-    return ProfileRes(
+    return UserDetailsRes(
       status: status ?? this.status,
       responseData: responseData ?? this.responseData,
     );

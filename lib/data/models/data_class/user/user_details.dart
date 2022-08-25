@@ -1,6 +1,6 @@
-part of profile_entity;
+part of user_entity;
 
-class UserProfileData extends MyEquatable {
+class UserDetails extends MyEquatable {
   final String name;
   final String id;
   final String email;
@@ -8,7 +8,7 @@ class UserProfileData extends MyEquatable {
   final DateTime createdAt;
   final DateTime updatedAt;
   final UserType userType;
-  const UserProfileData({
+  const UserDetails({
     required this.name,
     required this.id,
     required this.email,
@@ -18,7 +18,7 @@ class UserProfileData extends MyEquatable {
     required this.userType,
   });
 
-  UserProfileData.empty()
+  UserDetails.empty()
       : collegeId = '',
         createdAt = DateTime.now(),
         email = '',

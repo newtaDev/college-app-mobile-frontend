@@ -1,7 +1,7 @@
-part of profile_entity;
+part of user_entity;
 
-class TeacherProfileData extends UserProfileData {
-  const TeacherProfileData({
+class TeacherUser extends UserDetails {
+  const TeacherUser({
     required super.id,
     required super.name,
     required super.email,
@@ -24,8 +24,8 @@ class TeacherProfileData extends UserProfileData {
     ];
   }
 
-  factory TeacherProfileData.fromMap(Map<String, dynamic> map) {
-    return TeacherProfileData(
+  factory TeacherUser.fromMap(Map<String, dynamic> map) {
+    return TeacherUser(
       id: map['_id'],
       name: map['name'],
       email: map['email'],
@@ -36,6 +36,6 @@ class TeacherProfileData extends UserProfileData {
     );
   }
 
-  factory TeacherProfileData.fromJson(String source) =>
-      TeacherProfileData.fromMap(json.decode(source));
+  factory TeacherUser.fromJson(String source) =>
+      TeacherUser.fromMap(json.decode(source));
 }

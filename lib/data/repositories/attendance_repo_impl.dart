@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 
 import '../../domain/entities/attendance_entity.dart';
+import '../../domain/entities/user_entity.dart';
 import '../../domain/entities/reports_entity.dart';
 import '../../domain/repository/attendance_repository.dart';
 import '../../shared/errors/api_errors.dart';
@@ -70,5 +71,11 @@ class AttendanceRepoImpl implements AttendanceRepository {
     } catch (e) {
       rethrow;
     }
+  }
+
+  @override
+  Future<StudentUser> getAllStudentInClass(String classId) {
+    // TODO: implement getAllStudentInClass
+    throw UnimplementedError();
   }
 }

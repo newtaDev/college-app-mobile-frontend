@@ -5,17 +5,17 @@ import 'package:bloc/bloc.dart';
 import '../../data/data_source/local/auth_lds.dart';
 import '../../domain/repository/token_repository.dart';
 import '../../utils/utils.dart';
-import '../my_profile/my_profile_cubit.dart';
+import '../user/user_cubit.dart';
 
 part 'my_app_state.dart';
 
 class MyAppCubit extends Cubit<MyAppState> {
   final TokenRepository tokenRepo;
-  final MyProfileCubit profileCubit;
+  final UserCubit userCubit;
   final AuthLocalDataSource authLds;
   MyAppCubit({
     required this.tokenRepo,
-    required this.profileCubit,
+    required this.userCubit,
     required this.authLds,
   }) : super(const MyAppState.init()) {
     _appInit();
@@ -37,7 +37,7 @@ class MyAppCubit extends Cubit<MyAppState> {
 
     try {
       await tokenRepo.reGenerateToken();
-      await profileCubit.setUpInitialUserData();
+      await userCubit.setUpInitialUserData();
       log('-- Login Success --');
       emit(state.copyWith(splashStatus: SplashStatus.loginSuccess));
     } catch (e) {

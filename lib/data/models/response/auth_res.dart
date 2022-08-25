@@ -4,7 +4,7 @@ class AuthRes extends MyEquatable {
   final String status;
   final String accessToken;
   final String refreshToken;
-  final UserProfileData? user;
+  final UserDetails? user;
 
   const AuthRes({
     required this.status,
@@ -38,7 +38,7 @@ class AuthRes extends MyEquatable {
     String? status,
     String? accessToken,
     String? refreshToken,
-    UserProfileData? user,
+    UserDetails? user,
   }) {
     return AuthRes(
       status: status ?? this.status,

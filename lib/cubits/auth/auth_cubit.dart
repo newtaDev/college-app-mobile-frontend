@@ -5,23 +5,23 @@ import '../../domain/entities/auth_entitie.dart';
 import '../../domain/repository/auth_repository.dart';
 import '../../shared/errors/api_errors.dart';
 import '../../utils/utils.dart';
-import '../my_profile/my_profile_cubit.dart';
+import '../user/user_cubit.dart';
 
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   final AuthRepository authRepo;
-  final MyProfileCubit myProfileCubit;
+  final UserCubit userCubit;
   AuthCubit({
     required this.authRepo,
-    required this.myProfileCubit,
+    required this.userCubit,
   }) : super(const AuthState.init());
 
   Future<void> singInUser(SignInReq req) async {
     emit(state.copyWith(status: AuthStatus.loading));
     try {
       final res = await authRepo.signInUser(req);
-      await myProfileCubit.setUpInitialUserData();
+      await userCubit.setUpInitialUserData();
       emit(state.copyWith(status: AuthStatus.logedIn, authRes: res));
     } on ApiErrorRes catch (apiError) {
       emit(state.copyWith(status: AuthStatus.failure, error: apiError));

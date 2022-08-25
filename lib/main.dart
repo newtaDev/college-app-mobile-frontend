@@ -6,7 +6,7 @@ import 'config/app_config.dart';
 import 'cubits/auth/auth_cubit.dart';
 import 'cubits/home/home_cubit.dart';
 import 'cubits/my_app/my_app_cubit.dart';
-import 'cubits/my_profile/my_profile_cubit.dart';
+import 'cubits/user/user_cubit.dart';
 import 'cubits/select_class_and_sem/select_class_and_sem_cubit.dart';
 import 'presentation/router/app_router.dart';
 import 'utils/utils.dart';
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(lazy: false, create: (context) => getIt<MyAppCubit>()),
         BlocProvider(create: (context) => getIt<HomeCubit>()),
         BlocProvider(create: (context) => getIt<SelectClassAndSemCubit>()),
-        BlocProvider(create: (context) => getIt<MyProfileCubit>()),
+        BlocProvider(create: (context) => getIt<UserCubit>()),
       ],
       child: MaterialApp.router(
         title: 'College App',
