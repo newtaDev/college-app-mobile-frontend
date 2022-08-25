@@ -305,7 +305,8 @@ class _SubjectsBarChartState extends State<SubjectsBarChart> {
                       ),
                       children: <TextSpan>[
                         TextSpan(
-                          text: '${rod.toY.toInt()} class',
+                          text:
+                              '${_subjects[group.x].totalAttendanceTaken} class',
                           style: const TextStyle(
                             color: Colors.white54,
                             fontWeight: FontWeight.w500,
