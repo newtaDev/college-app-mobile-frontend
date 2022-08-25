@@ -31,12 +31,8 @@ class DioClient {
   static InterceptorsWrapper logReq() {
     return InterceptorsWrapper(
       onRequest: (options, handler) {
-        final _req = {
-          'URL': options.uri,
-          
-          // 'headers' : options.headers,
-        };
-        debugPrint('REQUEST (${options.method}): \n${_req.toString()}');
+        debugPrint('--- REQUEST ---');
+        debugPrint('${options.method}: ${options.uri}');
         return handler.next(options);
       },
       onError: (e, handler) {
@@ -44,7 +40,8 @@ class DioClient {
         return handler.next(e);
       },
       onResponse: (res, handler) {
-        debugPrint('RESPONSE: \nstatuscode : ${res.statusCode} - ${res.statusMessage}');
+        debugPrint('--- RESPONSE ---');
+        debugPrint('statuscode : ${res.statusCode} - ${res.statusMessage}');
         return handler.next(res);
       },
     );
