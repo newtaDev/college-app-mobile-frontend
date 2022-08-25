@@ -1,16 +1,14 @@
 part of profile_entity;
 
 class StudentProfileDataRes extends UserProfileData {
-  final String email;
-  final String collegeId;
   final String classId;
   final List<String> myOptionalSubjects;
 
   const StudentProfileDataRes({
     required super.id,
     required super.name,
-    required this.email,
-    required this.collegeId,
+    required super.email,
+    required super.collegeId,
     required this.classId,
     required this.myOptionalSubjects,
     required super.updatedAt,

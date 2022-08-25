@@ -30,11 +30,11 @@ class SelectableSemList extends StatelessWidget {
                   isSelected
                       ? Icons.radio_button_checked_rounded
                       : Icons.radio_button_unchecked_rounded,
-                  color: isSelected ? Colors.black : ColorPallet.grey400,
+                  color: isSelected ? Colors.black : ColorsPallet.grey400,
                 ),
                 style: OutlinedButton.styleFrom(
                   side: BorderSide(
-                    color: isSelected ? Colors.black : ColorPallet.grey400,
+                    color: isSelected ? Colors.black : ColorsPallet.grey400,
                   ),
                 ),
                 label: Text(

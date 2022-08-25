@@ -22,6 +22,7 @@ class SettingsTab extends StatelessWidget {
             Text('access: ${authLds.userId}'),
             Text('access: ${authLds.userType}'),
             Text('access: ${authLds.email}'),
+            Text('access: ${authLds.collegeId}'),
             const Text('Settings Tab'),
             BlocListener<AuthCubit, AuthState>(
               listener: (context, state) {

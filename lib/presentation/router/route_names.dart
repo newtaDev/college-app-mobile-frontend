@@ -4,7 +4,9 @@ class RouteNames {
   static const signInScreen = 'sign_in_screen';
   static const selectClassAndSemScreen = 'selectable_screen';
   static const attendanceReportScreen = 'attendance_report_screen';
-  static const attendanceViewScreen = 'attendance_view_screen';
+  static const viewAttendanceScreen = 'view_attendance_screen';
+  static const createAttendanceScreen = 'create_attendance_screen';
+  static const updateAttendanceScreen = 'update_attendance_screen';
   static const reportsScreen = 'reports_screen';
   static const signUpScreen = 'sign_up_screen';
 

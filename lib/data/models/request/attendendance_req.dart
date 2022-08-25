@@ -1,6 +1,5 @@
 part of attendance_entity;
 
-
 class AllAttendanceWithQueryReq extends MyEquatable {
   final String? classId;
   final int? currentSem;
@@ -18,5 +17,38 @@ class AllAttendanceWithQueryReq extends MyEquatable {
     };
   }
 
+  String toJson() => json.encode(toMap());
+}
+
+class CreateAttendanceReq extends MyEquatable {
+  final String collegeId;
+  final String classId;
+  final String subjectId;
+  final String classStartTime;
+  final String classEndTime;
+  final List<String> absentStudents;
+  final int currentSem;
+  final DateTime attendanceTakenOn;
+  const CreateAttendanceReq({
+    required this.collegeId,
+    required this.classId,
+    required this.subjectId,
+    required this.classStartTime,
+    required this.classEndTime,
+    required this.absentStudents,
+    required this.currentSem,
+    required this.attendanceTakenOn,
+  });
+
+  Map<String, dynamic> toMap() => {
+        'collegeId': collegeId,
+        'classId': classId,
+        'subjectId': subjectId,
+        'classStartTime': classStartTime,
+        'classEndTime': classEndTime,
+        'absentStudents': absentStudents,
+        'currentSem': currentSem,
+        'attendanceTakenOn': attendanceTakenOn.toIso8601String(),
+      };
   String toJson() => json.encode(toMap());
 }

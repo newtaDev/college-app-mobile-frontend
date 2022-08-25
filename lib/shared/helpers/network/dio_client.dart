@@ -33,10 +33,10 @@ class DioClient {
       onRequest: (options, handler) {
         final _req = {
           'URL': options.uri,
-          'Method': options.method,
+          
           // 'headers' : options.headers,
         };
-        debugPrint('REQUEST: \n${_req.toString()}');
+        debugPrint('REQUEST (${options.method}): \n${_req.toString()}');
         return handler.next(options);
       },
       onError: (e, handler) {
@@ -44,7 +44,7 @@ class DioClient {
         return handler.next(e);
       },
       onResponse: (res, handler) {
-        debugPrint('RESPONSE: \nstatus : OK\ncode : ${res.statusCode} - ${res.statusMessage}');
+        debugPrint('RESPONSE: \nstatuscode : ${res.statusCode} - ${res.statusMessage}');
         return handler.next(res);
       },
     );

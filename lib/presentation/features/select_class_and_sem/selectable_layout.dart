@@ -60,7 +60,7 @@ class SelectableLayout extends StatelessWidget {
                     ? null
                     : () {
                         context.goNamed(
-                          RouteNames.attendanceViewScreen,
+                          RouteNames.viewAttendanceScreen,
                           params: {
                             'tab_name': DashboardPageTabs.home.name,
                           },

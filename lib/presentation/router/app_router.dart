@@ -8,6 +8,7 @@ import '../features/_init_/T&W_showcase/t_w_showcase_page.dart';
 import '../features/_init_/T&W_showcase/typography_page.dart';
 import '../features/_init_/T&W_showcase/widgets_page.dart';
 import '../features/_init_/splash/splash_screen.dart';
+import '../features/attendance/create_attendance/cubit/create_attendance_cubit.dart';
 import '../features/attendance/create_attendance/page/create_attendance_page.dart';
 import '../features/attendance/view_attendance/view_attendance_page.dart';
 import '../features/attendance/view_attendance/cubit/view_attendance_cubit.dart';
@@ -49,22 +50,36 @@ class AppRouter {
         },
         routes: [
           GoRoute(
-              name: RouteNames.attendanceViewScreen,
-              path: 'attendance',
-              builder: (context, state) => BlocProvider(
-                    create: (context) => getIt<ViewAttendanceCubit>(),
-                    child: const ViewAttendancePage(),
-                  ),
-              routes: [
-                GoRoute(
-                  name: RouteNames.attendanceViewScreen,
-                  path: 'create',
-                  builder: (context, state) => BlocProvider(
-                    create: (context) => getIt<ViewAttendanceCubit>(),
-                    child: const CreateAttendancePage(),
+            name: RouteNames.viewAttendanceScreen,
+            path: 'attendance',
+            builder: (context, state) => BlocProvider(
+              create: (context) => getIt<ViewAttendanceCubit>(),
+              child: const ViewAttendancePage(),
+            ),
+            routes: [
+              GoRoute(
+                name: RouteNames.createAttendanceScreen,
+                path: 'create',
+                builder: (context, state) => BlocProvider(
+                  create: (context) => getIt<CreateAttendanceCubit>(),
+                  child: const CreateAttendancePage(
+                    appBarName: 'Create Attendance',
                   ),
                 ),
-              ]),
+              ),
+              GoRoute(
+                name: RouteNames.updateAttendanceScreen,
+                path: 'update',
+                builder: (context, state) => BlocProvider(
+                  create: (context) => getIt<ViewAttendanceCubit>(),
+                  child: const CreateAttendancePage(
+                    appBarName: 'Update Attendance',
+                    isUpdate: true,
+                  ),
+                ),
+              ),
+            ],
+          ),
           GoRoute(
             name: RouteNames.reportsScreen,
             path: 'reports',

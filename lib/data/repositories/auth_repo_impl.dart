@@ -20,7 +20,7 @@ class AuthRepoImpl implements AuthRepository {
     try {
       final res = await authRds.signInUser(req);
       final authRes = AuthRes.fromMap(res.data);
-      await authLds.saveAuthRes(authRes, req);
+      await authLds.saveAuthRes(authRes);
       return Left(authRes);
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;

@@ -29,4 +29,11 @@ class AttendannceRemoteDataSource {
       queryParameters: req.toMap(),
     );
   }
+
+  Future<Response> createAttendance(CreateAttendanceReq req) {
+    return client.post(
+      '/attendance',
+      data: req.toJson(),
+    );
+  }
 }

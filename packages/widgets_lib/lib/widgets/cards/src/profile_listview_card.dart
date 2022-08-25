@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ProfileListViewCard extends StatelessWidget {
@@ -5,12 +6,14 @@ class ProfileListViewCard extends StatelessWidget {
   final String subtitle;
   final String emoji;
   final double avatarSize;
+  final Widget? traling;
   const ProfileListViewCard({
     super.key,
     required this.title,
     required this.subtitle,
     required this.emoji,
     this.avatarSize = 30,
+    this.traling,
   });
 
   @override
@@ -48,7 +51,8 @@ class ProfileListViewCard extends StatelessWidget {
               )
             ],
           ),
-        )
+        ),
+        if (traling != null) traling!,
       ],
     );
   }

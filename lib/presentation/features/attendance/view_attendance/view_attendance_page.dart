@@ -4,10 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:styles_lib/theme/themes.dart';
 import 'package:widgets_lib/widgets/common/loading_indicator.dart';
+import 'package:widgets_lib/widgets_lib.dart';
 
 import '../../../../cubits/select_class_and_sem/select_class_and_sem_cubit.dart';
 import '../../../../domain/entities/attendance_entity.dart';
 import '../../../../shared/extensions/extentions.dart';
+import '../../../../shared/global/enums.dart';
 import '../../../router/route_names.dart';
 import 'cubit/view_attendance_cubit.dart';
 
@@ -38,7 +40,14 @@ class _ViewAttendancePageState extends State<ViewAttendancePage> {
         title: const Text('Attendance'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              context.goNamed(
+                RouteNames.createAttendanceScreen,
+                params: {
+                  'tab_name': DashboardPageTabs.home.name,
+                },
+              );
+            },
             icon: const Icon(Icons.add),
           ),
         ],
@@ -58,9 +67,8 @@ class AttendanceViewLayout extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 15),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
           child: BlocConsumer<SelectClassAndSemCubit, SelectClassAndSemState>(
             listenWhen: (previous, current) =>
                 previous.selectedClass != current.selectedClass ||
@@ -105,7 +113,7 @@ class AttendanceViewLayout extends StatelessWidget {
                     child: Text(
                       'Change',
                       style: textTheme.titleSmall
-                          ?.copyWith(color: ColorPallet.grey700),
+                          ?.copyWith(color: ColorsPallet.grey700),
                     ),
                   )
                 ],
@@ -113,7 +121,7 @@ class AttendanceViewLayout extends StatelessWidget {
             },
           ),
         ),
-        const Divider(),
+        const Divider(height: 1),
         BlocBuilder<ViewAttendanceCubit, ViewAttendanceState>(
           buildWhen: (previous, current) => previous.status != current.status,
           builder: (context, state) {
@@ -138,62 +146,59 @@ class AttendanceViewLayout extends StatelessWidget {
                   final dateFormat = DateFormat('h:mm a');
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 20),
-                    child: Card(
-                      elevation: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 10,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              _attendanceData.subject?.name ?? 'N/A',
-                              style: textTheme.titleMedium
-                                  ?.copyWith(fontWeight: FontWeight.w600),
+                    child: BorderedBox(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 15,
+                        vertical: 10,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            _attendanceData.subject?.name ?? 'N/A',
+                            style: textTheme.titleMedium
+                                ?.copyWith(fontWeight: FontWeight.w600),
+                          ),
+                          Text(
+                            'Absent students: ${_attendanceData.absentStudentCount}',
+                            style: textTheme.bodyMedium
+                                ?.copyWith(color: ColorsPallet.grey600),
+                          ),
+                          Text(
+                            'Present students: ${_attendanceData.presentStudentCount}',
+                            style: textTheme.bodyMedium
+                                ?.copyWith(color: ColorsPallet.grey600),
+                          ),
+                          const SizedBox(height: 5),
+                          _textWithIcon(
+                            icon: Icons.access_time_rounded,
+                            text:
+                                '${dateFormat.format(_classStartTime)} - ${dateFormat.format(_classEndTime)}',
+                          ),
+                          _textWithIcon(
+                            icon: Icons.date_range_outlined,
+                            text: DateFormat.yMMMEd().format(
+                              _attendanceData.attendanceTakenOn ??
+                                  DateTime.now(),
                             ),
-                            Text(
-                              'Absent students: ${_attendanceData.absentStudentCount}',
-                              style: textTheme.bodyMedium
-                                  ?.copyWith(color: ColorPallet.grey600),
+                          ),
+                          const SizedBox(height: 10),
+                          ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              minimumSize: const Size.fromHeight(40),
+                              primary:
+                                  ColorsPallet.primaryBlueDark.withOpacity(0.1),
+                              onPrimary: ColorsPallet.primaryBlueDark,
+                              shadowColor:
+                                  ColorsPallet.primaryBlueDark.withOpacity(0.2),
                             ),
-                            Text(
-                              'Present students: ${_attendanceData.presentStudentCount}',
-                              style: textTheme.bodyMedium
-                                  ?.copyWith(color: ColorPallet.grey600),
+                            child: const Text(
+                              'Update Attendance',
                             ),
-                            const SizedBox(height: 5),
-                            _textWithIcon(
-                              icon: Icons.access_time_rounded,
-                              text:
-                                  '${dateFormat.format(_classStartTime)} - ${dateFormat.format(_classEndTime)}',
-                            ),
-                            _textWithIcon(
-                              icon: Icons.date_range_outlined,
-                              text: DateFormat.yMMMEd().format(
-                                _attendanceData.attendanceTakenOn ??
-                                    DateTime.now(),
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                elevation: 0,
-                                minimumSize: const Size.fromHeight(40),
-                                primary: ColorPallet.primaryBlueDark
-                                    .withOpacity(0.1),
-                                onPrimary: ColorPallet.primaryBlueDark,
-                                shadowColor: ColorPallet.primaryBlueDark
-                                    .withOpacity(0.2),
-                              ),
-                              child: const Text(
-                                'Update Attendance',
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   );
@@ -211,7 +216,7 @@ class AttendanceViewLayout extends StatelessWidget {
       children: [
         Icon(
           icon,
-          color: ColorPallet.grey500,
+          color: ColorsPallet.grey,
           size: 18,
         ),
         const SizedBox(width: 10),

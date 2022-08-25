@@ -26,8 +26,8 @@ class SelectableClassesList extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 20),
                 child: SelectableSideBarCard(
-                  barColor: isSelected ? Colors.black : ColorPallet.grey200,
-                  bgColor: isSelected ? ColorPallet.grey100 : null,
+                  barColor: isSelected ? Colors.black : ColorsPallet.grey200,
+                  bgColor: isSelected ? ColorsPallet.grey100 : null,
                   title: _class.name ?? 'N/A',
                   subtitles: [
                     'Class No: ${_class.classNumber}',

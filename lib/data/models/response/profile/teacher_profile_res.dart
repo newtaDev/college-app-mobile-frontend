@@ -1,14 +1,12 @@
 part of profile_entity;
 
 class TeacherProfileDataRes extends UserProfileData {
-  final String email;
-  final String collegeId;
 
   const TeacherProfileDataRes({
     required super.id,
     required super.name,
-    required this.email,
-    required this.collegeId,
+    required super.email,
+    required super.collegeId,
     required super.userType,
     required super.updatedAt,
     required super.createdAt,

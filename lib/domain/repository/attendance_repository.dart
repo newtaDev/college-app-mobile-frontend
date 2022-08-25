@@ -14,4 +14,5 @@ abstract class AttendanceRepository {
   Future<Either<AttendanceWithCountRes, ApiErrorRes>> getAllAttendanceList(
     AllAttendanceWithQueryReq req,
   );
+  Future<Either<bool, ApiErrorRes>> createAttendance(CreateAttendanceReq req);
 }

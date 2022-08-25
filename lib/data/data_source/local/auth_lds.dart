@@ -15,6 +15,7 @@ class AuthLocalDataSource {
   String? get refreshToken => box.get(HiveKeys.refreshToken);
   String? get userId => box.get(HiveKeys.userId);
   String? get email => box.get(HiveKeys.email);
+  String? get collegeId => box.get(HiveKeys.collegeId);
   UserType? get userType => UserType.fromName(box.get(HiveKeys.userType));
 
   bool get isAccessTokenExpired {
@@ -28,15 +29,16 @@ class AuthLocalDataSource {
   }
 
   /// Save User data
-  Future<void> saveAuthRes(AuthRes authRes, SignInReq req) async {
+  Future<void> saveAuthRes(AuthRes authRes) async {
     await Future.wait([
       setTokens(
         accessToken: authRes.accessToken,
         refreshToken: authRes.refreshToken,
       ),
       box.put(HiveKeys.userId, authRes.user?.id),
-      box.put(HiveKeys.email, req.email),
-      box.put(HiveKeys.userType, req.userType.value),
+      box.put(HiveKeys.email, authRes.user?.email),
+      box.put(HiveKeys.collegeId, authRes.user?.collegeId),
+      box.put(HiveKeys.userType, authRes.user?.userType.value),
     ]);
   }
 
