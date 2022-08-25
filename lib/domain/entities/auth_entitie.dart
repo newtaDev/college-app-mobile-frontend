@@ -2,8 +2,6 @@ library auth_entitie;
 
 import 'dart:convert';
 
-import 'package:equatable/equatable.dart';
-
 import '../../shared/global/enums.dart';
 import '../../shared/helpers/user_helper.dart';
 import '../../utils/utils.dart';

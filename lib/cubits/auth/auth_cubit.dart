@@ -1,12 +1,10 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/auth_entitie.dart';
 import '../../domain/repository/auth_repository.dart';
 import '../../shared/errors/api_errors.dart';
 import '../../utils/utils.dart';
-import '../my_app/my_app_cubit.dart';
 import '../my_profile/my_profile_cubit.dart';
 
 part 'auth_state.dart';

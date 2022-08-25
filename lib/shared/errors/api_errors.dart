@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:equatable/equatable.dart';
-
 import '../../utils/utils.dart';
 
 class ApiErrorRes extends MyEquatable implements Exception {

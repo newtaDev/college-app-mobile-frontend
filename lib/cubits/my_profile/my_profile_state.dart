@@ -13,7 +13,7 @@ class MyProfileState extends MyEquatable {
   bool get isTeacher => userType == UserType.teacher;
 
   bool get isStudent => userType == UserType.student;
-  
+
   TeacherProfileData? get profileAsTeacher {
     if (userType == UserType.teacher) return myProfile as TeacherProfileData;
     return null;

@@ -1,7 +1,6 @@
 part of profile_entity;
 
 class TeacherProfileData extends UserProfileData {
-
   const TeacherProfileData({
     required super.id,
     required super.name,

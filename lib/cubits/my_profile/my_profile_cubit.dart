@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 
 import '../../data/data_source/local/auth_lds.dart';
 import '../../domain/entities/profile_entity.dart';

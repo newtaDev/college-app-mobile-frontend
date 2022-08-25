@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../cubits/my_app/my_app_cubit.dart';
-import '../../../../cubits/my_profile/my_profile_cubit.dart';
 import '../../../router/route_names.dart';
 
 class SplashScreen extends StatelessWidget {

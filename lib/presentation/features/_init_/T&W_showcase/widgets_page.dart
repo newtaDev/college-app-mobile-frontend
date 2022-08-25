@@ -92,8 +92,10 @@ class WidgetsShowcasePage extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: Text('Normal TextTheme',
-                        style: Theme.of(context).textTheme.titleMedium),
+                    child: Text(
+                      'Normal TextTheme',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                   ),
                   const TextThemeShowcase(),
                 ],
@@ -110,8 +112,10 @@ class WidgetsShowcasePage extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: Text('Primary TextTheme',
-                        style: Theme.of(context).primaryTextTheme.subtitle1),
+                    child: Text(
+                      'Primary TextTheme',
+                      style: Theme.of(context).primaryTextTheme.subtitle1,
+                    ),
                   ),
                   const PrimaryTextThemeShowcase(),
                 ],
@@ -229,7 +233,6 @@ class ToggleButtonsShowcase extends StatelessWidget {
         ),
         ToggleButtons(
           isSelected: const <bool>[true, false, false],
-          onPressed: null,
           children: const <Widget>[
             Icon(Icons.adb),
             Icon(Icons.phone),
@@ -267,7 +270,6 @@ class FabShowcase extends StatelessWidget {
         ),
         FloatingActionButton.extended(
           heroTag: null,
-          isExtended: true,
           onPressed: () {},
           tooltip: 'Tooltip on extended:true\nFloatingActionButton.extended',
           icon: const Icon(Icons.accessibility),
@@ -1069,9 +1071,11 @@ class _NavigationRailShowcaseState extends State<NavigationRailShowcase> {
                       children: <Widget>[
                         SwitchListTileAdaptive(
                           title: const Text('Expand and collapse'),
-                          subtitle: const Text('ON to expand  OFF to collapse\n'
-                              'Only used for local control of Rail '
-                              'presentation.'),
+                          subtitle: const Text(
+                            'ON to expand  OFF to collapse\n'
+                            'Only used for local control of Rail '
+                            'presentation.',
+                          ),
                           value: isExtended,
                           onChanged: (bool value) {
                             setState(() {
@@ -1221,8 +1225,10 @@ class AlertDialogShowcase extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text('Allow location services'),
-      content: const Text('Let us help determine location. This means '
-          'sending anonymous location data to us'),
+      content: const Text(
+        'Let us help determine location. This means '
+        'sending anonymous location data to us',
+      ),
       actions: <Widget>[
         TextButton(onPressed: () {}, child: const Text('CANCEL')),
         TextButton(onPressed: () {}, child: const Text('ALLOW')),
@@ -1243,7 +1249,9 @@ class MaterialAndBottomSheetShowcase extends StatelessWidget {
 
     final Color defaultBackgroundColor = isLight
         ? Color.alphaBlend(
-            colorScheme.onSurface.withOpacity(0.80), colorScheme.surface)
+            colorScheme.onSurface.withOpacity(0.80),
+            colorScheme.surface,
+          )
         : colorScheme.onSurface;
     final Color snackBackground =
         theme.snackBarTheme.backgroundColor ?? defaultBackgroundColor;
@@ -1299,8 +1307,6 @@ class MaterialAndBottomSheetShowcase extends StatelessWidget {
           style: denseBody,
         ),
         Material(
-          type: MaterialType.canvas,
-          elevation: 0,
           surfaceTintColor: colorScheme.surfaceTint,
           shadowColor: colorScheme.shadow,
           child: const SizedBox(
@@ -1310,7 +1316,6 @@ class MaterialAndBottomSheetShowcase extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         Material(
-          type: MaterialType.canvas,
           elevation: 1,
           surfaceTintColor: colorScheme.surfaceTint,
           shadowColor: colorScheme.shadow,
@@ -1321,7 +1326,6 @@ class MaterialAndBottomSheetShowcase extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         Material(
-          type: MaterialType.canvas,
           elevation: 4,
           surfaceTintColor: colorScheme.surfaceTint,
           shadowColor: colorScheme.shadow,
@@ -1340,7 +1344,6 @@ class MaterialAndBottomSheetShowcase extends StatelessWidget {
         ),
         Material(
           type: MaterialType.card,
-          elevation: 0,
           surfaceTintColor: colorScheme.surfaceTint,
           shadowColor: colorScheme.shadow,
           child: const SizedBox(
@@ -1395,15 +1398,15 @@ class MaterialAndBottomSheetShowcase extends StatelessWidget {
                     const Spacer(),
                     Material(
                       color: snackBackground,
-                      elevation: 0,
                       surfaceTintColor: colorScheme.surfaceTint,
                       shadowColor: colorScheme.shadow,
                       child: SizedBox(
                         height: 40,
                         child: Center(
                           child: Text(
-                              'A Material SnackBar, style simulation only',
-                              style: snackStyle),
+                            'A Material SnackBar, style simulation only',
+                            style: snackStyle,
+                          ),
                         ),
                       ),
                     ),
@@ -1504,7 +1507,8 @@ class PrimaryTextThemeShowcase extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextThemeColumnShowcase(
-        textTheme: Theme.of(context).primaryTextTheme);
+      textTheme: Theme.of(context).primaryTextTheme,
+    );
   }
 }
 
@@ -1517,9 +1521,10 @@ class TextThemeColumnShowcase extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('Font: ${textTheme.titleSmall!.fontFamily}',
-            style:
-                textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w600)),
+        Text(
+          'Font: ${textTheme.titleSmall!.fontFamily}',
+          style: textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w600),
+        ),
         Text(
           'Display Large '
           '(${textTheme.displayLarge!.fontSize!.toStringAsFixed(0)})',

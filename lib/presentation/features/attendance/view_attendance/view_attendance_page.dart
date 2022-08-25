@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:styles_lib/theme/themes.dart';
-import 'package:widgets_lib/widgets/common/loading_indicator.dart';
 import 'package:widgets_lib/widgets_lib.dart';
 
 import '../../../../cubits/select_class_and_sem/select_class_and_sem_cubit.dart';

@@ -24,7 +24,8 @@ class AttendanceWithCountRes extends MyEquatable {
   /// Parses the string and returns the resulting Json object as [AttendanceWithCountRes].
   factory AttendanceWithCountRes.fromJson(String data) {
     return AttendanceWithCountRes.fromMap(
-        json.decode(data) as Map<String, dynamic>);
+      json.decode(data) as Map<String, dynamic>,
+    );
   }
 
   /// `dart:convert`

@@ -51,7 +51,8 @@ class ClassWithDetails extends MyEquatable {
         assignedToId: data['assignedToId'] == null
             ? null
             : TeacherModel.fromMap(
-                data['assignedToId'] as Map<String, dynamic>),
+                data['assignedToId'] as Map<String, dynamic>,
+              ),
         v: data['__v'] as int?,
         createdAt: data['createdAt'] == null
             ? null

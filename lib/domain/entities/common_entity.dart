@@ -1,4 +1,5 @@
 library common_entity;
+
 import 'dart:convert';
 
 import '../../../utils/utils.dart';

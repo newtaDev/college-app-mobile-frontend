@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
 import '../../domain/entities/attendance_entity.dart';
