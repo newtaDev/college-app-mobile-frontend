@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../config/app_config.dart';
 import '../../../../cubits/auth/auth_cubit.dart';
+import '../../../../cubits/my_profile/my_profile_cubit.dart';
 import '../../../../data/data_source/local/auth_lds.dart';
 import '../../../router/route_names.dart';
 
@@ -22,7 +23,7 @@ class SettingsTab extends StatelessWidget {
             Text('access: ${authLds.userId}'),
             Text('access: ${authLds.userType}'),
             Text('access: ${authLds.email}'),
-            Text('access: ${authLds.collegeId}'),
+            Text('profile: ${context.read<MyProfileCubit>().state.myProfile}'),
             const Text('Settings Tab'),
             BlocListener<AuthCubit, AuthState>(
               listener: (context, state) {

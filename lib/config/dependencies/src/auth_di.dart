@@ -21,7 +21,5 @@ void registerAuthDependencies() {
     )
 
     /// Cubits
-    ..registerFactory<AuthCubit>(
-      () => AuthCubit(authRepo: getIt<AuthRepoImpl>()),
-    );
+    ..registerSingleton<AuthCubit>(AuthCubit(authRepo: getIt<AuthRepoImpl>()));
 }

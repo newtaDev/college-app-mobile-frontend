@@ -1,8 +1,4 @@
-import 'dart:convert';
-
-import '../../../utils/utils.dart';
-import '../data_class/class_with_details.dart';
-
+part of common_entity;
 class ClassWithDetailsRes extends MyEquatable {
   final String? status;
   final List<ClassWithDetails>? responseData;

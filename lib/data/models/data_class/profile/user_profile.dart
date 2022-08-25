@@ -18,6 +18,15 @@ class UserProfileData extends MyEquatable {
     required this.userType,
   });
 
+  UserProfileData.empty()
+      : collegeId = '',
+        createdAt = DateTime.now(),
+        email = '',
+        id = '',
+        name = '',
+        updatedAt = DateTime.now(),
+        userType = UserType.superAdmin;
+
   @override
   List<Object> get props {
     return [

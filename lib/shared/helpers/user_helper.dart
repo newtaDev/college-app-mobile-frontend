@@ -7,9 +7,9 @@ class UserHelper {
     required Map<String, dynamic> user,
   }) {
     if (userType == UserType.teacher) {
-      return TeacherProfileDataRes.fromMap(user);
+      return TeacherProfileData.fromMap(user);
     }
     if (userType == UserType.student) {}
-    return StudentProfileDataRes.fromMap(user);
+    return StudentProfileData.fromMap(user);
   }
 }

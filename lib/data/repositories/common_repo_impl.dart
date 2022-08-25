@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
+import '../../domain/entities/common_entity.dart';
 import '../../domain/repository/common_repository.dart';
 import '../../shared/errors/api_errors.dart';
 import '../data_source/remote/common_rds.dart';
-import '../models/response/class_with_details_res.dart';
 
 class CommonRepoImpl implements CommonRepository {
   final CommonRemoteDataSource commonRds;

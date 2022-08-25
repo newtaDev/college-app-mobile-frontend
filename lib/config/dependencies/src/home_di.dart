@@ -2,10 +2,13 @@ part of app_dependencies;
 
 void registerHomeDependecies() {
   getIt
-    ..registerFactory<HomeCubit>(HomeCubit.new)
-    ..registerFactory<MyAppCubit>(
-      () => MyAppCubit(
+    ..registerSingleton<HomeCubit>(HomeCubit())
+    ..registerSingleton<MyAppCubit>(
+      MyAppCubit(
         tokenRepo: getIt<TokenRepoImpl>(),
+        profileRepo: getIt<ProfileRepoImpl>(),
+        profileCubit: getIt<MyProfileCubit>(),
+        authLds: getIt<AuthLocalDataSource>(),
       ),
     );
 }

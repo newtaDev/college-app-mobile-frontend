@@ -6,7 +6,7 @@ void registerCommonDependencies() {
     ..registerSingleton<CommonRepoImpl>(
       CommonRepoImpl(commonRds: getIt<CommonRemoteDataSource>()),
     )
-    ..registerFactory<SelectClassAndSemCubit>(
-      () => SelectClassAndSemCubit(commonRepo: getIt<CommonRepoImpl>()),
+    ..registerSingleton<SelectClassAndSemCubit>(
+      SelectClassAndSemCubit(commonRepo: getIt<CommonRepoImpl>()),
     );
 }
