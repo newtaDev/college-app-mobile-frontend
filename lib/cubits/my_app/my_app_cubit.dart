@@ -15,11 +15,9 @@ part 'my_app_state.dart';
 class MyAppCubit extends Cubit<MyAppState> {
   final TokenRepository tokenRepo;
   final MyProfileCubit profileCubit;
-  final ProfileRepository profileRepo;
   final AuthLocalDataSource authLds;
   MyAppCubit({
     required this.tokenRepo,
-    required this.profileRepo,
     required this.profileCubit,
     required this.authLds,
   }) : super(const MyAppState.init()) {
@@ -42,28 +40,11 @@ class MyAppCubit extends Cubit<MyAppState> {
 
     try {
       await tokenRepo.reGenerateToken();
-      await setUpInitialUserData();
+      await profileCubit.setUpInitialUserData();
       log('-- Login Success --');
       emit(state.copyWith(splashStatus: SplashStatus.loginSuccess));
     } catch (e) {
       emit(state.copyWith(splashStatus: SplashStatus.failed));
-      rethrow;
-    }
-  }
-
-  Future<void> setUpInitialUserData() async {
-    try {
-      if (authLds.userId == null || authLds.userType == null) {
-        await authLds.clear();
-        throw Exception('[userId] | [userType] should not be null');
-      }
-
-      final res = await profileRepo.getProfileData(
-        id: authLds.userId!,
-        userType: authLds.userType!,
-      );
-      profileCubit.setProfileData(res.responseData!);
-    } catch (e) {
       rethrow;
     }
   }

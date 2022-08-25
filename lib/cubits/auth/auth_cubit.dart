@@ -1,21 +1,29 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+
 import '../../domain/entities/auth_entitie.dart';
 import '../../domain/repository/auth_repository.dart';
 import '../../shared/errors/api_errors.dart';
 import '../../utils/utils.dart';
+import '../my_app/my_app_cubit.dart';
+import '../my_profile/my_profile_cubit.dart';
 
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   final AuthRepository authRepo;
-  AuthCubit({required this.authRepo}) : super(const AuthState.init());
+  final MyProfileCubit myProfileCubit;
+  AuthCubit({
+    required this.authRepo,
+    required this.myProfileCubit,
+  }) : super(const AuthState.init());
 
   Future<void> singInUser(SignInReq req) async {
     emit(state.copyWith(status: AuthStatus.loading));
     try {
       final res = await authRepo.signInUser(req);
+      await myProfileCubit.setUpInitialUserData();
       emit(state.copyWith(status: AuthStatus.logedIn, authRes: res));
     } on ApiErrorRes catch (apiError) {
       emit(state.copyWith(status: AuthStatus.failure, error: apiError));

@@ -6,5 +6,10 @@ void registerProfileDependencies() {
     ..registerSingleton<ProfileRepoImpl>(
       ProfileRepoImpl(profileRds: getIt<ProfileRemoteDataSource>()),
     )
-    ..registerSingleton<MyProfileCubit>(MyProfileCubit());
+    ..registerSingleton<MyProfileCubit>(
+      MyProfileCubit(
+        authLds: getIt<AuthLocalDataSource>(),
+        profileRepo: getIt<ProfileRepoImpl>(),
+      ),
+    );
 }

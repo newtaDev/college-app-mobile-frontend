@@ -31,8 +31,7 @@ part 'src/profile_di.dart';
 void registerGetItDependencies(AppConfig appConfig) {
   getIt.registerSingleton<AppConfig>(appConfig);
 
-  registerAuthDependencies();
-  registerProfileDependencies();
+  registerAuthAndProfileDependencies();
   registerHomeDependecies();
   registerReportsDependencies();
   registerCommonDependencies();
