@@ -34,6 +34,7 @@ class SearchList<T> extends StatefulWidget {
   final TextEditingController textController;
   final bool shrinkWrap;
   final bool Function(T data, String searchInput) searchCondition;
+  final void Function(String searchInput)? onSearch;
   final Widget Function(
     BuildContext context,
     List<T> searchList,
@@ -43,10 +44,11 @@ class SearchList<T> extends StatefulWidget {
     super.key,
     required this.searchList,
     this.emptyWidget,
-    this.shrinkWrap = false,
-    required this.searchItemBuilder,
-    required this.searchCondition,
     required this.textController,
+    this.shrinkWrap = false,
+    required this.searchCondition,
+    this.onSearch,
+    required this.searchItemBuilder,
   });
 
   @override
@@ -98,6 +100,7 @@ class _SearchListState<T> extends State<SearchList<T>> {
   }
 
   void _onSearch(String searchInput) {
+    widget.onSearch?.call(searchInput);
     if (searchInput.isEmpty) {
       _searchList = widget.searchList;
       setState(() {});
