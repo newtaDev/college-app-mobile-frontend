@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../cubits/select_class_and_sem/select_class_and_sem_cubit.dart';
+import '../../../cubits/selection/selection_cubit.dart';
 import '../../../shared/global/enums.dart';
 import '../../router/route_names.dart';
 import 'widgets/selectable_classes_list.dart';
@@ -22,7 +22,7 @@ class SelectableLayout extends StatelessWidget {
           Text('Select a class', style: textTheme.titleLarge),
           const SizedBox(height: 20),
           const Expanded(child: SelectableClassesList()),
-          BlocSelector<SelectClassAndSemCubit, SelectClassAndSemState, int>(
+          BlocSelector<SelectionCubit, SelectionState, int>(
             selector: (state) => state.totalSem ?? 0,
             builder: (context, totalSem) {
               return AnimatedCrossFade(
@@ -51,7 +51,7 @@ class SelectableLayout extends StatelessWidget {
             },
           ),
           const SizedBox(height: 20),
-          BlocSelector<SelectClassAndSemCubit, SelectClassAndSemState, bool>(
+          BlocSelector<SelectionCubit, SelectionState, bool>(
             selector: (state) =>
                 state.selectedClass != null && state.selectedSem != null,
             builder: (context, isTapabled) {

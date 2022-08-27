@@ -2,17 +2,16 @@ import 'package:bloc/bloc.dart';
 
 import '../../data/data_source/local/auth_lds.dart';
 import '../../domain/entities/user_entity.dart';
-import '../../domain/repository/user_repository.dart';
+import '../../domain/repository/common_repository.dart';
 import '../../shared/global/enums.dart';
 import '../../utils/utils.dart';
 
 part 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
-  final UserRepository userRepo;
-  UserCubit({required this.userRepo})
+  final CommonRepository commonRepo;
+  UserCubit({required this.commonRepo})
       : super(UserState.init());
-
 
   void setUserData(UserDetails userDetails) {
     emit(state.copyWith(userDetails: userDetails));
@@ -20,7 +19,7 @@ class UserCubit extends Cubit<UserState> {
 
   Future<void> setUpInitialUserData() async {
     try {
-      final res = await userRepo.getUserDetails();
+      final res = await commonRepo.getUserDetails();
       setUserData(res.responseData!);
     } catch (e) {
       rethrow;

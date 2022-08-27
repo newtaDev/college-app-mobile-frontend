@@ -24,8 +24,8 @@ class CreateAttendanceReq extends MyEquatable {
   final String collegeId;
   final String classId;
   final String subjectId;
-  final String classStartTime;
-  final String classEndTime;
+  final TimeOfDay classStartTime;
+  final TimeOfDay classEndTime;
   final List<String> absentStudents;
   final int currentSem;
   final DateTime attendanceTakenOn;
@@ -44,8 +44,8 @@ class CreateAttendanceReq extends MyEquatable {
         'collegeId': collegeId,
         'classId': classId,
         'subjectId': subjectId,
-        'classStartTime': classStartTime,
-        'classEndTime': classEndTime,
+        'classStartTime': '${classStartTime.hour}:${classStartTime.minute}',
+        'classEndTime': '${classEndTime.hour}:${classEndTime.minute}',
         'absentStudents': absentStudents,
         'currentSem': currentSem,
         'attendanceTakenOn': attendanceTakenOn.toIso8601String(),

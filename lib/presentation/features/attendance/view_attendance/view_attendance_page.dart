@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:styles_lib/theme/themes.dart';
 import 'package:widgets_lib/widgets_lib.dart';
 
-import '../../../../cubits/select_class_and_sem/select_class_and_sem_cubit.dart';
+import '../../../../cubits/selection/selection_cubit.dart';
 import '../../../../domain/entities/attendance_entity.dart';
 import '../../../../shared/extensions/extentions.dart';
 import '../../../../shared/global/enums.dart';
@@ -22,7 +22,7 @@ class ViewAttendancePage extends StatefulWidget {
 class _ViewAttendancePageState extends State<ViewAttendancePage> {
   @override
   void initState() {
-    final selectCubit = context.read<SelectClassAndSemCubit>();
+    final selectCubit = context.read<SelectionCubit>();
     context.read<ViewAttendanceCubit>().getAllAttendance(
           AllAttendanceWithQueryReq(
             classId: selectCubit.state.selectedClass?.id,
@@ -68,7 +68,7 @@ class AttendanceViewLayout extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-          child: BlocConsumer<SelectClassAndSemCubit, SelectClassAndSemState>(
+          child: BlocConsumer<SelectionCubit, SelectionState>(
             listenWhen: (previous, current) =>
                 previous.selectedClass != current.selectedClass ||
                 previous.selectedSem != current.selectedSem,
@@ -139,7 +139,7 @@ class AttendanceViewLayout extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final _attendanceData = state.attendanceWithCount[index];
                   final _classStartTime =
-                      DateFormat('HH:mm').parse(_attendanceData.classEndTime!);
+                      DateFormat('HH:mm').parse(_attendanceData.classStartTime!);
                   final _classEndTime =
                       DateFormat('HH:mm').parse(_attendanceData.classEndTime!);
                   final dateFormat = DateFormat('h:mm a');

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styles_lib/theme/themes.dart';
 
 import '../../../../domain/entities/reports_entity.dart';
+import '../../../../shared/extensions/extentions.dart';
 import 'cubit/attendance_report_cubit.dart';
 
 class AttendanceReportPage extends StatefulWidget {
@@ -352,9 +353,11 @@ class _SubjectsBarChartState extends State<SubjectsBarChart> {
                         axisSide: meta.axisSide,
                         space: 16,
                         child: Text(
-                          getInitials(
-                            _subjects[value.toInt()].subject?.name ?? '',
-                          ),
+                          _subjects[value.toInt()]
+                                  .subject
+                                  ?.name
+                                  ?.getInitials() ??
+                              'N/A',
                           style: Theme.of(context).textTheme.labelLarge,
                         ),
                       );
@@ -386,16 +389,6 @@ class _SubjectsBarChartState extends State<SubjectsBarChart> {
         },
       ),
     );
-  }
-
-  String getInitials(String text, {bool expandIfOnlyOne = false}) {
-    if (text.isNotEmpty) {
-      final _splits = text.trim().split(' ');
-      if (_splits.length == 1 && expandIfOnlyOne) return text;
-      return _splits.map((l) => l[0]).take(4).join();
-    } else {
-      return '';
-    }
   }
 
   BarChartGroupData makeGroupData(

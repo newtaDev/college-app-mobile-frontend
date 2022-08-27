@@ -2,6 +2,8 @@ library attendance_entity;
 
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
 import '../../../../../utils/utils.dart';
 import '../../data/models/data_class/subject_model.dart';
 

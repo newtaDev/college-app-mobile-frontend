@@ -31,6 +31,7 @@ class AttendannceRemoteDataSource {
   }
 
   Future<Response> createAttendance(CreateAttendanceReq req) {
+    print(req.toJson());
     return client.post(
       '/attendance',
       data: req.toJson(),

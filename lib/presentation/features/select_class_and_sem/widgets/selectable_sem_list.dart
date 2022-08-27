@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styles_lib/theme/themes.dart';
 
-import '../../../../cubits/select_class_and_sem/select_class_and_sem_cubit.dart';
+import '../../../../cubits/selection/selection_cubit.dart';
 
 class SelectableSemList extends StatelessWidget {
   final int totalSem;
@@ -13,14 +13,14 @@ class SelectableSemList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<SelectClassAndSemCubit>();
+    final cubit = context.read<SelectionCubit>();
     return ListView.builder(
       itemCount: totalSem,
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.only(right: 10),
-          child: BlocSelector<SelectClassAndSemCubit, SelectClassAndSemState,
+          child: BlocSelector<SelectionCubit, SelectionState,
               bool>(
             selector: (state) =>
                 state.selectedSem != null && state.selectedSem == index + 1,
@@ -40,7 +40,7 @@ class SelectableSemList extends StatelessWidget {
                 label: Text(
                   (index + 1).toString(),
                 ),
-                onPressed: () => cubit.setSemester(index + 1),
+                onPressed: () => cubit.setSelectedSemester(index + 1),
               );
             },
           ),

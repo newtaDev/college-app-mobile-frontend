@@ -7,8 +7,8 @@ void registerCubitsDependencies() {
     ..registerSingleton<UserCubit>(
       UserCubit(commonRepo: getIt<CommonRepoImpl>()),
     )
-    ..registerSingleton<SelectClassAndSemCubit>(
-      SelectClassAndSemCubit(commonRepo: getIt<CommonRepoImpl>()),
+    ..registerSingleton<SelectionCubit>(
+      SelectionCubit(commonRepo: getIt<CommonRepoImpl>()),
     )
 
     /// Auth

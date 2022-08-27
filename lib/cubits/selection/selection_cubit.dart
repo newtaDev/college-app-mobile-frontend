@@ -5,17 +5,18 @@ import '../../../../../domain/repository/common_repository.dart';
 import '../../../../../shared/errors/api_errors.dart';
 import '../../../../../shared/extensions/extentions.dart';
 import '../../../../../utils/utils.dart';
+import '../../data/models/data_class/subject_model.dart';
 
-part 'select_class_and_sem_state.dart';
+part 'selection_state.dart';
 
-class SelectClassAndSemCubit extends Cubit<SelectClassAndSemState> {
+class SelectionCubit extends Cubit<SelectionState> {
   final CommonRepository commonRepo;
-  SelectClassAndSemCubit({
+  SelectionCubit({
     required this.commonRepo,
-  }) : super(const SelectClassAndSemState.init());
+  }) : super(const SelectionState.init());
 
   Future<void> getClassesWithDetails() async {
-    emit(state.copyWith(status: SelectClassAndSemStatus.loading));
+    emit(state.copyWith(classAndSemStatus: SemAndClassStatus.loading));
     try {
       final classRes = await commonRepo.getClassesWithDetails();
       if (state.selectedClass != null) {
@@ -25,19 +26,19 @@ class SelectClassAndSemCubit extends Cubit<SelectClassAndSemState> {
         if (_selectedClass == null ||
             state.selectedSem == null ||
             state.selectedSem! > _selectedClass.course!.totalSem!) {
-          emit(const SelectClassAndSemState.init());
+          emit(const SelectionState.init());
         }
       }
       emit(
         state.copyWith(
-          status: SelectClassAndSemStatus.success,
+          classAndSemStatus: SemAndClassStatus.success,
           classes: classRes.responseData,
         ),
       );
     } on ApiErrorRes catch (apiError) {
       emit(
         state.copyWith(
-          status: SelectClassAndSemStatus.error,
+          classAndSemStatus: SemAndClassStatus.error,
           error: apiError,
         ),
       );
@@ -45,7 +46,7 @@ class SelectClassAndSemCubit extends Cubit<SelectClassAndSemState> {
       final apiErrorRes = ApiErrorRes(devMessage: 'Getting classses failed');
       emit(
         state.copyWith(
-          status: SelectClassAndSemStatus.error,
+          classAndSemStatus: SemAndClassStatus.error,
           error: apiErrorRes,
         ),
       );
@@ -53,7 +54,36 @@ class SelectClassAndSemCubit extends Cubit<SelectClassAndSemState> {
     }
   }
 
-  void setClass(ClassWithDetails selectedClass) {
+  Future<void> getSubjectWithDetailsOfCourse(String courseId) async {
+    emit(state.copyWith(subjectStatus: SubjectStatus.loading));
+    try {
+      final res = await commonRepo.getSubjectsOfCourse(courseId);
+      emit(
+        state.copyWith(
+          subjectStatus: SubjectStatus.success,
+          subjects: res.responseData,
+        ),
+      );
+    } on ApiErrorRes catch (apiError) {
+      emit(
+        state.copyWith(
+          subjectStatus: SubjectStatus.error,
+          error: apiError,
+        ),
+      );
+    } catch (e) {
+      final apiErrorRes = ApiErrorRes(devMessage: 'Creating attendance failed');
+      emit(
+        state.copyWith(
+          subjectStatus: SubjectStatus.error,
+          error: apiErrorRes,
+        ),
+      );
+      rethrow;
+    }
+  }
+
+  void setSelectedClass(ClassWithDetails selectedClass) {
     emit(
       state.copyWith(
         selectedClass: selectedClass,
@@ -63,7 +93,15 @@ class SelectClassAndSemCubit extends Cubit<SelectClassAndSemState> {
     );
   }
 
-  void setSemester(int selectedSem) {
+  void setSelectedSemester(int selectedSem) {
     emit(state.copyWith(selectedSem: selectedSem));
+  }
+
+  void setSelectedSubject(Subject subject) {
+    emit(state.copyWith(selectedSubject: subject));
+  }
+
+  void clearSubject() {
+    emit(state.clearSubjects());
   }
 }

@@ -3,20 +3,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styles_lib/theme/themes.dart';
 import 'package:widgets_lib/widgets/cards/src/selectable_side_bar_card.dart';
 
-import '../../../../cubits/select_class_and_sem/select_class_and_sem_cubit.dart';
+import '../../../../cubits/selection/selection_cubit.dart';
 
 class SelectableClassesList extends StatelessWidget {
   const SelectableClassesList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<SelectClassAndSemCubit>();
+    final cubit = context.read<SelectionCubit>();
 
     return ListView.builder(
       itemCount: cubit.state.classes.length,
       itemBuilder: (context, index) {
         final _class = cubit.state.classes[index];
-        return BlocSelector<SelectClassAndSemCubit, SelectClassAndSemState,
+        return BlocSelector<SelectionCubit, SelectionState,
             bool>(
           selector: (state) =>
               state.selectedClass != null &&
@@ -34,7 +34,7 @@ class SelectableClassesList extends StatelessWidget {
                     'Batch: ${_class.batch}',
                     'Total semesters: ${_class.course?.totalSem}',
                   ],
-                  onTap: () => cubit.setClass(_class),
+                  onTap: () => cubit.setSelectedClass(_class),
                 ),
               ),
             );

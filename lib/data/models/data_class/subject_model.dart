@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import '../../../utils/utils.dart';
+import 'course_model.dart';
 
 class Subject extends MyEquatable {
   final String? id;
   final String? name;
   final String? collegeId;
   final String? courseId;
+  final Course? course;
   final bool? isMainSubject;
   final DateTime? createdAt;
   final DateTime? updatedAt;
@@ -16,6 +18,7 @@ class Subject extends MyEquatable {
     this.name,
     this.collegeId,
     this.courseId,
+    this.course,
     this.isMainSubject,
     this.createdAt,
     this.updatedAt,
@@ -25,7 +28,11 @@ class Subject extends MyEquatable {
         id: data['_id'] as String?,
         name: data['name'] as String?,
         collegeId: data['collegeId'] as String?,
-        courseId: data['courseId'] as String?,
+        course: data['courseId'] == null ||
+                data['courseId'] is! Map<String, dynamic>
+            ? null
+            : Course.fromMap(data['courseId'] as Map<String, dynamic>),
+        courseId: data['courseId'] is String ? data['courseId'] : null,
         isMainSubject: data['isMainSubject'] as bool?,
         createdAt: data['createdAt'] == null
             ? null
@@ -62,8 +69,8 @@ class Subject extends MyEquatable {
     String? name,
     String? collegeId,
     String? courseId,
+    Course? course,
     bool? isMainSubject,
-    int? v,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -72,6 +79,7 @@ class Subject extends MyEquatable {
       name: name ?? this.name,
       collegeId: collegeId ?? this.collegeId,
       courseId: courseId ?? this.courseId,
+      course: course ?? this.course,
       isMainSubject: isMainSubject ?? this.isMainSubject,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -84,6 +92,7 @@ class Subject extends MyEquatable {
       id,
       name,
       collegeId,
+      course,
       courseId,
       isMainSubject,
       createdAt,

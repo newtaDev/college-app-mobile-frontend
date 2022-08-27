@@ -3,7 +3,7 @@ library app_dependencies;
 import '../../cubits/auth/auth_cubit.dart';
 import '../../cubits/home/home_cubit.dart';
 import '../../cubits/my_app/my_app_cubit.dart';
-import '../../cubits/select_class_and_sem/select_class_and_sem_cubit.dart';
+import '../../cubits/selection/selection_cubit.dart';
 import '../../cubits/user/user_cubit.dart';
 import '../../data/data_source/local/auth_lds.dart';
 import '../../data/data_source/remote/attendance_rds.dart';
