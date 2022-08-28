@@ -34,10 +34,18 @@ class _SelectSubjectDialogState extends State<SelectSubjectDialog> {
             previous.subjectStatus != current.subjectStatus,
         builder: (context, state) {
           if (state.subjectStatus.isInitial || state.subjectStatus.isLoading) {
-            return const LoadingIndicator();
+            return Material(
+              borderRadius: BorderRadius.circular(12),
+              child: const LoadingIndicator(),
+            );
           }
           if (state.subjects.isEmpty || state.subjectStatus.isError) {
-            return const Center(child: Text('Subjects not found'));
+            return Material(
+              borderRadius: BorderRadius.circular(12),
+              child: const Center(
+                child: Text('Subjects not found'),
+              ),
+            );
           }
           return ShowSearchDialog<Subject>(
             searchList: state.subjects,

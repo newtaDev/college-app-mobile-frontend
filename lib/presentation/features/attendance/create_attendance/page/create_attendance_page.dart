@@ -1,27 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:styles_lib/theme/themes.dart';
 import 'package:widgets_lib/widgets_lib.dart';
 
 import '../../../../../config/app_config.dart';
+import '../../../../../cubits/my_app/my_app_cubit.dart';
 import '../../../../../cubits/selection/selection_cubit.dart';
 import '../../../../../cubits/user/user_cubit.dart';
 import '../../../../../data/models/data_class/subject_model.dart';
 import '../../../../../domain/entities/attendance_entity.dart';
 import '../../../../../domain/entities/user_entity.dart';
 import '../../../../../shared/extensions/extentions.dart';
+import '../../../../../shared/global/enums.dart';
 import '../../../../../shared/widgets/select_subject_dialog.dart';
+import '../../../../router/route_names.dart';
 import '../cubit/create_attendance_cubit.dart';
 
 class CreateAttendancePage extends StatefulWidget {
   final String appBarName;
   final bool isUpdate;
+  final AttendanceWithCount? updationData;
   const CreateAttendancePage({
     super.key,
     required this.appBarName,
     this.isUpdate = false,
+    this.updationData,
   });
 
   @override
@@ -33,13 +39,41 @@ class _CreateAttendancePageState extends State<CreateAttendancePage> {
   void initState() {
     final selectionCubit = context.read<SelectionCubit>();
     final createCubit = context.read<CreateAttendanceCubit>();
+    final classId = selectionCubit.state.selectedClass!.id!;
+    if (widget.isUpdate && widget.updationData != null) {
+      setUpUpdate();
+    } else {
+      setUpCreation();
+    }
+    createCubit.getAllStudentsInClass(classId);
+    super.initState();
+  }
+
+  void setUpUpdate() {
+    final createCubit = context.read<CreateAttendanceCubit>();
+    final updateData = widget.updationData!;
+    createCubit.setUpdationInitialData(
+      createCubit.state.copyWith(
+        attendanceId: updateData.id,
+        selectedSubject: updateData.subject,
+        absentStudentIds: updateData.absentStudents,
+        attendanceTakenOn: updateData.attendanceTakenOn,
+        classEndTime: updateData.classEndTime,
+        classStartTime: updateData.classStartTime,
+        classId: updateData.classId,
+        collegeId: updateData.collegeId,
+        currentSem: updateData.currentSem,
+      ),
+    );
+  }
+
+  void setUpCreation() {
+    final selectionCubit = context.read<SelectionCubit>();
+    final createCubit = context.read<CreateAttendanceCubit>();
     final collegeId = context.read<UserCubit>().state.userDetails.collegeId;
     final classId = selectionCubit.state.selectedClass!.id!;
     final currentSem = selectionCubit.state.selectedSem!;
-    createCubit
-      ..setInitialData(classId, collegeId, currentSem)
-      ..getAllStudentsInClass(classId);
-    super.initState();
+    createCubit.setCreationInitialData(classId, collegeId, currentSem);
   }
 
   @override
@@ -53,13 +87,130 @@ class _CreateAttendancePageState extends State<CreateAttendancePage> {
       appBar: AppBar(
         title: Text(widget.appBarName),
       ),
-      body: const CreateAttendanceLayout(),
+      body: CreateAttendanceLayout(isUpdate: widget.isUpdate),
+      bottomNavigationBar: CreateAttendanceBottomNavigationBar(
+        isUpdate: widget.isUpdate,
+      ),
     );
   }
 }
 
+class CreateAttendanceBottomNavigationBar extends StatelessWidget {
+  final bool isUpdate;
+  const CreateAttendanceBottomNavigationBar({
+    super.key,
+    required this.isUpdate,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Divider(),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: BlocBuilder<CreateAttendanceCubit, CreateAttendanceState>(
+            builder: (context, state) {
+              return Row(
+                children: [
+                  Expanded(
+                    child: FittedText(
+                      'Absent students: ${state.absentStudentIds.length}',
+                      style: textTheme.bodySmall,
+                      alignment: Alignment.center,
+                    ),
+                  ),
+                  const SizedBox(width: 5),
+                  Expanded(
+                    child: FittedText(
+                      'Present students: ${state.studentsInClass.length - state.absentStudentIds.length}',
+                      style: textTheme.bodySmall,
+                      alignment: Alignment.center,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(
+            left: 20,
+            right: 20,
+            top: 10,
+            bottom: 20,
+          ),
+          child: BlocConsumer<CreateAttendanceCubit, CreateAttendanceState>(
+            listener: (context, state) async {
+              if (state.createStatus.isSuccess) {
+                context.read<MyAppCubit>().refreshPage(
+                      PageRefresherStatus.refreshViewAttendancePage,
+                    );
+                context.goNamed(
+                  RouteNames.viewAttendanceScreen,
+                  params: {
+                    'tab_name': DashboardPageTabs.home.name,
+                  },
+                );
+                context.read<MyAppCubit>().setRefreshStatusToInit();
+              }
+            },
+            listenWhen: (previous, current) =>
+                previous.createStatus != current.createStatus,
+            buildWhen: (previous, current) =>
+                previous.createStatus != current.createStatus,
+            builder: (context, state) {
+              if (state.createStatus.isLoading) {
+                return const LoadingIndicator();
+              }
+              return ElevatedButton(
+                onPressed: () {
+                  final validation = context
+                      .read<CreateAttendanceCubit>()
+                      .isValidAttendanceReq();
+                  switch (validation) {
+                    case CreateValidationStatus.issueInSubjects:
+                      showValidationSnackBar(
+                        context,
+                        'Please select a subject',
+                      );
+                      break;
+                    case CreateValidationStatus.issueInClassTimings:
+                      showValidationSnackBar(
+                        context,
+                        'Class ending time should be greated than starting time',
+                      );
+                      break;
+
+                    case CreateValidationStatus.success:
+                      final createCubit = context.read<CreateAttendanceCubit>();
+                      createCubit.cretateOrUpdateAttendance(isUpdate);
+                      break;
+                  }
+                },
+                child: Text(isUpdate ? 'Update' : 'Create'),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  void showValidationSnackBar(BuildContext context, String text) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text(text)));
+  }
+}
+
 class CreateAttendanceLayout extends StatefulWidget {
-  const CreateAttendanceLayout({super.key});
+  final bool isUpdate;
+
+  const CreateAttendanceLayout({super.key, required this.isUpdate});
 
   @override
   State<CreateAttendanceLayout> createState() => _CreateAttendanceLayoutState();
@@ -219,92 +370,8 @@ class _CreateAttendanceLayoutState extends State<CreateAttendanceLayout> {
             ],
           ),
         ),
-        const Divider(),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: BlocBuilder<CreateAttendanceCubit, CreateAttendanceState>(
-            builder: (context, state) {
-              return Row(
-                children: [
-                  Expanded(
-                    child: FittedText(
-                      'Absent students: ${state.absentStudentIds.length}',
-                      style: textTheme.bodySmall,
-                      alignment: Alignment.center,
-                    ),
-                  ),
-                  const SizedBox(width: 5),
-                  Expanded(
-                    child: FittedText(
-                      'Present students: ${state.studentsInClass.length - state.absentStudentIds.length}',
-                      style: textTheme.bodySmall,
-                      alignment: Alignment.center,
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(
-            left: 20,
-            right: 20,
-            top: 10,
-            bottom: 30,
-          ),
-          child: ElevatedButton(
-            onPressed: () {
-              final validation =
-                  context.read<CreateAttendanceCubit>().isValidAttendanceReq();
-              switch (validation) {
-                case CreateValidationStatus.issueInSubjects:
-                  showValidationSnackBar(context, 'Please select a subject');
-                  break;
-                case CreateValidationStatus.issueInClassTimings:
-                  showValidationSnackBar(
-                    context,
-                    'Class ending time should be greated than starting time',
-                  );
-                  break;
-
-                case CreateValidationStatus.success:
-                  final createCubit = context.read<CreateAttendanceCubit>();
-
-                  final collegeId = createCubit.state.collegeId;
-                  final classId = createCubit.state.classId;
-                  final currentSem = createCubit.state.currentSem;
-                  final subjectId = createCubit.state.selectedSubject!.id!;
-                  final classStartTime = createCubit.state.classStartTime;
-                  final classEndTime = createCubit.state.classEndTime;
-                  final absentStudents = createCubit.state.absentStudentIds;
-                  final attednadceTakenOn = createCubit.state.attendanceTakenOn;
-                  createCubit.cretateAttendance(
-                    CreateAttendanceReq(
-                      collegeId: collegeId,
-                      classId: classId,
-                      subjectId: subjectId,
-                      classStartTime: classStartTime,
-                      classEndTime: classEndTime,
-                      absentStudents: absentStudents,
-                      currentSem: currentSem,
-                      attendanceTakenOn: attednadceTakenOn,
-                    ),
-                  );
-                  break;
-              }
-            },
-            child: const Text('Create'),
-          ),
-        ),
       ],
     );
-  }
-
-  void showValidationSnackBar(BuildContext context, String text) {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(content: Text(text)));
   }
 
   Column _buildTextBoxWithTitle({

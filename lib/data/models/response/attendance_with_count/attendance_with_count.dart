@@ -5,8 +5,8 @@ class AttendanceWithCount extends MyEquatable {
   final String? collegeId;
   final String? classId;
   final String? subjectId;
-  final String? classStartTime;
-  final String? classEndTime;
+  final TimeOfDay? classStartTime;
+  final TimeOfDay? classEndTime;
   final List<String>? absentStudents;
   final int? currentSem;
   final DateTime? createdAt;
@@ -39,8 +39,8 @@ class AttendanceWithCount extends MyEquatable {
       collegeId: data['collegeId'] as String?,
       classId: data['classId'] as String?,
       subjectId: data['subjectId'] as String?,
-      classStartTime: data['classStartTime'] as String?,
-      classEndTime: data['classEndTime'] as String?,
+      classStartTime: (data['classStartTime'] as String).parseToTimeOfDay(),
+      classEndTime: (data['classEndTime'] as String).parseToTimeOfDay(),
       absentStudents: data['absentStudents']
           .map<String>((dynamic e) => e.toString())
           .toList(),
@@ -96,8 +96,8 @@ class AttendanceWithCount extends MyEquatable {
     String? collegeId,
     String? classId,
     String? subjectId,
-    String? classStartTime,
-    String? classEndTime,
+    TimeOfDay? classStartTime,
+    TimeOfDay? classEndTime,
     List<String>? absentStudents,
     int? currentSem,
     DateTime? createdAt,

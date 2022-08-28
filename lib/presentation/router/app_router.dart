@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../config/app_config.dart';
+import '../../domain/entities/attendance_entity.dart';
 import '../../shared/global/enums.dart';
 import '../features/_init_/T&W_showcase/colors_page.dart';
 import '../features/_init_/T&W_showcase/t_w_showcase_page.dart';
@@ -52,10 +53,12 @@ class AppRouter {
           GoRoute(
             name: RouteNames.viewAttendanceScreen,
             path: 'attendance',
-            builder: (context, state) => BlocProvider(
+            builder: (context, state) {
+              return BlocProvider(
               create: (context) => getIt<ViewAttendanceCubit>(),
               child: const ViewAttendancePage(),
-            ),
+            );
+            },
             routes: [
               GoRoute(
                 name: RouteNames.createAttendanceScreen,
@@ -71,10 +74,11 @@ class AppRouter {
                 name: RouteNames.updateAttendanceScreen,
                 path: 'update',
                 builder: (context, state) => BlocProvider(
-                  create: (context) => getIt<ViewAttendanceCubit>(),
-                  child: const CreateAttendancePage(
+                  create: (context) => getIt<CreateAttendanceCubit>(),
+                  child: CreateAttendancePage(
                     appBarName: 'Update Attendance',
                     isUpdate: true,
+                    updationData: state.extra as AttendanceWithCount?,
                   ),
                 ),
               ),

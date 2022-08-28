@@ -1,6 +1,7 @@
 library app_extensions;
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import '../errors/api_errors.dart';
 import '../helpers/network/statuscode_helper.dart';
 

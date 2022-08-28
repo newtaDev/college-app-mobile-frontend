@@ -16,6 +16,7 @@ abstract class AttendanceRepository {
   );
 
   Future<bool> createAttendance(CreateAttendanceReq req);
+  Future<bool> updateAttendance(UpdateAttendanceReq req);
 
   Future<StudentsInClassRes> getAllStudentInClass(String classId);
 }

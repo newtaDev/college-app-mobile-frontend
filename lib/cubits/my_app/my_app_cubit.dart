@@ -45,4 +45,12 @@ class MyAppCubit extends Cubit<MyAppState> {
       rethrow;
     }
   }
+
+  void refreshPage(PageRefresherStatus status) {
+    emit(state.copyWith(pageRefresherStatus: status));
+  }
+
+  void setRefreshStatusToInit() {
+    emit(state.copyWith(pageRefresherStatus: PageRefresherStatus.initial));
+  }
 }

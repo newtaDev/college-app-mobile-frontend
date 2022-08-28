@@ -17,10 +17,37 @@ class CreateAttendanceCubit extends Cubit<CreateAttendanceState> {
   CreateAttendanceCubit({required this.attendanceRepo})
       : super(CreateAttendanceState.init());
 
-  Future<void> cretateAttendance(CreateAttendanceReq req) async {
+  Future<void> cretateOrUpdateAttendance(bool isUpdate) async {
     emit(state.copyWith(createStatus: CreateAttendanceStatus.loading));
     try {
-      await attendanceRepo.createAttendance(req);
+      if (isUpdate) {
+        await attendanceRepo.updateAttendance(
+          UpdateAttendanceReq(
+            attendanceId: state.attendanceId,
+            collegeId: state.collegeId,
+            classId: state.classId,
+            currentSem: state.currentSem,
+            subjectId: state.selectedSubject!.id,
+            classStartTime: state.classStartTime,
+            classEndTime: state.classEndTime,
+            absentStudents: state.absentStudentIds,
+            attendanceTakenOn: state.attendanceTakenOn,
+          ),
+        );
+      } else {
+        await attendanceRepo.createAttendance(
+          CreateAttendanceReq(
+            collegeId: state.collegeId,
+            classId: state.classId,
+            currentSem: state.currentSem,
+            subjectId: state.selectedSubject!.id!,
+            classStartTime: state.classStartTime,
+            classEndTime: state.classEndTime,
+            absentStudents: state.absentStudentIds,
+            attendanceTakenOn: state.attendanceTakenOn,
+          ),
+        );
+      }
       emit(
         state.copyWith(
           createStatus: CreateAttendanceStatus.success,
@@ -89,7 +116,11 @@ class CreateAttendanceCubit extends Cubit<CreateAttendanceState> {
     return true;
   }
 
-  void setInitialData(String classId, String collegeId, int currentSem) {
+  void setCreationInitialData(
+    String classId,
+    String collegeId,
+    int currentSem,
+  ) {
     emit(
       state.copyWith(
         classId: classId,
@@ -97,6 +128,10 @@ class CreateAttendanceCubit extends Cubit<CreateAttendanceState> {
         currentSem: currentSem,
       ),
     );
+  }
+
+  void setUpdationInitialData(CreateAttendanceState updateState) {
+    emit(updateState);
   }
 
   void setClassStartTime(TimeOfDay? startTime) {

@@ -11,7 +11,7 @@ class DevEnvConfig implements BaseEnvConfig {
   String get baseUrl => kIsWeb
       ? 'http://localhost:1377/api/v1'
       : Platform.isAndroid
-          ? 'http://192.168.73.105:1377/api/v1'
+          ? 'http://192.168.16.105:1377/api/v1'
           : 'http://localhost:1377/api/v1';
 
   @override

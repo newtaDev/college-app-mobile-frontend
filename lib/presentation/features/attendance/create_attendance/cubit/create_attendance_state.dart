@@ -31,6 +31,7 @@ class CreateAttendanceState extends MyEquatable {
   final DateTime attendanceTakenOn;
   final String classId;
   final String collegeId;
+  final String attendanceId;
   final int currentSem;
   final bool? isCreated;
   final ApiErrorRes? error;
@@ -46,6 +47,7 @@ class CreateAttendanceState extends MyEquatable {
     required this.attendanceTakenOn,
     required this.classId,
     required this.collegeId,
+    required this.attendanceId,
     required this.currentSem,
     this.isCreated,
     this.error,
@@ -57,6 +59,7 @@ class CreateAttendanceState extends MyEquatable {
         studentsInClass = const [],
         absentStudentIds = const [],
         selectedSubject = null,
+        attendanceId = '',
         classId = '',
         currentSem = 0,
         collegeId = '',
@@ -78,6 +81,7 @@ class CreateAttendanceState extends MyEquatable {
       absentStudentIds,
       classStartTime,
       classEndTime,
+      attendanceId,
       isCreated,
       error,
       attendanceTakenOn,
@@ -98,6 +102,7 @@ class CreateAttendanceState extends MyEquatable {
     DateTime? attendanceTakenOn,
     String? classId,
     String? collegeId,
+    String? attendanceId,
     int? currentSem,
     bool? isCreated,
     ApiErrorRes? error,
@@ -113,6 +118,7 @@ class CreateAttendanceState extends MyEquatable {
       attendanceTakenOn: attendanceTakenOn ?? this.attendanceTakenOn,
       classId: classId ?? this.classId,
       collegeId: collegeId ?? this.collegeId,
+      attendanceId: attendanceId ?? this.attendanceId,
       currentSem: currentSem ?? this.currentSem,
       isCreated: isCreated ?? this.isCreated,
       error: error ?? this.error,

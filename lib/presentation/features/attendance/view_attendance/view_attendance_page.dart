@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:styles_lib/theme/themes.dart';
 import 'package:widgets_lib/widgets_lib.dart';
 
+import '../../../../cubits/my_app/my_app_cubit.dart';
 import '../../../../cubits/selection/selection_cubit.dart';
 import '../../../../domain/entities/attendance_entity.dart';
 import '../../../../shared/extensions/extentions.dart';
@@ -22,6 +23,11 @@ class ViewAttendancePage extends StatefulWidget {
 class _ViewAttendancePageState extends State<ViewAttendancePage> {
   @override
   void initState() {
+    fetchAttendance();
+    super.initState();
+  }
+
+  void fetchAttendance() {
     final selectCubit = context.read<SelectionCubit>();
     context.read<ViewAttendanceCubit>().getAllAttendance(
           AllAttendanceWithQueryReq(
@@ -29,29 +35,38 @@ class _ViewAttendancePageState extends State<ViewAttendancePage> {
             currentSem: selectCubit.state.selectedSem,
           ),
         );
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Attendance'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              context.goNamed(
-                RouteNames.createAttendanceScreen,
-                params: {
-                  'tab_name': DashboardPageTabs.home.name,
-                },
-              );
-            },
-            icon: const Icon(Icons.add),
-          ),
-        ],
+    return BlocListener<MyAppCubit, MyAppState>(
+      listenWhen: (previous, current) =>
+          previous.pageRefresherStatus != current.pageRefresherStatus,
+      listener: (context, state) {
+        if (state.pageRefresherStatus ==
+            PageRefresherStatus.refreshViewAttendancePage) {
+          fetchAttendance();
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Attendance'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                context.goNamed(
+                  RouteNames.createAttendanceScreen,
+                  params: {
+                    'tab_name': DashboardPageTabs.home.name,
+                  },
+                );
+              },
+              icon: const Icon(Icons.add),
+            ),
+          ],
+        ),
+        body: const AttendanceViewLayout(),
       ),
-      body: const AttendanceViewLayout(),
     );
   }
 }
@@ -138,11 +153,12 @@ class AttendanceViewLayout extends StatelessWidget {
                 itemCount: state.attendanceWithCount.length,
                 itemBuilder: (context, index) {
                   final _attendanceData = state.attendanceWithCount[index];
+                  // DateFormat('HH:mm').parse(
+                  // final dateFormat = DateFormat('h:mm a');
                   final _classStartTime =
-                      DateFormat('HH:mm').parse(_attendanceData.classStartTime!);
+                      _attendanceData.classStartTime?.format(context);
                   final _classEndTime =
-                      DateFormat('HH:mm').parse(_attendanceData.classEndTime!);
-                  final dateFormat = DateFormat('h:mm a');
+                      _attendanceData.classEndTime?.format(context);
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: BorderedBox(
@@ -171,8 +187,7 @@ class AttendanceViewLayout extends StatelessWidget {
                           const SizedBox(height: 5),
                           _textWithIcon(
                             icon: Icons.access_time_rounded,
-                            text:
-                                '${dateFormat.format(_classStartTime)} - ${dateFormat.format(_classEndTime)}',
+                            text: '$_classStartTime - $_classEndTime',
                           ),
                           _textWithIcon(
                             icon: Icons.date_range_outlined,
@@ -183,7 +198,15 @@ class AttendanceViewLayout extends StatelessWidget {
                           ),
                           const SizedBox(height: 10),
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              context.goNamed(
+                                RouteNames.updateAttendanceScreen,
+                                params: {
+                                  'tab_name': DashboardPageTabs.home.name,
+                                },
+                                extra: _attendanceData,
+                              );
+                            },
                             style: ElevatedButton.styleFrom(
                               elevation: 0,
                               minimumSize: const Size.fromHeight(40),

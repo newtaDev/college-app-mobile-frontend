@@ -92,4 +92,18 @@ class AttendanceRepoImpl implements AttendanceRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<bool> updateAttendance(UpdateAttendanceReq req) async {
+    try {
+      await attendanceRds.updateAttendance(req);
+      return true;
+    } on DioError catch (e) {
+      if (e.type != DioErrorType.response) rethrow;
+      final errorRes = ApiErrorRes.fromMap(e.response?.data);
+      throw errorRes;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
