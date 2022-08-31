@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../common/profile_avathar.dart';
+
 class ProfileListViewCard extends StatelessWidget {
   final String title;
   final String subtitle;
@@ -18,17 +20,9 @@ class ProfileListViewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final theme = Theme.of(context);
     return Row(
       children: [
-        CircleAvatar(
-          backgroundColor: theme.primaryColorLight,
-          radius: avatarSize,
-          child: Text(
-            emoji,
-            style: textTheme.headlineMedium,
-          ),
-        ),
+        ProfileAvathar(emoji: emoji, avatarSize: avatarSize),
         const SizedBox(width: 10),
         Expanded(
           child: Column(
