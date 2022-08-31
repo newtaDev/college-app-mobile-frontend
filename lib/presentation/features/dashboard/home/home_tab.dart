@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:styles_lib/assets/assets.dart';
 import 'package:widgets_lib/widgets/widgets.dart';
 
+import '../../../../shared/global/constants.dart';
 import '../../../../shared/global/enums.dart';
 import '../../../router/route_names.dart';
 
@@ -184,16 +185,26 @@ class _HomeTabState extends State<HomeTab> {
                               }
                               return true;
                             },
-                            child: ListView.builder(
+                            child: ListView(
+                              padding: const EdgeInsets.all(15),
                               physics: !enableAnouncemetScrolling
                                   ? const NeverScrollableScrollPhysics()
                                   : const ClampingScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return const Padding(
-                                  padding: EdgeInsets.all(8),
-                                  child: Text('data'),
-                                );
-                              },
+                              children: const [
+                                TextWithImageAnouncementCard(),
+                                SizedBox(height: 20),
+                                TextAnouncementCard(),
+                                SizedBox(height: 20),
+                                MutiImageAnouncementCard(),
+                                SizedBox(height: 20),
+                                TextWithImageAnouncementCard(),
+                                SizedBox(height: 20),
+                                MutiImageAnouncementCard(),
+                                SizedBox(height: 20),
+                                TextWithImageAnouncementCard(),
+                                SizedBox(height: 20),
+                                TextAnouncementCard(),
+                              ],
                             ),
                           ),
                           const Center(
@@ -218,6 +229,138 @@ class _HomeTabState extends State<HomeTab> {
           ),
         );
       },
+    );
+  }
+}
+
+class MutiImageAnouncementCard extends StatelessWidget {
+  const MutiImageAnouncementCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
+    return BorderedBox(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 260,
+            width: double.maxFinite,
+            child: PageView.builder(
+              itemCount: Constants.randomImages.length,
+              itemBuilder: (context, index) => Image.network(
+                Constants.randomImages[index],
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Text(
+            'Multi Image view with text ',
+            style: textTheme.titleMedium,
+          ),
+          Text(
+            'Anouncement Message description canbe longer' * 2,
+            style: textTheme.bodySmall,
+          ),
+          const SizedBox(height: 5),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Text(
+              'By - Principal',
+              style: textTheme.bodySmall,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TextWithImageAnouncementCard extends StatelessWidget {
+  const TextWithImageAnouncementCard({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
+    return BorderedBox(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Image.network(
+              Constants.randomImages[1],
+              height: 100,
+              width: 100,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Text with Image Title',
+                  style: textTheme.titleMedium,
+                ),
+                Text(
+                  'Anouncement Message description canbe longer' * 2,
+                  style: textTheme.bodySmall,
+                ),
+                const SizedBox(height: 5),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Text(
+                    'By - Principal',
+                    style: textTheme.bodySmall,
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class TextAnouncementCard extends StatelessWidget {
+  const TextAnouncementCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
+    return BorderedBox(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Anouncement title with no image',
+            style: textTheme.titleMedium,
+          ),
+          Text(
+            'Anouncement Message description canbe longer' * 2,
+            style: textTheme.bodySmall,
+          ),
+          const SizedBox(height: 5),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Text(
+              'By - Principal',
+              style: textTheme.bodySmall,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

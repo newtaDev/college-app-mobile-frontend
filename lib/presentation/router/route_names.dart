@@ -9,6 +9,7 @@ class RouteNames {
   static const updateAttendanceScreen = 'update_attendance_screen';
   static const reportsScreen = 'reports_screen';
   static const signUpScreen = 'sign_up_screen';
+  static const qrScreen = 'qr_screen';
 
   /// Showcase screens
   static const schowcaseThemeAndWidgetsScreen = 'widgets_themes_showcase';

@@ -13,31 +13,30 @@ class SettingsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authLds = getIt<AuthLocalDataSource>();
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text('Settings Tab'),
-            Text('access: ${authLds.userId}'),
-            Text('access: ${authLds.userType}'),
-            Text('access: ${authLds.email}'),
-            Text('user: ${context.read<UserCubit>().state.userDetails}'),
-            const Text('Settings Tab'),
-            BlocListener<AuthCubit, AuthState>(
-              listener: (context, state) {
-                if (state.status == AuthStatus.logedOut) {
-                  context.goNamed(RouteNames.signInScreen);
-                }
-              },
-              child: ElevatedButton(
-                onPressed: () async {
-                  await context.read<AuthCubit>().logoutUser();
-                },
-                child: const Text('Log out'),
-              ),
-            ),
+          children: const [
+            Text('Classroom Tab'),
+            // Text('access: ${authLds.userId}'),
+            // Text('access: ${authLds.userType}'),
+            // Text('access: ${authLds.email}'),
+            // Text('user: ${context.read<UserCubit>().state.userDetails}'),
+            // const Text('Settings Tab'),
+            // BlocListener<AuthCubit, AuthState>(
+            //   listener: (context, state) {
+            //     if (state.status == AuthStatus.logedOut) {
+            //       context.goNamed(RouteNames.signInScreen);
+            //     }
+            //   },
+            //   child: ElevatedButton(
+            //     onPressed: () async {
+            //       await context.read<AuthCubit>().logoutUser();
+            //     },
+            //     child: const Text('Log out'),
+            //   ),
+            // ),
           ],
         ),
       ),

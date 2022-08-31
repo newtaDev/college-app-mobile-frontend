@@ -32,7 +32,7 @@ class DashboardPage extends StatelessWidget {
           },
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.chat_bubble),
+              icon: Icon(Icons.home),
               label: 'Home',
               // title: Text('Item 1'),
             ),
@@ -42,8 +42,8 @@ class DashboardPage extends StatelessWidget {
               // title: Text('Item 2'),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.create_new_folder),
-              label: 'Setting',
+              icon: Icon(Icons.account_circle_rounded),
+              label: 'Profile',
               // title: Text('Item 3'),
             ),
           ],

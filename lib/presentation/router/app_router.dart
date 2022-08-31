@@ -15,6 +15,7 @@ import '../features/attendance/view_attendance/cubit/view_attendance_cubit.dart'
 import '../features/attendance/view_attendance/view_attendance_page.dart';
 import '../features/auth/sign_in/sign_in_page.dart';
 import '../features/dashboard/dashboard_page.dart';
+import '../features/qr/qr_page.dart';
 import '../features/reports/attendance/attendance_report_page.dart';
 import '../features/reports/attendance/cubit/attendance_report_cubit.dart';
 import '../features/reports/reports_screen.dart';
@@ -55,9 +56,9 @@ class AppRouter {
             path: 'attendance',
             builder: (context, state) {
               return BlocProvider(
-              create: (context) => getIt<ViewAttendanceCubit>(),
-              child: const ViewAttendancePage(),
-            );
+                create: (context) => getIt<ViewAttendanceCubit>(),
+                child: const ViewAttendancePage(),
+              );
             },
             routes: [
               GoRoute(
@@ -105,6 +106,11 @@ class AppRouter {
         name: RouteNames.signInScreen,
         path: '/sign_in',
         builder: (context, state) => const SignInPage(),
+      ),
+      GoRoute(
+        name: RouteNames.qrScreen,
+        path: '/qr',
+        builder: (context, state) => const QrPage(),
       ),
       GoRoute(
         name: RouteNames.selectClassAndSemScreen,

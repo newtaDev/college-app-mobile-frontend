@@ -349,15 +349,20 @@ class _SubjectsBarChartState extends State<SubjectsBarChart> {
                   sideTitles: SideTitles(
                     showTitles: true,
                     getTitlesWidget: (value, meta) {
+                      final subjectName =
+                          _subjects[value.toInt()].subject?.name;
+                      late String? subjectInitialName;
+                      if ((subjectName?.length ?? 0) > 3 ||
+                          (subjectName?.contains(' ') ?? false)) {
+                        subjectInitialName = subjectName?.getInitials();
+                      } else {
+                        subjectInitialName = subjectName;
+                      }
                       return SideTitleWidget(
                         axisSide: meta.axisSide,
                         space: 16,
                         child: Text(
-                          _subjects[value.toInt()]
-                                  .subject
-                                  ?.name
-                                  ?.getInitials() ??
-                              'N/A',
+                          subjectInitialName ?? 'N/A',
                           style: Theme.of(context).textTheme.labelLarge,
                         ),
                       );

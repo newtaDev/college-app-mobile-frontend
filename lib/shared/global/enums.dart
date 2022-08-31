@@ -1,7 +1,7 @@
 enum DashboardPageTabs {
   home,
-  profile,
-  settings;
+  settings,
+  profile;
 
   static DashboardPageTabs? fromName(String name) {
     for (final DashboardPageTabs enumVariant in DashboardPageTabs.values) {
