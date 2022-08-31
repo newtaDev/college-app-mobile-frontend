@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -30,6 +31,7 @@ class AppConfig {
     try {
       /// All Configurations
       await _registerHiveBoxes();
+      await dotenv.load();
 
       /// Configuring get_it dependencies
       registerGetItDependencies(this);
