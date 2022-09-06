@@ -10,7 +10,7 @@ class UserDetails extends MyEquatable {
   final DateTime createdAt;
   final DateTime updatedAt;
   final UserType userType;
-  
+
   const UserDetails({
     required this.name,
     required this.id,

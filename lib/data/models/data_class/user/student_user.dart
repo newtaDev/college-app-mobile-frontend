@@ -3,7 +3,10 @@ part of user_entity;
 class StudentUser extends UserDetails {
   final String classId;
   final List<String> myOptionalSubjects;
-  final StudentProfile? profile;
+  final int? phoneNumber;
+  final String? currentAddress;
+  final int? parentsNumber;
+  final DateTime? dob;
 
   const StudentUser({
     required super.name,
@@ -12,7 +15,10 @@ class StudentUser extends UserDetails {
     required this.classId,
     required super.userType,
     required this.myOptionalSubjects,
-    required this.profile,
+    this.phoneNumber,
+    this.parentsNumber,
+    this.currentAddress,
+    this.dob,
     super.username,
     required super.isProfileCompleted,
     required super.id,
@@ -29,9 +35,10 @@ class StudentUser extends UserDetails {
         myOptionalSubjects: data['myOptionalSubjects']
             .map<String>((dynamic e) => e.toString())
             .toList(),
-        profile: data['profile'] == null
-            ? null
-            : StudentProfile.fromMap(data['profile'] as Map<String, dynamic>),
+        phoneNumber: data['phoneNumber'] as int?,
+        parentsNumber: data['parentsNumber'] as int?,
+        currentAddress: data['currentAddress'] as String?,
+        dob: data['dob'] == null ? null : DateTime.parse(data['dob'] as String),
         username: data['username'] as String?,
         isProfileCompleted: data['isProfileCompleted'] as bool,
         id: data['_id'] as String,
@@ -46,7 +53,10 @@ class StudentUser extends UserDetails {
         'classId': classId,
         'userType': userType,
         'myOptionalSubjects': myOptionalSubjects,
-        'profile': profile?.toMap(),
+        'phoneNumber': phoneNumber,
+        'currentAddress': currentAddress,
+        'dob': dob?.toIso8601String(),
+        'parentsNumber': parentsNumber,
         'username': username,
         'isProfileCompleted': isProfileCompleted,
         '_id': id,
@@ -73,7 +83,10 @@ class StudentUser extends UserDetails {
     String? classId,
     UserType? userType,
     List<String>? myOptionalSubjects,
-    StudentProfile? profile,
+    int? phoneNumber,
+    String? currentAddress,
+    DateTime? dob,
+    int? parentsNumber,
     String? username,
     bool? isProfileCompleted,
     String? id,
@@ -87,7 +100,10 @@ class StudentUser extends UserDetails {
       classId: classId ?? this.classId,
       userType: userType ?? this.userType,
       myOptionalSubjects: myOptionalSubjects ?? this.myOptionalSubjects,
-      profile: profile ?? this.profile,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      currentAddress: currentAddress ?? this.currentAddress,
+      dob: dob ?? this.dob,
+      parentsNumber: parentsNumber ?? this.parentsNumber,
       username: username ?? this.username,
       isProfileCompleted: isProfileCompleted ?? this.isProfileCompleted,
       id: id ?? this.id,
@@ -105,83 +121,15 @@ class StudentUser extends UserDetails {
       classId,
       userType,
       myOptionalSubjects,
-      profile,
+      phoneNumber,
+      currentAddress,
+      dob,
+      parentsNumber,
       username,
       isProfileCompleted,
       id,
       createdAt,
       updatedAt,
-    ];
-  }
-}
-
-class StudentProfile extends MyEquatable {
-  final int? phoneNumber;
-  final String? currentAddress;
-  final DateTime? dob;
-  final int? parentsNumber;
-  final String? id;
-
-  const StudentProfile({
-    this.phoneNumber,
-    this.currentAddress,
-    this.dob,
-    this.parentsNumber,
-    this.id,
-  });
-
-  factory StudentProfile.fromMap(Map<String, dynamic> data) => StudentProfile(
-        phoneNumber: data['phoneNumber'] as int?,
-        currentAddress: data['currentAddress'] as String?,
-        dob: data['dob'] == null ? null : DateTime.parse(data['dob'] as String),
-        parentsNumber: data['parentsNumber'] as int?,
-        id: data['_id'] as String?,
-      );
-
-  Map<String, dynamic> toMap() => {
-        'phoneNumber': phoneNumber,
-        'currentAddress': currentAddress,
-        'dob': dob?.toIso8601String(),
-        'parentsNumber': parentsNumber,
-        '_id': id,
-      };
-
-  /// `dart:convert`
-  ///
-  /// Parses the string and returns the resulting Json object as [StudentProfile].
-  factory StudentProfile.fromJson(String data) {
-    return StudentProfile.fromMap(json.decode(data) as Map<String, dynamic>);
-  }
-
-  /// `dart:convert`
-  ///
-  /// Converts [StudentProfile] to a JSON string.
-  String toJson() => json.encode(toMap());
-
-  StudentProfile copyWith({
-    int? phoneNumber,
-    String? currentAddress,
-    DateTime? dob,
-    int? parentsNumber,
-    String? id,
-  }) {
-    return StudentProfile(
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      currentAddress: currentAddress ?? this.currentAddress,
-      dob: dob ?? this.dob,
-      parentsNumber: parentsNumber ?? this.parentsNumber,
-      id: id ?? this.id,
-    );
-  }
-
-  @override
-  List<Object?> get props {
-    return [
-      phoneNumber,
-      currentAddress,
-      dob,
-      parentsNumber,
-      id,
     ];
   }
 }
