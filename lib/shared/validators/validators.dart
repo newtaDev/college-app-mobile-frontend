@@ -6,4 +6,9 @@ class Validators {
     return regExp.hasMatch(val);
   }
 
+  static bool isValidUsername(String val) {
+    const pattern = r'^((?![.])(?!.*[.]{2})[a-z0-9_.]{3,20})[a-z0-9_]$';
+    final RegExp regExp = RegExp(pattern);
+    return regExp.hasMatch(val);
+  }
 }

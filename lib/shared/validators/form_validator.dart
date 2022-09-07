@@ -1,6 +1,6 @@
-import '../validators.dart';
+import 'validators.dart';
 
-class AuthFormValidator {
+class FormValidator {
   static String? requiredFieldValidator(String? val) {
     const message = 'This field is required';
     if (val == null) {
