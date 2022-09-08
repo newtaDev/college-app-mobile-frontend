@@ -47,13 +47,13 @@ class AttendanceWithCount extends MyEquatable {
       currentSem: data['currentSem'] as int?,
       attendanceTakenOn: data['attendanceTakenOn'] == null
           ? null
-          : DateTime.parse(data['attendanceTakenOn'] as String),
+          : DateTime.parse(data['attendanceTakenOn'] as String).toLocal(),
       createdAt: data['createdAt'] == null
           ? null
-          : DateTime.parse(data['createdAt'] as String),
+          : DateTime.parse(data['createdAt'] as String).toLocal(),
       updatedAt: data['updatedAt'] == null
           ? null
-          : DateTime.parse(data['updatedAt'] as String),
+          : DateTime.parse(data['updatedAt'] as String).toLocal(),
       absentStudentCount: data['absentStudentCount'] as int?,
       presentStudentCount: data['presentStudentCount'] as int?,
       subject: data['subject'] == null
