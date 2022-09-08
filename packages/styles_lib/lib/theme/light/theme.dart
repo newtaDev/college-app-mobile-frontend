@@ -32,4 +32,8 @@ final lightTheme = FlexThemeData.light(
   inputDecorationTheme: _textInputDecorationTheme(isDarkMode: false),
   bottomNavigationBarTheme: _bottomNavBartheme(),
   elevatedButtonTheme: _elevatedButtonTheme(),
+  appBarTheme: FlexThemeData.light(
+    appBarStyle: FlexAppBarStyle.background,
+    appBarElevation: 0.3,
+  ).appBarTheme.copyWith(centerTitle: true),
 );

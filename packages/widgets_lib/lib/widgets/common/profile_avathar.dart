@@ -7,7 +7,8 @@ class ProfileAvathar extends StatelessWidget {
   const ProfileAvathar({
     super.key,
     this.avatarSize = 30,
-    required this.emoji, this.emojiSize,
+    required this.emoji,
+    this.emojiSize,
   });
 
   @override
