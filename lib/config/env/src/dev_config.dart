@@ -1,5 +1,5 @@
-import 'dart:io';
 import 'package:flutter/foundation.dart';
+import '../../../shared/helpers/network/device_ip.dart';
 import '../env_config.dart';
 
 class DevEnvConfig implements BaseEnvConfig {
@@ -10,9 +10,7 @@ class DevEnvConfig implements BaseEnvConfig {
   @override
   String get baseUrl => kIsWeb
       ? 'http://localhost:1377/api/v1'
-      : Platform.isAndroid
-          ? 'http://192.168.163.105:1377/api/v1'
-          : 'http://localhost:1377/api/v1';
+      : 'http://${DeviceIp.ipAddress}:1377/api/v1';
 
   @override
   String get storageHost => throw UnimplementedError();

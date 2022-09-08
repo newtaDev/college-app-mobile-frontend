@@ -7,11 +7,11 @@ import '../../domain/entities/user_entity.dart';
 import '../../domain/repository/attendance_repository.dart';
 import '../../shared/errors/api_errors.dart';
 import '../data_source/remote/attendance_rds.dart';
-import '../data_source/remote/student_rds.dart';
+import '../data_source/remote/user_rds.dart';
 
 class AttendanceRepoImpl implements AttendanceRepository {
   final AttendannceRemoteDataSource attendanceRds;
-  final StudentRemoteDataSource studentRds;
+  final UserRemoteDataSource studentRds;
   AttendanceRepoImpl({
     required this.attendanceRds,
     required this.studentRds,

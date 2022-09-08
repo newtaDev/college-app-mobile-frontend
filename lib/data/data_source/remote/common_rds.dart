@@ -14,11 +14,6 @@ class CommonRemoteDataSource {
     );
   }
 
-  /// In backend`userId` and `userType` is taken from token
-  Future<Response> getUserDetails() {
-    return client.get('/user/details');
-  }
-
   Future<Response> getSubjectsOfCourse(String courseId) {
     return client.get(
       '/subjects',

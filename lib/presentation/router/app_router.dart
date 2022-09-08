@@ -15,6 +15,10 @@ import '../features/attendance/view_attendance/cubit/view_attendance_cubit.dart'
 import '../features/attendance/view_attendance/view_attendance_page.dart';
 import '../features/auth/sign_in/sign_in_page.dart';
 import '../features/dashboard/dashboard_page.dart';
+import '../features/profile/my_profile/edit/cubit/my_profile_edit_cubit.dart';
+import '../features/profile/my_profile/edit/edit_profile_page.dart';
+import '../features/profile/my_profile/view/my_profile_view_page.dart';
+import '../features/profile/others_profile/profile_page.dart';
 import '../features/qr/qr_page.dart';
 import '../features/reports/attendance/attendance_report_page.dart';
 import '../features/reports/attendance/cubit/attendance_report_cubit.dart';
@@ -112,6 +116,27 @@ class AppRouter {
         path: '/qr',
         builder: (context, state) => const QrPage(),
       ),
+
+      GoRoute(
+        name: RouteNames.myProfileViewScreen,
+        path: '/my_profile',
+        builder: (context, state) => const MyProfileViewPage(),
+        routes: [
+          GoRoute(
+            name: RouteNames.myProfileEditScreen,
+            path: 'edit',
+            builder: (context, state) => const MyProfileEditPage(),
+          )
+        ],
+      ),
+
+      GoRoute(
+        name: RouteNames.profileScreen,
+        path: '/profile/:profile_id',
+        builder: (context, state) =>
+            OthersProfileScreen(profileId: state.params['tab_name']!),
+      ),
+
       GoRoute(
         name: RouteNames.selectClassAndSemScreen,
         path: '/select_class_and_sem',

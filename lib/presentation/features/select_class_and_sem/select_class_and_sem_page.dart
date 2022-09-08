@@ -27,9 +27,11 @@ class _SelectClassAndSemPageState extends State<SelectClassAndSemPage> {
         title: Text(widget.appBarName),
       ),
       body: BlocBuilder<SelectionCubit, SelectionState>(
-        buildWhen: (previous, current) => previous.classAndSemStatus != current.classAndSemStatus,
+        buildWhen: (previous, current) =>
+            previous.classAndSemStatus != current.classAndSemStatus,
         builder: (context, state) {
-          if (state.classAndSemStatus.isInitial || state.classAndSemStatus.isLoading) {
+          if (state.classAndSemStatus.isInitial ||
+              state.classAndSemStatus.isLoading) {
             return const LoadingIndicator();
           }
 

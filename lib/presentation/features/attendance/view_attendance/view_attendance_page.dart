@@ -191,10 +191,9 @@ class AttendanceViewLayout extends StatelessWidget {
                           ),
                           _textWithIcon(
                             icon: Icons.date_range_outlined,
-                            text: DateFormat.yMMMEd().format(
-                              _attendanceData.attendanceTakenOn ??
-                                  DateTime.now(),
-                            ),
+                            text: (_attendanceData.attendanceTakenOn ??
+                                    DateTime.now())
+                                .toReadableString(),
                           ),
                           const SizedBox(height: 10),
                           ElevatedButton(
@@ -208,11 +207,11 @@ class AttendanceViewLayout extends StatelessWidget {
                               );
                             },
                             style: ElevatedButton.styleFrom(
+                              foregroundColor: ColorsPallet.primaryBlueDark,
+                              backgroundColor:
+                                  ColorsPallet.primaryBlueDark.withOpacity(0.1),
                               elevation: 0,
                               minimumSize: const Size.fromHeight(40),
-                              primary:
-                                  ColorsPallet.primaryBlueDark.withOpacity(0.1),
-                              onPrimary: ColorsPallet.primaryBlueDark,
                               shadowColor:
                                   ColorsPallet.primaryBlueDark.withOpacity(0.2),
                             ),

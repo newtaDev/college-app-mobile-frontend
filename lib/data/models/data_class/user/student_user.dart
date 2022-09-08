@@ -51,7 +51,7 @@ class StudentUser extends UserDetails {
         'email': email,
         'collegeId': collegeId,
         'classId': classId,
-        'userType': userType,
+        'userType': userType.value,
         'myOptionalSubjects': myOptionalSubjects,
         'phoneNumber': phoneNumber,
         'currentAddress': currentAddress,
@@ -59,9 +59,6 @@ class StudentUser extends UserDetails {
         'parentsNumber': parentsNumber,
         'username': username,
         'isProfileCompleted': isProfileCompleted,
-        '_id': id,
-        'createdAt': createdAt.toIso8601String(),
-        'updatedAt': updatedAt.toIso8601String(),
       };
 
   /// `dart:convert`

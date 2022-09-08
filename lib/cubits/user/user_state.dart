@@ -14,15 +14,9 @@ class UserState extends MyEquatable {
 
   bool get isStudent => userType == UserType.student;
 
-  TeacherUser? get userAsTeacher {
-    if (userType == UserType.teacher) return userDetails as TeacherUser;
-    return null;
-  }
+  TeacherUser? get userAsTeacher => userDetails.asTeacher;
 
-  StudentUser? get userAsStudent {
-    if (userType == UserType.student) return userDetails as StudentUser;
-    return null;
-  }
+  StudentUser? get userAsStudent => userDetails.asStudent;
 
   @override
   List<Object?> get props => [userDetails];

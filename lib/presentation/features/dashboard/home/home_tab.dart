@@ -295,11 +295,13 @@ class TextWithImageAnouncementCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: Image.network(
-              Constants.randomImages[1],
+            child: SizedBox(
               height: 100,
               width: 100,
-              fit: BoxFit.cover,
+              child: Image.network(
+                Constants.randomImages[1],
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           const SizedBox(width: 10),

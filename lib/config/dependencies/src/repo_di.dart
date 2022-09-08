@@ -21,12 +21,22 @@ void registerRepositoryDependencies() {
     ..registerSingleton<AttendanceRepoImpl>(
       AttendanceRepoImpl(
         attendanceRds: getIt<AttendannceRemoteDataSource>(),
-        studentRds: getIt<StudentRemoteDataSource>(),
+        studentRds: getIt<UserRemoteDataSource>(),
       ),
     )
 
     /// Common
     ..registerSingleton<CommonRepoImpl>(
-      CommonRepoImpl(commonRds: getIt<CommonRemoteDataSource>()),
+      CommonRepoImpl(
+        commonRds: getIt<CommonRemoteDataSource>(),
+        userRds: getIt<UserRemoteDataSource>(),
+      ),
+    )
+
+    /// Profile
+    ..registerSingleton<ProfileRepoImpl>(
+      ProfileRepoImpl(
+        userRds: getIt<UserRemoteDataSource>(),
+      ),
     );
 }

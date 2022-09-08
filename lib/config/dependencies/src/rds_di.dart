@@ -13,7 +13,7 @@ void registerRemoteDataSourceDependencies() {
     ..registerSingleton<CommonRemoteDataSource>(CommonRemoteDataSource())
 
     /// Common
-    ..registerSingleton<StudentRemoteDataSource>(StudentRemoteDataSource())
+    ..registerSingleton<UserRemoteDataSource>(UserRemoteDataSource())
 
     /// Auth
     ..registerSingleton<AuthRemoteDataSource>(AuthRemoteDataSource())

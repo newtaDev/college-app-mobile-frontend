@@ -16,8 +16,7 @@ class SelectableClassesList extends StatelessWidget {
       itemCount: cubit.state.classes.length,
       itemBuilder: (context, index) {
         final _class = cubit.state.classes[index];
-        return BlocSelector<SelectionCubit, SelectionState,
-            bool>(
+        return BlocSelector<SelectionCubit, SelectionState, bool>(
           selector: (state) =>
               state.selectedClass != null &&
               state.selectedClass!.id == _class.id,

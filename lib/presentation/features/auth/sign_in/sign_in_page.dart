@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../cubits/auth/auth_cubit.dart';
 import '../../../../domain/entities/auth_entitie.dart';
 import '../../../../shared/global/enums.dart';
-import '../../../../shared/validators/auth_field_validator.dart';
+import '../../../../shared/validators/form_validator.dart';
 import '../../../router/route_names.dart';
 
 class SignInPage extends StatefulWidget {
@@ -29,6 +29,7 @@ class _SignInPageState extends State<SignInPage> {
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         if (state.status == AuthStatus.logedIn) {
+          print(state.authRes?.user?.isProfileCompleted ?? false);
           context.goNamed(RouteNames.dashboardScreen);
           return;
         }
@@ -55,7 +56,7 @@ class _SignInPageState extends State<SignInPage> {
                       hintText: 'Enter your Register No/email Id',
                     ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: AuthFieldValidator.validateEmail,
+                    validator: FormValidator.validateEmail,
                     onChanged: (val) => email = val,
                   ),
                   const SizedBox(height: 20),
@@ -65,7 +66,7 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     obscureText: true,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: AuthFieldValidator.passwordValidator,
+                    validator: FormValidator.passwordValidator,
                     onChanged: (val) => password = val,
                   ),
                   const SizedBox(height: 10),

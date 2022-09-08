@@ -25,6 +25,18 @@ class FormValidator {
     }
   }
 
+  static String? validateMobile(String? value) {
+    const String patttern = r'(^[0-9]{10}$)';
+    final RegExp regExp = RegExp(patttern);
+    final req = requiredFieldValidator(value);
+    if (req != null) {
+      return req;
+    } else if (!regExp.hasMatch(value!)) {
+      return 'Please enter valid mobile number';
+    }
+    return null;
+  }
+
   static String? passwordValidator(String? val) {
     final req = requiredFieldValidator(val);
     if (req != null) {

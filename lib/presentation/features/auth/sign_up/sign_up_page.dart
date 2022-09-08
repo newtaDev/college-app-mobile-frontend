@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../domain/entities/auth_entitie.dart';
-import '../../../../shared/validators/auth_field_validator.dart';
+import '../../../../shared/validators/form_validator.dart';
 import '../../../router/route_names.dart';
 import 'cubit/signup_cubit.dart';
 
@@ -38,7 +38,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     hintText: 'Enter your Name',
                   ),
                   onChanged: (val) => name = val,
-                  validator: AuthFieldValidator.requiredFieldValidator,
+                  validator: FormValidator.requiredFieldValidator,
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
@@ -46,7 +46,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     hintText: 'Enter your email Id',
                   ),
                   onChanged: (val) => email = val,
-                  validator: AuthFieldValidator.validateEmail,
+                  validator: FormValidator.validateEmail,
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
@@ -55,7 +55,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   obscureText: true,
                   onChanged: (val) => password = val,
-                  validator: AuthFieldValidator.passwordValidator,
+                  validator: FormValidator.passwordValidator,
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
@@ -65,7 +65,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   obscureText: true,
                   onChanged: (val) => confirmPassword = val,
                   validator: (val) {
-                    return AuthFieldValidator.confirmPasswordValidator(
+                    return FormValidator.confirmPasswordValidator(
                       password,
                       confirmPassword,
                     );

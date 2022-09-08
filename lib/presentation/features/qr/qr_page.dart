@@ -32,8 +32,7 @@ class QrPage extends StatelessWidget {
                       padding: const EdgeInsets.all(8),
                       child: DoubleCircularBorder(
                         size: size.width * 0.7 > 400 ? 400 : size.width * 0.7,
-                        child:
-                         DecoratedBox(
+                        child: DecoratedBox(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
@@ -63,7 +62,7 @@ class QrPage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: OutlinedButton.icon(
               icon: const Icon(Icons.qr_code_scanner_sharp),
               onPressed: () {},

@@ -20,8 +20,7 @@ class SelectableSemList extends StatelessWidget {
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.only(right: 10),
-          child: BlocSelector<SelectionCubit, SelectionState,
-              bool>(
+          child: BlocSelector<SelectionCubit, SelectionState, bool>(
             selector: (state) =>
                 state.selectedSem != null && state.selectedSem == index + 1,
             builder: (context, isSelected) {

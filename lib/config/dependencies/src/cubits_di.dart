@@ -38,5 +38,13 @@ void registerCubitsDependencies() {
         userCubit: getIt<UserCubit>(),
         authLds: getIt<AuthLocalDataSource>(),
       ),
+    )
+
+    /// Profile
+    ..registerFactory(
+      () => MyProfileEditCubit(
+        profileRepo: getIt<ProfileRepoImpl>(),
+        userCubit: getIt<UserCubit>(),
+      ),
     );
 }

@@ -34,6 +34,24 @@ class UserDetails extends MyEquatable {
         updatedAt = DateTime.now(),
         userType = UserType.superAdmin;
 
+  TeacherUser? get asTeacher {
+    if (userType == UserType.teacher) {
+      return this as TeacherUser;
+    }
+    return null;
+  }
+
+  StudentUser? get asStudent {
+    if (userType == UserType.student) {
+      return this as StudentUser;
+    }
+    return null;
+  }
+
+  bool get isTeacher => userType == UserType.teacher;
+
+  bool get isStudent => userType == UserType.student;
+
   @override
   List<Object?> get props {
     return [

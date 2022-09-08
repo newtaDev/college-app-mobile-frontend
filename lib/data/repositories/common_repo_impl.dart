@@ -5,10 +5,15 @@ import '../../domain/entities/user_entity.dart';
 import '../../domain/repository/common_repository.dart';
 import '../../shared/errors/api_errors.dart';
 import '../data_source/remote/common_rds.dart';
+import '../data_source/remote/user_rds.dart';
 
 class CommonRepoImpl implements CommonRepository {
   final CommonRemoteDataSource commonRds;
-  CommonRepoImpl({required this.commonRds});
+  final UserRemoteDataSource userRds;
+  CommonRepoImpl({
+    required this.commonRds,
+    required this.userRds,
+  });
 
   @override
   Future<ClassWithDetailsRes> getClassesWithDetails() async {
@@ -27,7 +32,7 @@ class CommonRepoImpl implements CommonRepository {
   @override
   Future<UserDetailsRes> getUserDetails() async {
     try {
-      final res = await commonRds.getUserDetails();
+      final res = await userRds.getUserDetails();
       return UserDetailsRes.fromMap(res.data);
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;

@@ -26,6 +26,7 @@ class SplashScreen extends StatelessWidget {
           context.goNamed(RouteNames.signInScreen);
         }
         if (state.splashStatus == SplashStatus.loginSuccess) {
+          /// TODO: check profile is completed
           context.goNamed(RouteNames.dashboardScreen);
         }
       },
