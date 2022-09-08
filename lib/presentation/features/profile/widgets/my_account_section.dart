@@ -5,6 +5,7 @@ import 'package:styles_lib/theme/themes.dart';
 
 import '../../../../../cubits/auth/auth_cubit.dart';
 import '../../../router/route_names.dart';
+import '../my_profile/edit/edit_profile_page.dart';
 
 class ProfileMyAccountSection extends StatelessWidget {
   const ProfileMyAccountSection({super.key});
@@ -40,7 +41,12 @@ class ProfileMyAccountSection extends StatelessWidget {
           title: const Text('Edit profile'),
           trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 15),
           onTap: () {
-            context.pushNamed(RouteNames.myProfileEditScreen);
+            context.pushNamed(
+              RouteNames.myProfileEditScreen,
+              extra: MyProfileEditPageParam(
+                navigateToOnSave: (context) => context.pop(),
+              ),
+            );
           },
         ),
         const Divider(indent: 70),

@@ -8,8 +8,21 @@ import '../../../../../shared/global/enums.dart';
 import 'cubit/my_profile_edit_cubit.dart';
 import 'student_layout.dart';
 
+class MyProfileEditPageParam {
+  final void Function(BuildContext context) navigateToOnSave;
+  final String? title;
+  final String? buttonTitle;
+
+  MyProfileEditPageParam({
+    required this.navigateToOnSave,
+    this.title,
+    this.buttonTitle,
+  });
+}
+
 class MyProfileEditPage extends StatelessWidget {
-  const MyProfileEditPage({super.key});
+  final MyProfileEditPageParam params;
+  const MyProfileEditPage({super.key, required this.params});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +34,7 @@ class MyProfileEditPage extends StatelessWidget {
           context.read<UserCubit>().state.userDetails,
         ),
       child: Scaffold(
-        appBar: AppBar(title: const Text('Edit Profile')),
+        appBar: AppBar(title: Text(params.title ?? 'Edit Profile')),
         body: BlocSelector<UserCubit, UserState, UserType>(
           selector: (state) => state.userType,
           builder: (context, userType) {
@@ -34,11 +47,16 @@ class MyProfileEditPage extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: Builder(
             builder: (context) {
-              return BlocBuilder<MyProfileEditCubit, MyProfileEditState>(
+              return BlocConsumer<MyProfileEditCubit, MyProfileEditState>(
+                listenWhen: (previous, current) =>
+                    current.editProfileStatus.isSuccess,
+                listener: (context, state) {
+                  params.navigateToOnSave(context);
+                },
                 buildWhen: (previous, current) =>
                     previous.editProfileStatus != current.editProfileStatus,
-                builder: (context, state) {
-                  if (state.editProfileStatus.isLoading) {
+                builder: (context, apiState) {
+                  if (apiState.editProfileStatus.isLoading) {
                     return const SizedBox(
                       height: 60,
                       width: double.maxFinite,
@@ -47,16 +65,27 @@ class MyProfileEditPage extends StatelessWidget {
                   }
                   return ElevatedButton(
                     onPressed: () {
+                      final editCubit = context.read<MyProfileEditCubit>();
+                      final editCubitState =
+                          context.read<MyProfileEditCubit>().state;
+                      if (editCubitState.usernameStatus.isError) {
+                        showSnackbar(context, 'Username already exists');
+                      }
+                      if (editCubitState.emailStatus.isError) {
+                        showSnackbar(context, 'Email already exists');
+                      }
+
                       if (_formKey.currentState!.validate()) {
-                        final editCubit = context.read<MyProfileEditCubit>();
-                        if (state.userDetails.isStudent) {
+                        if (editCubitState.userDetails.isStudent) {
                           editCubit.updateStudentProfile(
-                            state.userDetails.asStudent!,
+                            editCubitState.userDetails.asStudent!,
                           );
-                        } else {}
+                        } else {
+                          //TODO for teacher
+                        }
                       }
                     },
-                    child: const Text('Save'),
+                    child: Text(params.buttonTitle ?? 'Save'),
                   );
                 },
               );
@@ -65,5 +94,11 @@ class MyProfileEditPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void showSnackbar(BuildContext context, String text) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text(text)));
   }
 }

@@ -33,6 +33,8 @@ class MyProfileEditCubit extends Cubit<MyProfileEditState> {
       final res = await profileRepo.updateStudentProfile(
         student.copyWith(isProfileCompleted: true),
       );
+      print('res');
+      print(res.responseData);
 
       /// updates userDetails in user cubit
       userCubit.setUserData(res.responseData);

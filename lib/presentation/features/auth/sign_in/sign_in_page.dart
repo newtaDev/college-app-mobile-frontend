@@ -3,10 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../cubits/auth/auth_cubit.dart';
+import '../../../../cubits/user/user_cubit.dart';
 import '../../../../domain/entities/auth_entitie.dart';
 import '../../../../shared/global/enums.dart';
 import '../../../../shared/validators/form_validator.dart';
 import '../../../router/route_names.dart';
+import '../../profile/my_profile/edit/edit_profile_page.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -29,8 +31,20 @@ class _SignInPageState extends State<SignInPage> {
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         if (state.status == AuthStatus.logedIn) {
-          print(state.authRes?.user?.isProfileCompleted ?? false);
-          context.goNamed(RouteNames.dashboardScreen);
+          final userCubit = context.read<UserCubit>();
+          if (userCubit.state.userDetails.isProfileCompleted) {
+            context.goNamed(RouteNames.dashboardScreen);
+          } else {
+            context.goNamed(
+              RouteNames.myProfileEditScreen,
+              extra: MyProfileEditPageParam(
+                title: 'Complete your profile',
+                buttonTitle: 'Save and Continue',
+                navigateToOnSave: (context) =>
+                    context.goNamed(RouteNames.dashboardScreen),
+              ),
+            );
+          }
           return;
         }
         if (state.status == AuthStatus.failure) {

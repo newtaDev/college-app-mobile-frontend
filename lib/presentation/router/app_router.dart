@@ -121,13 +121,16 @@ class AppRouter {
         name: RouteNames.myProfileViewScreen,
         path: '/my_profile',
         builder: (context, state) => const MyProfileViewPage(),
-        routes: [
-          GoRoute(
-            name: RouteNames.myProfileEditScreen,
-            path: 'edit',
-            builder: (context, state) => const MyProfileEditPage(),
-          )
-        ],
+      ),
+      GoRoute(
+        name: RouteNames.myProfileEditScreen,
+        path: '/my_profile/edit',
+        builder: (context, state) {
+          assert(state.extra != null, 'Pass [ Extra ] to go_router');
+          return MyProfileEditPage(
+            params: state.extra! as MyProfileEditPageParam,
+          );
+        },
       ),
 
       GoRoute(

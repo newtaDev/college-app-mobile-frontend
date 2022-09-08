@@ -190,16 +190,7 @@ class _ProfileEditFormState extends State<_ProfileEditForm> {
                     },
                   ),
                 ),
-                validator: (value) {
-                  // TODO place validators in [FormValidator] class
-                  final requiredFied =
-                      FormValidator.requiredFieldValidator(value);
-                  if (requiredFied != null) return requiredFied;
-                  if (!Validators.isValidUsername(value!)) {
-                    return 'Username is Invalid';
-                  }
-                  return null;
-                },
+                validator: FormValidator.validateUsername,
               ),
               const SizedBox(height: 20),
               Text('Bio', style: textTheme.titleMedium),

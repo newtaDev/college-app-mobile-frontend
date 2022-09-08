@@ -1,27 +1,39 @@
 import 'validators.dart';
 
 class FormValidator {
-  static String? requiredFieldValidator(String? val) {
+  static String? requiredFieldValidator(String? value) {
     const message = 'This field is required';
-    if (val == null) {
+    if (value == null) {
       return message;
     }
-    if (val.trim().isEmpty) {
+    if (value.trim().isEmpty) {
       return message;
     }
     return null;
   }
 
-  static String? validateEmail(String? val) {
-    final req = requiredFieldValidator(val);
+  static String? validateEmail(String? value) {
+    final req = requiredFieldValidator(value);
     if (req != null) {
       return req;
     } else {
-      if (Validators.isValidEmail(val!)) {
+      if (Validators.isValidEmail(value!)) {
         return null;
       } else {
         return 'Enter valid email address';
       }
+    }
+  }
+
+  static String? validateUsername(String? value) {
+    final req = requiredFieldValidator(value);
+    if (req != null) {
+      return req;
+    } else {
+      if (!Validators.isValidUsername(value!)) {
+        return 'Username is Invalid';
+      }
+      return null;
     }
   }
 
@@ -37,11 +49,11 @@ class FormValidator {
     return null;
   }
 
-  static String? passwordValidator(String? val) {
-    final req = requiredFieldValidator(val);
+  static String? passwordValidator(String? value) {
+    final req = requiredFieldValidator(value);
     if (req != null) {
       return req;
-    } else if (val!.length < 6) {
+    } else if (value!.length < 6) {
       return 'Password should be atleast 6 characters';
     } else {
       ///should contain atleast one `num`
@@ -52,7 +64,7 @@ class FormValidator {
 
       const String pattern = '^$containNumber$atleast6Char\$';
       final RegExp regExp = RegExp(pattern);
-      if (!regExp.hasMatch(val)) {
+      if (!regExp.hasMatch(value)) {
         return 'Password is not stronger enough, must contain atleast one number';
       }
       return null;
