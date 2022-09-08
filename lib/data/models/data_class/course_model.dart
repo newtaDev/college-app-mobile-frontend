@@ -29,10 +29,10 @@ class Course extends MyEquatable {
         v: data['__v'] as int?,
         createdAt: data['createdAt'] == null
             ? null
-            : DateTime.parse(data['createdAt'] as String),
+            : DateTime.parse(data['createdAt'] as String).toLocal(),
         updatedAt: data['updatedAt'] == null
             ? null
-            : DateTime.parse(data['updatedAt'] as String),
+            : DateTime.parse(data['updatedAt'] as String).toLocal(),
       );
 
   Map<String, dynamic> toMap() => {

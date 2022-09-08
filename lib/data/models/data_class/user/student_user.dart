@@ -38,12 +38,12 @@ class StudentUser extends UserDetails {
         phoneNumber: data['phoneNumber'] as int?,
         parentsNumber: data['parentsNumber'] as int?,
         currentAddress: data['currentAddress'] as String?,
-        dob: data['dob'] == null ? null : DateTime.parse(data['dob'] as String),
+        dob: data['dob'] == null ? null : DateTime.parse(data['dob'] as String).toLocal(),
         username: data['username'] as String?,
         isProfileCompleted: data['isProfileCompleted'] as bool,
         id: data['_id'] as String,
-        createdAt: DateTime.parse(data['createdAt'] as String),
-        updatedAt: DateTime.parse(data['updatedAt'] as String),
+        createdAt: DateTime.parse(data['createdAt'] as String).toLocal(),
+        updatedAt: DateTime.parse(data['updatedAt'] as String).toLocal(),
       );
 
   Map<String, dynamic> toMap() => {
