@@ -33,6 +33,36 @@ class MyProfileEditCubit extends Cubit<MyProfileEditState> {
       final res = await profileRepo.updateStudentProfile(
         student.copyWith(isProfileCompleted: true),
       );
+
+      /// updates userDetails in user cubit
+      userCubit.setUserData(res.responseData);
+      emit(state.copyWith(editProfileStatus: MyProfileEditStatus.success));
+    } on ApiErrorRes catch (apiError) {
+      emit(
+        state.copyWith(
+          editProfileStatus: MyProfileEditStatus.error,
+          editProfileError: apiError,
+        ),
+      );
+    } catch (e) {
+      final apiError = ApiErrorRes(devMessage: 'Editing Profile failed');
+      emit(
+        state.copyWith(
+          editProfileStatus: MyProfileEditStatus.error,
+          editProfileError: apiError,
+        ),
+      );
+      rethrow;
+    }
+  }
+
+  Future<void> updateTeacherProfile(TeacherUser teacher) async {
+    emit(state.copyWith(editProfileStatus: MyProfileEditStatus.loading));
+    try {
+      final res = await profileRepo.updateTeacherProfile(
+        teacher.copyWith(isProfileCompleted: true),
+      );
+
       /// updates userDetails in user cubit
       userCubit.setUserData(res.responseData);
       emit(state.copyWith(editProfileStatus: MyProfileEditStatus.success));

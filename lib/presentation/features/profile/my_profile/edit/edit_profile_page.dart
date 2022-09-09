@@ -1,3 +1,4 @@
+import 'package:college_app/presentation/features/profile/my_profile/edit/teacher_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widgets_lib/widgets_lib.dart';
@@ -40,7 +41,7 @@ class MyProfileEditPage extends StatelessWidget {
           builder: (context, userType) {
             return userType == UserType.student
                 ? StudentEditProfileLayout(formKey: _formKey)
-                : const SizedBox(); //TODO
+                : TeacherEditProfileLayout(formKey: _formKey);
           },
         ),
         bottomNavigationBar: Padding(
@@ -81,7 +82,9 @@ class MyProfileEditPage extends StatelessWidget {
                             editCubitState.userDetails.asStudent!,
                           );
                         } else {
-                          //TODO for teacher
+                          editCubit.updateTeacherProfile(
+                            editCubitState.userDetails.asTeacher!,
+                          );
                         }
                       }
                     },

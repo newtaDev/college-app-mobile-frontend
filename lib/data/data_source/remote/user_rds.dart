@@ -38,4 +38,11 @@ class UserRemoteDataSource {
       data: student.toJson(),
     );
   }
+
+  Future<Response> updateTeacherProfile(TeacherUser teacher) {
+    return client.put(
+      '/user/teachers/${teacher.id}',
+      data: teacher.toJson(),
+    );
+  }
 }

@@ -52,7 +52,7 @@ class TeacherUser extends UserDetails {
         'emoji': emoji,
         'bio': bio,
         'collegeId': collegeId,
-        'userType': userType,
+        'userType': userType.value,
         'assignedClasses': assignedClasses,
         'username': username,
         'isProfileCompleted': isProfileCompleted,

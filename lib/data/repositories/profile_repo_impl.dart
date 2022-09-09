@@ -64,8 +64,16 @@ class ProfileRepoImpl implements ProfileRepository {
   }
 
   @override
-  Future<UserDetailsRes> updateTeacherProfile(TeacherUser teacher) {
-    // TODO: implement updateTeacherProfile
-    throw UnimplementedError();
+  Future<UserDetailsRes> updateTeacherProfile(TeacherUser teacher) async {
+    try {
+      final res = await userRds.updateTeacherProfile(teacher);
+      return UserDetailsRes.fromMap(res.data);
+    } on DioError catch (e) {
+      if (e.type != DioErrorType.response) rethrow;
+      final errorRes = ApiErrorRes.fromMap(e.response?.data);
+      throw errorRes;
+    } catch (e) {
+      rethrow;
+    }
   }
 }

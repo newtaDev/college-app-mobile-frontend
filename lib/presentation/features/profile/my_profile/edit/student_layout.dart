@@ -214,6 +214,7 @@ class _ProfileEditFormState extends State<_ProfileEditForm> {
                   editCubit.setEditedStudentUserData(_editedData);
                 },
                 validator: FormValidator.requiredFieldValidator,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 textInputAction: TextInputAction.newline,
                 maxLength: 150,
               ),
@@ -346,6 +347,8 @@ class _ProfileEditFormState extends State<_ProfileEditForm> {
                 },
                 maxLines: 4,
                 textInputAction: TextInputAction.newline,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: FormValidator.requiredFieldValidator,
               ),
               const SizedBox(height: 20),
             ],
