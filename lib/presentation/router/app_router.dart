@@ -2,7 +2,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../config/app_config.dart';
+import '../../cubits/user/user_cubit.dart';
 import '../../domain/entities/attendance_entity.dart';
+import '../../domain/entities/user_entity.dart';
 import '../../shared/global/enums.dart';
 import '../features/_init_/T&W_showcase/colors_page.dart';
 import '../features/_init_/T&W_showcase/t_w_showcase_page.dart';
@@ -19,7 +21,8 @@ import '../features/profile/my_profile/edit/cubit/my_profile_edit_cubit.dart';
 import '../features/profile/my_profile/edit/edit_profile_page.dart';
 import '../features/profile/my_profile/view/my_profile_view_page.dart';
 import '../features/profile/others_profile/profile_page.dart';
-import '../features/qr/qr_page.dart';
+import '../features/qr/viewer/qr_viewer_page.dart';
+import '../features/qr/scanner/qr_scanner_page.dart';
 import '../features/reports/attendance/attendance_report_page.dart';
 import '../features/reports/attendance/cubit/attendance_report_cubit.dart';
 import '../features/reports/reports_screen.dart';
@@ -112,9 +115,19 @@ class AppRouter {
         builder: (context, state) => const SignInPage(),
       ),
       GoRoute(
-        name: RouteNames.qrScreen,
+        name: RouteNames.qrViewerScreen,
         path: '/qr',
-        builder: (context, state) => const QrPage(),
+        builder: (context, state) {
+          assert(state.extra != null, 'Pass [ Extra ] to go_router');
+          return QrViewerPage(user: state.extra! as UserDetails);
+        },
+        routes: [
+          GoRoute(
+            name: RouteNames.qrScannerScreen,
+            path: 'scanner',
+            builder: (context, state) => const QrScannerPage(),
+          ),
+        ],
       ),
 
       GoRoute(
@@ -137,7 +150,7 @@ class AppRouter {
         name: RouteNames.profileScreen,
         path: '/profile/:profile_id',
         builder: (context, state) =>
-            OthersProfileScreen(profileId: state.params['tab_name']!),
+            OthersProfileScreen(profileId: state.params['profile_id']!),
       ),
 
       GoRoute(

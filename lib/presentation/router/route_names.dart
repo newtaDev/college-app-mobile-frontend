@@ -9,7 +9,8 @@ class RouteNames {
   static const updateAttendanceScreen = 'update_attendance_screen';
   static const reportsScreen = 'reports_screen';
   static const signUpScreen = 'sign_up_screen';
-  static const qrScreen = 'qr_screen';
+  static const qrViewerScreen = 'qr_viewer_screen';
+  static const qrScannerScreen = 'qr_scanner_screen';
   static const profileScreen = 'profile_screen';
   static const myProfileViewScreen = 'my_profile_view_screen';
   static const myProfileEditScreen = 'my_profile_edit_screen';
