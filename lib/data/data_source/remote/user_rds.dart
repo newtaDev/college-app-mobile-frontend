@@ -11,6 +11,9 @@ class UserRemoteDataSource {
   Future<Response> getUserDetails() {
     return client.get('/user/details');
   }
+  Future<Response> getAssignedClassesOfTeacher() {
+    return client.get('/user/teachers/assignedClasses');
+  }
 
   Future<Response> getAllStudentsInClass({required String classId}) {
     return client.get(

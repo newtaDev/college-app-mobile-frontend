@@ -18,7 +18,7 @@ class SelectionCubit extends Cubit<SelectionState> {
   Future<void> getClassesWithDetails() async {
     emit(state.copyWith(classAndSemStatus: SemAndClassStatus.loading));
     try {
-      final classRes = await commonRepo.getClassesWithDetails();
+      final classRes = await commonRepo.getAssignedClassesOfTeacher();
       if (state.selectedClass != null) {
         final _selectedClass = classRes.responseData?.firstWhereSafe(
           (element) => state.selectedClass!.id! == element.id,

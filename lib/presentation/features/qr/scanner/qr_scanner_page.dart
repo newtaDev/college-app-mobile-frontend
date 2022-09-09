@@ -81,9 +81,9 @@ class _QrScannerPageState extends State<QrScannerPage> {
         if (id == null ||
             userType == null ||
             navigateTo != RouteNames.profileScreen) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(const SnackBar(content: Text('Invalid Qr code')));
+          // ScaffoldMessenger.of(context)
+          //   ..hideCurrentSnackBar()
+          //   ..showSnackBar(const SnackBar(content: Text('Invalid Qr code')));
           return;
         } else {
           if (qrNavDebouncer.isActive ?? false) return;
@@ -100,7 +100,6 @@ class _QrScannerPageState extends State<QrScannerPage> {
       }
     });
     if (Platform.isAndroid) {
-      await controller.pauseCamera();
       await controller.resumeCamera();
     }
   }

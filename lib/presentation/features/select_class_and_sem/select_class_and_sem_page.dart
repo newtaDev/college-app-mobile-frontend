@@ -34,9 +34,13 @@ class _SelectClassAndSemPageState extends State<SelectClassAndSemPage> {
               state.classAndSemStatus.isLoading) {
             return const LoadingIndicator();
           }
-
-          if (state.classes.isEmpty || state.classAndSemStatus.isError) {
+          if (state.classAndSemStatus.isError) {
             return const Center(child: Text('Classes not found'));
+          }
+          if (state.classes.isEmpty) {
+            return const Center(
+              child: Text("You don't have access to any classes"),
+            );
           }
           return const SelectableLayout();
         },
