@@ -203,8 +203,10 @@ class _MyProfileView extends StatelessWidget {
         const SizedBox(height: 10),
         const Divider(),
         const ProfileMyDashboardSection(),
-        const SizedBox(height: 5),
+        const SizedBox(height: 10),
+        const Divider(),
         const ProfileMyAccountSection(),
+        const SizedBox(height: 20),
       ],
     );
   }

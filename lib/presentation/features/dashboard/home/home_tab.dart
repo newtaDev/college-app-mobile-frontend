@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:styles_lib/assets/assets.dart';
 import 'package:widgets_lib/widgets/widgets.dart';
 
+import '../../../../cubits/user/user_cubit.dart';
 import '../../../../shared/global/constants.dart';
 import '../../../../shared/global/enums.dart';
 import '../../../router/route_names.dart';
@@ -47,6 +49,7 @@ class _HomeTabState extends State<HomeTab> {
     final theme = Theme.of(context);
     final textTheme = Theme.of(context).textTheme;
     final boxBgSize = (MediaQuery.of(context).size.width) / 4;
+    final userCubit = context.read<UserCubit>();
     return LayoutBuilder(
       builder: (context, constraints) {
         const anouncementTextAndTabHeight = 76;
@@ -92,24 +95,32 @@ class _HomeTabState extends State<HomeTab> {
                   children: [
                     IconButtonBox(
                       lable: 'Time Tables',
-                      icon: const Icon(Icons.access_alarm_outlined),
+                      icon: const Icon(Icons.calendar_view_month_sharp),
                       backgroundSize: boxBgSize,
                       onTap: () {},
                     ),
-                    IconButtonBox(
-                      lable: 'Results',
-                      icon: const Icon(Icons.access_alarm_outlined),
-                      backgroundSize: boxBgSize,
-                      onTap: () {
-                        context.pushNamed(
-                          RouteNames.selectClassAndSemScreen,
-                          extra: 'Attendance',
-                        );
-                      },
-                    ),
+                    if (userCubit.state.isTeacher)
+                      IconButtonBox(
+                        lable: 'Attendance',
+                        icon: const Icon(Icons.assignment_turned_in_outlined),
+                        backgroundSize: boxBgSize,
+                        onTap: () {
+                          context.pushNamed(
+                            RouteNames.selectClassAndSemScreen,
+                            extra: 'Attendance',
+                          );
+                        },
+                      ),
+                    if (userCubit.state.isStudent)
+                      IconButtonBox(
+                        lable: 'Results',
+                        icon: const Icon(Icons.assignment_outlined),
+                        backgroundSize: boxBgSize,
+                        onTap: () {},
+                      ),
                     IconButtonBox(
                       lable: 'Reports',
-                      icon: const Icon(Icons.access_alarm_outlined),
+                      icon: const Icon(Icons.description_outlined),
                       backgroundSize: boxBgSize,
                       onTap: () {
                         context.goNamed(
@@ -122,7 +133,7 @@ class _HomeTabState extends State<HomeTab> {
                     ),
                     IconButtonBox(
                       lable: 'Scan QR',
-                      icon: const Icon(Icons.access_alarm_outlined),
+                      icon: const Icon(Icons.qr_code_scanner_rounded),
                       backgroundSize: boxBgSize,
                       onTap: () {
                         context.pushNamed(RouteNames.qrScannerScreen);

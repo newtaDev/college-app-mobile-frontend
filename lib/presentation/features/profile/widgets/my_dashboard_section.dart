@@ -45,7 +45,7 @@ class ProfileMyDashboardSection extends StatelessWidget {
             backgroundColor: ColorsPallet.primaryBlue.withOpacity(0.1),
             radius: 25,
             child: const Icon(
-              Icons.check_box_outlined,
+              Icons.assignment_turned_in_outlined,
               color: ColorsPallet.primaryBlue,
             ),
           ),
@@ -60,7 +60,7 @@ class ProfileMyDashboardSection extends StatelessWidget {
             backgroundColor: ColorsPallet.primaryBlue.withOpacity(0.1),
             radius: 25,
             child: const Icon(
-              Icons.check_box_outlined,
+              Icons.assignment_outlined,
               color: ColorsPallet.primaryBlue,
             ),
           ),
