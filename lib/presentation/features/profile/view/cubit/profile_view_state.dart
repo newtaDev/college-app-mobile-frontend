@@ -34,6 +34,7 @@ class ProfileViewState extends MyEquatable {
       error: error ?? this.error,
     );
   }
+
   @override
   List<Object?> get props => [userDetails, status, error];
 }

@@ -10,7 +10,7 @@ import '../../../../../shared/extensions/extentions.dart';
 import '../../../../../shared/validators/form_validator.dart';
 import '../../../../../shared/validators/validators.dart';
 import '../../../../../utils/utils.dart';
-import '../../widgets/profile_emoji_selector.dart';
+import '../widgets/profile_emoji_selector.dart';
 import 'cubit/my_profile_edit_cubit.dart';
 
 class TeacherEditProfileLayout extends StatelessWidget {

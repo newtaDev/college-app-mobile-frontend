@@ -6,5 +6,6 @@ abstract class ProfileRepository {
   Future<void> checkEmailExists(String email);
   Future<UserDetailsRes> updateStudentProfile(StudentUser student);
   Future<UserDetailsRes> updateTeacherProfile(TeacherUser teacher);
-  Future<UserDetailsRes> getProfile({required String userId,required UserType userType});
+  Future<UserDetailsRes> getProfile(
+      {required String userId, required UserType userType});
 }

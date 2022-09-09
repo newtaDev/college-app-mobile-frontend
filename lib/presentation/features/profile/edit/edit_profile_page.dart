@@ -1,4 +1,3 @@
-import 'package:college_app/presentation/features/profile/my_profile/edit/teacher_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widgets_lib/widgets_lib.dart';
@@ -8,6 +7,7 @@ import '../../../../../cubits/user/user_cubit.dart';
 import '../../../../../shared/global/enums.dart';
 import 'cubit/my_profile_edit_cubit.dart';
 import 'student_layout.dart';
+import 'teacher_layout.dart';
 
 class MyProfileEditPageParam {
   final void Function(BuildContext context) navigateToOnSave;

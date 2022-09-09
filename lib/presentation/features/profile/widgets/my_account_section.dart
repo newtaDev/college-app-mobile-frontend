@@ -5,7 +5,7 @@ import 'package:styles_lib/theme/themes.dart';
 
 import '../../../../../cubits/auth/auth_cubit.dart';
 import '../../../router/route_names.dart';
-import '../my_profile/edit/edit_profile_page.dart';
+import '../edit/edit_profile_page.dart';
 
 class ProfileMyAccountSection extends StatelessWidget {
   const ProfileMyAccountSection({super.key});

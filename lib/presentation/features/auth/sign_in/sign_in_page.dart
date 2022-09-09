@@ -8,7 +8,7 @@ import '../../../../domain/entities/auth_entitie.dart';
 import '../../../../shared/global/enums.dart';
 import '../../../../shared/validators/form_validator.dart';
 import '../../../router/route_names.dart';
-import '../../profile/my_profile/edit/edit_profile_page.dart';
+import '../../profile/edit/edit_profile_page.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});

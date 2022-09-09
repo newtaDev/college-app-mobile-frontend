@@ -14,47 +14,47 @@ class ProfileWithBio extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return  Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 10),
-              child: Row(
-                children: [
-                  ProfileAvathar(
-                    emoji: user.emoji!,
-                    emojiSize: 40,
-                    avatarSize: 40,
-                  ),
-                  const SizedBox(width: 20),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          user.name,
-                          style: textTheme.titleLarge,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          '@${user.username}',
-                          style: textTheme.bodyMedium
-                              ?.copyWith(color: ColorsPallet.grey),
-                        ),
-                      ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 20, right: 10),
+          child: Row(
+            children: [
+              ProfileAvathar(
+                emoji: user.emoji!,
+                emojiSize: 40,
+                avatarSize: 40,
+              ),
+              const SizedBox(width: 20),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      user.name,
+                      style: textTheme.titleLarge,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                ],
+                    Text(
+                      '@${user.username}',
+                      style: textTheme.bodyMedium
+                          ?.copyWith(color: ColorsPallet.grey),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 10, top: 15),
-              child: Text(
-                user.bio!,
-                style: textTheme.bodySmall,
-              ),
-            ),
-          ],
-        );
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 20, right: 10, top: 15),
+          child: Text(
+            user.bio!,
+            style: textTheme.bodySmall,
+          ),
+        ),
+      ],
+    );
   }
 }

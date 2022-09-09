@@ -7,10 +7,10 @@ import 'package:widgets_lib/widgets_lib.dart';
 import '../../../../../cubits/user/user_cubit.dart';
 import '../../../../../domain/entities/user_entity.dart';
 import '../../../../../shared/global/enums.dart';
-import '../../../../router/route_names.dart';
-import '../../widgets/my_account_section.dart';
-import '../../widgets/my_dashboard_section.dart';
-import '../../widgets/profile_with_bio.dart';
+import '../../../router/route_names.dart';
+import '../widgets/my_account_section.dart';
+import '../widgets/my_dashboard_section.dart';
+import '../widgets/profile_with_bio.dart';
 import 'cubit/profile_view_cubit.dart';
 
 class ProfileViewPage extends StatelessWidget {
