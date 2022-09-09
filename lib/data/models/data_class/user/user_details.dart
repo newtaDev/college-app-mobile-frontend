@@ -5,6 +5,8 @@ class UserDetails extends MyEquatable {
   final String id;
   final String? email;
   final String? username;
+  final String? emoji;
+  final String? bio;
   final bool isProfileCompleted;
   final String collegeId;
   final DateTime createdAt;
@@ -16,6 +18,8 @@ class UserDetails extends MyEquatable {
     required this.id,
     this.email,
     this.username,
+    this.emoji,
+    this.bio,
     required this.isProfileCompleted,
     required this.collegeId,
     required this.createdAt,
@@ -28,6 +32,8 @@ class UserDetails extends MyEquatable {
         email = '',
         id = '',
         name = '',
+        emoji = null,
+        bio = null,
         username = '',
         isProfileCompleted = false,
         createdAt = DateTime.now(),
@@ -58,6 +64,8 @@ class UserDetails extends MyEquatable {
       name,
       id,
       email,
+      emoji,
+      bio,
       username,
       isProfileCompleted,
       collegeId,

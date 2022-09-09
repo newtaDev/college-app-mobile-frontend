@@ -7,7 +7,7 @@ import 'package:styles_lib/theme/themes.dart';
 import '../../../../shared/global/constants.dart';
 
 class ProfileEmojiSelector extends StatefulWidget {
-  final String initialEmoji;
+  final String? initialEmoji;
   final void Function(Emoji emoji) onSelected;
   const ProfileEmojiSelector({
     super.key,

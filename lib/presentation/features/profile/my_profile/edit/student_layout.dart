@@ -20,23 +20,32 @@ class StudentEditProfileLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-
-    return ListView(
-      children: [
-        const SizedBox(height: 20),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Text(
-            'Choose a profile',
-            style: textTheme.titleMedium,
+    final editCubit = context.read<MyProfileEditCubit>();
+    final studentUser = editCubit.state.userDetails.asStudent;
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              'Choose a profile',
+              style: textTheme.titleMedium,
+            ),
           ),
-        ),
-        ProfileEmojiSelector(
-          initialEmoji: '👨🏻',
-          onSelected: (emoji) {},
-        ),
-        _ProfileEditForm(formKey: formKey),
-      ],
+          ProfileEmojiSelector(
+            //  👩🏻‍🏫
+            initialEmoji: studentUser?.emoji,
+            onSelected: (emoji) {
+              final _editedData = editCubit.state.userDetails.asStudent
+                  ?.copyWith(emoji: emoji.char);
+              editCubit.setEditedStudentUserData(_editedData);
+            },
+          ),
+          _ProfileEditForm(formKey: formKey),
+        ],
+      ),
     );
   }
 }
@@ -60,8 +69,8 @@ class _ProfileEditFormState extends State<_ProfileEditForm> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final editCubit = context.read<MyProfileEditCubit>();
     final userCubit = context.read<UserCubit>();
+    final editCubit = context.read<MyProfileEditCubit>();
     final studentUser = editCubit.state.userDetails.asStudent;
     final _readonlyTooltip = CustomToolTip(
       shadowColor: Colors.black.withOpacity(0.15),
@@ -197,6 +206,14 @@ class _ProfileEditFormState extends State<_ProfileEditForm> {
               const SizedBox(height: 10),
               TextFormField(
                 maxLines: 4,
+                initialValue: studentUser?.bio,
+                onChanged: (value) {
+                  final _editedData = editCubit.state.userDetails.asStudent
+                      ?.copyWith(bio: value);
+
+                  editCubit.setEditedStudentUserData(_editedData);
+                },
+                validator: FormValidator.requiredFieldValidator,
                 textInputAction: TextInputAction.newline,
                 maxLength: 150,
               ),

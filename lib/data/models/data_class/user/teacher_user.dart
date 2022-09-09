@@ -16,6 +16,8 @@ class TeacherUser extends UserDetails {
     this.currentAddress,
     this.dob,
     super.username,
+    super.emoji,
+    super.bio,
     required super.isProfileCompleted,
     required super.id,
     required super.createdAt,
@@ -25,6 +27,8 @@ class TeacherUser extends UserDetails {
   factory TeacherUser.fromMap(Map<String, dynamic> data) => TeacherUser(
         name: data['name'],
         email: data['email'] as String?,
+        emoji: data['emoji'] as String? ?? '👩🏻‍🏫',
+        bio: data['bio'] as String?,
         collegeId: data['collegeId'] as String,
         userType: UserType.fromName(data['userType'])!,
         assignedClasses: data['assignedClasses']
@@ -32,7 +36,9 @@ class TeacherUser extends UserDetails {
             .toList(),
         phoneNumber: data['phoneNumber'] as int?,
         currentAddress: data['currentAddress'] as String?,
-        dob: data['dob'] == null ? null : DateTime.parse(data['dob'] as String).toLocal(),
+        dob: data['dob'] == null
+            ? null
+            : DateTime.parse(data['dob'] as String).toLocal(),
         username: data['username'] as String?,
         isProfileCompleted: data['isProfileCompleted'] as bool,
         id: data['_id'] as String,
@@ -43,6 +49,8 @@ class TeacherUser extends UserDetails {
   Map<String, dynamic> toMap() => {
         'name': name,
         'email': email,
+        'emoji': emoji,
+        'bio': bio,
         'collegeId': collegeId,
         'userType': userType,
         'assignedClasses': assignedClasses,
@@ -78,6 +86,8 @@ class TeacherUser extends UserDetails {
     bool? isProfileCompleted,
     String? id,
     int? phoneNumber,
+    String? emoji,
+    String? bio,
     String? currentAddress,
     DateTime? dob,
     DateTime? createdAt,
@@ -86,6 +96,8 @@ class TeacherUser extends UserDetails {
     return TeacherUser(
       name: name ?? this.name,
       email: email ?? this.email,
+      emoji: emoji ?? this.emoji,
+      bio: bio ?? this.bio,
       collegeId: collegeId ?? this.collegeId,
       userType: userType ?? this.userType,
       assignedClasses: assignedClasses ?? this.assignedClasses,
@@ -105,6 +117,8 @@ class TeacherUser extends UserDetails {
     return [
       name,
       email,
+      emoji,
+      bio,
       collegeId,
       userType,
       assignedClasses,

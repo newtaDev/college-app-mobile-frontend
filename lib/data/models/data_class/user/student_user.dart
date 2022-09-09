@@ -20,6 +20,8 @@ class StudentUser extends UserDetails {
     this.currentAddress,
     this.dob,
     super.username,
+    super.emoji,
+    super.bio,
     required super.isProfileCompleted,
     required super.id,
     required super.createdAt,
@@ -29,6 +31,8 @@ class StudentUser extends UserDetails {
   factory StudentUser.fromMap(Map<String, dynamic> data) => StudentUser(
         name: data['name'] as String,
         email: data['email'] as String,
+        emoji: data['emoji'] as String? ?? '👨🏻',
+        bio: data['bio'] as String?,
         collegeId: data['collegeId'] as String,
         classId: data['classId'] as String,
         userType: UserType.fromName(data['userType'])!,
@@ -38,7 +42,9 @@ class StudentUser extends UserDetails {
         phoneNumber: data['phoneNumber'] as int?,
         parentsNumber: data['parentsNumber'] as int?,
         currentAddress: data['currentAddress'] as String?,
-        dob: data['dob'] == null ? null : DateTime.parse(data['dob'] as String).toLocal(),
+        dob: data['dob'] == null
+            ? null
+            : DateTime.parse(data['dob'] as String).toLocal(),
         username: data['username'] as String?,
         isProfileCompleted: data['isProfileCompleted'] as bool,
         id: data['_id'] as String,
@@ -49,6 +55,8 @@ class StudentUser extends UserDetails {
   Map<String, dynamic> toMap() => {
         'name': name,
         'email': email,
+        'emoji': emoji,
+        'bio': bio,
         'collegeId': collegeId,
         'classId': classId,
         'userType': userType.value,
@@ -83,6 +91,8 @@ class StudentUser extends UserDetails {
     int? phoneNumber,
     String? currentAddress,
     DateTime? dob,
+    String? emoji,
+    String? bio,
     int? parentsNumber,
     String? username,
     bool? isProfileCompleted,
@@ -93,6 +103,8 @@ class StudentUser extends UserDetails {
     return StudentUser(
       name: name ?? this.name,
       email: email ?? this.email,
+      emoji: emoji ?? this.emoji,
+      bio: bio ?? this.bio,
       collegeId: collegeId ?? this.collegeId,
       classId: classId ?? this.classId,
       userType: userType ?? this.userType,
@@ -114,6 +126,8 @@ class StudentUser extends UserDetails {
     return [
       name,
       email,
+      emoji,
+      bio,
       collegeId,
       classId,
       userType,
