@@ -58,6 +58,7 @@ class QrViewerPage extends StatelessWidget {
                             QrImage(
                           data: json.encode({
                             'id': user.id,
+                            'userType': user.userType.value,
                             'navigateTo': RouteNames.profileScreen,
                           }),
                           padding: const EdgeInsets.all(25),

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 
 import '../../../domain/entities/user_entity.dart';
+import '../../../shared/global/enums.dart';
 import '../../../shared/helpers/network/dio_client.dart';
 
 class UserRemoteDataSource {
@@ -43,6 +44,13 @@ class UserRemoteDataSource {
     return client.put(
       '/user/teachers/${teacher.id}',
       data: teacher.toJson(),
+    );
+  }
+
+  Future<Response> getProfile({String? userId, required UserType userType}) {
+    return client.get(
+      '/user/profiles/$userId',
+      queryParameters: {'userType': userType.value},
     );
   }
 }

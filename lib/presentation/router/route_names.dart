@@ -12,7 +12,6 @@ class RouteNames {
   static const qrViewerScreen = 'qr_viewer_screen';
   static const qrScannerScreen = 'qr_scanner_screen';
   static const profileScreen = 'profile_screen';
-  static const myProfileViewScreen = 'my_profile_view_screen';
   static const myProfileEditScreen = 'my_profile_edit_screen';
 
   /// Showcase screens

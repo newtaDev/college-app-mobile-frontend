@@ -20,6 +20,7 @@ import '../../domain/repository/profile_repository.dart';
 import '../../presentation/features/attendance/create_attendance/cubit/create_attendance_cubit.dart';
 import '../../presentation/features/attendance/view_attendance/cubit/view_attendance_cubit.dart';
 import '../../presentation/features/profile/my_profile/edit/cubit/my_profile_edit_cubit.dart';
+import '../../presentation/features/profile/my_profile/view/cubit/profile_view_cubit.dart';
 import '../../presentation/features/reports/attendance/cubit/attendance_report_cubit.dart';
 import '../app_config.dart';
 

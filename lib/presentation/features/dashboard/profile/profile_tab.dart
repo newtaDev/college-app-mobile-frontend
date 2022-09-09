@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../profile/my_profile/view/my_profile_view_page.dart';
+import '../../../../cubits/user/user_cubit.dart';
+import '../../profile/my_profile/view/profile_view_page.dart';
 
 class ProfileTab extends StatelessWidget {
   const ProfileTab({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MyProfileViewPage();
+    final user = context.read<UserCubit>().state.userDetails;
+    return ProfileViewPage(userId: user.id, userType: user.userType);
   }
 }

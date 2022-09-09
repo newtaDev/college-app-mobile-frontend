@@ -124,7 +124,9 @@ class _HomeTabState extends State<HomeTab> {
                       lable: 'Scan QR',
                       icon: const Icon(Icons.access_alarm_outlined),
                       backgroundSize: boxBgSize,
-                      onTap: () {},
+                      onTap: () {
+                        context.pushNamed(RouteNames.qrScannerScreen);
+                      },
                     ),
                   ],
                 ),

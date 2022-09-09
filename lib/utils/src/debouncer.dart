@@ -8,6 +8,7 @@ class Debouncer {
   final Duration delay;
   Timer? _timer;
 
+  bool? get isActive => _timer?.isActive;
   Timer run(VoidCallback action) {
     _timer?.cancel();
     return _timer = Timer(delay, action);

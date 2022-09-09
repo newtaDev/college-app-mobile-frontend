@@ -76,8 +76,11 @@ class _QrScannerPageState extends State<QrScannerPage> {
       if (scanData.format == BarcodeFormat.qrcode) {
         final data = json.decode(scanData.code!);
         final id = data['id'];
+        final userType = data['userType'];
         final navigateTo = data['navigateTo'];
-        if (id == null || navigateTo != RouteNames.profileScreen) {
+        if (id == null ||
+            userType == null ||
+            navigateTo != RouteNames.profileScreen) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(const SnackBar(content: Text('Invalid Qr code')));
@@ -90,6 +93,7 @@ class _QrScannerPageState extends State<QrScannerPage> {
               ..pushNamed(
                 RouteNames.profileScreen,
                 params: {'profile_id': id},
+                queryParams: {'userType': userType},
               );
           });
         }

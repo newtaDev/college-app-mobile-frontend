@@ -46,5 +46,11 @@ void registerCubitsDependencies() {
         profileRepo: getIt<ProfileRepoImpl>(),
         userCubit: getIt<UserCubit>(),
       ),
+    )
+    ..registerFactory(
+      () => ProfileViewCubit(
+        userCubit: getIt<UserCubit>(),
+        profileRepo: getIt<ProfileRepoImpl>(),
+      ),
     );
 }

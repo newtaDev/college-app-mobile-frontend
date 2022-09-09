@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../domain/repository/profile_repository.dart';
 import '../../shared/errors/api_errors.dart';
+import '../../shared/global/enums.dart';
 import '../data_source/remote/user_rds.dart';
 
 class ProfileRepoImpl implements ProfileRepository {
@@ -67,6 +68,23 @@ class ProfileRepoImpl implements ProfileRepository {
   Future<UserDetailsRes> updateTeacherProfile(TeacherUser teacher) async {
     try {
       final res = await userRds.updateTeacherProfile(teacher);
+      return UserDetailsRes.fromMap(res.data);
+    } on DioError catch (e) {
+      if (e.type != DioErrorType.response) rethrow;
+      final errorRes = ApiErrorRes.fromMap(e.response?.data);
+      throw errorRes;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<UserDetailsRes> getProfile({
+    required String userId,
+    required UserType userType,
+  }) async {
+    try {
+      final res = await userRds.getProfile(userType: userType, userId: userId);
       return UserDetailsRes.fromMap(res.data);
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;

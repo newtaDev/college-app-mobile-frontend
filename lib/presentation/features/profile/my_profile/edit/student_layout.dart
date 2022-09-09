@@ -23,6 +23,7 @@ class StudentEditProfileLayout extends StatelessWidget {
     final editCubit = context.read<MyProfileEditCubit>();
     final studentUser = editCubit.state.userDetails.asStudent;
     return SingleChildScrollView(
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

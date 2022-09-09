@@ -19,8 +19,8 @@ import '../features/auth/sign_in/sign_in_page.dart';
 import '../features/dashboard/dashboard_page.dart';
 import '../features/profile/my_profile/edit/cubit/my_profile_edit_cubit.dart';
 import '../features/profile/my_profile/edit/edit_profile_page.dart';
-import '../features/profile/my_profile/view/my_profile_view_page.dart';
-import '../features/profile/others_profile/profile_page.dart';
+import '../features/profile/my_profile/view/cubit/profile_view_cubit.dart';
+import '../features/profile/my_profile/view/profile_view_page.dart';
 import '../features/qr/viewer/qr_viewer_page.dart';
 import '../features/qr/scanner/qr_scanner_page.dart';
 import '../features/reports/attendance/attendance_report_page.dart';
@@ -131,26 +131,29 @@ class AppRouter {
       ),
 
       GoRoute(
-        name: RouteNames.myProfileViewScreen,
-        path: '/my_profile',
-        builder: (context, state) => const MyProfileViewPage(),
+        name: RouteNames.profileScreen,
+        path: '/profile/:profile_id',
+        builder: (context, state) {
+          final userType = UserType.fromName(state.queryParams['userType']!);
+          assert(userType != null, '[ userType ] is invalid');
+          final id = state.params['profile_id']!;
+          if (userType == null) throw Exception('Invalid usertype');
+          return BlocProvider(
+            create: (context) =>
+                getIt<ProfileViewCubit>()..setDataIfMyProfile(id),
+            child: ProfileViewPage(userId: id, userType: userType),
+          );
+        },
       ),
       GoRoute(
         name: RouteNames.myProfileEditScreen,
-        path: '/my_profile/edit',
+        path: '/edit_profile',
         builder: (context, state) {
           assert(state.extra != null, 'Pass [ Extra ] to go_router');
           return MyProfileEditPage(
             params: state.extra! as MyProfileEditPageParam,
           );
         },
-      ),
-
-      GoRoute(
-        name: RouteNames.profileScreen,
-        path: '/profile/:profile_id',
-        builder: (context, state) =>
-            OthersProfileScreen(profileId: state.params['profile_id']!),
       ),
 
       GoRoute(
