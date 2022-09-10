@@ -33,15 +33,15 @@ class _SignInPageState extends State<SignInPage> {
         if (state.status == AuthStatus.logedIn) {
           final userCubit = context.read<UserCubit>();
           if (userCubit.state.userDetails.isProfileCompleted) {
-            context.goNamed(RouteNames.dashboardScreen);
+            context.goNamed(Routes.dashboardScreen.name);
           } else {
             context.goNamed(
-              RouteNames.myProfileEditScreen,
+              Routes.myProfileEditScreen.name,
               extra: MyProfileEditPageParam(
                 title: 'Complete your profile',
                 buttonTitle: 'Save and Continue',
                 navigateToOnSave: (context) =>
-                    context.goNamed(RouteNames.dashboardScreen),
+                    context.goNamed(Routes.dashboardScreen.name),
               ),
             );
           }

@@ -39,12 +39,12 @@ class AppRouter {
     debugLogDiagnostics: true,
     routes: [
       GoRoute(
-        name: RouteNames.splashScreen,
+        name: Routes.splashScreen.name,
         path: '/splash',
         builder: (context, state) => const SplashScreen(),
       ),
       GoRoute(
-        name: RouteNames.dashboardScreen,
+        name: Routes.dashboardScreen.name,
         path: '/',
         redirect: (state) => '/dashboard/home',
       ),
@@ -58,7 +58,7 @@ class AppRouter {
         },
         routes: [
           GoRoute(
-            name: RouteNames.viewAttendanceScreen,
+            name: Routes.viewAttendanceScreen.name,
             path: 'attendance',
             builder: (context, state) {
               return BlocProvider(
@@ -68,7 +68,7 @@ class AppRouter {
             },
             routes: [
               GoRoute(
-                name: RouteNames.createAttendanceScreen,
+                name: Routes.createAttendanceScreen.name,
                 path: 'create',
                 builder: (context, state) => BlocProvider(
                   create: (context) => getIt<CreateAttendanceCubit>(),
@@ -78,7 +78,7 @@ class AppRouter {
                 ),
               ),
               GoRoute(
-                name: RouteNames.updateAttendanceScreen,
+                name: Routes.updateAttendanceScreen.name,
                 path: 'update',
                 builder: (context, state) => BlocProvider(
                   create: (context) => getIt<CreateAttendanceCubit>(),
@@ -92,12 +92,12 @@ class AppRouter {
             ],
           ),
           GoRoute(
-            name: RouteNames.reportsScreen,
+            name: Routes.reportsScreen.name,
             path: 'reports',
             builder: (context, state) => const ReportsScreen(),
             routes: [
               GoRoute(
-                name: RouteNames.attendanceReportScreen,
+                name: Routes.attendanceReportScreen.name,
                 path: 'attendance',
                 builder: (context, state) => BlocProvider(
                   create: (context) => getIt<AttendanceReportCubit>(),
@@ -109,12 +109,12 @@ class AppRouter {
         ],
       ),
       GoRoute(
-        name: RouteNames.signInScreen,
+        name: Routes.signInScreen.name,
         path: '/sign_in',
         builder: (context, state) => const SignInPage(),
       ),
       GoRoute(
-        name: RouteNames.qrViewerScreen,
+        name: Routes.qrViewerScreen.name,
         path: '/qr',
         builder: (context, state) {
           assert(state.extra != null, 'Pass [ Extra ] to go_router');
@@ -122,7 +122,7 @@ class AppRouter {
         },
         routes: [
           GoRoute(
-            name: RouteNames.qrScannerScreen,
+            name: Routes.qrScannerScreen.name,
             path: 'scanner',
             builder: (context, state) => const QrScannerPage(),
           ),
@@ -130,7 +130,7 @@ class AppRouter {
       ),
 
       GoRoute(
-        name: RouteNames.profileScreen,
+        name: Routes.profileScreen.name,
         path: '/profile/:profile_id',
         builder: (context, state) {
           final userType = UserType.fromName(state.queryParams['userType']!);
@@ -145,7 +145,7 @@ class AppRouter {
         },
       ),
       GoRoute(
-        name: RouteNames.myProfileEditScreen,
+        name: Routes.myProfileEditScreen.name,
         path: '/edit_profile',
         builder: (context, state) {
           assert(state.extra != null, 'Pass [ Extra ] to go_router');
@@ -156,7 +156,7 @@ class AppRouter {
       ),
 
       GoRoute(
-        name: RouteNames.selectClassAndSemScreen,
+        name: Routes.selectClassAndSemScreen.name,
         path: '/select_class_and_sem',
         builder: (context, state) {
           final appBarName = state.extra.toString();
@@ -176,22 +176,22 @@ class AppRouter {
 
       /// Showcase Widgets and thems
       GoRoute(
-        name: RouteNames.schowcaseThemeAndWidgetsScreen,
+        name: Routes.schowcaseThemeAndWidgetsScreen.name,
         path: '/t_w_showcase',
         builder: (context, state) => const ThemeAndWidgetsShaowcasePage(),
         routes: [
           GoRoute(
-            name: RouteNames.showcaseWidgetsScreen,
+            name: Routes.showcaseWidgetsScreen.name,
             path: 'widgets',
             builder: (context, state) => const WidgetsShowcasePage(),
           ),
           GoRoute(
-            name: RouteNames.showcaseTypographyScreen,
+            name: Routes.showcaseTypographyScreen.name,
             path: 'typography',
             builder: (context, state) => const TypographyPage(),
           ),
           GoRoute(
-            name: RouteNames.showcaseColorsScreen,
+            name: Routes.showcaseColorsScreen.name,
             path: 'colors',
             builder: (context, state) => const ColorsPage(),
           ),

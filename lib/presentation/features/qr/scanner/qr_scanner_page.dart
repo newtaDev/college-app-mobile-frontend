@@ -80,7 +80,7 @@ class _QrScannerPageState extends State<QrScannerPage> {
         final navigateTo = data['navigateTo'];
         if (id == null ||
             userType == null ||
-            navigateTo != RouteNames.profileScreen) {
+            navigateTo != Routes.profileScreen.name) {
           // ScaffoldMessenger.of(context)
           //   ..hideCurrentSnackBar()
           //   ..showSnackBar(const SnackBar(content: Text('Invalid Qr code')));
@@ -91,7 +91,7 @@ class _QrScannerPageState extends State<QrScannerPage> {
             context
               ..pop()
               ..pushNamed(
-                RouteNames.profileScreen,
+                Routes.profileScreen.name,
                 params: {'profile_id': id},
                 queryParams: {'userType': userType},
               );

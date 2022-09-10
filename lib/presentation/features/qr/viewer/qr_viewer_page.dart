@@ -59,7 +59,7 @@ class QrViewerPage extends StatelessWidget {
                           data: json.encode({
                             'id': user.id,
                             'userType': user.userType.value,
-                            'navigateTo': RouteNames.profileScreen,
+                            'navigateTo': Routes.profileScreen.name,
                           }),
                           padding: const EdgeInsets.all(25),
                         ),
@@ -84,7 +84,7 @@ class QrViewerPage extends StatelessWidget {
             child: OutlinedButton.icon(
               icon: const Icon(Icons.qr_code_scanner_sharp),
               onPressed: () {
-                context.pushNamed(RouteNames.qrScannerScreen);
+                context.pushNamed(Routes.qrScannerScreen.name);
               },
               style: OutlinedButton.styleFrom(
                 side: const BorderSide(color: ColorsPallet.grey),

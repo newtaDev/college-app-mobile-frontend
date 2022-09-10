@@ -43,12 +43,12 @@ class ProfileViewPage extends StatelessWidget {
               onPressed: () {
                 if (isMyProfile) {
                   context.pushNamed(
-                    RouteNames.qrViewerScreen,
+                    Routes.qrViewerScreen.name,
                     extra: context.read<UserCubit>().state.userDetails,
                   );
                 } else {
                   context.pushNamed(
-                    RouteNames.qrViewerScreen,
+                    Routes.qrViewerScreen.name,
                     extra: context.read<ProfileViewCubit>().state.userDetails,
                   );
                 }

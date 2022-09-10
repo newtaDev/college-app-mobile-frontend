@@ -42,7 +42,7 @@ class ProfileMyAccountSection extends StatelessWidget {
           trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 15),
           onTap: () {
             context.pushNamed(
-              RouteNames.myProfileEditScreen,
+              Routes.myProfileEditScreen.name,
               extra: MyProfileEditPageParam(
                 navigateToOnSave: (context) => context.pop(),
               ),
@@ -98,7 +98,7 @@ class ProfileMyAccountSection extends StatelessWidget {
         BlocListener<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state.status == AuthStatus.logedOut) {
-              context.goNamed(RouteNames.signInScreen);
+              context.goNamed(Routes.signInScreen.name);
             }
           },
           child: ListTile(

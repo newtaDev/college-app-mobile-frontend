@@ -106,7 +106,7 @@ class _HomeTabState extends State<HomeTab> {
                         backgroundSize: boxBgSize,
                         onTap: () {
                           context.pushNamed(
-                            RouteNames.selectClassAndSemScreen,
+                            Routes.selectClassAndSemScreen.name,
                             extra: 'Attendance',
                           );
                         },
@@ -114,7 +114,9 @@ class _HomeTabState extends State<HomeTab> {
                     if (userCubit.state.isStudent)
                       IconButtonBox(
                         lable: 'Results',
-                        icon: const Icon(Icons.assignment_outlined,),
+                        icon: const Icon(
+                          Icons.assignment_outlined,
+                        ),
                         backgroundSize: boxBgSize,
                         onTap: () {},
                       ),
@@ -124,7 +126,7 @@ class _HomeTabState extends State<HomeTab> {
                       backgroundSize: boxBgSize,
                       onTap: () {
                         context.goNamed(
-                          RouteNames.reportsScreen,
+                          Routes.reportsScreen.name,
                           params: {
                             'tab_name': DashboardPageTabs.home.name,
                           },
@@ -136,7 +138,7 @@ class _HomeTabState extends State<HomeTab> {
                       icon: const Icon(Icons.qr_code_scanner_rounded),
                       backgroundSize: boxBgSize,
                       onTap: () {
-                        context.pushNamed(RouteNames.qrScannerScreen);
+                        context.pushNamed(Routes.qrScannerScreen.name);
                       },
                     ),
                   ],

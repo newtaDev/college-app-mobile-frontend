@@ -75,7 +75,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 BlocConsumer<SignUpCubit, SignUpState>(
                   listener: (context, state) {
                     if (state is SignUpSuccessState) {
-                      context.goNamed(RouteNames.dashboardScreen);
+                      context.goNamed(Routes.dashboardScreen.name);
                       return;
                     }
                     if (state is SignUpErrorState) {

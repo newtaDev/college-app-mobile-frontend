@@ -17,7 +17,7 @@ class DashboardPage extends StatelessWidget {
       onWillPop: () async {
         // Goes back to [home] tab
         if (tabName != DashboardPageTabs.home) {
-          context.goNamed(RouteNames.dashboardScreen);
+          context.goNamed(Routes.dashboardScreen.name);
           return false;
         }
         return true;

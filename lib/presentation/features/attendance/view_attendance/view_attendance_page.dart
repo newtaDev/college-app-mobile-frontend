@@ -55,7 +55,7 @@ class _ViewAttendancePageState extends State<ViewAttendancePage> {
             IconButton(
               onPressed: () {
                 context.goNamed(
-                  RouteNames.createAttendanceScreen,
+                  Routes.createAttendanceScreen.name,
                   params: {
                     'tab_name': DashboardPageTabs.home.name,
                   },
@@ -120,7 +120,7 @@ class AttendanceViewLayout extends StatelessWidget {
                   TextButton(
                     onPressed: () {
                       context.pushNamed(
-                        RouteNames.selectClassAndSemScreen,
+                        Routes.selectClassAndSemScreen.name,
                         extra: 'Attendance',
                       );
                     },
@@ -199,7 +199,7 @@ class AttendanceViewLayout extends StatelessWidget {
                           ElevatedButton(
                             onPressed: () {
                               context.goNamed(
-                                RouteNames.updateAttendanceScreen,
+                                Routes.updateAttendanceScreen.name,
                                 params: {
                                   'tab_name': DashboardPageTabs.home.name,
                                 },

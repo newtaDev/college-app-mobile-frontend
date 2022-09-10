@@ -150,7 +150,7 @@ class CreateAttendanceBottomNavigationBar extends StatelessWidget {
                       PageRefresherStatus.refreshViewAttendancePage,
                     );
                 context.goNamed(
-                  RouteNames.viewAttendanceScreen,
+                  Routes.viewAttendanceScreen.name,
                   params: {
                     'tab_name': DashboardPageTabs.home.name,
                   },
@@ -495,7 +495,7 @@ class SearchStudentsListView extends StatelessWidget {
                         behavior: HitTestBehavior.opaque,
                         onTap: () {
                           context.pushNamed(
-                            RouteNames.profileScreen,
+                            Routes.profileScreen.name,
                             params: {'profile_id': student.id},
                             queryParams: {'userType': student.userType.value},
                           );
