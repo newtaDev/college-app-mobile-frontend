@@ -71,9 +71,11 @@ class MyProfileEditPage extends StatelessWidget {
                           context.read<MyProfileEditCubit>().state;
                       if (editCubitState.usernameStatus.isError) {
                         showSnackbar(context, 'Username already exists');
+                        return;
                       }
                       if (editCubitState.emailStatus.isError) {
                         showSnackbar(context, 'Email already exists');
+                        return;
                       }
 
                       if (_formKey.currentState!.validate()) {

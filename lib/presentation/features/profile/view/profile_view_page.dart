@@ -99,6 +99,8 @@ class _OthersProfileViewState extends State<_OthersProfileView> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return BlocBuilder<ProfileViewCubit, ProfileViewState>(
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
@@ -107,6 +109,23 @@ class _OthersProfileViewState extends State<_OthersProfileView> {
         }
         if (state.status.isError || state.userDetails == null) {
           return const Text('Profile not found');
+        }
+        if (!state.userDetails!.isProfileCompleted) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "${state.userDetails?.name}'s",
+                  style: textTheme.titleLarge,
+                ),
+                Text(
+                  'Profile not completed yet',
+                  style: textTheme.bodyLarge,
+                ),
+              ],
+            ),
+          );
         }
         return ListView(
           children: [
@@ -170,35 +189,6 @@ class _MyProfileView extends StatelessWidget {
             final user = state.userDetails;
             return ProfileWithBio(user: user);
           },
-        ),
-        const SizedBox(height: 10),
-        Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: OutlinedButton(
-                  onPressed: () {},
-                  style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: ColorsPallet.grey),
-                  ),
-                  child: const Text('Call'),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: OutlinedButton(
-                  onPressed: () {},
-                  style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: ColorsPallet.grey),
-                  ),
-                  child: const Text('Contact info'),
-                ),
-              ),
-            ),
-          ],
         ),
         const SizedBox(height: 10),
         const Divider(),

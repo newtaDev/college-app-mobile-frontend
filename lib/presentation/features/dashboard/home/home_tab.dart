@@ -114,7 +114,7 @@ class _HomeTabState extends State<HomeTab> {
                     if (userCubit.state.isStudent)
                       IconButtonBox(
                         lable: 'Results',
-                        icon: const Icon(Icons.assignment_outlined),
+                        icon: const Icon(Icons.assignment_outlined,),
                         backgroundSize: boxBgSize,
                         onTap: () {},
                       ),

@@ -473,9 +473,12 @@ class SearchStudentsListView extends StatelessWidget {
           textController: studentSearchTextCtr,
           searchList: state.studentsInClass,
           searchCondition: (student, searchInput) {
-            return student.name.toLowerCase().contains(
-                  searchInput.toLowerCase(),
-                );
+            return student.name
+                    .toLowerCase()
+                    .contains(searchInput.toLowerCase()) ||
+                (student.username ?? '')
+                    .toLowerCase()
+                    .contains(searchInput.toLowerCase());
           },
           searchItemBuilder: (context, searchedStudentList, searchIndex) {
             final student = searchedStudentList[searchIndex];
@@ -488,19 +491,29 @@ class SearchStudentsListView extends StatelessWidget {
                     buildWhen: (previous, current) =>
                         previous.absentStudentIds != current.absentStudentIds,
                     builder: (context, state) {
-                      return ProfileListViewCard(
-                        emoji: '👨🏻',
-                        title: student.name,
-                        subtitle: '191962662',
-                        avatarSize: avatarSize,
-                        traling: CupertinoSwitch(
-                          value: !state.absentStudentIds.contains(student.id),
-                          activeColor: Colors.black,
-                          onChanged: (_) {
-                            context
-                                .read<CreateAttendanceCubit>()
-                                .addOrRemoveAbsentStudents(student.id);
-                          },
+                      return GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () {
+                          context.pushNamed(
+                            RouteNames.profileScreen,
+                            params: {'profile_id': student.id},
+                            queryParams: {'userType': student.userType.value},
+                          );
+                        },
+                        child: ProfileListViewCard(
+                          emoji: student.emoji!,
+                          title: student.name,
+                          subtitle: student.username,
+                          avatarSize: avatarSize,
+                          traling: CupertinoSwitch(
+                            value: !state.absentStudentIds.contains(student.id),
+                            activeColor: Colors.black,
+                            onChanged: (_) {
+                              context
+                                  .read<CreateAttendanceCubit>()
+                                  .addOrRemoveAbsentStudents(student.id);
+                            },
+                          ),
                         ),
                       );
                     },

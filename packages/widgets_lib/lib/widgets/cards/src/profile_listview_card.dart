@@ -4,14 +4,14 @@ import '../../common/profile_avathar.dart';
 
 class ProfileListViewCard extends StatelessWidget {
   final String title;
-  final String subtitle;
+  final String? subtitle;
   final String emoji;
   final double avatarSize;
   final Widget? traling;
   const ProfileListViewCard({
     super.key,
     required this.title,
-    required this.subtitle,
+    this.subtitle,
     required this.emoji,
     this.avatarSize = 30,
     this.traling,
@@ -35,13 +35,14 @@ class ProfileListViewCard extends StatelessWidget {
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
-              Text(
-                subtitle,
-                style: textTheme.bodySmall?.copyWith(
-                  color: Colors.grey[600],
-                  fontWeight: FontWeight.w500,
-                ),
-              )
+              if (subtitle != null)
+                Text(
+                  subtitle!,
+                  style: textTheme.bodySmall?.copyWith(
+                    color: Colors.grey[600],
+                    fontWeight: FontWeight.w500,
+                  ),
+                )
             ],
           ),
         ),
