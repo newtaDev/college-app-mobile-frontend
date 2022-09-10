@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../domain/entities/auth_entitie.dart';
 import '../../../../shared/validators/form_validator.dart';
-import '../../../router/route_names.dart';
+import '../../../router/routes.dart';
 import 'cubit/signup_cubit.dart';
 
 class SignUpPage extends StatefulWidget {

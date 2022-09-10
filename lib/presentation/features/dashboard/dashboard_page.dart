@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../shared/global/enums.dart';
-import '../../router/route_names.dart';
+import '../../router/routes.dart';
 import 'home/home_tab.dart';
 import 'profile/profile_tab.dart';
 import 'settings/settings_tab.dart';

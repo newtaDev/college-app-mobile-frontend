@@ -7,7 +7,7 @@ import '../../../../cubits/user/user_cubit.dart';
 import '../../../../domain/entities/auth_entitie.dart';
 import '../../../../shared/global/enums.dart';
 import '../../../../shared/validators/form_validator.dart';
-import '../../../router/route_names.dart';
+import '../../../router/routes.dart';
 import '../../profile/edit/edit_profile_page.dart';
 
 class SignInPage extends StatefulWidget {

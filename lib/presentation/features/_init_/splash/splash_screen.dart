@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../cubits/my_app/my_app_cubit.dart';
 import '../../../../cubits/user/user_cubit.dart';
-import '../../../router/route_names.dart';
+import '../../../router/routes.dart';
 import '../../profile/edit/edit_profile_page.dart';
 
 class SplashScreen extends StatelessWidget {

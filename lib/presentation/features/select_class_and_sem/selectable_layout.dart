@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../cubits/selection/selection_cubit.dart';
 import '../../../shared/global/enums.dart';
-import '../../router/route_names.dart';
+import '../../router/routes.dart';
 import 'widgets/selectable_classes_list.dart';
 import 'widgets/selectable_sem_list.dart';
 
@@ -61,9 +61,7 @@ class SelectableLayout extends StatelessWidget {
                     : () {
                         context.goNamed(
                           Routes.viewAttendanceScreen.name,
-                          params: {
-                            'tab_name': DashboardPageTabs.home.name,
-                          },
+                          params: RouteParams.withDashboard,
                         );
                       },
                 child: const Text('Continue'),

@@ -10,7 +10,7 @@ import '../../../../cubits/selection/selection_cubit.dart';
 import '../../../../domain/entities/attendance_entity.dart';
 import '../../../../shared/extensions/extentions.dart';
 import '../../../../shared/global/enums.dart';
-import '../../../router/route_names.dart';
+import '../../../router/routes.dart';
 import 'cubit/view_attendance_cubit.dart';
 
 class ViewAttendancePage extends StatefulWidget {

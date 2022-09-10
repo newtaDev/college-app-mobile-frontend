@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../shared/global/enums.dart';
-import '../../router/route_names.dart';
+import '../../router/routes.dart';
 
 class ReportsScreen extends StatelessWidget {
   const ReportsScreen({super.key});

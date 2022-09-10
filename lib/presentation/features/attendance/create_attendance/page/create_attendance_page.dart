@@ -16,7 +16,7 @@ import '../../../../../domain/entities/user_entity.dart';
 import '../../../../../shared/extensions/extentions.dart';
 import '../../../../../shared/global/enums.dart';
 import '../../../../../shared/widgets/select_subject_dialog.dart';
-import '../../../../router/route_names.dart';
+import '../../../../router/routes.dart';
 import '../cubit/create_attendance_cubit.dart';
 
 class CreateAttendancePage extends StatefulWidget {
@@ -496,7 +496,7 @@ class SearchStudentsListView extends StatelessWidget {
                         onTap: () {
                           context.pushNamed(
                             Routes.profileScreen.name,
-                            params: {'profile_id': student.id},
+                            params: {'profile_id': student.id,...RouteParams.withDashboard},
                             queryParams: {'userType': student.userType.value},
                           );
                         },

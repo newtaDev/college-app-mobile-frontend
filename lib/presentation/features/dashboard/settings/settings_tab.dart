@@ -6,7 +6,7 @@ import '../../../../config/app_config.dart';
 import '../../../../cubits/auth/auth_cubit.dart';
 import '../../../../cubits/user/user_cubit.dart';
 import '../../../../data/data_source/local/auth_lds.dart';
-import '../../../router/route_names.dart';
+import '../../../router/routes.dart';
 
 class SettingsTab extends StatelessWidget {
   const SettingsTab({super.key});

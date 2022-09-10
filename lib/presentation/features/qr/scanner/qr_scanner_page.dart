@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../../../../utils/utils.dart';
-import '../../../router/route_names.dart';
+import '../../../router/routes.dart';
 
 class QrScannerPage extends StatefulWidget {
   const QrScannerPage({super.key});
@@ -90,9 +90,9 @@ class _QrScannerPageState extends State<QrScannerPage> {
           qrNavDebouncer.run(() {
             context
               ..pop()
-              ..pushNamed(
+              ..goNamed(
                 Routes.profileScreen.name,
-                params: {'profile_id': id},
+                params: {'profile_id': id, ...RouteParams.withDashboard},
                 queryParams: {'userType': userType},
               );
           });

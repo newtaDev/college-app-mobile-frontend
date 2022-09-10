@@ -7,7 +7,7 @@ import 'package:widgets_lib/widgets/widgets.dart';
 import '../../../../cubits/user/user_cubit.dart';
 import '../../../../shared/global/constants.dart';
 import '../../../../shared/global/enums.dart';
-import '../../../router/route_names.dart';
+import '../../../router/routes.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -127,9 +127,7 @@ class _HomeTabState extends State<HomeTab> {
                       onTap: () {
                         context.goNamed(
                           Routes.reportsScreen.name,
-                          params: {
-                            'tab_name': DashboardPageTabs.home.name,
-                          },
+                          params: RouteParams.withDashboard,
                         );
                       },
                     ),
@@ -138,7 +136,10 @@ class _HomeTabState extends State<HomeTab> {
                       icon: const Icon(Icons.qr_code_scanner_rounded),
                       backgroundSize: boxBgSize,
                       onTap: () {
-                        context.pushNamed(Routes.qrScannerScreen.name);
+                        context.goNamed(
+                          Routes.qrScannerScreen.name,
+                          params: RouteParams.withDashboard,
+                        );
                       },
                     ),
                   ],

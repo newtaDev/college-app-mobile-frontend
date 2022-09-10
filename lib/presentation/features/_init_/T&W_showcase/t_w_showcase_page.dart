@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../router/route_names.dart';
+import '../../../router/routes.dart';
 
 class ThemeAndWidgetsShaowcasePage extends StatelessWidget {
   const ThemeAndWidgetsShaowcasePage({super.key});

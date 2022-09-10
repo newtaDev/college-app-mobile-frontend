@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:styles_lib/theme/themes.dart';
 
 import '../../../../../cubits/auth/auth_cubit.dart';
-import '../../../router/route_names.dart';
+import '../../../router/routes.dart';
 import '../edit/edit_profile_page.dart';
 
 class ProfileMyAccountSection extends StatelessWidget {

@@ -1,3 +1,8 @@
+import 'package:flutter/material.dart';
+
+import '../../shared/global/enums.dart';
+import 'app_router.dart';
+
 enum Routes {
   splashScreen,
   dashboardScreen,
@@ -26,4 +31,11 @@ enum Routes {
     }
     return null;
   }
+}
+
+class RouteParams {
+  static DashboardPageTabs selectedDashboardTab = DashboardPageTabs.home;
+
+  static Map<String, String> get withDashboard =>
+      {'tab_name': selectedDashboardTab.name};
 }

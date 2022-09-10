@@ -11,7 +11,7 @@ import 'package:widgets_lib/widgets/common/double_circular_border.dart';
 
 import '../../../../cubits/user/user_cubit.dart';
 import '../../../../domain/entities/user_entity.dart';
-import '../../../router/route_names.dart';
+import '../../../router/routes.dart';
 
 class QrViewerPage extends StatelessWidget {
   final UserDetails user;
@@ -84,7 +84,10 @@ class QrViewerPage extends StatelessWidget {
             child: OutlinedButton.icon(
               icon: const Icon(Icons.qr_code_scanner_sharp),
               onPressed: () {
-                context.pushNamed(Routes.qrScannerScreen.name);
+                context.pushNamed(
+                  Routes.qrScannerScreen.name,
+                  params: RouteParams.withDashboard,
+                );
               },
               style: OutlinedButton.styleFrom(
                 side: const BorderSide(color: ColorsPallet.grey),
