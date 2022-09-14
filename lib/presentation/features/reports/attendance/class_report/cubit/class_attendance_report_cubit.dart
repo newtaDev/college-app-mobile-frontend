@@ -1,20 +1,20 @@
 import 'package:bloc/bloc.dart';
 
-import '../../../../../domain/entities/reports_entity.dart';
-import '../../../../../domain/repository/attendance_repository.dart';
-import '../../../../../shared/errors/api_errors.dart';
-import '../../../../../utils/utils.dart';
+import '../../../../../../domain/entities/reports_entity.dart';
+import '../../../../../../domain/repository/attendance_repository.dart';
+import '../../../../../../shared/errors/api_errors.dart';
+import '../../../../../../utils/utils.dart';
 
-part 'attendance_report_state.dart';
+part 'class_attendance_report_state.dart';
 
-class AttendanceReportCubit extends Cubit<AttendanceReportState> {
+class ClassAttendanceReportCubit extends Cubit<ClassAttendanceReportState> {
   final AttendanceRepository attendanceRepo;
-  AttendanceReportCubit({
+  ClassAttendanceReportCubit({
     required this.attendanceRepo,
-  }) : super(AttendanceReportState.init());
+  }) : super(ClassAttendanceReportState.init());
 
   Future<void> getReportOfSubjectsAndStudents() async {
-    emit(state.copyWith(subjectStatus: AttendanceReportStatus.loading));
+    emit(state.copyWith(subjectStatus: ClassAttendanceReportStatus.loading));
     final subjectReq = SubjectReportReq(
       classId: '62fa477900a727733494dc4b',
       currentSem: '1',
@@ -25,7 +25,7 @@ class AttendanceReportCubit extends Cubit<AttendanceReportState> {
 
       emit(
         state.copyWith(
-          subjectStatus: AttendanceReportStatus.success,
+          subjectStatus: ClassAttendanceReportStatus.success,
           subjectReports: subjectRes.responseData,
           selectedSubjectId: (subjectRes.responseData?.isNotEmpty ?? false)
               ? subjectRes.responseData?.first.subjectId
@@ -35,7 +35,7 @@ class AttendanceReportCubit extends Cubit<AttendanceReportState> {
     } on ApiErrorRes catch (apiError) {
       emit(
         state.copyWith(
-          subjectStatus: AttendanceReportStatus.failure,
+          subjectStatus: ClassAttendanceReportStatus.failure,
           subjectReports: [],
           error: apiError,
         ),
@@ -47,7 +47,7 @@ class AttendanceReportCubit extends Cubit<AttendanceReportState> {
       );
       emit(
         state.copyWith(
-          subjectStatus: AttendanceReportStatus.failure,
+          subjectStatus: ClassAttendanceReportStatus.failure,
           error: apiErrorRes,
         ),
       );
@@ -62,7 +62,7 @@ class AttendanceReportCubit extends Cubit<AttendanceReportState> {
       if (subjectId == state.selectedSubjectId) return;
       emit(
         state.copyWith(
-          studentStatus: AttendanceReportStatus.loading,
+          studentStatus: ClassAttendanceReportStatus.loading,
           selectedSubjectId: subjectId,
         ),
       );
@@ -75,14 +75,14 @@ class AttendanceReportCubit extends Cubit<AttendanceReportState> {
           await attendanceRepo.getAbsentStudentsReportInEachSubject(studentReq);
       emit(
         state.copyWith(
-          studentStatus: AttendanceReportStatus.success,
+          studentStatus: ClassAttendanceReportStatus.success,
           studentReports: studentRes.responseData,
         ),
       );
     } on ApiErrorRes catch (apiError) {
       emit(
         state.copyWith(
-          studentStatus: AttendanceReportStatus.failure,
+          studentStatus: ClassAttendanceReportStatus.failure,
           studentReports: [],
           error: apiError,
         ),
@@ -94,7 +94,7 @@ class AttendanceReportCubit extends Cubit<AttendanceReportState> {
       );
       emit(
         state.copyWith(
-          studentStatus: AttendanceReportStatus.failure,
+          studentStatus: ClassAttendanceReportStatus.failure,
           error: apiErrorRes,
         ),
       );

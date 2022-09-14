@@ -22,8 +22,8 @@ import '../features/profile/view/cubit/profile_view_cubit.dart';
 import '../features/profile/view/profile_view_page.dart';
 import '../features/qr/viewer/qr_viewer_page.dart';
 import '../features/qr/scanner/qr_scanner_page.dart';
-import '../features/reports/attendance/attendance_report_page.dart';
-import '../features/reports/attendance/cubit/attendance_report_cubit.dart';
+import '../features/reports/attendance/class_report/class_attendance_report_page.dart';
+import '../features/reports/attendance/class_report/cubit/class_attendance_report_cubit.dart';
 import '../features/reports/reports_screen.dart';
 import '../features/select_class_and_sem/select_class_and_sem_page.dart';
 import 'routes.dart';
@@ -166,8 +166,8 @@ class AppRouter {
             name: Routes.attendanceReportScreen.name,
             path: 'attendance',
             builder: (context, state) => BlocProvider(
-              create: (context) => getIt<AttendanceReportCubit>(),
-              child: const AttendanceReportPage(),
+              create: (context) => getIt<ClassAttendanceReportCubit>(),
+              child: const ClassAttendanceReportPage(),
             ),
           )
         ],

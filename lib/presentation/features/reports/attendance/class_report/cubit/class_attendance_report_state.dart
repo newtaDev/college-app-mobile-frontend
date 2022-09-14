@@ -1,15 +1,15 @@
-part of 'attendance_report_cubit.dart';
+part of 'class_attendance_report_cubit.dart';
 
-enum AttendanceReportStatus { initial, loading, failure, success }
+enum ClassAttendanceReportStatus { initial, loading, failure, success }
 
-class AttendanceReportState extends MyEquatable {
-  final AttendanceReportStatus subjectStatus;
-  final AttendanceReportStatus studentStatus;
+class ClassAttendanceReportState extends MyEquatable {
+  final ClassAttendanceReportStatus subjectStatus;
+  final ClassAttendanceReportStatus studentStatus;
   final List<SubjectReports> subjectReports;
   final List<EachStudentReport> studentReports;
   final String? selectedSubjectId;
   final ApiErrorRes? error;
-  const AttendanceReportState({
+  const ClassAttendanceReportState({
     required this.subjectStatus,
     required this.studentStatus,
     required this.subjectReports,
@@ -30,23 +30,23 @@ class AttendanceReportState extends MyEquatable {
     ];
   }
 
-  AttendanceReportState.init()
-      : subjectStatus = AttendanceReportStatus.initial,
-        studentStatus = AttendanceReportStatus.initial,
+  ClassAttendanceReportState.init()
+      : subjectStatus = ClassAttendanceReportStatus.initial,
+        studentStatus = ClassAttendanceReportStatus.initial,
         error = null,
         selectedSubjectId = null,
         studentReports = [],
         subjectReports = [];
 
-  AttendanceReportState copyWith({
-    AttendanceReportStatus? subjectStatus,
-    AttendanceReportStatus? studentStatus,
+  ClassAttendanceReportState copyWith({
+    ClassAttendanceReportStatus? subjectStatus,
+    ClassAttendanceReportStatus? studentStatus,
     List<SubjectReports>? subjectReports,
     List<EachStudentReport>? studentReports,
     String? selectedSubjectId,
     ApiErrorRes? error,
   }) {
-    return AttendanceReportState(
+    return ClassAttendanceReportState(
       subjectStatus: subjectStatus ?? this.subjectStatus,
       studentStatus: studentStatus ?? this.studentStatus,
       subjectReports: subjectReports ?? this.subjectReports,

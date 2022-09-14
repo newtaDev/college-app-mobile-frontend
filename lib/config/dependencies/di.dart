@@ -21,7 +21,7 @@ import '../../presentation/features/attendance/create_attendance/cubit/create_at
 import '../../presentation/features/attendance/view_attendance/cubit/view_attendance_cubit.dart';
 import '../../presentation/features/profile/edit/cubit/my_profile_edit_cubit.dart';
 import '../../presentation/features/profile/view/cubit/profile_view_cubit.dart';
-import '../../presentation/features/reports/attendance/cubit/attendance_report_cubit.dart';
+import '../../presentation/features/reports/attendance/class_report/cubit/class_attendance_report_cubit.dart';
 import '../app_config.dart';
 
 part 'src/rds_di.dart';

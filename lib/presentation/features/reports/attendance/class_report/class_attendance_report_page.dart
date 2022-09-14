@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styles_lib/theme/themes.dart';
 
-import '../../../../domain/entities/reports_entity.dart';
-import '../../../../shared/extensions/extentions.dart';
-import 'cubit/attendance_report_cubit.dart';
+import '../../../../../domain/entities/reports_entity.dart';
+import '../../../../../shared/extensions/extentions.dart';
+import 'cubit/class_attendance_report_cubit.dart';
 
-class AttendanceReportPage extends StatefulWidget {
-  const AttendanceReportPage({super.key});
+class ClassAttendanceReportPage extends StatefulWidget {
+  const ClassAttendanceReportPage({super.key});
 
   @override
-  State<AttendanceReportPage> createState() => _AttendanceReportPageState();
+  State<ClassAttendanceReportPage> createState() => _ClassAttendanceReportPageState();
 }
 
-class _AttendanceReportPageState extends State<AttendanceReportPage> {
+class _ClassAttendanceReportPageState extends State<ClassAttendanceReportPage> {
   final Duration animDuration = const Duration(milliseconds: 250);
   int touchedIndex = -1;
   @override
@@ -26,10 +26,10 @@ class _AttendanceReportPageState extends State<AttendanceReportPage> {
 
   Future<void> getReports() async {
     await context
-        .read<AttendanceReportCubit>()
+        .read<ClassAttendanceReportCubit>()
         .getReportOfSubjectsAndStudents();
     await context
-        .read<AttendanceReportCubit>()
+        .read<ClassAttendanceReportCubit>()
         .getAbsentStudentsReportInEachSubject();
   }
 
@@ -56,11 +56,11 @@ class _AttendanceReportPageState extends State<AttendanceReportPage> {
           ),
           const SubjectsBarChart(),
           Center(
-            child: BlocBuilder<AttendanceReportCubit, AttendanceReportState>(
+            child: BlocBuilder<ClassAttendanceReportCubit, ClassAttendanceReportState>(
               buildWhen: (previous, current) =>
                   previous.studentStatus != current.studentStatus,
               builder: (context, state) {
-                if (state.studentStatus == AttendanceReportStatus.loading) {
+                if (state.studentStatus == ClassAttendanceReportStatus.loading) {
                   return const SizedBox(
                     height: 200,
                     child: CupertinoActivityIndicator(),
@@ -278,17 +278,17 @@ class _SubjectsBarChartState extends State<SubjectsBarChart> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 200,
-      child: BlocBuilder<AttendanceReportCubit, AttendanceReportState>(
+      child: BlocBuilder<ClassAttendanceReportCubit, ClassAttendanceReportState>(
         buildWhen: (previous, current) =>
             previous.subjectStatus != current.subjectStatus ||
             previous.selectedSubjectId != current.selectedSubjectId,
         builder: (context, state) {
-          if (state.subjectStatus == AttendanceReportStatus.loading ||
-              state.subjectStatus == AttendanceReportStatus.initial) {
+          if (state.subjectStatus == ClassAttendanceReportStatus.loading ||
+              state.subjectStatus == ClassAttendanceReportStatus.initial) {
             return const Center(child: CircularProgressIndicator());
           }
           final _subjects = state.subjectReports;
-          if (state.subjectStatus == AttendanceReportStatus.failure ||
+          if (state.subjectStatus == ClassAttendanceReportStatus.failure ||
               _subjects.isEmpty) {
             return const Center(child: Text('Not enough data to show reports'));
           }
@@ -329,7 +329,7 @@ class _SubjectsBarChartState extends State<SubjectsBarChart> {
                     final _subjectId = _subjects[touchedIndex].subjectId;
                     if (_subjectId != state.selectedSubjectId) {
                       context
-                          .read<AttendanceReportCubit>()
+                          .read<ClassAttendanceReportCubit>()
                           .getAbsentStudentsReportInEachSubject(
                             subjectId: _subjectId,
                           );
