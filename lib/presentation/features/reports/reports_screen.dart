@@ -20,7 +20,7 @@ class ReportsScreen extends StatelessWidget {
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
             onTap: () {
               context.goNamed(
-                Routes.attendanceReportScreen.name,
+                Routes.attendanceClassReportScreen.name,
                 params: {
                   'tab_name': DashboardPageTabs.home.name,
                 },

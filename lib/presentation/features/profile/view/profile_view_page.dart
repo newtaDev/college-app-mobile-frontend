@@ -164,7 +164,7 @@ class _OthersProfileViewState extends State<_OthersProfileView> {
             ),
             const SizedBox(height: 10),
             const Divider(),
-            const ProfileMyDashboardSection(),
+            ProfileMyDashboardSection(user: state.userDetails!),
             const SizedBox(height: 5),
           ],
         );
@@ -194,7 +194,9 @@ class _MyProfileView extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         const Divider(),
-        const ProfileMyDashboardSection(),
+        ProfileMyDashboardSection(
+          user: context.read<UserCubit>().state.userDetails,
+        ),
         const SizedBox(height: 10),
         const Divider(),
         const ProfileMyAccountSection(),

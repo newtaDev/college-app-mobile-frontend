@@ -9,12 +9,15 @@ class ClassWithDetails extends MyEquatable {
   final String? id;
   final String? name;
   final int? classNumber;
+  final String? collegeId;
   final College? college;
+  final String? courseId;
   final Course? course;
   final int? batch;
   final bool? isCollegeCompleted;
   final int? currentSem;
-  final TeacherModel? assignedToId;
+  final TeacherModel? assignedTo;
+  final String? assignedToId;
   final int? v;
   final DateTime? createdAt;
   final DateTime? updatedAt;
@@ -25,9 +28,12 @@ class ClassWithDetails extends MyEquatable {
     this.classNumber,
     this.college,
     this.course,
+    this.courseId,
+    this.collegeId,
     this.batch,
     this.isCollegeCompleted,
     this.currentSem,
+    this.assignedTo,
     this.assignedToId,
     this.v,
     this.createdAt,
@@ -39,20 +45,35 @@ class ClassWithDetails extends MyEquatable {
         id: data['_id'] as String?,
         name: data['name'] as String?,
         classNumber: data['classNumber'] as int?,
-        college: data['collegeId'] == null
-            ? null
-            : College.fromMap(data['collegeId'] as Map<String, dynamic>),
-        course: data['courseId'] == null
-            ? null
-            : Course.fromMap(data['courseId'] as Map<String, dynamic>),
+        collegeId: data['collegeId'] != null &&
+                data['collegeId'] is Map<String, dynamic>
+            ? data['collegeId']['_id']
+            : data['collegeId'],
+        courseId:
+            data['courseId'] != null && data['courseId'] is Map<String, dynamic>
+                ? data['courseId']['_id']
+                : data['courseId'],
+        college: data['collegeId'] != null &&
+                data['collegeId'] is Map<String, dynamic>
+            ? College.fromMap(data['collegeId'] as Map<String, dynamic>)
+            : null,
+        course:
+            data['courseId'] != null && data['courseId'] is Map<String, dynamic>
+                ? Course.fromMap(data['courseId'] as Map<String, dynamic>)
+                : null,
         batch: data['batch'] as int?,
         isCollegeCompleted: data['isCollegeCompleted'] as bool?,
         currentSem: data['currentSem'] as int?,
-        assignedToId: data['assignedToId'] == null
-            ? null
-            : TeacherModel.fromMap(
+        assignedTo: data['assignedToId'] != null &&
+                data['assignedToId'] is Map<String, dynamic>
+            ? TeacherModel.fromMap(
                 data['assignedToId'] as Map<String, dynamic>,
-              ),
+              )
+            : null,
+        assignedToId: data['assignedToId'] != null &&
+                data['assignedToId'] is Map<String, dynamic>
+            ? data['assignedToId']['_id']
+            : data['assignedToId'],
         v: data['__v'] as int?,
         createdAt: data['createdAt'] == null
             ? null
@@ -66,12 +87,12 @@ class ClassWithDetails extends MyEquatable {
         '_id': id,
         'name': name,
         'classNumber': classNumber,
-        'collegeId': college?.toMap(),
-        'courseId': course?.toMap(),
+        'collegeId': collegeId,
+        'courseId': courseId,
         'batch': batch,
         'isCollegeCompleted': isCollegeCompleted,
         'currentSem': currentSem,
-        'assignedToId': assignedToId?.toMap(),
+        'assignedToId': assignedTo?.toMap(),
         '__v': v,
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
@@ -93,12 +114,14 @@ class ClassWithDetails extends MyEquatable {
     String? id,
     String? name,
     int? classNumber,
+    String? collegeId,
     College? college,
+    String? courseId,
     Course? course,
     int? batch,
     bool? isCollegeCompleted,
     int? currentSem,
-    TeacherModel? assignedToId,
+    TeacherModel? assignedTo,
     int? v,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -107,12 +130,14 @@ class ClassWithDetails extends MyEquatable {
       id: id ?? this.id,
       name: name ?? this.name,
       classNumber: classNumber ?? this.classNumber,
+      collegeId: collegeId ?? this.collegeId,
       college: college ?? this.college,
+      courseId: courseId ?? this.courseId,
       course: course ?? this.course,
       batch: batch ?? this.batch,
       isCollegeCompleted: isCollegeCompleted ?? this.isCollegeCompleted,
       currentSem: currentSem ?? this.currentSem,
-      assignedToId: assignedToId ?? this.assignedToId,
+      assignedTo: assignedTo ?? this.assignedTo,
       v: v ?? this.v,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -127,10 +152,12 @@ class ClassWithDetails extends MyEquatable {
       classNumber,
       college,
       course,
+      courseId,
+      collegeId,
       batch,
       isCollegeCompleted,
       currentSem,
-      assignedToId,
+      assignedTo,
       v,
       createdAt,
       updatedAt,

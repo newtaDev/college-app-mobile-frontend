@@ -10,6 +10,9 @@ abstract class AttendanceRepository {
   Future<EachStudentReportRes> getAbsentStudentsReportInEachSubject(
     EachStudentReportReq req,
   );
+  Future<AbsentClassReportOfStudentRes> getAbsentClassReportOfStudent(
+    AbsentClassReportOfStudentReq req,
+  );
 
   Future<AttendanceWithCountRes> getAllAttendanceList(
     AllAttendanceWithQueryReq req,

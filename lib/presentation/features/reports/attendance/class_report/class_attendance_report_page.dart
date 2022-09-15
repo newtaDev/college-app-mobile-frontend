@@ -12,7 +12,8 @@ class ClassAttendanceReportPage extends StatefulWidget {
   const ClassAttendanceReportPage({super.key});
 
   @override
-  State<ClassAttendanceReportPage> createState() => _ClassAttendanceReportPageState();
+  State<ClassAttendanceReportPage> createState() =>
+      _ClassAttendanceReportPageState();
 }
 
 class _ClassAttendanceReportPageState extends State<ClassAttendanceReportPage> {
@@ -56,11 +57,13 @@ class _ClassAttendanceReportPageState extends State<ClassAttendanceReportPage> {
           ),
           const SubjectsBarChart(),
           Center(
-            child: BlocBuilder<ClassAttendanceReportCubit, ClassAttendanceReportState>(
+            child: BlocBuilder<ClassAttendanceReportCubit,
+                ClassAttendanceReportState>(
               buildWhen: (previous, current) =>
                   previous.studentStatus != current.studentStatus,
               builder: (context, state) {
-                if (state.studentStatus == ClassAttendanceReportStatus.loading) {
+                if (state.studentStatus ==
+                    ClassAttendanceReportStatus.loading) {
                   return const SizedBox(
                     height: 200,
                     child: CupertinoActivityIndicator(),
@@ -278,7 +281,8 @@ class _SubjectsBarChartState extends State<SubjectsBarChart> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 200,
-      child: BlocBuilder<ClassAttendanceReportCubit, ClassAttendanceReportState>(
+      child:
+          BlocBuilder<ClassAttendanceReportCubit, ClassAttendanceReportState>(
         buildWhen: (previous, current) =>
             previous.subjectStatus != current.subjectStatus ||
             previous.selectedSubjectId != current.selectedSubjectId,

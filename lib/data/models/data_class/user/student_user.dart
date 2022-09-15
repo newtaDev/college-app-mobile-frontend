@@ -2,6 +2,7 @@ part of user_entity;
 
 class StudentUser extends UserDetails {
   final String classId;
+  final ClassWithDetails? myClass;
   final List<String> myOptionalSubjects;
   final int? phoneNumber;
   final String? currentAddress;
@@ -13,6 +14,7 @@ class StudentUser extends UserDetails {
     super.email,
     required super.collegeId,
     required this.classId,
+    required this.myClass,
     required super.userType,
     required this.myOptionalSubjects,
     this.phoneNumber,
@@ -28,13 +30,19 @@ class StudentUser extends UserDetails {
     required super.updatedAt,
   });
 
-  factory StudentUser.fromMap(Map<String, dynamic> data) => StudentUser(
+  factory StudentUser.fromMap(Map<String, dynamic> data) {
+    return StudentUser(
         name: data['name'] as String,
         email: data['email'] as String,
         emoji: data['emoji'] as String? ?? '👨🏻',
         bio: data['bio'] as String?,
         collegeId: data['collegeId'] as String,
-        classId: data['classId'] as String,
+        classId: data['classId'] is Map<String, dynamic>
+            ? data['classId']['_id']
+            : data['classId'] as String,
+        myClass: data['classId'] is Map<String, dynamic>
+            ? ClassWithDetails.fromMap(data['classId'])
+            : null,
         userType: UserType.fromName(data['userType'])!,
         myOptionalSubjects: data['myOptionalSubjects']
             .map<String>((dynamic e) => e.toString())
@@ -51,6 +59,7 @@ class StudentUser extends UserDetails {
         createdAt: DateTime.parse(data['createdAt'] as String).toLocal(),
         updatedAt: DateTime.parse(data['updatedAt'] as String).toLocal(),
       );
+  }
 
   Map<String, dynamic> toMap() => {
         'name': name,
@@ -86,6 +95,7 @@ class StudentUser extends UserDetails {
     String? email,
     String? collegeId,
     String? classId,
+    ClassWithDetails? myClass,
     UserType? userType,
     List<String>? myOptionalSubjects,
     int? phoneNumber,
@@ -107,6 +117,7 @@ class StudentUser extends UserDetails {
       bio: bio ?? this.bio,
       collegeId: collegeId ?? this.collegeId,
       classId: classId ?? this.classId,
+      myClass: myClass ?? this.myClass,
       userType: userType ?? this.userType,
       myOptionalSubjects: myOptionalSubjects ?? this.myOptionalSubjects,
       phoneNumber: phoneNumber ?? this.phoneNumber,
@@ -130,6 +141,7 @@ class StudentUser extends UserDetails {
       bio,
       collegeId,
       classId,
+      myClass,
       userType,
       myOptionalSubjects,
       phoneNumber,

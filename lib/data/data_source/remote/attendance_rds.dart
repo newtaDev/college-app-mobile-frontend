@@ -23,6 +23,15 @@ class AttendannceRemoteDataSource {
     );
   }
 
+  Future<Response> getAbsentClassesReportOfStudent(
+    AbsentClassReportOfStudentReq req,
+  ) {
+    return client.get(
+      '/attendance/report/subjects/students/${req.studentId}',
+      queryParameters: req.toMap(),
+    );
+  }
+
   Future<Response> getAllAttendanceWithQueries(AllAttendanceWithQueryReq req) {
     return client.get(
       '/attendance',

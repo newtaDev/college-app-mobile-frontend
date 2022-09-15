@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widgets_lib/overlays/overlays.dart';
 import 'package:widgets_lib/widgets/common/loading_indicator.dart';
 
-import '../../cubits/selection/selection_cubit.dart';
-import '../../data/models/data_class/subject_model.dart';
-import '../extensions/extentions.dart';
+import '../../../cubits/selection/selection_cubit.dart';
+import '../../../data/models/data_class/subject_model.dart';
+import '../../../shared/extensions/extentions.dart';
 
 class SelectSubjectDialog extends StatefulWidget {
   final void Function(Subject subject) onSubjectSelected;

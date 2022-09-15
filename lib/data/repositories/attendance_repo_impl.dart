@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 import '../../domain/entities/attendance_entity.dart';
 import '../../domain/entities/reports_entity.dart';
 import '../../domain/entities/students_entity.dart';
-import '../../domain/entities/user_entity.dart';
 import '../../domain/repository/attendance_repository.dart';
 import '../../shared/errors/api_errors.dart';
 import '../data_source/remote/attendance_rds.dart';
@@ -98,6 +97,22 @@ class AttendanceRepoImpl implements AttendanceRepository {
     try {
       await attendanceRds.updateAttendance(req);
       return true;
+    } on DioError catch (e) {
+      if (e.type != DioErrorType.response) rethrow;
+      final errorRes = ApiErrorRes.fromMap(e.response?.data);
+      throw errorRes;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<AbsentClassReportOfStudentRes> getAbsentClassReportOfStudent(
+    AbsentClassReportOfStudentReq req,
+  ) async {
+    try {
+      final res = await attendanceRds.getAbsentClassesReportOfStudent(req);
+      return AbsentClassReportOfStudentRes.fromMap(res.data);
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;
       final errorRes = ApiErrorRes.fromMap(e.response?.data);

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:go_router/go_router.dart';
 import 'package:styles_lib/theme/themes.dart';
 
+import '../../../../domain/entities/user_entity.dart';
+import '../../../router/routes.dart';
+
 class ProfileMyDashboardSection extends StatelessWidget {
-  const ProfileMyDashboardSection({super.key});
+  final UserDetails user;
+  const ProfileMyDashboardSection({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +56,13 @@ class ProfileMyDashboardSection extends StatelessWidget {
           ),
           title: const Text('Attendance report'),
           trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 15),
-          onTap: () {},
+          onTap: () {
+            context.pushNamed(
+              Routes.attendanceSubjectReportScreen.name,
+              extra: user,
+              params: RouteParams.withDashboard,
+            );
+          },
         ),
         const Divider(indent: 70),
         ListTile(

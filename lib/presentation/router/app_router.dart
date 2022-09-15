@@ -24,6 +24,8 @@ import '../features/qr/viewer/qr_viewer_page.dart';
 import '../features/qr/scanner/qr_scanner_page.dart';
 import '../features/reports/attendance/class_report/class_attendance_report_page.dart';
 import '../features/reports/attendance/class_report/cubit/class_attendance_report_cubit.dart';
+import '../features/reports/attendance/student_report/cubit/student_attendance_report_cubit.dart';
+import '../features/reports/attendance/student_report/student_attendnce_report_page.dart';
 import '../features/reports/reports_screen.dart';
 import '../features/select_class_and_sem/select_class_and_sem_page.dart';
 import 'routes.dart';
@@ -163,11 +165,21 @@ class AppRouter {
         builder: (context, state) => const ReportsScreen(),
         routes: [
           GoRoute(
-            name: Routes.attendanceReportScreen.name,
-            path: 'attendance',
+            name: Routes.attendanceClassReportScreen.name,
+            path: 'teacher/class_report',
             builder: (context, state) => BlocProvider(
               create: (context) => getIt<ClassAttendanceReportCubit>(),
               child: const ClassAttendanceReportPage(),
+            ),
+          ),
+          GoRoute(
+            name: Routes.attendanceSubjectReportScreen.name,
+            path: 'student/subject_report',
+            builder: (context, state) => BlocProvider(
+              create: (context) => getIt<StudentAttendanceReportCubit>(),
+              child: StudentAttendanceReportPage(
+                user: state.extra! as StudentUser,
+              ),
             ),
           )
         ],

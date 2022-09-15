@@ -17,7 +17,7 @@ class ClassAttendanceReportCubit extends Cubit<ClassAttendanceReportState> {
     emit(state.copyWith(subjectStatus: ClassAttendanceReportStatus.loading));
     final subjectReq = SubjectReportReq(
       classId: '62fa477900a727733494dc4b',
-      currentSem: '1',
+      currentSem: 1,
     );
     try {
       final subjectRes =
@@ -68,7 +68,7 @@ class ClassAttendanceReportCubit extends Cubit<ClassAttendanceReportState> {
       );
       final studentReq = EachStudentReportReq(
         classId: '62fa477900a727733494dc4b',
-        currentSem: '1',
+        currentSem: 1,
         subjectId: state.selectedSubjectId!,
       );
       final studentRes =

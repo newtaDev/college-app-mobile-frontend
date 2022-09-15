@@ -11,7 +11,7 @@ class BorderedBox extends StatelessWidget {
   final double? height;
   final double? width;
   final EdgeInsetsGeometry? padding;
-  final AlignmentGeometry alignment;
+  final AlignmentGeometry? alignment;
   const BorderedBox({
     super.key,
     this.child,
@@ -41,7 +41,9 @@ class BorderedBox extends StatelessWidget {
         width: width,
         child: Padding(
           padding: padding ?? const EdgeInsets.all(10),
-          child: Align(alignment: alignment, child: child),
+          child: alignment == null
+              ? child
+              : Align(alignment: alignment!, child: child),
         ),
       ),
     );
