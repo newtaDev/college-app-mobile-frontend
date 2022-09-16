@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widgets_lib/widgets_lib.dart';
-import '../../../../../cubits/user/user_cubit.dart';
-import '../../../../../shared/extensions/extentions.dart';
 
+import '../../../../../cubits/user/user_cubit.dart';
 import '../../../../../domain/entities/reports_entity.dart';
 import '../../../../../domain/entities/user_entity.dart';
+import '../../../../../shared/extensions/extentions.dart';
 import '../../../../overlays/dropdown/semester_dropdown.dart';
 import 'cubit/student_attendance_report_cubit.dart';
 
@@ -39,14 +37,7 @@ class _StudentAttendanceReportPageState
     final textTheme = Theme.of(context).textTheme;
 
     final semesters = List.generate(
-      context
-              .read<UserCubit>()
-              .state
-              .userAsStudent
-              ?.myClass
-              ?.course
-              ?.totalSem ??
-          1,
+      widget.user.myClass?.course?.totalSem ?? 1,
       (index) => (index + 1).toString(),
     );
     return Scaffold(
@@ -70,6 +61,7 @@ class _StudentAttendanceReportPageState
                       ),
                     )
               },
+              initialIndex: (widget.user.myClass?.currentSem ?? 1) - 1,
               items: semesters,
             ),
           ),
@@ -111,7 +103,8 @@ class _StudentAttendanceReportPageState
                             children: [
                               Text('${data.absentClassCount} classes absent'),
                               Text(
-                                  'Total classes: ${data.totalAttendanceTaken}')
+                                'Total classes: ${data.totalAttendanceTaken}',
+                              )
                             ],
                           ),
                           trailing: Text(

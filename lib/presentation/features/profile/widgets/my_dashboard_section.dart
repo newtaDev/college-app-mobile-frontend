@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:styles_lib/theme/themes.dart';
 
+import '../../../../cubits/user/user_cubit.dart';
 import '../../../../domain/entities/user_entity.dart';
 import '../../../router/routes.dart';
 
@@ -14,7 +16,8 @@ class ProfileMyDashboardSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-
+    final isMyProfile =
+        context.read<UserCubit>().state.userDetails.id == user.id;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -59,7 +62,11 @@ class ProfileMyDashboardSection extends StatelessWidget {
           onTap: () {
             context.pushNamed(
               Routes.attendanceSubjectReportScreen.name,
-              extra: user,
+
+              /// To get the latest updated report
+              extra: isMyProfile
+                  ? context.read<UserCubit>().state.userDetails
+                  : user,
               params: RouteParams.withDashboard,
             );
           },
