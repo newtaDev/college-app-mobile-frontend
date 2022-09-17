@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../data/models/data_class/student_model.dart';
 import '../../../../../data/models/data_class/subject_model.dart';
 import '../../../../../domain/entities/attendance_entity.dart';
 import '../../../../../domain/entities/user_entity.dart';

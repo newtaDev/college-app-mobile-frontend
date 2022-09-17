@@ -3,9 +3,9 @@ library reports_entity;
 import 'dart:convert';
 
 import '../../data/models/data_class/class_with_details.dart';
-import '../../data/models/data_class/student_model.dart';
 import '../../data/models/data_class/subject_model.dart';
 import '../../utils/utils.dart';
+import 'user_entity.dart';
 
 part '../../data/models/response/attendance_report/each_student_report/each_student_report_res.dart';
 part '../../data/models/response/attendance_report/each_student_report/each_student_report.dart';

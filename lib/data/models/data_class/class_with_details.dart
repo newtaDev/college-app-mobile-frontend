@@ -1,9 +1,9 @@
 import 'dart:convert';
 
+import '../../../domain/entities/user_entity.dart';
 import '../../../utils/utils.dart';
 import 'college_model.dart';
 import 'course_model.dart';
-import 'teacher_model.dart';
 
 class ClassWithDetails extends MyEquatable {
   final String? id;
@@ -16,7 +16,7 @@ class ClassWithDetails extends MyEquatable {
   final int? batch;
   final bool? isCollegeCompleted;
   final int? currentSem;
-  final TeacherModel? assignedTo;
+  final TeacherUser? assignedTo;
   final String? assignedToId;
   final int? v;
   final DateTime? createdAt;
@@ -66,7 +66,7 @@ class ClassWithDetails extends MyEquatable {
         currentSem: data['currentSem'] as int?,
         assignedTo: data['assignedToId'] != null &&
                 data['assignedToId'] is Map<String, dynamic>
-            ? TeacherModel.fromMap(
+            ? TeacherUser.fromMap(
                 data['assignedToId'] as Map<String, dynamic>,
               )
             : null,
@@ -121,7 +121,7 @@ class ClassWithDetails extends MyEquatable {
     int? batch,
     bool? isCollegeCompleted,
     int? currentSem,
-    TeacherModel? assignedTo,
+    TeacherUser? assignedTo,
     int? v,
     DateTime? createdAt,
     DateTime? updatedAt,

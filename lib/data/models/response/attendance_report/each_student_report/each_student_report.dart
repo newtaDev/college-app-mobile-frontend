@@ -1,7 +1,7 @@
 part of reports_entity;
 
 class EachStudentReport extends MyEquatable {
-  final Student? student;
+  final StudentUser? student;
   final int? absentClasses;
 
   const EachStudentReport({this.student, this.absentClasses});
@@ -10,7 +10,7 @@ class EachStudentReport extends MyEquatable {
       EachStudentReport(
         student: data['student'] == null
             ? null
-            : Student.fromMap(data['student'] as Map<String, dynamic>),
+            : StudentUser.fromMap(data['student'] as Map<String, dynamic>),
         absentClasses: data['absent_classes'] as int?,
       );
 
@@ -32,7 +32,7 @@ class EachStudentReport extends MyEquatable {
   String toJson() => json.encode(toMap());
 
   EachStudentReport copyWith({
-    Student? student,
+    StudentUser? student,
     int? absentClasses,
   }) {
     return EachStudentReport(
