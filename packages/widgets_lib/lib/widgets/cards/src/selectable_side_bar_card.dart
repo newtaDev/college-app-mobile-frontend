@@ -40,6 +40,7 @@ class SelectableSideBarCard extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         title,

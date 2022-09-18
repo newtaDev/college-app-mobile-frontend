@@ -48,8 +48,6 @@ class Subject extends MyEquatable {
         'collegeId': collegeId,
         'courseId': courseId,
         'isMainSubject': isMainSubject,
-        'createdAt': createdAt?.toIso8601String(),
-        'updatedAt': updatedAt?.toIso8601String(),
       };
 
   /// `dart:convert`

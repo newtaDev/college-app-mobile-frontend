@@ -33,7 +33,7 @@ class StudentUser extends UserDetails {
   factory StudentUser.fromMap(Map<String, dynamic> data) {
     return StudentUser(
         name: data['name'] as String,
-        email: data['email'] as String,
+        email: data['email'] as String?,
         emoji: data['emoji'] as String? ?? '👨🏻',
         bio: data['bio'] as String?,
         collegeId: data['collegeId'] as String,
@@ -62,12 +62,9 @@ class StudentUser extends UserDetails {
   }
 
   Map<String, dynamic> toMap() => {
-        'name': name,
         'email': email,
         'emoji': emoji,
         'bio': bio,
-        'collegeId': collegeId,
-        'classId': classId,
         'userType': userType.value,
         'myOptionalSubjects': myOptionalSubjects,
         'phoneNumber': phoneNumber,

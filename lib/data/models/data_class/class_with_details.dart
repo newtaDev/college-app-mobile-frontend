@@ -94,8 +94,6 @@ class ClassWithDetails extends MyEquatable {
         'currentSem': currentSem,
         'assignedToId': assignedTo?.toMap(),
         '__v': v,
-        'createdAt': createdAt?.toIso8601String(),
-        'updatedAt': updatedAt?.toIso8601String(),
       };
 
   /// `dart:convert`

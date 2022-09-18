@@ -16,8 +16,7 @@ class ProfileMyDashboardSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final isMyProfile =
-        context.read<UserCubit>().state.userDetails.id == user.id;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -60,6 +59,8 @@ class ProfileMyDashboardSection extends StatelessWidget {
           title: const Text('Attendance report'),
           trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 15),
           onTap: () {
+            final isMyProfile =
+                context.read<UserCubit>().state.userDetails.id == user.id;
             context.pushNamed(
               Routes.attendanceSubjectReportScreen.name,
 

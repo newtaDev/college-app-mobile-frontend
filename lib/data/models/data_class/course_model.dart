@@ -41,8 +41,6 @@ class Course extends MyEquatable {
         'collegeId': collegeId,
         'totalSem': totalSem,
         '__v': v,
-        'createdAt': createdAt?.toIso8601String(),
-        'updatedAt': updatedAt?.toIso8601String(),
       };
 
   /// `dart:convert`

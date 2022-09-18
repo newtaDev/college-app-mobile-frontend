@@ -53,8 +53,6 @@ class College extends MyEquatable {
         'address': address,
         'description': description,
         '__v': v,
-        'createdAt': createdAt?.toIso8601String(),
-        'updatedAt': updatedAt?.toIso8601String(),
       };
 
   /// `dart:convert`

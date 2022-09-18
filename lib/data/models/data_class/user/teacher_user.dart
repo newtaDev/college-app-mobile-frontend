@@ -1,7 +1,8 @@
 part of user_entity;
 
 class TeacherUser extends UserDetails {
-  final List<String> assignedClasses;
+  final List<ClassWithDetails> assignedClasses;
+  final List<String> assignedClassIds;
   final int? phoneNumber;
   final String? currentAddress;
   final DateTime? dob;
@@ -12,6 +13,7 @@ class TeacherUser extends UserDetails {
     required super.collegeId,
     required super.userType,
     required this.assignedClasses,
+    required this.assignedClassIds,
     this.phoneNumber,
     this.currentAddress,
     this.dob,
@@ -31,9 +33,29 @@ class TeacherUser extends UserDetails {
         bio: data['bio'] as String?,
         collegeId: data['collegeId'] as String,
         userType: UserType.fromName(data['userType'])!,
-        assignedClasses: data['assignedClasses']
-            .map<String>((dynamic e) => e.toString())
-            .toList(),
+        assignedClassIds:
+            data['assignedClasses'] == null || data['assignedClasses'].isEmpty
+                ? []
+                : data['assignedClasses'][0] is Map<String, dynamic>
+                    ? data['assignedClasses']
+                        .map<String>((dynamic e) => e['_id'].toString())
+                        .toList()
+                    : data['assignedClasses']
+                        .map<String>((dynamic e) => e.toString())
+                        .toList(),
+        assignedClasses:
+            data['assignedClasses'] == null || data['assignedClasses'].isEmpty
+                ? []
+                : data['assignedClasses'][0] is Map<String, dynamic>
+                    ? (data['assignedClasses'] as List<dynamic>?)
+                            ?.map(
+                              (dynamic e) => ClassWithDetails.fromMap(
+                                e as Map<String, dynamic>,
+                              ),
+                            )
+                            .toList() ??
+                        []
+                    : [],
         phoneNumber: data['phoneNumber'] as int?,
         currentAddress: data['currentAddress'] as String?,
         dob: data['dob'] == null
@@ -47,21 +69,14 @@ class TeacherUser extends UserDetails {
       );
 
   Map<String, dynamic> toMap() => {
-        'name': name,
         'email': email,
         'emoji': emoji,
         'bio': bio,
-        'collegeId': collegeId,
-        'userType': userType.value,
-        'assignedClasses': assignedClasses,
         'username': username,
         'isProfileCompleted': isProfileCompleted,
-        '_id': id,
         'phoneNumber': phoneNumber,
         'currentAddress': currentAddress,
         'dob': dob?.toIso8601String(),
-        'createdAt': createdAt.toIso8601String(),
-        'updatedAt': updatedAt.toIso8601String(),
       };
 
   /// `dart:convert`
@@ -81,7 +96,8 @@ class TeacherUser extends UserDetails {
     String? email,
     String? collegeId,
     UserType? userType,
-    List<String>? assignedClasses,
+    List<ClassWithDetails>? assignedClasses,
+    List<String>? assignedClassIds,
     String? username,
     bool? isProfileCompleted,
     String? id,
@@ -109,6 +125,7 @@ class TeacherUser extends UserDetails {
       id: id ?? this.id,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      assignedClassIds: assignedClassIds ?? this.assignedClassIds,
     );
   }
 
@@ -122,6 +139,7 @@ class TeacherUser extends UserDetails {
       collegeId,
       userType,
       assignedClasses,
+      assignedClassIds,
       phoneNumber,
       currentAddress,
       dob,

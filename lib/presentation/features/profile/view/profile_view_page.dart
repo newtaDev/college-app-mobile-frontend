@@ -5,13 +5,11 @@ import 'package:styles_lib/theme/themes.dart';
 import 'package:widgets_lib/widgets_lib.dart';
 
 import '../../../../../cubits/user/user_cubit.dart';
-import '../../../../../domain/entities/user_entity.dart';
 import '../../../../../shared/global/enums.dart';
 import '../../../router/routes.dart';
-import '../widgets/my_account_section.dart';
-import '../widgets/my_dashboard_section.dart';
-import '../widgets/profile_with_bio.dart';
 import 'cubit/profile_view_cubit.dart';
+import 'student_layout.dart';
+import 'teacher_layout.dart';
 
 class ProfileViewPage extends StatelessWidget {
   final String userId;
@@ -27,6 +25,7 @@ class ProfileViewPage extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final isMyProfile =
         context.read<UserCubit>().state.userDetails.id == userId;
+    final myProfile = context.read<UserCubit>().state.userDetails;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -65,7 +64,9 @@ class ProfileViewPage extends StatelessWidget {
       ),
       body: SafeArea(
         child: isMyProfile
-            ? const _MyProfileView()
+            ? myProfile.isStudent
+                ? const MyProfileStudentLayout()
+                : const MyProfileTeacherLayout()
             : _OthersProfileView(
                 userId: userId,
                 userType: userType,
@@ -129,79 +130,10 @@ class _OthersProfileViewState extends State<_OthersProfileView> {
             ),
           );
         }
-        return ListView(
-          children: [
-            const SizedBox(height: 20),
-            ProfileWithBio(user: state.userDetails!),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: OutlinedButton(
-                      onPressed: () {},
-                      style: OutlinedButton.styleFrom(
-                        side: const BorderSide(color: ColorsPallet.grey),
-                      ),
-                      child: const Text('Call'),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: OutlinedButton(
-                      onPressed: () {},
-                      style: OutlinedButton.styleFrom(
-                        side: const BorderSide(color: ColorsPallet.grey),
-                      ),
-                      child: const Text('Contact info'),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            const Divider(),
-            ProfileMyDashboardSection(user: state.userDetails!),
-            const SizedBox(height: 5),
-          ],
-        );
+        return state.userDetails!.isStudent
+            ? OtherStudentsLayout(user: state.userDetails!.asStudent!)
+            : OtherTeachersLayout(user: state.userDetails!.asTeacher!);
       },
-    );
-  }
-}
-
-class _MyProfileView extends StatelessWidget {
-  const _MyProfileView({
-    // ignore: unused_element
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        const SizedBox(height: 20),
-        BlocBuilder<UserCubit, UserState>(
-          buildWhen: (previous, current) =>
-              previous.userDetails != current.userDetails,
-          builder: (context, state) {
-            final user = state.userDetails;
-            return ProfileWithBio(user: user);
-          },
-        ),
-        const SizedBox(height: 10),
-        const Divider(),
-        ProfileMyDashboardSection(
-          user: context.read<UserCubit>().state.userDetails,
-        ),
-        const SizedBox(height: 10),
-        const Divider(),
-        const ProfileMyAccountSection(),
-        const SizedBox(height: 20),
-      ],
     );
   }
 }

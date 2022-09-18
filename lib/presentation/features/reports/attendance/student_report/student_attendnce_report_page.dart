@@ -48,7 +48,7 @@ class _StudentAttendanceReportPageState
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Padding(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
             child: SemesterDropdown(
               onChange: (index, currentSem) => {
                 context
