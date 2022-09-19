@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
-import '../../../../utils/utils.dart';
 import '../../../router/routes.dart';
 import '../widget/qr_overlay_shap.dart';
 
@@ -18,7 +17,6 @@ class QrScannerPage extends StatefulWidget {
 class _QrScannerPageState extends State<QrScannerPage> {
   Barcode? result;
   late final MobileScannerController cameraController;
-  final qrNavDebouncer = Debouncer(delay: const Duration(milliseconds: 500));
 
   @override
   void initState() {
@@ -32,7 +30,6 @@ class _QrScannerPageState extends State<QrScannerPage> {
 
   @override
   void dispose() {
-    qrNavDebouncer.dispose();
     cameraController.dispose();
     super.dispose();
   }
@@ -85,27 +82,16 @@ class _QrScannerPageState extends State<QrScannerPage> {
                 final id = data['id'];
                 final userType = data['userType'];
                 final navigateTo = data['navigateTo'];
-                if (id == null ||
-                    userType == null ||
-                    navigateTo != Routes.profileScreen.name) {
-                  // ScaffoldMessenger.of(context)
-                  //   ..hideCurrentSnackBar()
-                  //   ..showSnackBar(const SnackBar(content: Text('Invalid Qr code')));
-                  return;
-                } else {
-                  if (qrNavDebouncer.isActive ?? false) return;
-                  qrNavDebouncer.run(() {
-                    context
-                      ..pop()
-                      ..goNamed(
-                        Routes.profileScreen.name,
-                        params: {
-                          'profile_id': id,
-                          ...RouteParams.withDashboard
-                        },
-                        queryParams: {'userType': userType},
-                      );
-                  });
+                if (id != null &&
+                    userType != null &&
+                    navigateTo == Routes.profileScreen.name) {
+                  context
+                    ..pop()
+                    ..goNamed(
+                      Routes.profileScreen.name,
+                      params: {'profile_id': id, ...RouteParams.withDashboard},
+                      queryParams: {'userType': userType},
+                    );
                 }
               }
             },
