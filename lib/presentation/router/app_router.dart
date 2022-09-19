@@ -16,6 +16,8 @@ import '../features/attendance/create_attendance/page/create_attendance_page.dar
 import '../features/attendance/view_attendance/cubit/view_attendance_cubit.dart';
 import '../features/attendance/view_attendance/view_attendance_page.dart';
 import '../features/auth/sign_in/sign_in_page.dart';
+import '../features/class_time_table/class_time_table_page.dart';
+import '../features/class_time_table/cubit/class_time_table_cubit.dart';
 import '../features/dashboard/dashboard_page.dart';
 import '../features/profile/edit/edit_profile_page.dart';
 import '../features/profile/view/cubit/profile_view_cubit.dart';
@@ -140,8 +142,9 @@ class AppRouter {
             path: 'create',
             builder: (context, state) => BlocProvider(
               create: (context) => getIt<CreateAttendanceCubit>(),
-              child: const CreateAttendancePage(
+              child: CreateAttendancePage(
                 appBarName: 'Create Attendance',
+                updationData: state.extra as AttendanceWithCount?,
               ),
             ),
           ),
@@ -190,6 +193,16 @@ class AppRouter {
         builder: (context, state) {
           assert(state.extra != null, 'Pass [ Extra ] to go_router');
           return QrViewerPage(user: state.extra! as UserDetails);
+        },
+      ),
+      GoRoute(
+        name: Routes.classTimeTable.name,
+        path: 'class_time_table',
+        builder: (context, state) {
+          return BlocProvider(
+            create: (context) => getIt<ClassTimeTableCubit>(),
+            child: const ClassTimeTablePage(),
+          );
         },
       ),
       GoRoute(

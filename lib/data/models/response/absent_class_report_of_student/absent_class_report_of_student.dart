@@ -1,6 +1,5 @@
 part of reports_entity;
 
-
 class AbsentClassReportOfStudent extends MyEquatable {
   final int? absentClassCount;
   final int? totalAttendanceTaken;
@@ -12,7 +11,8 @@ class AbsentClassReportOfStudent extends MyEquatable {
     this.subject,
   });
 
-  factory AbsentClassReportOfStudent.fromMap(Map<String, dynamic> data) => AbsentClassReportOfStudent(
+  factory AbsentClassReportOfStudent.fromMap(Map<String, dynamic> data) =>
+      AbsentClassReportOfStudent(
         absentClassCount: data['absent_class_count'] as int?,
         totalAttendanceTaken: data['total_attendance_taken'] as int?,
         subject: data['subject'] == null
@@ -30,7 +30,8 @@ class AbsentClassReportOfStudent extends MyEquatable {
   ///
   /// Parses the string and returns the resulting Json object as [AbsentClassReportOfStudent].
   factory AbsentClassReportOfStudent.fromJson(String data) {
-    return AbsentClassReportOfStudent.fromMap(json.decode(data) as Map<String, dynamic>);
+    return AbsentClassReportOfStudent.fromMap(
+        json.decode(data) as Map<String, dynamic>);
   }
 
   /// `dart:convert`

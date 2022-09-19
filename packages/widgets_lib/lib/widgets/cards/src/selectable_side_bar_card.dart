@@ -32,7 +32,7 @@ class SelectableSideBarCard extends StatelessWidget {
             children: [
               ColoredBox(
                 color: barColor,
-                child: const SizedBox(width: 8),
+                child: const SizedBox(width: 10),
               ),
               const SizedBox(width: 10),
               Expanded(

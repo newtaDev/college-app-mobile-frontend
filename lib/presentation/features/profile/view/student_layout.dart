@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styles_lib/theme/themes.dart';
@@ -41,8 +40,6 @@ class MyProfileStudentLayout extends StatelessWidget {
     );
   }
 }
-
-
 
 class OtherStudentsLayout extends StatelessWidget {
   final StudentUser user;

@@ -17,5 +17,8 @@ void registerRemoteDataSourceDependencies() {
 
     /// Auth
     ..registerSingleton<AuthRemoteDataSource>(AuthRemoteDataSource())
-    ..registerSingleton<AuthLocalDataSource>(AuthLocalDataSource());
+    ..registerSingleton<AuthLocalDataSource>(AuthLocalDataSource())
+
+    // Time table
+    ..registerSingleton<TimeTableRemoteDataSource>(TimeTableRemoteDataSource());
 }

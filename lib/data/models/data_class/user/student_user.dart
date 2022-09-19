@@ -32,33 +32,33 @@ class StudentUser extends UserDetails {
 
   factory StudentUser.fromMap(Map<String, dynamic> data) {
     return StudentUser(
-        name: data['name'] as String,
-        email: data['email'] as String?,
-        emoji: data['emoji'] as String? ?? '👨🏻',
-        bio: data['bio'] as String?,
-        collegeId: data['collegeId'] as String,
-        classId: data['classId'] is Map<String, dynamic>
-            ? data['classId']['_id']
-            : data['classId'] as String,
-        myClass: data['classId'] is Map<String, dynamic>
-            ? ClassWithDetails.fromMap(data['classId'])
-            : null,
-        userType: UserType.fromName(data['userType'])!,
-        myOptionalSubjects: data['myOptionalSubjects']
-            .map<String>((dynamic e) => e.toString())
-            .toList(),
-        phoneNumber: data['phoneNumber'] as int?,
-        parentsNumber: data['parentsNumber'] as int?,
-        currentAddress: data['currentAddress'] as String?,
-        dob: data['dob'] == null
-            ? null
-            : DateTime.parse(data['dob'] as String).toLocal(),
-        username: data['username'] as String?,
-        isProfileCompleted: data['isProfileCompleted'] as bool,
-        id: data['_id'] as String,
-        createdAt: DateTime.parse(data['createdAt'] as String).toLocal(),
-        updatedAt: DateTime.parse(data['updatedAt'] as String).toLocal(),
-      );
+      name: data['name'] as String,
+      email: data['email'] as String?,
+      emoji: data['emoji'] as String? ?? '👨🏻',
+      bio: data['bio'] as String?,
+      collegeId: data['collegeId'] as String,
+      classId: data['classId'] is Map<String, dynamic>
+          ? data['classId']['_id']
+          : data['classId'] as String,
+      myClass: data['classId'] is Map<String, dynamic>
+          ? ClassWithDetails.fromMap(data['classId'])
+          : null,
+      userType: UserType.fromName(data['userType'])!,
+      myOptionalSubjects: data['myOptionalSubjects']
+          .map<String>((dynamic e) => e.toString())
+          .toList(),
+      phoneNumber: data['phoneNumber'] as int?,
+      parentsNumber: data['parentsNumber'] as int?,
+      currentAddress: data['currentAddress'] as String?,
+      dob: data['dob'] == null
+          ? null
+          : DateTime.parse(data['dob'] as String).toLocal(),
+      username: data['username'] as String?,
+      isProfileCompleted: data['isProfileCompleted'] as bool,
+      id: data['_id'] as String,
+      createdAt: DateTime.parse(data['createdAt'] as String).toLocal(),
+      updatedAt: DateTime.parse(data['updatedAt'] as String).toLocal(),
+    );
   }
 
   Map<String, dynamic> toMap() => {

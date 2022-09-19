@@ -37,15 +37,13 @@ class CreateAttendancePage extends StatefulWidget {
 class _CreateAttendancePageState extends State<CreateAttendancePage> {
   @override
   void initState() {
-    final selectionCubit = context.read<SelectionCubit>();
     final createCubit = context.read<CreateAttendanceCubit>();
-    final classId = selectionCubit.state.selectedClass!.id!;
-    if (widget.isUpdate && widget.updationData != null) {
+    if (widget.updationData != null) {
       setUpUpdate();
     } else {
       setUpCreation();
     }
-    createCubit.getAllStudentsInClass(classId);
+    createCubit.getAllStudentsInClass(createCubit.state.classId);
     super.initState();
   }
 
@@ -74,11 +72,6 @@ class _CreateAttendancePageState extends State<CreateAttendancePage> {
     final classId = selectionCubit.state.selectedClass!.id!;
     final currentSem = selectionCubit.state.selectedSem!;
     createCubit.setCreationInitialData(classId, collegeId, currentSem);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
@@ -151,9 +144,7 @@ class CreateAttendanceBottomNavigationBar extends StatelessWidget {
                     );
                 context.goNamed(
                   Routes.viewAttendanceScreen.name,
-                  params: {
-                    'tab_name': DashboardPageTabs.home.name,
-                  },
+                  params: RouteParams.withDashboard,
                 );
                 context.read<MyAppCubit>().setRefreshStatusToInit();
               }

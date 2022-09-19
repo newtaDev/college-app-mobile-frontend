@@ -38,5 +38,12 @@ void registerRepositoryDependencies() {
       ProfileRepoImpl(
         userRds: getIt<UserRemoteDataSource>(),
       ),
+    )
+
+    /// Time Table
+    ..registerSingleton<TimeTableRepoImpl>(
+      TimeTableRepoImpl(
+        timeTableRds: getIt<TimeTableRemoteDataSource>(),
+      ),
     );
 }

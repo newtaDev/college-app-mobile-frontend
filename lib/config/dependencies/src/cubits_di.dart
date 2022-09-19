@@ -59,5 +59,12 @@ void registerCubitsDependencies() {
         userCubit: getIt<UserCubit>(),
         profileRepo: getIt<ProfileRepoImpl>(),
       ),
+    )
+
+    /// Time table
+    ..registerFactory(
+      () => ClassTimeTableCubit(
+        timeTableRepo: getIt<TimeTableRepoImpl>(),
+      ),
     );
 }

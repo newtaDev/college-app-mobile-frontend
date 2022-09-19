@@ -97,7 +97,12 @@ class _HomeTabState extends State<HomeTab> {
                       lable: 'Time Tables',
                       icon: const Icon(Icons.calendar_view_month_sharp),
                       backgroundSize: boxBgSize,
-                      onTap: () {},
+                      onTap: () {
+                        context.goNamed(
+                          Routes.classTimeTable.name,
+                          params: RouteParams.withDashboard,
+                        );
+                      },
                     ),
                     if (userCubit.state.isTeacher)
                       IconButtonBox(

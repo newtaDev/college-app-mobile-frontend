@@ -16,6 +16,7 @@ enum Routes {
   reportsScreen,
   signUpScreen,
   qrViewerScreen,
+  classTimeTable,
   qrScannerScreen,
   profileScreen,
   myProfileEditScreen,

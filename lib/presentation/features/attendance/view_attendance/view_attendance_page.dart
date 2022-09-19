@@ -56,9 +56,7 @@ class _ViewAttendancePageState extends State<ViewAttendancePage> {
               onPressed: () {
                 context.goNamed(
                   Routes.createAttendanceScreen.name,
-                  params: {
-                    'tab_name': DashboardPageTabs.home.name,
-                  },
+                  params: RouteParams.withDashboard,
                 );
               },
               icon: const Icon(Icons.add),
