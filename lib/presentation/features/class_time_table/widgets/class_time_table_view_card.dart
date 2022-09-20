@@ -107,8 +107,8 @@ class ClassTimeTableViewCard extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(
-                foregroundColor: ColorsPallet.primaryBlueDark,
-                backgroundColor: ColorsPallet.primaryBlueDark.withOpacity(0.1),
+                onPrimary: ColorsPallet.primaryBlueDark,
+                primary: ColorsPallet.primaryBlueDark.withOpacity(0.1),
                 elevation: 0,
                 minimumSize: const Size.fromHeight(40),
                 shadowColor: ColorsPallet.primaryBlueDark.withOpacity(0.2),
