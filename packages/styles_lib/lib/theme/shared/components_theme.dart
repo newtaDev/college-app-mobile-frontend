@@ -37,3 +37,12 @@ ElevatedButtonThemeData _elevatedButtonTheme() {
     ),
   );
 }
+
+PageTransitionsTheme _cupertionPageTransition() {
+  return const PageTransitionsTheme(
+    builders: <TargetPlatform, PageTransitionsBuilder>{
+      TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+      TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+    },
+  );
+}

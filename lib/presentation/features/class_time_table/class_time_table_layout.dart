@@ -1,5 +1,3 @@
-
-
 import 'package:college_app/presentation/features/class_time_table/widgets/class_time_table_view_card.dart';
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';

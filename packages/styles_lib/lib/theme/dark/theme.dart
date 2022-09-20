@@ -31,4 +31,5 @@ final darkTheme = FlexThemeData.dark(
 ).copyWith(
   inputDecorationTheme: _textInputDecorationTheme(isDarkMode: true),
   elevatedButtonTheme: _elevatedButtonTheme(),
+  pageTransitionsTheme: _cupertionPageTransition(),
 );
