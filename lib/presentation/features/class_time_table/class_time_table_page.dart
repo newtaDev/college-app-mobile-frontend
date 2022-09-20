@@ -119,11 +119,13 @@ class _ClassTimeTablePageState extends State<ClassTimeTablePage> {
                 );
               final isToday = _day.day == DateTime.now().day;
 
-              final currentTime = sortedTimetableKeys
-                  .where(
-                    (element) => element.startTime.hour == TimeOfDay.now().hour,
-                  )
-                  .last;
+              final _currentTimes = sortedTimetableKeys.where(
+                (element) => element.startTime.hour == TimeOfDay.now().hour,
+              );
+              final currentTime = _currentTimes.lastWhere(
+                (element) => element.startTime.minute <= TimeOfDay.now().minute,
+                orElse: () => _currentTimes.last,
+              );
 
               WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
                 if (!isToday || !itemScrollController.isAttached) return;
