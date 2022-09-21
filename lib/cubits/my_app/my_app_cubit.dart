@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 
 import '../../data/data_source/local/auth_lds.dart';
 import '../../domain/repository/token_repository.dart';
+import '../../shared/errors/api_errors.dart';
 import '../../utils/utils.dart';
 import '../user/user_cubit.dart';
 
@@ -40,6 +41,8 @@ class MyAppCubit extends Cubit<MyAppState> {
       await userCubit.setUpInitialUserData();
       log('-- Login Success --');
       emit(state.copyWith(splashStatus: SplashStatus.loginSuccess));
+    } on ApiErrorRes catch (_) {
+      emit(state.copyWith(splashStatus: SplashStatus.invalidUser));
     } catch (e) {
       emit(state.copyWith(splashStatus: SplashStatus.failed));
       rethrow;

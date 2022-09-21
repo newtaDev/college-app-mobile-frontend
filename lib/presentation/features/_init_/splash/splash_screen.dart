@@ -19,9 +19,19 @@ class SplashScreen extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(
               const SnackBar(
-                content: Text('Something Went wrong'),
+                content: Text('Internal Server Error'),
               ),
             );
+        }
+        if (state.splashStatus == SplashStatus.invalidUser) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              const SnackBar(
+                content: Text('Invalid user'),
+              ),
+            );
+          context.goNamed(Routes.signInScreen.name);
         }
         if (state.splashStatus == SplashStatus.neverLogedIn ||
             state.splashStatus == SplashStatus.sessionExpired) {

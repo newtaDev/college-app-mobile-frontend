@@ -3,6 +3,7 @@ part of 'my_app_cubit.dart';
 enum SplashStatus {
   loading,
   sessionExpired,
+  invalidUser,
   failed,
   neverLogedIn,
   loginSuccess
