@@ -20,6 +20,8 @@ enum Routes {
   qrScannerScreen,
   profileScreen,
   myProfileEditScreen,
+  createAnouncementFormatsScreen,
+  createAnouncementScreen,
 
   /// Showcase screens
   schowcaseThemeAndWidgetsScreen,

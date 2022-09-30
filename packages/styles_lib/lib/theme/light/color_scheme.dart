@@ -1,6 +1,6 @@
 part of app_themes;
 
-const _lightColorScheme = ColorScheme(
+const lightColorScheme = ColorScheme(
   brightness: Brightness.light,
   primary: Color(0xff1d2228),
   onPrimary: Color(0xffffffff),

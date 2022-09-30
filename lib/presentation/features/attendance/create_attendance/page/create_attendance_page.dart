@@ -163,20 +163,20 @@ class CreateAttendanceBottomNavigationBar extends StatelessWidget {
                       .read<CreateAttendanceCubit>()
                       .isValidAttendanceReq();
                   switch (validation) {
-                    case CreateValidationStatus.issueInSubjects:
+                    case CreateAttendanceValidationStatus.issueInSubjects:
                       showValidationSnackBar(
                         context,
                         'Please select a subject',
                       );
                       break;
-                    case CreateValidationStatus.issueInClassTimings:
+                    case CreateAttendanceValidationStatus.issueInClassTimings:
                       showValidationSnackBar(
                         context,
                         'Class ending time should be greated than starting time',
                       );
                       break;
 
-                    case CreateValidationStatus.success:
+                    case CreateAttendanceValidationStatus.success:
                       final createCubit = context.read<CreateAttendanceCubit>();
                       createCubit.cretateOrUpdateAttendance(isUpdate);
                       break;
@@ -389,7 +389,7 @@ class _CreateAttendanceLayoutState extends State<CreateAttendanceLayout> {
               value ?? hintText,
               style: value != null
                   ? textTheme.bodyLarge
-                  : textTheme.bodyMedium?.copyWith(color: ColorsPallet.grey),
+                  : textTheme.bodyLarge?.copyWith(color: ColorsPallet.grey700),
               overflow: TextOverflow.ellipsis,
             ),
           ),

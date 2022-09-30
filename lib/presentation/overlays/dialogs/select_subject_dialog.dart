@@ -74,9 +74,7 @@ class _SelectSubjectDialogState extends State<SelectSubjectDialog> {
                       Navigator.of(context).pop();
                     },
                   ),
-                  const Divider(
-                    height: 1,
-                  )
+                  const Divider(height: 1)
                 ],
               );
             },

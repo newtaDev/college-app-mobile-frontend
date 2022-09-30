@@ -1,7 +1,7 @@
 part of app_themes;
 
 final darkTheme = FlexThemeData.dark(
-  colorScheme: _darkColorScheme,
+  colorScheme: darkColorScheme,
   surfaceMode: FlexSurfaceMode.highScaffoldLowSurface,
   blendLevel: 6,
   fontFamily: FontAssets.poppins,

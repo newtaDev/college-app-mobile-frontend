@@ -4,7 +4,7 @@ import 'package:emojis/emoji.dart';
 import 'package:flutter/material.dart';
 import 'package:styles_lib/theme/themes.dart';
 
-import '../../../../shared/global/constants.dart';
+import '../../../../shared/helpers/helpers.dart';
 
 class ProfileEmojiSelector extends StatefulWidget {
   final String? initialEmoji;
@@ -49,7 +49,7 @@ class _ProfileEmojiSelectorState extends State<ProfileEmojiSelector> {
       itemBuilder: (context, index, realIndex) {
         final isCentre = index == centerIndex;
         return AnimatedScale(
-          duration: Constants.minDuration,
+          duration: Helpers.minDuration,
           scale: isCentre ? 0.8 : 0.6,
           child: GestureDetector(
             onTap: () => controller.animateToPage(index),

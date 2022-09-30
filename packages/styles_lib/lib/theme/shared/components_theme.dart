@@ -10,7 +10,7 @@ InputDecorationTheme _textInputDecorationTheme({required bool isDarkMode}) {
   );
   final _errorBorder = UnderlineInputBorder(
     borderRadius: BorderRadius.circular(8),
-    borderSide: BorderSide(color: _darkColorScheme.error),
+    borderSide: BorderSide(color: darkColorScheme.error),
   );
   return InputDecorationTheme(
     focusedBorder: _withoutBorder,
@@ -19,7 +19,7 @@ InputDecorationTheme _textInputDecorationTheme({required bool isDarkMode}) {
     errorBorder: _errorBorder,
     disabledBorder: _withoutBorder,
     focusedErrorBorder: _errorBorder.copyWith(
-      borderSide: BorderSide(color: _lightColorScheme.error, width: 2),
+      borderSide: BorderSide(color: lightColorScheme.error, width: 2),
     ),
     filled: true,
     fillColor: isDarkMode ? ColorsPallet.darkGrey : ColorsPallet.grey80,

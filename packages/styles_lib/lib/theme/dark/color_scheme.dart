@@ -1,6 +1,6 @@
 part of app_themes;
 
-const _darkColorScheme = ColorScheme(
+const darkColorScheme = ColorScheme(
   brightness: Brightness.dark,
   primary: Color(0xff0171E2),
   // primary: Color(0xFF868686),

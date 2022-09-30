@@ -49,3 +49,34 @@ enum UserType {
     return null;
   }
 }
+
+enum AnouncementLayoutType {
+  imageWithText('IMAGE_WITH_TEXT'),
+  multiImageWithText('MULTI_IMAGE_WITH_TEXT'),
+  onlyText('ONLY_TEXT');
+
+  final String value;
+  const AnouncementLayoutType(this.value);
+
+  static AnouncementLayoutType? fromName(String name) {
+    for (final AnouncementLayoutType enumVariant
+        in AnouncementLayoutType.values) {
+      if (enumVariant.value == name) return enumVariant;
+    }
+    return null;
+  }
+}
+
+enum AnounceTo {
+  students('STUDENTS');
+
+  final String value;
+  const AnounceTo(this.value);
+
+  static AnounceTo? fromName(String name) {
+    for (final AnounceTo enumVariant in AnounceTo.values) {
+      if (enumVariant.value == name) return enumVariant;
+    }
+    return null;
+  }
+}

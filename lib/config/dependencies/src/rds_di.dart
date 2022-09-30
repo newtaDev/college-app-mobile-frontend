@@ -20,5 +20,9 @@ void registerRemoteDataSourceDependencies() {
     ..registerSingleton<AuthLocalDataSource>(AuthLocalDataSource())
 
     // Time table
-    ..registerSingleton<TimeTableRemoteDataSource>(TimeTableRemoteDataSource());
+    ..registerSingleton<TimeTableRemoteDataSource>(TimeTableRemoteDataSource())
+    // Anouncements
+    ..registerSingleton<AnouncementRemoteDataSource>(
+      AnouncementRemoteDataSource(),
+    );
 }

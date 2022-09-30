@@ -4,7 +4,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:widgets_lib/widgets_lib.dart';
 
 import '../../../cubits/user/user_cubit.dart';
-import '../../../shared/global/constants.dart';
+import '../../../shared/helpers/helpers.dart';
 import '../../../shared/global/enums.dart';
 import 'class_time_table_layout.dart';
 import 'cubit/class_time_table_cubit.dart';
@@ -70,7 +70,7 @@ class _ClassTimeTablePageState extends State<ClassTimeTablePage> {
                               if (!pageCtr.hasClients) return;
                               pageCtr.animateToPage(
                                 index,
-                                duration: Constants.minDuration,
+                                duration: Helpers.minDuration,
                                 curve: Curves.decelerate,
                               );
                             },
@@ -135,7 +135,7 @@ class _ClassTimeTablePageState extends State<ClassTimeTablePage> {
                     index: sortedTimetableKeys.indexWhere(
                       (element) => element.startTime == currentTime.startTime,
                     ),
-                    duration: Constants.maxDuration,
+                    duration: Helpers.maxDuration,
                     curve: Curves.decelerate,
                   );
                 });

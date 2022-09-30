@@ -11,6 +11,9 @@ import '../features/_init_/T&W_showcase/t_w_showcase_page.dart';
 import '../features/_init_/T&W_showcase/typography_page.dart';
 import '../features/_init_/T&W_showcase/widgets_page.dart';
 import '../features/_init_/splash/splash_screen.dart';
+import '../features/anouncement/create/pages/anouncement_formats_page.dart';
+import '../features/anouncement/create/pages/create_anouncement_page.dart';
+import '../features/anouncement/create/cubit/create_anouncement_cubit.dart';
 import '../features/attendance/create_attendance/cubit/create_attendance_cubit.dart';
 import '../features/attendance/create_attendance/page/create_attendance_page.dart';
 import '../features/attendance/view_attendance/cubit/view_attendance_cubit.dart';
@@ -126,6 +129,7 @@ class AppRouter {
   );
 
   static List<GoRoute> get _dashboardRoutes {
+    CreateAnouncementCubit? anouncementCubit;
     return [
       GoRoute(
         name: Routes.viewAttendanceScreen.name,
@@ -160,6 +164,30 @@ class AppRouter {
               ),
             ),
           ),
+        ],
+      ),
+      GoRoute(
+        name: Routes.createAnouncementFormatsScreen.name,
+        path: 'anouncements',
+        builder: (context, state) {
+          anouncementCubit ??= getIt<CreateAnouncementCubit>();
+          if (anouncementCubit?.isClosed ?? false) {
+            anouncementCubit = getIt<CreateAnouncementCubit>();
+          }
+          return BlocProvider(
+            create: (context) => anouncementCubit!,
+            child: const AnouncementFormatsPage(),
+          );
+        },
+        routes: [
+          GoRoute(
+            name: Routes.createAnouncementScreen.name,
+            path: 'create',
+            builder: (context, state) => BlocProvider.value(
+              value: anouncementCubit!,
+              child: const CreateAnouncementScreen(),
+            ),
+          )
         ],
       ),
       GoRoute(

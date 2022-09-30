@@ -21,6 +21,9 @@ dev_dependencies:
 flutter:
   assets:
     - assets/fonts/
+    - assets/icons/
+    - assets/images/
+    - assets/svg/
   fonts:
     - family: Raleway
       fonts:

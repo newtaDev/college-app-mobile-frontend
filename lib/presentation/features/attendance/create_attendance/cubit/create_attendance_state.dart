@@ -2,7 +2,7 @@ part of 'create_attendance_cubit.dart';
 
 enum CreateAttendanceStatus { initial, loading, success, error }
 
-enum CreateValidationStatus { success, issueInClassTimings, issueInSubjects }
+enum CreateAttendanceValidationStatus { success, issueInClassTimings, issueInSubjects }
 
 enum StudentsInClasStatus { initial, loading, success, error }
 

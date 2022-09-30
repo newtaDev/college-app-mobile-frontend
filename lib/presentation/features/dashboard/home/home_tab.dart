@@ -5,9 +5,8 @@ import 'package:styles_lib/assets/assets.dart';
 import 'package:widgets_lib/widgets/widgets.dart';
 
 import '../../../../cubits/user/user_cubit.dart';
-import '../../../../shared/global/constants.dart';
-import '../../../../shared/global/enums.dart';
 import '../../../router/routes.dart';
+import '../../anouncement/widgets/anouncement_cards.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -72,9 +71,9 @@ class _HomeTabState extends State<HomeTab> {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: ProfileListViewCard(
-                  emoji: '👨🏻',
-                  title: 'newton Michael',
-                  subtitle: '@Newta',
+                  emoji: '🏫',
+                  title: 'College Name',
+                  subtitle: 'location..',
                 ),
               ),
               const SizedBox(height: 20),
@@ -212,19 +211,30 @@ class _HomeTabState extends State<HomeTab> {
                                   ? const NeverScrollableScrollPhysics()
                                   : const ClampingScrollPhysics(),
                               children: const [
-                                TextWithImageAnouncementCard(),
-                                SizedBox(height: 20),
-                                TextAnouncementCard(),
-                                SizedBox(height: 20),
-                                MutiImageAnouncementCard(),
-                                SizedBox(height: 20),
-                                TextWithImageAnouncementCard(),
-                                SizedBox(height: 20),
-                                MutiImageAnouncementCard(),
-                                SizedBox(height: 20),
-                                TextWithImageAnouncementCard(),
-                                SizedBox(height: 20),
-                                TextAnouncementCard(),
+                                // TextWithImageAnouncementCard(
+                                //   title: 'Anouncement title',
+                                //   by: 'prin',
+                                // ),
+                                // SizedBox(height: 20),
+                                // TextAnouncementCard(
+                                //   title: 'titl',
+                                //   description: 'descr',
+                                //   by: 'Principal',
+                                // ),
+                                // SizedBox(height: 20),
+                                // MutiImageAnouncementCard(),
+                                // SizedBox(height: 20),
+                                // TextWithImageAnouncementCard(),
+                                // SizedBox(height: 20),
+                                // MutiImageAnouncementCard(),
+                                // SizedBox(height: 20),
+                                // TextWithImageAnouncementCard(),
+                                // SizedBox(height: 20),
+                                // TextAnouncementCard(
+                                //   title: 'titl',
+                                //   description: 'descr',
+                                //   by: 'Principal',
+                                // ),
                               ],
                             ),
                           ),
@@ -250,140 +260,6 @@ class _HomeTabState extends State<HomeTab> {
           ),
         );
       },
-    );
-  }
-}
-
-class MutiImageAnouncementCard extends StatelessWidget {
-  const MutiImageAnouncementCard({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return BorderedBox(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 260,
-            width: double.maxFinite,
-            child: PageView.builder(
-              itemCount: Constants.randomImages.length,
-              itemBuilder: (context, index) => Image.network(
-                Constants.randomImages[index],
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Text(
-            'Multi Image view with text ',
-            style: textTheme.titleMedium,
-          ),
-          Text(
-            'Anouncement Message description canbe longer' * 2,
-            style: textTheme.bodySmall,
-          ),
-          const SizedBox(height: 5),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Text(
-              'By - Principal',
-              style: textTheme.bodySmall,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class TextWithImageAnouncementCard extends StatelessWidget {
-  const TextWithImageAnouncementCard({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return BorderedBox(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: SizedBox(
-              height: 100,
-              width: 100,
-              child: Image.network(
-                Constants.randomImages[1],
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Text with Image Title',
-                  style: textTheme.titleMedium,
-                ),
-                Text(
-                  'Anouncement Message description canbe longer' * 2,
-                  style: textTheme.bodySmall,
-                ),
-                const SizedBox(height: 5),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Text(
-                    'By - Principal',
-                    style: textTheme.bodySmall,
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class TextAnouncementCard extends StatelessWidget {
-  const TextAnouncementCard({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return BorderedBox(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Anouncement title with no image',
-            style: textTheme.titleMedium,
-          ),
-          Text(
-            'Anouncement Message description canbe longer' * 2,
-            style: textTheme.bodySmall,
-          ),
-          const SizedBox(height: 5),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Text(
-              'By - Principal',
-              style: textTheme.bodySmall,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

@@ -206,11 +206,11 @@ class _ProfileEditFormState extends State<_ProfileEditForm> {
               Text('Bio', style: textTheme.titleMedium),
               const SizedBox(height: 10),
               TextFormField(
-                maxLines: 4,
+                maxLines: null,
                 initialValue: teacherUser?.bio,
                 onChanged: (value) {
                   final _editedData = editCubit.state.userDetails.asTeacher
-                      ?.copyWith(bio: value);
+                      ?.copyWith(bio: value.trim());
 
                   editCubit.setEditedTeacherUserData(_editedData);
                 },

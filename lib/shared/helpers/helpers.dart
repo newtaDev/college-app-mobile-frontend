@@ -1,4 +1,4 @@
-class Constants {
+class Helpers {
   /// api constants
 
   /// other constants

@@ -149,18 +149,18 @@ class CreateAttendanceCubit extends Cubit<CreateAttendanceState> {
     emit(state.copyWith(attendanceTakenOn: date));
   }
 
-  CreateValidationStatus isValidAttendanceReq() {
+  CreateAttendanceValidationStatus isValidAttendanceReq() {
     if (state.selectedSubject == null) {
-      return CreateValidationStatus.issueInSubjects;
+      return CreateAttendanceValidationStatus.issueInSubjects;
     }
     if (state.classEndTime.hour < state.classStartTime.hour) {
-      return CreateValidationStatus.issueInClassTimings;
+      return CreateAttendanceValidationStatus.issueInClassTimings;
     }
     if (state.classEndTime.hour == state.classStartTime.hour) {
       if (state.classStartTime.minute > state.classEndTime.minute) {
-        return CreateValidationStatus.issueInClassTimings;
+        return CreateAttendanceValidationStatus.issueInClassTimings;
       }
     }
-    return CreateValidationStatus.success;
+    return CreateAttendanceValidationStatus.success;
   }
 }

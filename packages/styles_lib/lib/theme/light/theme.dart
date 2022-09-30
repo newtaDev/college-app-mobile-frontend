@@ -2,7 +2,7 @@ part of app_themes;
 
 final lightTheme = FlexThemeData.light(
   // scheme: FlexScheme.shark,
-  colorScheme: _lightColorScheme,
+  colorScheme: lightColorScheme,
   appBarStyle: FlexAppBarStyle.background,
   appBarElevation: 0.3,
   fontFamily: FontAssets.poppins,
