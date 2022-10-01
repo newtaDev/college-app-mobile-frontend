@@ -73,7 +73,12 @@ void registerCubitsDependencies() {
       () => CreateAnouncementCubit(
         anouncementRepo: getIt<AnouncementRepoImpl>(),
         userCubit: getIt<UserCubit>(),
-
+      ),
+    )
+    ..registerFactory(
+      () => ViewAnouncementCubit(
+        anouncementRepo: getIt<AnouncementRepoImpl>(),
+        userCubit: getIt<UserCubit>(),
       ),
     );
 }

@@ -22,6 +22,7 @@ import '../../data/repositories/profile_repo_impl.dart';
 import '../../data/repositories/token_repo_impl.dart';
 import '../../domain/repository/profile_repository.dart';
 import '../../presentation/features/anouncement/create/cubit/create_anouncement_cubit.dart';
+import '../../presentation/features/anouncement/view/cubit/view_anouncement_cubit.dart';
 import '../../presentation/features/attendance/create_attendance/cubit/create_attendance_cubit.dart';
 import '../../presentation/features/attendance/view_attendance/cubit/view_attendance_cubit.dart';
 import '../../presentation/features/class_time_table/cubit/class_time_table_cubit.dart';

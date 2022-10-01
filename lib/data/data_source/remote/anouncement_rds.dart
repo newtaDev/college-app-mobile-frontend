@@ -32,4 +32,30 @@ class AnouncementRemoteDataSource {
       data: req.toFormData(),
     );
   }
+
+  Future<Response> getAnouncementsForStudent({
+    required String anounceToClassId,
+    bool showMyClassesOnly = false,
+  }) {
+    return client.get(
+      '/anouncements/students',
+      queryParameters: {
+        'anounceToClassId': anounceToClassId,
+        'showMyClassesOnly': showMyClassesOnly,
+      },
+    );
+  }
+
+  Future<Response> getAnouncementsForTeacher({
+    required String teacherId,
+    bool showAnouncementsCreatedByMe = false,
+  }) {
+    return client.get(
+      '/anouncements/teachers',
+      queryParameters: {
+        'teacherId': teacherId,
+        'showAnouncementsCreatedByMe': showAnouncementsCreatedByMe,
+      },
+    );
+  }
 }
