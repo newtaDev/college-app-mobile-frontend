@@ -22,6 +22,7 @@ enum Routes {
   myProfileEditScreen,
   createAnouncementFormatsScreen,
   createAnouncementScreen,
+  imageViewerScreen,
 
   /// Showcase screens
   schowcaseThemeAndWidgetsScreen,

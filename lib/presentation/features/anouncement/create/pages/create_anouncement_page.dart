@@ -19,6 +19,7 @@ import '../../../../../shared/validators/form_validator.dart';
 import '../../../../overlays/dialogs/multi_select_my_classes_dialog.dart';
 import '../../../../router/routes.dart';
 import '../../widgets/anouncement_cards.dart';
+import '../../../../widgets/rounded_close_button.dart';
 import '../cubit/create_anouncement_cubit.dart';
 
 class CreateAnouncementScreen extends StatefulWidget {
@@ -93,7 +94,7 @@ class _CreateAnouncementScreenState extends State<CreateAnouncementScreen> {
             return ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState?.validate() ?? false) {
-                  FocusScope.of(context).unfocus();
+                  FocusManager.instance.primaryFocus?.unfocus();
                   switch (anouncementCubit.validateCreateAnoucenmentReq()) {
                     case CreateAnouncementValidationStatus.success:
                       anouncementCubit.createAnouncemnt();
@@ -160,7 +161,7 @@ class _CreateAnouncementScreenState extends State<CreateAnouncementScreen> {
                       return _multiSelectBoxWithTitle(
                         title: 'Anounce to',
                         onTap: () {
-                          FocusScope.of(context).unfocus();
+                          FocusManager.instance.primaryFocus?.unfocus();
                           showDialog<void>(
                             context: context,
                             builder: (_) {
@@ -293,7 +294,8 @@ class AnouncementPreviews extends StatelessWidget {
               description: state.description ?? description,
               by: by,
               createdOn: dateTime,
-              image: state.image == null
+              imageFile: state.image,
+              imageWidget: state.image == null
                   ? null
                   : Image.file(
                       state.image!,
@@ -314,6 +316,7 @@ class AnouncementPreviews extends StatelessWidget {
               description: state.description ?? description,
               by: by,
               createdOn: dateTime,
+              imageFiles: state.multiImages,
               images: state.multiImages
                   .map((e) => Image.file(e, fit: BoxFit.cover))
                   .toList(),
@@ -340,7 +343,7 @@ class SingleAnouncementImagePicker extends StatelessWidget {
         Center(
           child: GestureDetector(
             onTap: () {
-              FocusScope.of(context).unfocus();
+              FocusManager.instance.primaryFocus?.unfocus();
               anouncementCubit.pickAndSetImage();
             },
             child: ClipRRect(
@@ -361,8 +364,11 @@ class SingleAnouncementImagePicker extends StatelessWidget {
                             state.image!,
                             fit: BoxFit.cover,
                           ),
-                          _CloseButton(
-                            onTap: anouncementCubit.removeSingleImage,
+                          Padding(
+                            padding: const EdgeInsets.all(5),
+                            child: RoundedCloseButton(
+                              onTap: anouncementCubit.removeSingleImage,
+                            ),
                           ),
                         ],
                       );
@@ -417,7 +423,7 @@ class MultiAnouncementImagePicker extends StatelessWidget {
                       return Center(
                         child: GestureDetector(
                           onTap: () {
-                            FocusScope.of(context).unfocus();
+                            FocusManager.instance.primaryFocus?.unfocus();
                             anouncementCubit.pickAndSetMultiImage();
                           },
                           child: ClipRRect(
@@ -450,9 +456,12 @@ class MultiAnouncementImagePicker extends StatelessWidget {
                                 state.multiImages[index],
                                 fit: BoxFit.cover,
                               ),
-                              _CloseButton(
-                                onTap: () =>
-                                    anouncementCubit.removeMultiImage(index),
+                              Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: RoundedCloseButton(
+                                  onTap: () =>
+                                      anouncementCubit.removeMultiImage(index),
+                                ),
                               ),
                             ],
                           ),
@@ -474,42 +483,6 @@ class MultiAnouncementImagePicker extends StatelessWidget {
         ),
         const SizedBox(height: 20),
       ],
-    );
-  }
-}
-
-class _CloseButton extends StatelessWidget {
-  final VoidCallback onTap;
-  const _CloseButton({
-    // ignore: unused_element
-    super.key,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topRight,
-      child: GestureDetector(
-        onTap: onTap,
-        child: const Padding(
-          padding: EdgeInsets.all(5),
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: Colors.black54,
-              shape: BoxShape.circle,
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(5),
-              child: Icon(
-                Icons.close,
-                color: Colors.white,
-                size: 16,
-              ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:widgets_lib/widgets/common/loading_indicator.dart';
 
 import '../../../../../domain/entities/anouncement_entity.dart';
 import '../../../../../shared/global/enums.dart';
+import '../../widgets/anouncement_card_switcher.dart';
 import '../../widgets/anouncement_cards.dart';
 import '../cubit/view_anouncement_cubit.dart';
 
@@ -30,13 +31,13 @@ class _AllAnouncementStudentTabViewState
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ViewAnouncementCubit, ViewAnouncementState>(
-      buildWhen: (previous, current) => previous.status != current.status,
+      buildWhen: (previous, current) => previous.allStatus != current.allStatus,
       builder: (context, state) {
-        if (state.status.isInitial || state.status.isLoading) {
+        if (state.allStatus.isInitial || state.allStatus.isLoading) {
           return const LoadingIndicator();
         }
 
-        if (state.allAnouncementModels.isEmpty || state.status.isError) {
+        if (state.allAnouncementModels.isEmpty || state.allStatus.isError) {
           return const Center(child: Text('No anouncements found'));
         }
         return RefreshIndicator(
@@ -54,50 +55,6 @@ class _AllAnouncementStudentTabViewState
         );
       },
     );
-  }
-}
-
-class AnouncementCardSwitcher extends StatelessWidget {
-  final AnouncementModel anouncementModel;
-  const AnouncementCardSwitcher({
-    super.key,
-    required this.anouncementModel,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    switch (anouncementModel.anouncementLayoutType!) {
-      case AnouncementLayoutType.onlyText:
-        return TextAnouncementCard(
-          title: anouncementModel.title!,
-          description: anouncementModel.description!,
-          by: anouncementModel.createdBy?.user?.name ?? 'user',
-          createdOn: anouncementModel.createdAt!,
-        );
-      case AnouncementLayoutType.imageWithText:
-        return TextWithImageAnouncementCard(
-          title: anouncementModel.title!,
-          description: anouncementModel.description!,
-          by: anouncementModel.createdBy?.user?.name ?? 'user',
-          createdOn: anouncementModel.createdAt!,
-          image: anouncementModel.image == null
-              ? null
-              : Image.network(
-                  anouncementModel.image!,
-                  fit: BoxFit.cover,
-                ),
-        );
-      case AnouncementLayoutType.multiImageWithText:
-        return MutiImageAnouncementCard(
-          title: anouncementModel.title!,
-          description: anouncementModel.description!,
-          by: anouncementModel.createdBy?.user?.name ?? 'user',
-          createdOn: anouncementModel.createdAt!,
-          images: anouncementModel.multipleImages
-              ?.map((e) => Image.network(e, fit: BoxFit.cover))
-              .toList(),
-        );
-    }
   }
 }
 
@@ -126,13 +83,13 @@ class _MyAnouncementStudentTabViewState
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ViewAnouncementCubit, ViewAnouncementState>(
-      buildWhen: (previous, current) => previous.status != current.status,
+      buildWhen: (previous, current) => previous.myStatus != current.myStatus,
       builder: (context, state) {
-        if (state.status.isInitial || state.status.isLoading) {
+        if (state.myStatus.isInitial || state.myStatus.isLoading) {
           return const LoadingIndicator();
         }
 
-        if (state.myAnouncementModels.isEmpty || state.status.isError) {
+        if (state.myAnouncementModels.isEmpty || state.myStatus.isError) {
           return const Center(child: Text('No anouncements found'));
         }
         return RefreshIndicator(

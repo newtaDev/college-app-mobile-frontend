@@ -18,7 +18,12 @@ class ViewAnouncementCubit extends Cubit<ViewAnouncementState> {
   }) : super(const ViewAnouncementState.init());
 
   Future<void> getAnouncementForStudents({bool myClassOnly = false}) async {
-    emit(state.copyWith(status: ViewAnouncementStatus.loading));
+    emit(
+      state.copyWith(
+        allStatus: myClassOnly ? null : ViewAnouncementStatus.loading,
+        myStatus: myClassOnly ? ViewAnouncementStatus.loading : null,
+      ),
+    );
     try {
       final res = await anouncementRepo.getAnouncementForStudents(
         anounceToClassId: userCubit.state.userAsStudent!.classId,
@@ -26,7 +31,8 @@ class ViewAnouncementCubit extends Cubit<ViewAnouncementState> {
       );
       emit(
         state.copyWith(
-          status: ViewAnouncementStatus.success,
+          allStatus: myClassOnly ? null : ViewAnouncementStatus.success,
+          myStatus: myClassOnly ? ViewAnouncementStatus.success : null,
           allAnouncementModels: myClassOnly ? null : res.responseData,
           myAnouncementModels: myClassOnly ? res.responseData : null,
         ),
@@ -34,7 +40,8 @@ class ViewAnouncementCubit extends Cubit<ViewAnouncementState> {
     } on ApiErrorRes catch (apiError) {
       emit(
         state.copyWith(
-          status: ViewAnouncementStatus.error,
+          allStatus: myClassOnly ? null : ViewAnouncementStatus.error,
+          myStatus: myClassOnly ? ViewAnouncementStatus.error : null,
           error: apiError,
         ),
       );
@@ -42,7 +49,8 @@ class ViewAnouncementCubit extends Cubit<ViewAnouncementState> {
       final apiErrorRes = ApiErrorRes(devMessage: 'Fetching Students failed');
       emit(
         state.copyWith(
-          status: ViewAnouncementStatus.error,
+          allStatus: myClassOnly ? null : ViewAnouncementStatus.error,
+          myStatus: myClassOnly ? ViewAnouncementStatus.error : null,
           error: apiErrorRes,
         ),
       );
@@ -53,7 +61,14 @@ class ViewAnouncementCubit extends Cubit<ViewAnouncementState> {
   Future<void> getAnouncementForTeachers({
     bool showAnouncementsCreatedByMe = false,
   }) async {
-    emit(state.copyWith(status: ViewAnouncementStatus.loading));
+    emit(
+      state.copyWith(
+        allStatus:
+            showAnouncementsCreatedByMe ? null : ViewAnouncementStatus.loading,
+        myStatus:
+            showAnouncementsCreatedByMe ? ViewAnouncementStatus.loading : null,
+      ),
+    );
     try {
       final res = await anouncementRepo.getAnouncementForTeachers(
         teacherId: userCubit.state.userAsTeacher!.id,
@@ -61,7 +76,12 @@ class ViewAnouncementCubit extends Cubit<ViewAnouncementState> {
       );
       emit(
         state.copyWith(
-          status: ViewAnouncementStatus.success,
+          allStatus: showAnouncementsCreatedByMe
+              ? null
+              : ViewAnouncementStatus.success,
+          myStatus: showAnouncementsCreatedByMe
+              ? ViewAnouncementStatus.success
+              : null,
           allAnouncementModels:
               showAnouncementsCreatedByMe ? null : res.responseData,
           myAnouncementModels:
@@ -71,7 +91,10 @@ class ViewAnouncementCubit extends Cubit<ViewAnouncementState> {
     } on ApiErrorRes catch (apiError) {
       emit(
         state.copyWith(
-          status: ViewAnouncementStatus.error,
+          allStatus:
+              showAnouncementsCreatedByMe ? null : ViewAnouncementStatus.error,
+          myStatus:
+              showAnouncementsCreatedByMe ? ViewAnouncementStatus.error : null,
           error: apiError,
         ),
       );
@@ -79,7 +102,10 @@ class ViewAnouncementCubit extends Cubit<ViewAnouncementState> {
       final apiErrorRes = ApiErrorRes(devMessage: 'Fetching Students failed');
       emit(
         state.copyWith(
-          status: ViewAnouncementStatus.error,
+          allStatus:
+              showAnouncementsCreatedByMe ? null : ViewAnouncementStatus.error,
+          myStatus:
+              showAnouncementsCreatedByMe ? ViewAnouncementStatus.error : null,
           error: apiErrorRes,
         ),
       );

@@ -8,29 +8,32 @@ extension ViewAnouncementStatusX on ViewAnouncementStatus {
   bool get isError => this == ViewAnouncementStatus.error;
   bool get isLoading => this == ViewAnouncementStatus.loading;
 }
-
 class ViewAnouncementState extends MyEquatable {
   final List<AnouncementModel> allAnouncementModels;
   final List<AnouncementModel> myAnouncementModels;
-  final ViewAnouncementStatus status;
+  final ViewAnouncementStatus allStatus;
+  final ViewAnouncementStatus myStatus;
   final ApiErrorRes? error;
 
   const ViewAnouncementState({
     required this.allAnouncementModels,
     required this.myAnouncementModels,
-    required this.status,
+    required this.allStatus,
+    required this.myStatus,
     this.error,
   });
   const ViewAnouncementState.init()
       : allAnouncementModels = const [],
         myAnouncementModels = const [],
-        status = ViewAnouncementStatus.initial,
+        allStatus = ViewAnouncementStatus.initial,
+        myStatus = ViewAnouncementStatus.initial,
         error = null;
 
   @override
   List<Object?> get props => [
         allAnouncementModels,
-        status,
+        allStatus,
+        myStatus,
         error,
         myAnouncementModels,
       ];
@@ -38,13 +41,15 @@ class ViewAnouncementState extends MyEquatable {
   ViewAnouncementState copyWith({
     List<AnouncementModel>? allAnouncementModels,
     List<AnouncementModel>? myAnouncementModels,
-    ViewAnouncementStatus? status,
+    ViewAnouncementStatus? allStatus,
+    ViewAnouncementStatus? myStatus,
     ApiErrorRes? error,
   }) {
     return ViewAnouncementState(
       allAnouncementModels: allAnouncementModels ?? this.allAnouncementModels,
       myAnouncementModels: myAnouncementModels ?? this.myAnouncementModels,
-      status: status ?? this.status,
+      allStatus: allStatus ?? this.allStatus,
+      myStatus: myStatus ?? this.myStatus,
       error: error ?? this.error,
     );
   }

@@ -6,6 +6,7 @@ import '../../cubits/user/user_cubit.dart';
 import '../../domain/entities/attendance_entity.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../shared/global/enums.dart';
+import '../../shared/helpers/go_router/page_transitions.dart';
 import '../features/_init_/T&W_showcase/colors_page.dart';
 import '../features/_init_/T&W_showcase/t_w_showcase_page.dart';
 import '../features/_init_/T&W_showcase/typography_page.dart';
@@ -23,6 +24,7 @@ import '../features/auth/sign_in/sign_in_page.dart';
 import '../features/class_time_table/class_time_table_page.dart';
 import '../features/class_time_table/cubit/class_time_table_cubit.dart';
 import '../features/dashboard/dashboard_page.dart';
+import '../features/pages/image_viewer_page.dart';
 import '../features/profile/edit/edit_profile_page.dart';
 import '../features/profile/view/cubit/profile_view_cubit.dart';
 import '../features/profile/view/profile_view_page.dart';
@@ -85,6 +87,14 @@ class AppRouter {
         name: Routes.signInScreen.name,
         path: '/sign_in',
         builder: (context, state) => const SignInPage(),
+      ),
+      GoRoute(
+        name: Routes.imageViewerScreen.name,
+        path: '/image_viewer',
+        pageBuilder: (context, state) => FadeTransitionPage(
+          key: state.pageKey,
+          child: ImageViewerPage(params: state.extra! as ImageViewerPageParams),
+        ),
       ),
 
       GoRoute(
