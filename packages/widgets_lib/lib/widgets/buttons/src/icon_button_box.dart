@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class IconButtonBox extends StatelessWidget {
   const IconButtonBox({
     super.key,
-    this.backgroundSize,
+    this.buttonWidth,
     required this.icon,
     required this.lable,
     this.boxSize = 60,
     this.boxColor,
     this.onTap,
   });
-  final double? backgroundSize;
+  final double? buttonWidth;
   final double boxSize;
   final Color? boxColor;
   final Widget icon;
@@ -23,7 +23,7 @@ class IconButtonBox extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
-        width: backgroundSize,
+        width: buttonWidth,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,

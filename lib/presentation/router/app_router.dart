@@ -14,6 +14,7 @@ import '../features/_init_/splash/splash_screen.dart';
 import '../features/anouncement/create/pages/anouncement_formats_page.dart';
 import '../features/anouncement/create/pages/create_anouncement_page.dart';
 import '../features/anouncement/create/cubit/create_anouncement_cubit.dart';
+import '../features/anouncement/view/cubit/view_anouncement_cubit.dart';
 import '../features/attendance/create_attendance/cubit/create_attendance_cubit.dart';
 import '../features/attendance/create_attendance/page/create_attendance_page.dart';
 import '../features/attendance/view_attendance/cubit/view_attendance_cubit.dart';
@@ -63,7 +64,10 @@ class AppRouter {
 
           /// Setting up selected tab
           RouteParams.selectedDashboardTab = tabName;
-          return DashboardPage(tabName: tabName);
+          return BlocProvider(
+            create: (context) => getIt<ViewAnouncementCubit>(),
+            child: DashboardPage(tabName: tabName),
+          );
         },
         routes: _dashboardRoutes,
       ),

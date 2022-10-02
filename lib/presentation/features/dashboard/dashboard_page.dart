@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:widgets_lib/widgets_lib.dart';
 
+import '../../../cubits/user/user_cubit.dart';
 import '../../../shared/global/enums.dart';
 import '../../router/routes.dart';
 import 'home/home_tab.dart';
@@ -57,42 +59,46 @@ class _DashboardPageState extends State<DashboardPage> {
           ],
         ),
         floatingActionButtonLocation: FabPopupMenu.location,
-        floatingActionButton: FabPopupMenu(
-          key: _fabKey,
-          type: FabPopupMenuType.up,
-          overlayStyle: const FabPopupMenuOverlayStyle(blur: 8),
-          distance: 60,
-          icon: const Icon(Icons.add, color: Colors.white),
-          closeButtonStyle: const FabPopupMenuCloseButtonStyle(
-            child: Icon(Icons.close, color: Colors.white),
-          ),
-          content: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: DecoratedBox(
-              decoration: const BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 6,
-                    spreadRadius: 1,
-                    color: Colors.black26,
-                  )
-                ],
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width * 0.7 > 400
-                        ? 400
-                        : MediaQuery.of(context).size.width * 0.7,
-                    maxHeight: MediaQuery.of(context).size.height / 2,
+        floatingActionButton: context.read<UserCubit>().state.isStudent
+            ? null
+            : FabPopupMenu(
+                key: _fabKey,
+                type: FabPopupMenuType.up,
+                overlayStyle: const FabPopupMenuOverlayStyle(blur: 8),
+                distance: 60,
+                icon: const Icon(Icons.add, color: Colors.white),
+                closeButtonStyle: const FabPopupMenuCloseButtonStyle(
+                  child: Icon(Icons.close, color: Colors.white),
+                ),
+                content: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: DecoratedBox(
+                    decoration: const BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 6,
+                          spreadRadius: 1,
+                          color: Colors.black26,
+                        )
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxWidth:
+                              MediaQuery.of(context).size.width * 0.7 > 400
+                                  ? 400
+                                  : MediaQuery.of(context).size.width * 0.7,
+                          maxHeight: MediaQuery.of(context).size.height / 2,
+                        ),
+                        child: FabPopupContents(fabKey: _fabKey),
+                      ),
+                    ),
                   ),
-                  child: FabPopupContents(fabKey: _fabKey),
                 ),
               ),
-            ),
-          ),
-        ),
       ),
     );
   }

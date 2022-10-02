@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
@@ -42,7 +44,7 @@ class MutiImageAnouncementCard extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: SizedBox(
-                height: 260,
+                height: 300,
                 width: double.maxFinite,
                 child: images == null || (images?.isEmpty ?? false)
                     ? ColoredBox(
@@ -57,24 +59,23 @@ class MutiImageAnouncementCard extends StatelessWidget {
                       )
                     : CarouselSlider.builder(
                         itemCount: images?.length,
-                        itemBuilder: (context, index, realIndex) => Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: SizedBox(
-                            width: double.maxFinite,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: ColoredBox(
-                                color: ColorsPallet.grey100,
-                                child: images![index],
-                              ),
+                        itemBuilder: (context, index, realIndex) => SizedBox(
+                          width: double.maxFinite,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: ColoredBox(
+                              color: ColorsPallet.grey100,
+                              child: images![index],
                             ),
                           ),
                         ),
                         options: CarouselOptions(
                           enableInfiniteScroll: false,
                           onPageChanged: (index, reason) {},
+                          height: 300,
                           // padEnds: (images?.length ?? 0) <= 1,
-                          enlargeStrategy: CenterPageEnlargeStrategy.height,
+                          viewportFraction: 1,
+                          // enlargeStrategy: CenterPageEnlargeStrategy.height,
                           enlargeCenterPage: true,
                         ),
                       ),
@@ -121,7 +122,6 @@ class TextWithImageAnouncementCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-
     return GestureDetector(
       onTap: onTap,
       child: BorderedBox(
@@ -135,17 +135,20 @@ class TextWithImageAnouncementCard extends StatelessWidget {
                   child: SizedBox(
                     height: 100,
                     width: 100,
-                    child: image ??
-                        ColoredBox(
-                          color: ColorsPallet.grey100,
-                          child: Center(
-                            child: SvgPicture.asset(
-                              SvgAssets.placeholder,
-                              height: 40,
-                              width: 40,
+                    child: ColoredBox(
+                      color: ColorsPallet.grey100,
+                      child: image ??
+                          ColoredBox(
+                            color: ColorsPallet.grey100,
+                            child: Center(
+                              child: SvgPicture.asset(
+                                SvgAssets.placeholder,
+                                height: 40,
+                                width: 40,
+                              ),
                             ),
                           ),
-                        ),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 10),

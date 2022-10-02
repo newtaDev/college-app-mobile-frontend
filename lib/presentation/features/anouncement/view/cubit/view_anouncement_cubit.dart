@@ -27,7 +27,8 @@ class ViewAnouncementCubit extends Cubit<ViewAnouncementState> {
       emit(
         state.copyWith(
           status: ViewAnouncementStatus.success,
-          anouncementModels: res.responseData,
+          allAnouncementModels: myClassOnly ? null : res.responseData,
+          myAnouncementModels: myClassOnly ? res.responseData : null,
         ),
       );
     } on ApiErrorRes catch (apiError) {
@@ -61,7 +62,10 @@ class ViewAnouncementCubit extends Cubit<ViewAnouncementState> {
       emit(
         state.copyWith(
           status: ViewAnouncementStatus.success,
-          anouncementModels: res.responseData,
+          allAnouncementModels:
+              showAnouncementsCreatedByMe ? null : res.responseData,
+          myAnouncementModels:
+              showAnouncementsCreatedByMe ? res.responseData : null,
         ),
       );
     } on ApiErrorRes catch (apiError) {

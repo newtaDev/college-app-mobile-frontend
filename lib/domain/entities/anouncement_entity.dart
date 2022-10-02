@@ -2,6 +2,7 @@ library anouncement_entity;
 
 import 'dart:convert';
 
+import '../../shared/global/enums.dart';
 import '../../utils/utils.dart';
 
 part '../../data/models/response/anouncement/anouncement_res.dart';

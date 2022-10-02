@@ -4,8 +4,13 @@ import 'package:go_router/go_router.dart';
 import 'package:styles_lib/assets/assets.dart';
 import 'package:widgets_lib/widgets/widgets.dart';
 
+import '../../../../config/app_config.dart';
 import '../../../../cubits/user/user_cubit.dart';
 import '../../../router/routes.dart';
+import '../../anouncement/view/cubit/view_anouncement_cubit.dart';
+import '../../anouncement/view/widgets/anouncement_tabs.dart';
+import '../../anouncement/view/widgets/student_anouncement_tab_view.dart';
+import '../../anouncement/view/widgets/teacher_anouncement_tab_view.dart';
 import '../../anouncement/widgets/anouncement_cards.dart';
 
 class HomeTab extends StatefulWidget {
@@ -16,250 +21,185 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  late ScrollController homeScrollCrt;
-  bool enableAnouncemetScrolling = false;
-  @override
-  void initState() {
-    homeScrollCrt = ScrollController()..addListener(scrollListner);
-    super.initState();
-  }
-
-  void scrollListner() {
-    if (homeScrollCrt.offset >= homeScrollCrt.position.maxScrollExtent) {
-      if (!enableAnouncemetScrolling) {
-        if (!mounted) return;
-        setState(() {
-          enableAnouncemetScrolling = true;
-        });
-      }
-    }
-  }
-
-  @override
-  void dispose() {
-    homeScrollCrt
-      ..removeListener(scrollListner)
-      ..dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = Theme.of(context).textTheme;
-    final boxBgSize = (MediaQuery.of(context).size.width) / 4;
+    final iconButtonWidth = (MediaQuery.of(context).size.width) / 4;
     final userCubit = context.read<UserCubit>();
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        const anouncementTextAndTabHeight = 76;
-        final safeAreaHeight = MediaQuery.of(context).padding.top;
-
-        /// by default bottomNavBar height and SafeArea height is subtracted from [constraints.maxHeight]
-        final currentScreenHeight = constraints.maxHeight;
-
-        return NotificationListener<OverscrollIndicatorNotification>(
-          onNotification: (ocerScroll) {
-            // removes blue glow wave while reaching end of scrolling
-            ocerScroll.disallowIndicator();
-            return true;
-          },
-          child: ListView(
-            controller: homeScrollCrt,
-            physics: const ClampingScrollPhysics(),
-            children: [
-              const SizedBox(height: 15),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: ProfileListViewCard(
-                  emoji: '🏫',
-                  title: 'College Name',
-                  subtitle: 'location..',
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Search...',
-                    prefixIcon: Icon(Icons.search),
+    final isStudent = userCubit.state.isStudent;
+    final isTeacher = userCubit.state.isTeacher;
+    return SafeArea(
+      child: DefaultTabController(
+        length: 2,
+        child: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  const SizedBox(height: 15),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: ProfileListViewCard(
+                      emoji: '🏫',
+                      title: 'College Name',
+                      subtitle: 'location..',
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButtonBox(
-                      lable: 'Time Tables',
-                      icon: const Icon(Icons.calendar_view_month_sharp),
-                      backgroundSize: boxBgSize,
-                      onTap: () {
-                        context.goNamed(
-                          Routes.classTimeTable.name,
-                          params: RouteParams.withDashboard,
-                        );
-                      },
-                    ),
-                    if (userCubit.state.isTeacher)
-                      IconButtonBox(
-                        lable: 'Attendance',
-                        icon: const Icon(Icons.assignment_turned_in_outlined),
-                        backgroundSize: boxBgSize,
-                        onTap: () {
-                          context.pushNamed(
-                            Routes.selectClassAndSemScreen.name,
-                            extra: 'Attendance',
-                          );
-                        },
+                  const SizedBox(height: 20),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Search...',
+                        prefixIcon: Icon(Icons.search),
                       ),
-                    if (userCubit.state.isStudent)
-                      IconButtonBox(
-                        lable: 'Results',
-                        icon: const Icon(
-                          Icons.assignment_outlined,
-                        ),
-                        backgroundSize: boxBgSize,
-                        onTap: () {},
-                      ),
-                    IconButtonBox(
-                      lable: 'Reports',
-                      icon: const Icon(Icons.description_outlined),
-                      backgroundSize: boxBgSize,
-                      onTap: () {
-                        context.goNamed(
-                          Routes.reportsScreen.name,
-                          params: RouteParams.withDashboard,
-                        );
-                      },
                     ),
-                    IconButtonBox(
-                      lable: 'Scan QR',
-                      icon: const Icon(Icons.qr_code_scanner_rounded),
-                      backgroundSize: boxBgSize,
-                      onTap: () {
-                        context.goNamed(
-                          Routes.qrScannerScreen.name,
-                          params: RouteParams.withDashboard,
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              const Divider(height: 20),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, top: 5),
-                child: FittedText(
-                  'Anouncements',
-                  style: textTheme.headlineSmall?.copyWith(
-                    fontFamily: FontAssets.raleway,
-                    // fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.bold,
                   ),
-                ),
-              ),
-              const SizedBox(height: 15),
-              DefaultTabController(
-                length: 2,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: SizedBox(
-                        height: 30,
-                        child: TabBar(
-                          isScrollable: true,
-                          tabs: <Widget>[
-                            Tab(
-                              text: 'All',
-                            ),
-                            Tab(
-                              text: 'Important',
-                            ),
-                          ],
+                  const SizedBox(height: 20),
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButtonBox(
+                          lable: 'Time Tables',
+                          icon: const Icon(Icons.calendar_view_month_sharp),
+                          buttonWidth: iconButtonWidth,
+                          onTap: () {
+                            context.goNamed(
+                              Routes.classTimeTable.name,
+                              params: RouteParams.withDashboard,
+                            );
+                          },
                         ),
-                      ),
-                    ),
-                    const Divider(height: 1),
-                    SizedBox(
-                      height: currentScreenHeight -
-                          anouncementTextAndTabHeight -
-                          safeAreaHeight,
-                      child: TabBarView(
-                        children: [
-                          NotificationListener(
-                            onNotification: (notification) {
-                              if (notification is OverscrollNotification) {
-                                if (notification.metrics.pixels <= 0.0) {
-                                  if (enableAnouncemetScrolling) {
-                                    if (!mounted) return false;
-                                    setState(() {
-                                      enableAnouncemetScrolling = false;
-                                    });
-                                  }
-                                }
-                              }
-                              return true;
+                        if (isTeacher)
+                          IconButtonBox(
+                            lable: 'Attendance',
+                            icon: const Icon(
+                                Icons.assignment_turned_in_outlined),
+                            buttonWidth: iconButtonWidth,
+                            onTap: () {
+                              context.pushNamed(
+                                Routes.selectClassAndSemScreen.name,
+                                extra: 'Attendance',
+                              );
                             },
-                            child: ListView(
-                              padding: const EdgeInsets.all(15),
-                              physics: !enableAnouncemetScrolling
-                                  ? const NeverScrollableScrollPhysics()
-                                  : const ClampingScrollPhysics(),
-                              children: const [
-                                // TextWithImageAnouncementCard(
-                                //   title: 'Anouncement title',
-                                //   by: 'prin',
-                                // ),
-                                // SizedBox(height: 20),
-                                // TextAnouncementCard(
-                                //   title: 'titl',
-                                //   description: 'descr',
-                                //   by: 'Principal',
-                                // ),
-                                // SizedBox(height: 20),
-                                // MutiImageAnouncementCard(),
-                                // SizedBox(height: 20),
-                                // TextWithImageAnouncementCard(),
-                                // SizedBox(height: 20),
-                                // MutiImageAnouncementCard(),
-                                // SizedBox(height: 20),
-                                // TextWithImageAnouncementCard(),
-                                // SizedBox(height: 20),
-                                // TextAnouncementCard(
-                                //   title: 'titl',
-                                //   description: 'descr',
-                                //   by: 'Principal',
-                                // ),
-                              ],
+                          ),
+                        if (isStudent)
+                          IconButtonBox(
+                            lable: 'Results',
+                            icon: const Icon(
+                              Icons.assignment_outlined,
                             ),
+                            buttonWidth: iconButtonWidth,
+                            onTap: () {},
                           ),
-                          const Center(
-                            child: Text('2nd'),
-                          ),
-                        ],
-                      ),
+                        IconButtonBox(
+                          lable: 'Reports',
+                          icon: const Icon(Icons.description_outlined),
+                          buttonWidth: iconButtonWidth,
+                          onTap: () {
+                            context.goNamed(
+                              Routes.reportsScreen.name,
+                              params: RouteParams.withDashboard,
+                            );
+                          },
+                        ),
+                        IconButtonBox(
+                          lable: 'Scan QR',
+                          icon: const Icon(Icons.qr_code_scanner_rounded),
+                          buttonWidth: iconButtonWidth,
+                          onTap: () {
+                            context.goNamed(
+                              Routes.qrScannerScreen.name,
+                              params: RouteParams.withDashboard,
+                            );
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  const Divider(height: 20),
+                ],
               ),
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: Card(
-              //     child: SizedBox(
-              //       height: 200,
-              //       width: 400,
-              //     ),
-              //   ),
-              // )
-            ],
+            ),
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: AnouncementTabsDelegate(),
+            )
+          ],
+          body: TabBarView(
+            children: isStudent
+                ? const [
+                    AllAnouncementStudentTabView(),
+                    MyAnouncementStudentTabView(),
+                  ]
+                : const [
+                    AllAnouncementTeacherTabView(),
+                    MyAnouncementTeacherTabView(),
+                  ],
           ),
-        );
-      },
+        ),
+      ),
     );
+  }
+}
+
+class AnouncementTabsDelegate extends SliverPersistentHeaderDelegate {
+  AnouncementTabsDelegate();
+  double height = 100;
+
+  @override
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
+    final textTheme = Theme.of(context).textTheme;
+    final userCubit = context.read<UserCubit>();
+    final isStudent = userCubit.state.isStudent;
+    return ColoredBox(
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.only(left: 20, top: 5),
+            child: FittedText(
+              'Anouncements',
+              style: textTheme.headlineSmall?.copyWith(
+                fontFamily: FontAssets.raleway,
+                // fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          const Spacer(flex: 2),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: SizedBox(
+              height: 40,
+              child: isStudent
+                  ? const StudentAnouncementTabs()
+                  : const TeacherAnouncementTabs(),
+            ),
+          ),
+          const Divider(height: 1),
+          const Spacer(flex: 2),
+        ],
+      ),
+    );
+  }
+
+  @override
+  double get maxExtent => height;
+
+  @override
+  double get minExtent => height;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
+    return false;
   }
 }

@@ -5,20 +5,21 @@ class AnouncementModel extends MyEquatable {
   final String? collegeId;
   final String? title;
   final String? description;
-  final String? anounceTo;
-  final String? anouncementLayoutType;
+  final AnounceTo? anounceTo;
+  final AnouncementLayoutType? anouncementLayoutType;
   final List<String>? anounceToClassIds;
   final List<String>? multipleImages;
+  final String? image;
   final CreatedOrModifiedBy? createdBy;
   final CreatedOrModifiedBy? lastModifiedBy;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final int? v;
 
   const AnouncementModel({
     this.id,
     this.collegeId,
     this.title,
+    this.image,
     this.description,
     this.anounceTo,
     this.anouncementLayoutType,
@@ -28,7 +29,6 @@ class AnouncementModel extends MyEquatable {
     this.lastModifiedBy,
     this.createdAt,
     this.updatedAt,
-    this.v,
   });
 
   factory AnouncementModel.fromMap(Map<String, dynamic> data) =>
@@ -37,10 +37,17 @@ class AnouncementModel extends MyEquatable {
         collegeId: data['collegeId'] as String?,
         title: data['title'] as String?,
         description: data['description'] as String?,
-        anounceTo: data['anounceTo'] as String?,
-        anouncementLayoutType: data['anouncementLayoutType'] as String?,
-        anounceToClassIds: data['anounceToClassIds'] as List<String>?,
-        multipleImages: data['multipleImages'] as List<String>?,
+        anounceTo: AnounceTo.fromName(data['anounceTo'] as String),
+        anouncementLayoutType: AnouncementLayoutType.fromName(
+          data['anouncementLayoutType'] as String,
+        ),
+        image: data['imageName'] as String?,
+        anounceToClassIds: (data['anounceToClassIds'] as List<dynamic>?)
+            ?.map((dynamic e) => e.toString())
+            .toList(),
+        multipleImages: (data['multipleImages'] as List<dynamic>?)
+            ?.map((dynamic e) => e.toString())
+            .toList(),
         createdBy: data['createdBy'] == null
             ? null
             : CreatedOrModifiedBy.fromMap(
@@ -57,7 +64,6 @@ class AnouncementModel extends MyEquatable {
         updatedAt: data['updatedAt'] == null
             ? null
             : DateTime.parse(data['updatedAt'] as String),
-        v: data['__v'] as int?,
       );
 
   /// `dart:convert`
@@ -71,22 +77,23 @@ class AnouncementModel extends MyEquatable {
     String? id,
     String? collegeId,
     String? title,
+    String? image,
     String? description,
-    String? anounceTo,
-    String? anouncementLayoutType,
+    AnounceTo? anounceTo,
+    AnouncementLayoutType? anouncementLayoutType,
     List<String>? anounceToClassIds,
     List<String>? multipleImages,
     CreatedOrModifiedBy? createdBy,
     CreatedOrModifiedBy? lastModifiedBy,
     DateTime? createdAt,
     DateTime? updatedAt,
-    int? v,
   }) {
     return AnouncementModel(
       id: id ?? this.id,
       collegeId: collegeId ?? this.collegeId,
       title: title ?? this.title,
       description: description ?? this.description,
+      image: image ?? this.image,
       anounceTo: anounceTo ?? this.anounceTo,
       anouncementLayoutType:
           anouncementLayoutType ?? this.anouncementLayoutType,
@@ -96,7 +103,6 @@ class AnouncementModel extends MyEquatable {
       lastModifiedBy: lastModifiedBy ?? this.lastModifiedBy,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      v: v ?? this.v,
     );
   }
 
@@ -115,7 +121,6 @@ class AnouncementModel extends MyEquatable {
       lastModifiedBy,
       createdAt,
       updatedAt,
-      v,
     ];
   }
 }
