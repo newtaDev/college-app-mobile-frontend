@@ -58,7 +58,6 @@ class _AllAnouncementTeacherTabViewState
   }
 }
 
-
 class MyAnouncementTeacherTabView extends StatefulWidget {
   const MyAnouncementTeacherTabView({super.key});
 

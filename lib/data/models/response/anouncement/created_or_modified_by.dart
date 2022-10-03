@@ -6,7 +6,8 @@ class CreatedOrModifiedBy extends MyEquatable {
 
   const CreatedOrModifiedBy({this.user, this.userType});
 
-  factory CreatedOrModifiedBy.fromMap(Map<String, dynamic> data) => CreatedOrModifiedBy(
+  factory CreatedOrModifiedBy.fromMap(Map<String, dynamic> data) =>
+      CreatedOrModifiedBy(
         user: data['userId'] == null
             ? null
             : AnouncementUser.fromMap(data['userId'] as Map<String, dynamic>),
@@ -17,7 +18,8 @@ class CreatedOrModifiedBy extends MyEquatable {
   ///
   /// Parses the string and returns the resulting Json object as [CreatedOrModifiedBy].
   factory CreatedOrModifiedBy.fromJson(String data) {
-    return CreatedOrModifiedBy.fromMap(json.decode(data) as Map<String, dynamic>);
+    return CreatedOrModifiedBy.fromMap(
+        json.decode(data) as Map<String, dynamic>);
   }
 
   CreatedOrModifiedBy copyWith({

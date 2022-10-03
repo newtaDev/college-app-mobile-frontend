@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../../domain/entities/anouncement_entity.dart';
@@ -28,7 +27,7 @@ class AnouncementCardSwitcher extends StatelessWidget {
           description: anouncementModel.description!,
           by: anouncementModel.createdBy?.user?.name ?? 'user',
           createdOn: anouncementModel.createdAt!,
-          imageUrl:anouncementModel.image ,
+          imageUrl: anouncementModel.image,
           imageWidget: anouncementModel.image == null
               ? null
               : Image.network(
@@ -42,7 +41,7 @@ class AnouncementCardSwitcher extends StatelessWidget {
           description: anouncementModel.description!,
           by: anouncementModel.createdBy?.user?.name ?? 'user',
           createdOn: anouncementModel.createdAt!,
-          imageUrls:anouncementModel.multipleImages,
+          imageUrls: anouncementModel.multipleImages,
           images: anouncementModel.multipleImages
               ?.map((e) => Image.network(e, fit: BoxFit.cover))
               .toList(),

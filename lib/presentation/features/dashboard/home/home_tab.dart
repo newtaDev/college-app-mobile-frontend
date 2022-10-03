@@ -74,8 +74,8 @@ class _HomeTabState extends State<HomeTab> {
                         if (isTeacher)
                           IconButtonBox(
                             lable: 'Attendance',
-                            icon: const Icon(
-                                Icons.assignment_turned_in_outlined),
+                            icon:
+                                const Icon(Icons.assignment_turned_in_outlined),
                             buttonWidth: iconButtonWidth,
                             onTap: () {
                               context.pushNamed(

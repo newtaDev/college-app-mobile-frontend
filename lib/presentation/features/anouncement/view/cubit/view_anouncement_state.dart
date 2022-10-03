@@ -8,6 +8,7 @@ extension ViewAnouncementStatusX on ViewAnouncementStatus {
   bool get isError => this == ViewAnouncementStatus.error;
   bool get isLoading => this == ViewAnouncementStatus.loading;
 }
+
 class ViewAnouncementState extends MyEquatable {
   final List<AnouncementModel> allAnouncementModels;
   final List<AnouncementModel> myAnouncementModels;
