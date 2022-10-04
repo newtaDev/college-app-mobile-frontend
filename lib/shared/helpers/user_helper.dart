@@ -9,7 +9,9 @@ class UserHelper {
     if (userType == UserType.teacher) {
       return TeacherUser.fromMap(user);
     }
-    if (userType == UserType.student) {}
-    return StudentUser.fromMap(user);
+    if (userType == UserType.student) {
+      return StudentUser.fromMap(user);
+    }
+    return AnonymousUser.fromMap(user);
   }
 }

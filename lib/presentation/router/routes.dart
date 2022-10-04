@@ -23,6 +23,7 @@ enum Routes {
   createAnouncementFormatsScreen,
   createAnouncementScreen,
   imageViewerScreen,
+  searchProfileScreen,
 
   /// Showcase screens
   schowcaseThemeAndWidgetsScreen,

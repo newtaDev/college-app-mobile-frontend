@@ -5,6 +5,7 @@ class LoadingIndicator extends StatelessWidget {
   final bool isIosStyle;
   final double size;
   final double strokeWidth;
+  final AlignmentGeometry alignment;
   final Color? color;
   const LoadingIndicator({
     super.key,
@@ -12,12 +13,14 @@ class LoadingIndicator extends StatelessWidget {
     this.size = 20,
     this.strokeWidth = 1,
     this.color,
+    this.alignment = Alignment.center,
   });
 
   @override
   Widget build(BuildContext context) {
     if (isIosStyle) {
-      return Center(
+      return Align(
+        alignment: alignment,
         child: CupertinoActivityIndicator(color: color),
       );
     }

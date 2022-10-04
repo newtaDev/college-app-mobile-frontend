@@ -26,6 +26,8 @@ import '../features/class_time_table/cubit/class_time_table_cubit.dart';
 import '../features/dashboard/dashboard_page.dart';
 import '../features/pages/image_viewer_page.dart';
 import '../features/profile/edit/edit_profile_page.dart';
+import '../features/profile/search/cubit/search_user_profile_cubit.dart';
+import '../features/profile/search/profile_search_page.dart';
 import '../features/profile/view/cubit/profile_view_cubit.dart';
 import '../features/profile/view/profile_view_page.dart';
 import '../features/qr/viewer/qr_viewer_page.dart';
@@ -94,6 +96,17 @@ class AppRouter {
         pageBuilder: (context, state) => FadeTransitionPage(
           key: state.pageKey,
           child: ImageViewerPage(params: state.extra! as ImageViewerPageParams),
+        ),
+      ),
+      GoRoute(
+        name: Routes.searchProfileScreen.name,
+        path: '/profile_search',
+        pageBuilder: (context, state) => FadeTransitionPage(
+          key: state.pageKey,
+          child: BlocProvider(
+            create: (context) => getIt<SearchUserProfileCubit>(),
+            child: const ProfileSearchPage(),
+          ),
         ),
       ),
 

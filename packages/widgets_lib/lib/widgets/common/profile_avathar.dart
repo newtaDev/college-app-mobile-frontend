@@ -20,7 +20,7 @@ class ProfileAvathar extends StatelessWidget {
       radius: avatarSize,
       child: Text(
         emoji,
-        style: textTheme.headlineMedium?.copyWith(fontSize: emojiSize),
+        style: textTheme.headlineMedium?.copyWith(fontSize: emojiSize ?? 25),
       ),
     );
   }

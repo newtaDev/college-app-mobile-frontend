@@ -57,4 +57,11 @@ class UserRemoteDataSource {
       queryParameters: {'userType': userType.value},
     );
   }
+
+  Future<Response> searchUserProfiles({required String searchText}) {
+    return client.get(
+      '/user/profiles/search',
+      queryParameters: {'searchText': searchText},
+    );
+  }
 }

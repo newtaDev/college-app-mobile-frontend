@@ -8,6 +8,7 @@ class ProfileListViewCard extends StatelessWidget {
   final String emoji;
   final double avatarSize;
   final Widget? traling;
+  final double? emojiSize;
   const ProfileListViewCard({
     super.key,
     required this.title,
@@ -15,6 +16,7 @@ class ProfileListViewCard extends StatelessWidget {
     required this.emoji,
     this.avatarSize = 30,
     this.traling,
+    this.emojiSize,
   });
 
   @override
@@ -22,8 +24,12 @@ class ProfileListViewCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return Row(
       children: [
-        ProfileAvathar(emoji: emoji, avatarSize: avatarSize),
-        const SizedBox(width: 10),
+        ProfileAvathar(
+          emoji: emoji,
+          emojiSize: emojiSize,
+          avatarSize: avatarSize,
+        ),
+        const SizedBox(width: 20),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

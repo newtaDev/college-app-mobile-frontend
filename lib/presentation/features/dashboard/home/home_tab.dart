@@ -45,12 +45,22 @@ class _HomeTabState extends State<HomeTab> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Search...',
-                        prefixIcon: Icon(Icons.search),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Hero(
+                      tag: 'home-search-tag',
+                      child: Material(
+                        child: TextField(
+                          decoration: const InputDecoration(
+                            hintText: 'Search...',
+                            prefixIcon: Icon(Icons.search),
+                          ),
+                          readOnly: true,
+                          onTap: () {
+                            context
+                                .pushNamed(Routes.searchProfileScreen.name);
+                          },
+                        ),
                       ),
                     ),
                   ),

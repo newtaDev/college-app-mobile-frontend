@@ -60,6 +60,11 @@ void registerCubitsDependencies() {
         profileRepo: getIt<ProfileRepoImpl>(),
       ),
     )
+    ..registerFactory(
+      () => SearchUserProfileCubit(
+        profileRepo: getIt<ProfileRepoImpl>(),
+      ),
+    )
 
     /// Time table
     ..registerFactory(

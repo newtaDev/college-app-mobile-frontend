@@ -94,4 +94,18 @@ class ProfileRepoImpl implements ProfileRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<SearchUserProfilesRes> searchUserProfiles({required String searchText}) async {
+    try {
+      final res = await userRds.searchUserProfiles(searchText: searchText);
+      return SearchUserProfilesRes.fromMap(res.data);
+    } on DioError catch (e) {
+      if (e.type != DioErrorType.response) rethrow;
+      final errorRes = ApiErrorRes.fromMap(e.response?.data);
+      throw errorRes;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
