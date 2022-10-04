@@ -25,7 +25,7 @@ class AuthLocalDataSource {
 
   bool get isRefreshTokenExpired {
     if (refreshToken == null) return true;
-    return JwtDecoder.isExpired(refreshToken!);
+    return JwtDecoder.isExpired(refreshToken!, checkIsSystemValid: false);
   }
 
   /// Save User data

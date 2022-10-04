@@ -47,7 +47,9 @@ class JwtDecoder {
   /// Returns true if the token is valid, false if it is expired.
   ///
   /// Throws [FormatException] if parameter is not a valid JWT token.
-  static bool isExpired(String token) {
+  static bool isExpired(String token, {bool checkIsSystemValid = true}) {
+    /// [isExpired] will never return true if system time is lesser than token creation
+    if (checkIsSystemValid) if (!isSystemTimeValid(token)) return true;
     final expirationDate = getExpirationDate(token);
     // If the current date is after the expiration date, the token is already expired
     return DateTime.now().isAfter(expirationDate);
@@ -73,6 +75,15 @@ class JwtDecoder {
     final issuedAtDate = DateTime.fromMillisecondsSinceEpoch(0)
         .add(Duration(seconds: decodedToken['iat']));
     return DateTime.now().difference(issuedAtDate);
+  }
+
+  /// Checks wether the system time is greater then token created time
+  /// if greater then `valid`
+  /// else `invalid`
+  static bool isSystemTimeValid(String token) {
+    final diffrenceDuration = getTokenTime(token);
+    if (diffrenceDuration.isNegative) return false;
+    return true;
   }
 
   /// Returns remaining time until expiry date.
