@@ -69,8 +69,10 @@ class _CreateAttendancePageState extends State<CreateAttendancePage> {
     final selectionCubit = context.read<SelectionCubit>();
     final createCubit = context.read<CreateAttendanceCubit>();
     final collegeId = context.read<UserCubit>().state.userDetails.collegeId;
-    final classId = selectionCubit.state.selectedClass!.id!;
-    final currentSem = selectionCubit.state.selectedSem!;
+    final classId =
+        selectionCubit.state.assignedClassesSelectonStates.selectedClass!.id!;
+    final currentSem =
+        selectionCubit.state.assignedClassesSelectonStates.selectedSem!;
     createCubit.setCreationInitialData(classId, collegeId, currentSem);
   }
 
@@ -251,6 +253,13 @@ class _CreateAttendanceLayoutState extends State<CreateAttendanceLayout> {
                                     context: context,
                                     builder: (_) {
                                       return SelectSubjectDialog(
+                                        courseId: context
+                                            .read<SelectionCubit>()
+                                            .state
+                                            .assignedClassesSelectonStates
+                                            .selectedClass!
+                                            .course!
+                                            .id!,
                                         onSubjectSelected: (subject) {
                                           context
                                               .read<CreateAttendanceCubit>()

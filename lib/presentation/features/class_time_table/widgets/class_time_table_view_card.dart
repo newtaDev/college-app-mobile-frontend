@@ -89,8 +89,10 @@ class ClassTimeTableViewCard extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 context.read<SelectionCubit>()
-                  ..setSelectedClass(classTimeTable.classId!)
-                  ..setSelectedSemester(classTimeTable.classId!.currentSem!);
+                  ..setSelectedAssignedClass(classTimeTable.classId!)
+                  ..setSelectedAssignedSemester(
+                    classTimeTable.classId!.currentSem!,
+                  );
                 context.pushNamed(
                   Routes.createAttendanceScreen.name,
                   params: RouteParams.withDashboard,

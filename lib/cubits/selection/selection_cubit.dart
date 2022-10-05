@@ -6,39 +6,56 @@ import '../../../../../shared/errors/api_errors.dart';
 import '../../../../../shared/extensions/extentions.dart';
 import '../../../../../utils/utils.dart';
 import '../../data/models/data_class/subject_model.dart';
+import '../../utils/utils.dart';
+import '../../utils/utils.dart';
+import '../user/user_cubit.dart';
 
 part 'selection_state.dart';
 
 class SelectionCubit extends Cubit<SelectionState> {
+  final UserCubit userCubit;
   final CommonRepository commonRepo;
   SelectionCubit({
     required this.commonRepo,
+    required this.userCubit,
   }) : super(const SelectionState.init());
 
-  Future<void> getClassesWithDetails() async {
-    emit(state.copyWith(classAndSemStatus: SemAndClassStatus.loading));
+  void getAssignedClassesOfTeacherFromMemory() {
+    emit(
+      state.copyWith(
+        assignedClassesSelectonStates:
+            state.assignedClassesSelectonStates.copyWith(
+          status: AssignedClassesOfTeacherStatus.success,
+          assignedClassesOfTeacher:
+              userCubit.state.userAsTeacher?.assignedClasses,
+        ),
+      ),
+    );
+  }
+
+  Future<void> getAssignedClassesOfTeacherFromRemote() async {
+    emit(
+      state.copyWith(
+        assignedClassesSelectonStates: state.assignedClassesSelectonStates
+            .copyWith(status: AssignedClassesOfTeacherStatus.loading),
+      ),
+    );
     try {
       final classRes = await commonRepo.getAssignedClassesOfTeacher();
-      if (state.selectedClass != null) {
-        final _selectedClass = classRes.responseData?.firstWhereSafe(
-          (element) => state.selectedClass!.id! == element.id,
-        );
-        if (_selectedClass == null ||
-            state.selectedSem == null ||
-            state.selectedSem! > _selectedClass.course!.totalSem!) {
-          emit(const SelectionState.init());
-        }
-      }
       emit(
         state.copyWith(
-          classAndSemStatus: SemAndClassStatus.success,
-          classes: classRes.responseData,
+          assignedClassesSelectonStates:
+              state.assignedClassesSelectonStates.copyWith(
+            status: AssignedClassesOfTeacherStatus.success,
+            assignedClassesOfTeacher: classRes.responseData,
+          ),
         ),
       );
     } on ApiErrorRes catch (apiError) {
       emit(
         state.copyWith(
-          classAndSemStatus: SemAndClassStatus.error,
+          assignedClassesSelectonStates: state.assignedClassesSelectonStates
+              .copyWith(status: AssignedClassesOfTeacherStatus.error),
           error: apiError,
         ),
       );
@@ -46,7 +63,8 @@ class SelectionCubit extends Cubit<SelectionState> {
       final apiErrorRes = ApiErrorRes(devMessage: 'Getting classses failed');
       emit(
         state.copyWith(
-          classAndSemStatus: SemAndClassStatus.error,
+          assignedClassesSelectonStates: state.assignedClassesSelectonStates
+              .copyWith(status: AssignedClassesOfTeacherStatus.error),
           error: apiErrorRes,
         ),
       );
@@ -55,50 +73,74 @@ class SelectionCubit extends Cubit<SelectionState> {
   }
 
   Future<void> getSubjectWithDetailsOfCourse(String courseId) async {
-    emit(state.copyWith(subjectStatus: SubjectStatus.loading));
+    emit(
+      state.copyWith(
+        courseSubjectSelectionStates: state.courseSubjectSelectionStates
+            .copyWith(status: CourseSubjectStatus.loading),
+      ),
+    );
     try {
       final res = await commonRepo.getSubjectsOfCourse(courseId);
       emit(
         state.copyWith(
-          subjectStatus: SubjectStatus.success,
-          subjects: res.responseData,
+          courseSubjectSelectionStates:
+              state.courseSubjectSelectionStates.copyWith(
+            status: CourseSubjectStatus.success,
+            courseSubjects: res.responseData,
+          ),
         ),
       );
     } on ApiErrorRes catch (apiError) {
       emit(
         state.copyWith(
-          subjectStatus: SubjectStatus.error,
+          courseSubjectSelectionStates: state.courseSubjectSelectionStates
+              .copyWith(status: CourseSubjectStatus.error),
           error: apiError,
         ),
       );
     } catch (e) {
       final apiErrorRes = ApiErrorRes(devMessage: 'Creating attendance failed');
       emit(
-        state.copyWith(
-          subjectStatus: SubjectStatus.error,
-          error: apiErrorRes,
-        ),
+        state
+          ..copyWith(
+            courseSubjectSelectionStates: state.courseSubjectSelectionStates
+                .copyWith(status: CourseSubjectStatus.error),
+            error: apiErrorRes,
+          ),
       );
       rethrow;
     }
   }
 
-  void setSelectedClass(ClassWithDetails selectedClass) {
+  void setSelectedAssignedClass(ClassWithDetails selectedClass) {
     emit(
       state.copyWith(
-        selectedClass: selectedClass,
-        totalSem: selectedClass.course?.totalSem,
-        selectedSem: selectedClass.currentSem,
+        assignedClassesSelectonStates:
+            state.assignedClassesSelectonStates.copyWith(
+          selectedClass: selectedClass,
+          totalSem: selectedClass.course?.totalSem,
+          selectedSem: selectedClass.currentSem,
+        ),
       ),
     );
   }
 
-  void setSelectedSemester(int selectedSem) {
-    emit(state.copyWith(selectedSem: selectedSem));
+  void setSelectedAssignedSemester(int selectedSem) {
+    emit(
+      state.copyWith(
+        assignedClassesSelectonStates: state.assignedClassesSelectonStates
+            .copyWith(selectedSem: selectedSem),
+      ),
+    );
   }
 
-  void setSelectedSubject(Subject subject) {
-    emit(state.copyWith(selectedSubject: subject));
+  void setSelectedSubjectOfACourse(Subject subject) {
+    emit(
+      state.copyWith(
+        courseSubjectSelectionStates: state.courseSubjectSelectionStates
+            .copyWith(selectedCourseSubject: subject),
+      ),
+    );
   }
 
   void clearSubject() {

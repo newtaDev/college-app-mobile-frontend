@@ -10,6 +10,7 @@ import '../../../../cubits/selection/selection_cubit.dart';
 import '../../../../domain/entities/attendance_entity.dart';
 import '../../../../shared/extensions/extentions.dart';
 import '../../../../shared/global/enums.dart';
+import '../../../overlays/bottom_sheet/selection_bottom_sheet.dart';
 import '../../../router/routes.dart';
 import 'cubit/view_attendance_cubit.dart';
 
@@ -31,8 +32,10 @@ class _ViewAttendancePageState extends State<ViewAttendancePage> {
     final selectCubit = context.read<SelectionCubit>();
     context.read<ViewAttendanceCubit>().getAllAttendance(
           AllAttendanceWithQueryReq(
-            classId: selectCubit.state.selectedClass?.id,
-            currentSem: selectCubit.state.selectedSem,
+            classId: selectCubit
+                .state.assignedClassesSelectonStates.selectedClass?.id,
+            currentSem:
+                selectCubit.state.assignedClassesSelectonStates.selectedSem,
           ),
         );
   }
@@ -81,29 +84,38 @@ class AttendanceViewLayout extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-          child: BlocConsumer<SelectionCubit, SelectionState>(
-            listenWhen: (previous, current) =>
-                previous.selectedClass != current.selectedClass ||
-                previous.selectedSem != current.selectedSem,
+          child: BlocBuilder<SelectionCubit, SelectionState>(
+            // listenWhen: (previous, current) =>
+            //     previous.assignedClassesSelectonStates.selectedClass !=
+            //         current.assignedClassesSelectonStates.selectedClass ||
+            //     previous.assignedClassesSelectonStates.selectedSem !=
+            //         current.assignedClassesSelectonStates.selectedSem,
             buildWhen: (previous, current) =>
-                previous.selectedClass != current.selectedClass ||
-                previous.selectedSem != current.selectedSem,
-            listener: (context, state) {
-              context.read<ViewAttendanceCubit>().getAllAttendance(
-                    AllAttendanceWithQueryReq(
-                      classId: state.selectedClass?.id,
-                      currentSem: state.selectedSem,
-                    ),
-                  );
-            },
+                previous.assignedClassesSelectonStates.selectedClass !=
+                    current.assignedClassesSelectonStates.selectedClass ||
+                previous.assignedClassesSelectonStates.selectedSem !=
+                    current.assignedClassesSelectonStates.selectedSem,
+            // listener: (context, state) {
+            //   context.read<ViewAttendanceCubit>().getAllAttendance(
+            //         AllAttendanceWithQueryReq(
+            //           classId:
+            //               state.assignedClassesSelectonStates.selectedClass?.id,
+            //           currentSem:
+            //               state.assignedClassesSelectonStates.selectedSem,
+            //         ),
+            //       );
+            // },
             builder: (context, state) {
-              final selectedSem = state.selectedSem ?? 0;
+              final selectedSem =
+                  state.assignedClassesSelectonStates.selectedSem ?? 0;
               return Row(
                 children: [
                   Expanded(
                     child: RichText(
                       text: TextSpan(
-                        text: state.selectedClass?.name ?? 'N/A',
+                        text: state.assignedClassesSelectonStates.selectedClass
+                                ?.name ??
+                            'N/A',
                         style: textTheme.titleSmall,
                         children: [
                           TextSpan(
@@ -117,10 +129,29 @@ class AttendanceViewLayout extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      context.pushNamed(
-                        Routes.selectClassAndSemScreen.name,
-                        extra: 'Attendance',
-                      );
+                      showModalBottomSheet<void>(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (bottomSheetContext) => SelectionBottomSheet(
+                          onContinue: () {
+                            Navigator.of(bottomSheetContext).pop();
+                          },
+                        ),
+                      ).then((value) {
+                        final selectionState = context
+                            .read<SelectionCubit>()
+                            .state
+                            .assignedClassesSelectonStates;
+                        if (selectionState !=
+                            state.assignedClassesSelectonStates) {
+                          context.read<ViewAttendanceCubit>().getAllAttendance(
+                                AllAttendanceWithQueryReq(
+                                  classId: selectionState.selectedClass?.id,
+                                  currentSem: selectionState.selectedSem,
+                                ),
+                              );
+                        }
+                      });
                     },
                     child: Text(
                       'Change',

@@ -15,8 +15,8 @@ class ReportsScreen extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         children: [
           ListTile(
-            title: const Text('Attendance Reports'),
-            subtitle: const Text('some description...'),
+            title: const Text('Attendance Report of class'),
+            subtitle: const Text('Report of all subjects in a class'),
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
             onTap: () {
               context.goNamed(

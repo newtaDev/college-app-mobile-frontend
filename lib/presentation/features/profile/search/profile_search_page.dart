@@ -99,7 +99,9 @@ class _ProfileSearchPageState extends State<ProfileSearchPage> {
 
           if (state.searchResults.isEmpty || state.status.isError) {
             return const SizedBox(
-                height: 200, child: Center(child: Text('No results found')));
+              height: 200,
+              child: Center(child: Text('No results found')),
+            );
           }
           return Padding(
             padding: const EdgeInsets.only(top: 5),

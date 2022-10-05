@@ -4,25 +4,22 @@ import 'package:widgets_lib/overlays/overlays.dart';
 import 'package:widgets_lib/widgets/common/loading_indicator.dart';
 
 import '../../../cubits/selection/selection_cubit.dart';
+import '../../../data/models/data_class/class_with_details.dart';
 import '../../../data/models/data_class/subject_model.dart';
 import '../../../shared/extensions/extentions.dart';
 
-class SelectSubjectDialog extends StatefulWidget {
-  final void Function(Subject subject) onSubjectSelected;
-  final String courseId;
-  const SelectSubjectDialog(
-      {super.key, required this.onSubjectSelected, required this.courseId});
+class ClassSelectionDialog extends StatefulWidget {
+  final void Function(ClassWithDetails classes) onClassSelected;
+  const ClassSelectionDialog({super.key, required this.onClassSelected});
 
   @override
-  State<SelectSubjectDialog> createState() => _SelectSubjectDialogState();
+  State<ClassSelectionDialog> createState() => _ClassSelectionDialogState();
 }
 
-class _SelectSubjectDialogState extends State<SelectSubjectDialog> {
+class _ClassSelectionDialogState extends State<ClassSelectionDialog> {
   @override
   void initState() {
-    context
-        .read<SelectionCubit>()
-        .getSubjectWithDetailsOfCourse(widget.courseId);
+    context.read<SelectionCubit>().getAssignedClassesOfTeacherFromRemote();
     super.initState();
   }
 
@@ -35,43 +32,48 @@ class _SelectSubjectDialogState extends State<SelectSubjectDialog> {
         borderRadius: BorderRadius.circular(12),
         child: BlocBuilder<SelectionCubit, SelectionState>(
           buildWhen: (previous, current) =>
-              previous.courseSubjectSelectionStates.status !=
-              current.courseSubjectSelectionStates.status,
+              previous.assignedClassesSelectonStates.status !=
+              current.assignedClassesSelectonStates.status,
           builder: (context, state) {
-            if (state.courseSubjectSelectionStates.status.isInitial ||
-                state.courseSubjectSelectionStates.status.isLoading) {
+            if (state.assignedClassesSelectonStates.status.isInitial ||
+                state.assignedClassesSelectonStates.status.isLoading) {
               return const LoadingIndicator();
             }
-            if (state.courseSubjectSelectionStates.courseSubjects.isEmpty ||
-                state.courseSubjectSelectionStates.status.isError) {
+            if (state.assignedClassesSelectonStates.status.isError) {
+              return const Center(child: Text('Classes not found'));
+            }
+            if (state.assignedClassesSelectonStates.assignedClassesOfTeacher
+                .isEmpty) {
               return const Center(
-                child: Text('Subjects not found'),
+                child: Text("You don't have access to any classes"),
               );
             }
-            return ShowSearchDialog<Subject>(
-              searchList: state.courseSubjectSelectionStates.courseSubjects,
+
+            return ShowSearchDialog<ClassWithDetails>(
+              searchList:
+                  state.assignedClassesSelectonStates.assignedClassesOfTeacher,
               searchCondition: (data, searchInput) {
                 return data.name!.toLowerCase().contains(
                       searchInput.toLowerCase(),
                     );
               },
               searchItemBuilder: (context, searchList, searchIndex) {
-                final subject = searchList[searchIndex];
+                final classes = searchList[searchIndex];
                 return Column(
                   children: [
                     ListTile(
                       leading: CircleAvatar(
                         backgroundColor: Theme.of(context).primaryColorLight,
                         child: Text(
-                          subject.name?.getInitials(takeUpto: 2) ?? 'N/A',
+                          classes.name?.getInitials(takeUpto: 2) ?? 'N/A',
                         ),
                       ),
-                      title: Text(subject.name ?? 'N/A'),
-                      subtitle: subject.course?.name == null
+                      title: Text(classes.name ?? 'N/A'),
+                      subtitle: classes.course?.name == null
                           ? null
-                          : Text('course: ${subject.course!.name!}'),
+                          : Text('course: ${classes.course!.name!}'),
                       onTap: () {
-                        widget.onSubjectSelected(subject);
+                        widget.onClassSelected(classes);
                         Navigator.of(context).pop();
                       },
                     ),

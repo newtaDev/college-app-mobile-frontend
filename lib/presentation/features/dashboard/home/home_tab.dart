@@ -4,14 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:styles_lib/assets/assets.dart';
 import 'package:widgets_lib/widgets/widgets.dart';
 
-import '../../../../config/app_config.dart';
 import '../../../../cubits/user/user_cubit.dart';
+import '../../../overlays/bottom_sheet/selection_bottom_sheet.dart';
 import '../../../router/routes.dart';
-import '../../anouncement/view/cubit/view_anouncement_cubit.dart';
 import '../../anouncement/view/widgets/anouncement_tabs.dart';
 import '../../anouncement/view/widgets/student_anouncement_tab_view.dart';
 import '../../anouncement/view/widgets/teacher_anouncement_tab_view.dart';
-import '../../anouncement/widgets/anouncement_cards.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -57,8 +55,7 @@ class _HomeTabState extends State<HomeTab> {
                           ),
                           readOnly: true,
                           onTap: () {
-                            context
-                                .pushNamed(Routes.searchProfileScreen.name);
+                            context.pushNamed(Routes.searchProfileScreen.name);
                           },
                         ),
                       ),
@@ -88,9 +85,18 @@ class _HomeTabState extends State<HomeTab> {
                                 const Icon(Icons.assignment_turned_in_outlined),
                             buttonWidth: iconButtonWidth,
                             onTap: () {
-                              context.pushNamed(
-                                Routes.selectClassAndSemScreen.name,
-                                extra: 'Attendance',
+                              showModalBottomSheet<void>(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (context) => SelectionBottomSheet(
+                                  onContinue: () {
+                                    Navigator.of(context).pop();
+                                    context.goNamed(
+                                      Routes.viewAttendanceScreen.name,
+                                      params: RouteParams.withDashboard,
+                                    );
+                                  },
+                                ),
                               );
                             },
                           ),

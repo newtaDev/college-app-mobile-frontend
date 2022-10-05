@@ -22,7 +22,8 @@ class SelectableSemList extends StatelessWidget {
           padding: const EdgeInsets.only(right: 10),
           child: BlocSelector<SelectionCubit, SelectionState, bool>(
             selector: (state) =>
-                state.selectedSem != null && state.selectedSem == index + 1,
+                state.assignedClassesSelectonStates.selectedSem != null &&
+                state.assignedClassesSelectonStates.selectedSem == index + 1,
             builder: (context, isSelected) {
               return OutlinedButton.icon(
                 icon: Icon(
@@ -39,7 +40,7 @@ class SelectableSemList extends StatelessWidget {
                 label: Text(
                   (index + 1).toString(),
                 ),
-                onPressed: () => cubit.setSelectedSemester(index + 1),
+                onPressed: () => cubit.setSelectedAssignedSemester(index + 1),
               );
             },
           ),

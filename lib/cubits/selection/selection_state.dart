@@ -1,106 +1,163 @@
 part of 'selection_cubit.dart';
 
-enum SemAndClassStatus { initial, loading, success, error }
+enum AssignedClassesOfTeacherStatus { initial, loading, success, error }
 
-extension SemAndClassStatusX on SemAndClassStatus {
-  bool get isInitial => this == SemAndClassStatus.initial;
-  bool get isSuccess => this == SemAndClassStatus.success;
-  bool get isError => this == SemAndClassStatus.error;
-  bool get isLoading => this == SemAndClassStatus.loading;
+enum CourseSubjectStatus { initial, loading, success, error }
+
+extension AssignedClassesOfTeacherStatusX on AssignedClassesOfTeacherStatus {
+  bool get isInitial => this == AssignedClassesOfTeacherStatus.initial;
+  bool get isSuccess => this == AssignedClassesOfTeacherStatus.success;
+  bool get isError => this == AssignedClassesOfTeacherStatus.error;
+  bool get isLoading => this == AssignedClassesOfTeacherStatus.loading;
 }
 
-enum SubjectStatus { initial, loading, success, error }
-
-extension SubjectStatusX on SubjectStatus {
-  bool get isInitial => this == SubjectStatus.initial;
-  bool get isSuccess => this == SubjectStatus.success;
-  bool get isError => this == SubjectStatus.error;
-  bool get isLoading => this == SubjectStatus.loading;
+extension CourseSubjectStatusX on CourseSubjectStatus {
+  bool get isInitial => this == CourseSubjectStatus.initial;
+  bool get isSuccess => this == CourseSubjectStatus.success;
+  bool get isError => this == CourseSubjectStatus.error;
+  bool get isLoading => this == CourseSubjectStatus.loading;
 }
 
 class SelectionState extends MyEquatable {
-  final List<ClassWithDetails> classes;
-  final ClassWithDetails? selectedClass;
-  final int? selectedSem;
-  final int? totalSem;
-  final SemAndClassStatus classAndSemStatus;
-  final SubjectStatus subjectStatus;
-  final List<Subject> subjects;
-  final Subject? selectedSubject;
+  final List<ClassWithDetails> allClasses;
+  final ClassWithDetails? selectedAllClasses;
+  final AssignedClassesSelectonStates assignedClassesSelectonStates;
+  final CourseSubjectSelectionStates courseSubjectSelectionStates;
   final ApiErrorRes? error;
 
   const SelectionState({
-    this.classes = const [],
-    this.selectedClass,
-    this.selectedSem,
-    this.totalSem,
-    required this.classAndSemStatus,
-    required this.subjectStatus,
-    required this.subjects,
-    this.selectedSubject,
+    this.allClasses = const [],
+    this.selectedAllClasses,
+    required this.assignedClassesSelectonStates,
+    required this.courseSubjectSelectionStates,
     this.error,
   });
 
   @override
   List<Object?> get props {
     return [
-      classes,
-      selectedClass,
-      selectedSem,
-      totalSem,
-      classAndSemStatus,
-      subjectStatus,
-      subjects,
+      allClasses,
+      selectedAllClasses,
+      assignedClassesSelectonStates,
+      courseSubjectSelectionStates,
       error,
-      selectedSubject
     ];
   }
 
   const SelectionState.init()
-      : classAndSemStatus = SemAndClassStatus.initial,
-        subjectStatus = SubjectStatus.initial,
-        classes = const [],
+      : allClasses = const [],
+        assignedClassesSelectonStates =
+            const AssignedClassesSelectonStates.empty(),
+        courseSubjectSelectionStates =
+            const CourseSubjectSelectionStates.empty(),
         error = null,
-        selectedSem = null,
-        selectedSubject = null,
-        totalSem = null,
-        subjects = const [],
-        selectedClass = null;
+        selectedAllClasses = null;
 
   SelectionState copyWith({
-    List<ClassWithDetails>? classes,
-    ClassWithDetails? selectedClass,
-    int? selectedSem,
-    int? totalSem,
-    SemAndClassStatus? classAndSemStatus,
-    SubjectStatus? subjectStatus,
-    List<Subject>? subjects,
-    Subject? selectedSubject,
+    List<ClassWithDetails>? allClasses,
+    ClassWithDetails? selectedAllClasses,
+    AssignedClassesSelectonStates? assignedClassesSelectonStates,
+    CourseSubjectSelectionStates? courseSubjectSelectionStates,
     ApiErrorRes? error,
   }) {
     return SelectionState(
-      classes: classes ?? this.classes,
-      selectedClass: selectedClass ?? this.selectedClass,
-      selectedSem: selectedSem ?? this.selectedSem,
-      totalSem: totalSem ?? this.totalSem,
-      classAndSemStatus: classAndSemStatus ?? this.classAndSemStatus,
-      subjectStatus: subjectStatus ?? this.subjectStatus,
-      subjects: subjects ?? this.subjects,
-      selectedSubject: selectedSubject ?? this.selectedSubject,
+      allClasses: allClasses ?? this.allClasses,
+      selectedAllClasses: selectedAllClasses ?? this.selectedAllClasses,
+      assignedClassesSelectonStates:
+          assignedClassesSelectonStates ?? this.assignedClassesSelectonStates,
+      courseSubjectSelectionStates:
+          courseSubjectSelectionStates ?? this.courseSubjectSelectionStates,
       error: error ?? this.error,
     );
   }
 
   SelectionState clearSubjects() {
     return SelectionState(
-      classes: classes,
-      selectedClass: selectedClass,
-      selectedSem: selectedSem,
-      totalSem: totalSem,
-      classAndSemStatus: classAndSemStatus,
-      subjectStatus: subjectStatus,
-      subjects: const [],
+      allClasses: allClasses,
+      selectedAllClasses: selectedAllClasses,
+      assignedClassesSelectonStates: assignedClassesSelectonStates,
+      courseSubjectSelectionStates: const CourseSubjectSelectionStates.empty(),
       error: error,
     );
   }
+}
+
+class AssignedClassesSelectonStates extends MyEquatable {
+  final List<ClassWithDetails> assignedClassesOfTeacher;
+  final ClassWithDetails? selectedClass;
+  final int? selectedSem;
+  final int? totalSem;
+  final AssignedClassesOfTeacherStatus status;
+  const AssignedClassesSelectonStates({
+    required this.assignedClassesOfTeacher,
+    this.selectedClass,
+    this.selectedSem,
+    this.totalSem,
+    required this.status,
+  });
+  const AssignedClassesSelectonStates.empty()
+      : assignedClassesOfTeacher = const [],
+        status = AssignedClassesOfTeacherStatus.initial,
+        selectedClass = null,
+        selectedSem = null,
+        totalSem = null;
+
+  AssignedClassesSelectonStates copyWith({
+    List<ClassWithDetails>? assignedClassesOfTeacher,
+    ClassWithDetails? selectedClass,
+    int? selectedSem,
+    int? totalSem,
+    AssignedClassesOfTeacherStatus? status,
+  }) {
+    return AssignedClassesSelectonStates(
+      assignedClassesOfTeacher:
+          assignedClassesOfTeacher ?? this.assignedClassesOfTeacher,
+      selectedClass: selectedClass ?? this.selectedClass,
+      selectedSem: selectedSem ?? this.selectedSem,
+      totalSem: totalSem ?? this.totalSem,
+      status: status ?? this.status,
+    );
+  }
+
+  @override
+  List<Object?> get props {
+    return [
+      assignedClassesOfTeacher,
+      selectedClass,
+      selectedSem,
+      totalSem,
+      status,
+    ];
+  }
+}
+
+class CourseSubjectSelectionStates extends MyEquatable {
+  final CourseSubjectStatus status;
+  final List<Subject> courseSubjects;
+  final Subject? selectedCourseSubject;
+  const CourseSubjectSelectionStates({
+    required this.status,
+    required this.courseSubjects,
+    this.selectedCourseSubject,
+  });
+  const CourseSubjectSelectionStates.empty()
+      : status = CourseSubjectStatus.initial,
+        courseSubjects = const [],
+        selectedCourseSubject = null;
+
+  CourseSubjectSelectionStates copyWith({
+    CourseSubjectStatus? status,
+    List<Subject>? courseSubjects,
+    Subject? selectedCourseSubject,
+  }) {
+    return CourseSubjectSelectionStates(
+      status: status ?? this.status,
+      courseSubjects: courseSubjects ?? this.courseSubjects,
+      selectedCourseSubject:
+          selectedCourseSubject ?? this.selectedCourseSubject,
+    );
+  }
+
+  @override
+  List<Object?> get props => [status, courseSubjects, selectedCourseSubject];
 }

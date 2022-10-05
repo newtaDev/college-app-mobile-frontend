@@ -7,7 +7,6 @@ enum Routes {
   splashScreen,
   dashboardScreen,
   signInScreen,
-  selectClassAndSemScreen,
   attendanceClassReportScreen,
   attendanceSubjectReportScreen,
   viewAttendanceScreen,

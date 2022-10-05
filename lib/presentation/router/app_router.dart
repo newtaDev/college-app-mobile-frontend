@@ -37,7 +37,7 @@ import '../features/reports/attendance/class_report/cubit/class_attendance_repor
 import '../features/reports/attendance/student_report/cubit/student_attendance_report_cubit.dart';
 import '../features/reports/attendance/student_report/student_attendnce_report_page.dart';
 import '../features/reports/reports_screen.dart';
-import '../features/select_class_and_sem/select_class_and_sem_page.dart';
+import '../overlays/bottom_sheet/selection_bottom_sheet.dart';
 import 'routes.dart';
 
 /// Dont add to `getIt` bcz we are only using static properties
@@ -110,16 +110,13 @@ class AppRouter {
         ),
       ),
 
-      GoRoute(
-        name: Routes.selectClassAndSemScreen.name,
-        path: '/select_class_and_sem',
-        builder: (context, state) {
-          final appBarName = state.extra.toString();
-          return SelectClassAndSemPage(
-            appBarName: appBarName,
-          );
-        },
-      ),
+      // GoRoute(
+      //   name: Routes.selectClassAndSemScreen.name,
+      //   path: '/select_class_and_sem',
+      //   builder: (context, state) {
+      //     return SelectionBottomSheet();
+      //   },
+      // ),
       // GoRoute(
       //   name: RouteNames.signUpScreen,
       //   path: '/sign_up',

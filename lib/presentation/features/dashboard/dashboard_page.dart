@@ -7,6 +7,7 @@ import 'package:widgets_lib/widgets_lib.dart';
 import '../../../cubits/user/user_cubit.dart';
 import '../../../shared/global/enums.dart';
 import '../../router/routes.dart';
+import '../../overlays/bottom_sheet/selection_bottom_sheet.dart';
 import 'home/home_tab.dart';
 import 'profile/profile_tab.dart';
 import 'settings/settings_tab.dart';
@@ -154,7 +155,25 @@ class FabPopupContents extends StatelessWidget {
               leading: const Icon(Icons.post_add_rounded),
               minLeadingWidth: 5,
               title: const Text('Create Attendance'),
-              onTap: () {},
+              onTap: () {
+                final state = fabKey.currentState;
+                if (state != null) {
+                  state.toggle();
+                }
+                showModalBottomSheet<void>(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (context) => SelectionBottomSheet(
+                    onContinue: () {
+                      Navigator.of(context).pop();
+                      context.goNamed(
+                        Routes.viewAttendanceScreen.name,
+                        params: RouteParams.withDashboard,
+                      );
+                    },
+                  ),
+                );
+              },
             ),
           ),
           const Divider(height: 1),

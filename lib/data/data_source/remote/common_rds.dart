@@ -7,7 +7,7 @@ import '../../../shared/helpers/network/dio_client.dart';
 /// remote api calls
 class CommonRemoteDataSource {
   final client = DioClient.getClient();
-  Future<Response> getClassesWithDetails() {
+  Future<Response> getAllClassesWithDetails() {
     return client.get(
       '/classes',
       queryParameters: {'showDetails': true},
