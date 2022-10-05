@@ -1,25 +1,17 @@
-import 'dart:io';
-
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:styles_lib/assets/assets.dart';
 import 'package:styles_lib/theme/themes.dart';
-import 'package:widgets_lib/widgets/cards/src/bordered_box.dart';
 import 'package:widgets_lib/widgets/widgets.dart';
 
 import '../../../../../cubits/user/user_cubit.dart';
-import '../../../../../data/models/data_class/class_with_details.dart';
-import '../../../../../shared/helpers/helpers.dart';
 import '../../../../../shared/global/enums.dart';
 import '../../../../../shared/validators/form_validator.dart';
 import '../../../../overlays/dialogs/multi_select_my_classes_dialog.dart';
 import '../../../../router/routes.dart';
-import '../../widgets/anouncement_cards.dart';
 import '../../../../widgets/rounded_close_button.dart';
+import '../../widgets/anouncement_cards.dart';
 import '../cubit/create_anouncement_cubit.dart';
 
 class CreateAnouncementScreen extends StatefulWidget {
@@ -161,12 +153,19 @@ class _CreateAnouncementScreenState extends State<CreateAnouncementScreen> {
                       return _multiSelectBoxWithTitle(
                         title: 'Anounce to',
                         onTap: () {
+                          final assignedClasses = context
+                                  .read<UserCubit>()
+                                  .state
+                                  .userAsTeacher
+                                  ?.assignedClasses ??
+                              [];
                           FocusManager.instance.primaryFocus?.unfocus();
                           showDialog<void>(
                             context: context,
                             builder: (_) {
                               return MutliSelectMyClassesDialog(
                                 initialSelectedClasses: state.selectedClasses,
+                                classes: assignedClasses,
                                 onClassesSelected: (_, userSelectedClasses) {
                                   anouncementCubit
                                       .setSelectedClasses(userSelectedClasses);

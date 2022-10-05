@@ -5,6 +5,7 @@ import '../../common/profile_avathar.dart';
 class ProfileListViewCard extends StatelessWidget {
   final String title;
   final String? subtitle;
+  final Widget? subtitleWidget;
   final String emoji;
   final double avatarSize;
   final Widget? traling;
@@ -17,6 +18,7 @@ class ProfileListViewCard extends StatelessWidget {
     this.avatarSize = 30,
     this.traling,
     this.emojiSize,
+    this.subtitleWidget,
   });
 
   @override
@@ -41,14 +43,15 @@ class ProfileListViewCard extends StatelessWidget {
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
-              if (subtitle != null)
-                Text(
-                  subtitle!,
-                  style: textTheme.bodySmall?.copyWith(
-                    color: Colors.grey[600],
-                    fontWeight: FontWeight.w500,
-                  ),
-                )
+              if (subtitle != null || subtitleWidget != null)
+                subtitleWidget ??
+                    Text(
+                      subtitle!,
+                      style: textTheme.bodySmall?.copyWith(
+                        color: Colors.grey[600],
+                        fontWeight: FontWeight.w500,
+                      ),
+                    )
             ],
           ),
         ),

@@ -40,7 +40,7 @@ class _ClassAttendanceReportPageState extends State<ClassAttendanceReportPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Attendance Report'),
+        title: const Text('Class Attendance Report'),
       ),
       body: ListView(
         children: [
@@ -215,11 +215,11 @@ class AbsentStudentsReport extends StatelessWidget {
                       backgroundColor: theme.primaryColorLight,
                       radius: sizedOfAvathar,
                       child: Text(
-                        '👨🏻',
+                        data.student?.emoji??'👨🏻',
                         style: theme.textTheme.headlineMedium,
                       ),
                     ),
-                    const SizedBox(width: 10),
+                    const SizedBox(width: 20),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

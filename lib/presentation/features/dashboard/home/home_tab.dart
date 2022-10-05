@@ -68,7 +68,7 @@ class _HomeTabState extends State<HomeTab> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButtonBox(
-                          lable: 'Time Tables',
+                          lable: 'Time Table',
                           icon: const Icon(Icons.calendar_view_month_sharp),
                           buttonWidth: iconButtonWidth,
                           onTap: () {
