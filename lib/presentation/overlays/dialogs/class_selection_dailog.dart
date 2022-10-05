@@ -69,9 +69,15 @@ class _ClassSelectionDialogState extends State<ClassSelectionDialog> {
                         ),
                       ),
                       title: Text(classes.name ?? 'N/A'),
-                      subtitle: classes.course?.name == null
-                          ? null
-                          : Text('course: ${classes.course!.name!}'),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (classes.batch != null)
+                            Text('batch: ${classes.batch}'),
+                          if (classes.course?.name != null)
+                            Text('course: ${classes.course!.name!}'),
+                        ],
+                      ),
                       onTap: () {
                         widget.onClassSelected(classes);
                         Navigator.of(context).pop();

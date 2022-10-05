@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 
+import '../../../../../../cubits/selection/selection_cubit.dart';
 import '../../../../../../domain/entities/reports_entity.dart';
 import '../../../../../../domain/repository/attendance_repository.dart';
 import '../../../../../../shared/errors/api_errors.dart';
@@ -9,15 +10,19 @@ part 'class_attendance_report_state.dart';
 
 class ClassAttendanceReportCubit extends Cubit<ClassAttendanceReportState> {
   final AttendanceRepository attendanceRepo;
+  final SelectionCubit selectionCubit;
   ClassAttendanceReportCubit({
     required this.attendanceRepo,
+    required this.selectionCubit,
   }) : super(ClassAttendanceReportState.init());
 
   Future<void> getReportOfSubjectsAndStudents() async {
     emit(state.copyWith(subjectStatus: ClassAttendanceReportStatus.loading));
     final subjectReq = SubjectReportReq(
-      classId: '62fa477900a727733494dc4b',
-      currentSem: 1,
+      classId:
+          selectionCubit.state.assignedClassesSelectonStates.selectedClass!.id!,
+      currentSem:
+          selectionCubit.state.assignedClassesSelectonStates.selectedSem!,
     );
     try {
       final subjectRes =
@@ -67,8 +72,10 @@ class ClassAttendanceReportCubit extends Cubit<ClassAttendanceReportState> {
         ),
       );
       final studentReq = EachStudentReportReq(
-        classId: '62fa477900a727733494dc4b',
-        currentSem: 1,
+        classId: selectionCubit
+            .state.assignedClassesSelectonStates.selectedClass!.id!,
+        currentSem:
+            selectionCubit.state.assignedClassesSelectonStates.selectedSem!,
         subjectId: state.selectedSubjectId!,
       );
       final studentRes =
