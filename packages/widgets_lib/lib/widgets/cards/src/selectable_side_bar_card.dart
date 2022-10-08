@@ -52,7 +52,7 @@ class SelectableSideBarCard extends StatelessWidget {
                         (index) => Text(
                           subtitles[index],
                           style: textTheme.titleSmall
-                              ?.copyWith(color: ColorsPallet.grey600),
+                              ?.copyWith(color: ColorPallet.grey600),
                         ),
                       ),
                     ],

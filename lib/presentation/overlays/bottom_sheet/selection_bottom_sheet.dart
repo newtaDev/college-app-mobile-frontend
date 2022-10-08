@@ -102,7 +102,7 @@ class SelectionBottomSheet extends StatelessWidget {
           value ?? hintText,
           style: value != null
               ? textTheme.bodyLarge
-              : textTheme.bodyLarge?.copyWith(color: ColorsPallet.grey700),
+              : textTheme.bodyLarge?.copyWith(color: ColorPallet.grey700),
           overflow: TextOverflow.ellipsis,
         ),
       ),

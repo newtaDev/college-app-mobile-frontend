@@ -23,7 +23,7 @@ class ProfileMyAccountSection extends StatelessWidget {
             'My Account',
             style: textTheme.labelMedium?.copyWith(
               letterSpacing: 1,
-              color: ColorsPallet.grey,
+              color: ColorPallet.grey,
             ),
           ),
         ),
@@ -31,11 +31,11 @@ class ProfileMyAccountSection extends StatelessWidget {
         ListTile(
           contentPadding: const EdgeInsets.symmetric(horizontal: 20),
           leading: CircleAvatar(
-            backgroundColor: ColorsPallet.primaryBlue.withOpacity(0.1),
+            backgroundColor: ColorPallet.primaryBlue.withOpacity(0.1),
             radius: 25,
             child: const Icon(
               Icons.edit_note_rounded,
-              color: ColorsPallet.primaryBlue,
+              color: ColorPallet.primaryBlue,
             ),
           ),
           title: const Text('Edit profile'),
@@ -53,11 +53,11 @@ class ProfileMyAccountSection extends StatelessWidget {
         ListTile(
           contentPadding: const EdgeInsets.symmetric(horizontal: 20),
           leading: CircleAvatar(
-            backgroundColor: ColorsPallet.primaryBlue.withOpacity(0.1),
+            backgroundColor: ColorPallet.primaryBlue.withOpacity(0.1),
             radius: 25,
             child: const Icon(
               Icons.lock_outline_rounded,
-              color: ColorsPallet.primaryBlue,
+              color: ColorPallet.primaryBlue,
             ),
           ),
           title: const Text('Change password'),
@@ -68,11 +68,11 @@ class ProfileMyAccountSection extends StatelessWidget {
         ListTile(
           contentPadding: const EdgeInsets.symmetric(horizontal: 20),
           leading: CircleAvatar(
-            backgroundColor: ColorsPallet.primaryBlue.withOpacity(0.1),
+            backgroundColor: ColorPallet.primaryBlue.withOpacity(0.1),
             radius: 25,
             child: const Icon(
               Icons.settings_outlined,
-              color: ColorsPallet.primaryBlue,
+              color: ColorPallet.primaryBlue,
             ),
           ),
           title: const Text('Account settings'),
@@ -83,11 +83,11 @@ class ProfileMyAccountSection extends StatelessWidget {
         ListTile(
           contentPadding: const EdgeInsets.symmetric(horizontal: 20),
           leading: CircleAvatar(
-            backgroundColor: ColorsPallet.primaryBlue.withOpacity(0.1),
+            backgroundColor: ColorPallet.primaryBlue.withOpacity(0.1),
             radius: 25,
             child: const Icon(
               Icons.swap_horiz_rounded,
-              color: ColorsPallet.primaryBlue,
+              color: ColorPallet.primaryBlue,
             ),
           ),
           title: const Text('Switch Account'),
@@ -104,11 +104,11 @@ class ProfileMyAccountSection extends StatelessWidget {
           child: ListTile(
             contentPadding: const EdgeInsets.symmetric(horizontal: 20),
             leading: CircleAvatar(
-              backgroundColor: ColorsPallet.primaryBlue.withOpacity(0.1),
+              backgroundColor: ColorPallet.primaryBlue.withOpacity(0.1),
               radius: 25,
               child: const Icon(
                 Icons.logout,
-                color: ColorsPallet.primaryBlue,
+                color: ColorPallet.primaryBlue,
               ),
             ),
             title: const Text('Log out'),

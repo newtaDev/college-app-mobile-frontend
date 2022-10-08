@@ -21,7 +21,7 @@ class TimeTableDateAndWeekBox extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: BorderedBox(
-        bgColor: isSelected ? ColorsPallet.primaryBlue : null,
+        bgColor: isSelected ? ColorPallet.primaryBlue : null,
         width: (MediaQuery.of(context).size.width / 7) + (isSelected ? 10 : 0),
         child: Center(
           child: FittedBox(
@@ -31,7 +31,7 @@ class TimeTableDateAndWeekBox extends StatelessWidget {
                   day,
                   style: textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.w600,
-                    color: isSelected ? Colors.white : ColorsPallet.grey,
+                    color: isSelected ? Colors.white : ColorPallet.grey,
                   ),
                 ),
                 SizedBox(height: isSelected ? 10 : 0),
@@ -39,7 +39,7 @@ class TimeTableDateAndWeekBox extends StatelessWidget {
                   week,
                   style: textTheme.titleSmall?.copyWith(
                     fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-                    color: isSelected ? Colors.white : ColorsPallet.grey,
+                    color: isSelected ? Colors.white : ColorPallet.grey,
                   ),
                 ),
               ],

@@ -56,7 +56,7 @@ class _ProfileEmojiSelectorState extends State<ProfileEmojiSelector> {
             child: DecoratedBox(
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: isCentre ? Colors.black : ColorsPallet.grey300,
+                  color: isCentre ? Colors.black : ColorPallet.grey300,
                 ),
                 shape: BoxShape.circle,
               ),

@@ -64,7 +64,7 @@ class OtherStudentsLayout extends StatelessWidget {
                 child: OutlinedButton(
                   onPressed: () {},
                   style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: ColorsPallet.grey),
+                    side: const BorderSide(color: ColorPallet.grey),
                   ),
                   child: const Text('Call'),
                 ),
@@ -76,7 +76,7 @@ class OtherStudentsLayout extends StatelessWidget {
                 child: OutlinedButton(
                   onPressed: () {},
                   style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: ColorsPallet.grey),
+                    side: const BorderSide(color: ColorPallet.grey),
                   ),
                   child: const Text('Contact info'),
                 ),

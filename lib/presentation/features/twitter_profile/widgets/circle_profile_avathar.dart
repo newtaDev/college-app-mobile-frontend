@@ -57,7 +57,7 @@ class CircleProfileAvatar extends StatelessWidget {
               ),
               child: CircleAvatar(
                 radius: profileAvatarRadius,
-                backgroundColor: ColorsPallet.grey200,
+                backgroundColor: ColorPallet.grey200,
                 // child: Text('⚡️ ',style: Theme.of(context).textTheme.displaySmall,),
                 backgroundImage: NetworkImage(
                   profile.profilePic,

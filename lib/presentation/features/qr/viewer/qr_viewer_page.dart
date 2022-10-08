@@ -90,7 +90,7 @@ class QrViewerPage extends StatelessWidget {
                 );
               },
               style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: ColorsPallet.grey),
+                side: const BorderSide(color: ColorPallet.grey),
               ),
               label: const Text('Scan qr code'),
             ),

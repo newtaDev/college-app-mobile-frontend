@@ -22,7 +22,7 @@ InputDecorationTheme _textInputDecorationTheme({required bool isDarkMode}) {
       borderSide: BorderSide(color: lightColorScheme.error, width: 2),
     ),
     filled: true,
-    fillColor: isDarkMode ? ColorsPallet.darkGrey : ColorsPallet.grey80,
+    fillColor: isDarkMode ? ColorPallet.darkGrey : ColorPallet.grey80,
     contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
   );
 }

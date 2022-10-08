@@ -398,7 +398,7 @@ class _CreateAttendanceLayoutState extends State<CreateAttendanceLayout> {
               value ?? hintText,
               style: value != null
                   ? textTheme.bodyLarge
-                  : textTheme.bodyLarge?.copyWith(color: ColorsPallet.grey700),
+                  : textTheme.bodyLarge?.copyWith(color: ColorPallet.grey700),
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -423,7 +423,7 @@ class _CreateAttendanceLayoutState extends State<CreateAttendanceLayout> {
               Text(
                 title,
                 style: textTheme.bodySmall?.copyWith(
-                  color: ColorsPallet.grey,
+                  color: ColorPallet.grey,
                 ),
               ),
               const SizedBox(height: 5),

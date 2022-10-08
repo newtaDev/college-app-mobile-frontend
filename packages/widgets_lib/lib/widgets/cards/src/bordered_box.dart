@@ -33,7 +33,7 @@ class BorderedBox extends StatelessWidget {
         color: bgColor,
         boxShadow: boxShadow,
         border:
-            border ?? Border.all(color: borderColor ?? ColorsPallet.grey300),
+            border ?? Border.all(color: borderColor ?? ColorPallet.grey300),
         borderRadius: borderRadius ?? BorderRadius.circular(8),
       ),
       child: SizedBox(

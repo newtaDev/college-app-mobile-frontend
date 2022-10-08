@@ -39,7 +39,7 @@ class ProfileWithBio extends StatelessWidget {
                     Text(
                       '@${user.username}',
                       style: textTheme.bodyMedium
-                          ?.copyWith(color: ColorsPallet.grey),
+                          ?.copyWith(color: ColorPallet.grey),
                     ),
                   ],
                 ),

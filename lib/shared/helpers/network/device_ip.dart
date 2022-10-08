@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 class DeviceIp {
-  static String ipAddress = '192.168.201.105';
+  static String ipAddress = '192.168.17.105';
 
   static Future<String> getDeviceIpAddress() async {
     try {

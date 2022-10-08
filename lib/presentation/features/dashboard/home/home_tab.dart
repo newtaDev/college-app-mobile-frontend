@@ -162,7 +162,13 @@ class _HomeTabState extends State<HomeTab> {
 
 class AnouncementTabsDelegate extends SliverPersistentHeaderDelegate {
   AnouncementTabsDelegate();
-  double height = 100;
+  double height = 90;
+
+  @override
+  double get maxExtent => height;
+
+  @override
+  double get minExtent => height;
 
   @override
   Widget build(
@@ -173,15 +179,14 @@ class AnouncementTabsDelegate extends SliverPersistentHeaderDelegate {
     final textTheme = Theme.of(context).textTheme;
     final userCubit = context.read<UserCubit>();
     final isStudent = userCubit.state.isStudent;
-    return ColoredBox(
-      color: Colors.white,
+    return Material(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           const Spacer(),
           Padding(
-            padding: const EdgeInsets.only(left: 20, top: 5),
+            padding: const EdgeInsets.only(left: 20),
             child: FittedText(
               'Anouncements',
               style: textTheme.headlineSmall?.copyWith(
@@ -191,7 +196,7 @@ class AnouncementTabsDelegate extends SliverPersistentHeaderDelegate {
               ),
             ),
           ),
-          const Spacer(flex: 2),
+          const Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: SizedBox(
@@ -202,17 +207,10 @@ class AnouncementTabsDelegate extends SliverPersistentHeaderDelegate {
             ),
           ),
           const Divider(height: 1),
-          const Spacer(flex: 2),
         ],
       ),
     );
   }
-
-  @override
-  double get maxExtent => height;
-
-  @override
-  double get minExtent => height;
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {

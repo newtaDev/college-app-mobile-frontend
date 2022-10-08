@@ -109,11 +109,11 @@ class ClassTimeTableViewCard extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(
-                onPrimary: ColorsPallet.primaryBlueDark,
-                primary: ColorsPallet.primaryBlueDark.withOpacity(0.1),
+                onPrimary: ColorPallet.primaryBlueDark,
+                primary: ColorPallet.primaryBlueDark.withOpacity(0.1),
                 elevation: 0,
                 minimumSize: const Size.fromHeight(40),
-                shadowColor: ColorsPallet.primaryBlueDark.withOpacity(0.2),
+                shadowColor: ColorPallet.primaryBlueDark.withOpacity(0.2),
               ),
               child: const Text(
                 'Take Attendance',

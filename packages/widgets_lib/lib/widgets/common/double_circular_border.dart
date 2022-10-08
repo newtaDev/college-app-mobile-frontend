@@ -5,8 +5,8 @@ class DoubleCircularBorder extends StatefulWidget {
   const DoubleCircularBorder({
     required this.child,
     super.key,
-    this.innerColor = ColorsPallet.darkGrey,
-    this.outerColor = ColorsPallet.darkGrey,
+    this.innerColor = ColorPallet.darkGrey,
+    this.outerColor = ColorPallet.darkGrey,
     this.size = 200,
     this.innerIconsSize = 3,
     this.outerIconsSize = 3,

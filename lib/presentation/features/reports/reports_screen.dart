@@ -69,11 +69,11 @@ class ReportsScreen extends StatelessWidget {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 20),
       leading: CircleAvatar(
-        backgroundColor: ColorsPallet.primaryBlue.withOpacity(0.1),
+        backgroundColor: ColorPallet.primaryBlue.withOpacity(0.1),
         radius: 25,
         child: Icon(
           icon,
-          color: ColorsPallet.primaryBlue,
+          color: ColorPallet.primaryBlue,
         ),
       ),
       title: Text(title),

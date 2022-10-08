@@ -59,7 +59,7 @@ class MutiImageAnouncementCard extends StatelessWidget {
                 width: double.maxFinite,
                 child: images == null || (images?.isEmpty ?? false)
                     ? ColoredBox(
-                        color: ColorsPallet.grey100,
+                        color: ColorPallet.grey100,
                         child: Center(
                           child: SvgPicture.asset(
                             SvgAssets.placeholder,
@@ -75,7 +75,7 @@ class MutiImageAnouncementCard extends StatelessWidget {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(8),
                             child: ColoredBox(
-                              color: ColorsPallet.grey100,
+                              color: ColorPallet.grey100,
                               child: _image(
                                 context: context,
                                 imageWidget: images![index],
@@ -189,7 +189,7 @@ class TextWithImageAnouncementCard extends StatelessWidget {
                     height: 100,
                     width: 100,
                     child: ColoredBox(
-                      color: ColorsPallet.grey100,
+                      color: ColorPallet.grey100,
                       child: _image(context),
                     ),
                   ),
@@ -228,7 +228,7 @@ class TextWithImageAnouncementCard extends StatelessWidget {
     final tag = UniqueKey();
     if (imageWidget == null) {
       return ColoredBox(
-        color: ColorsPallet.grey100,
+        color: ColorPallet.grey100,
         child: Center(
           child: SvgPicture.asset(
             SvgAssets.placeholder,
@@ -279,7 +279,7 @@ class _CreateByCard extends StatelessWidget {
       children: [
         const Icon(
           Icons.access_time,
-          color: ColorsPallet.grey,
+          color: ColorPallet.grey,
           size: 16,
         ),
         const SizedBox(width: 5),

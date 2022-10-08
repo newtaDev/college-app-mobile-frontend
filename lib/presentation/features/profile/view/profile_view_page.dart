@@ -31,7 +31,7 @@ class ProfileViewPage extends StatelessWidget {
         title: Text(
           isMyProfile ? 'My Profile' : 'Profile',
           style: textTheme.titleMedium?.copyWith(
-            color: ColorsPallet.grey700,
+            color: ColorPallet.grey700,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -56,7 +56,7 @@ class ProfileViewPage extends StatelessWidget {
               },
               icon: const Icon(
                 Icons.qr_code,
-                color: ColorsPallet.grey700,
+                color: ColorPallet.grey700,
               ),
             ),
           ),

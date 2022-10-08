@@ -156,7 +156,7 @@ class AttendanceViewLayout extends StatelessWidget {
                     child: Text(
                       'Change',
                       style: textTheme.titleSmall
-                          ?.copyWith(color: ColorsPallet.grey700),
+                          ?.copyWith(color: ColorPallet.grey700),
                     ),
                   )
                 ],
@@ -206,12 +206,12 @@ class AttendanceViewLayout extends StatelessWidget {
                           Text(
                             'Absent students: ${_attendanceData.absentStudentCount}',
                             style: textTheme.bodyMedium
-                                ?.copyWith(color: ColorsPallet.grey600),
+                                ?.copyWith(color: ColorPallet.grey600),
                           ),
                           Text(
                             'Present students: ${_attendanceData.presentStudentCount}',
                             style: textTheme.bodyMedium
-                                ?.copyWith(color: ColorsPallet.grey600),
+                                ?.copyWith(color: ColorPallet.grey600),
                           ),
                           const SizedBox(height: 5),
                           _textWithIcon(
@@ -236,13 +236,13 @@ class AttendanceViewLayout extends StatelessWidget {
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                              onPrimary: ColorsPallet.primaryBlueDark,
+                              onPrimary: ColorPallet.primaryBlueDark,
                               primary:
-                                  ColorsPallet.primaryBlueDark.withOpacity(0.1),
+                                  ColorPallet.primaryBlueDark.withOpacity(0.1),
                               elevation: 0,
                               minimumSize: const Size.fromHeight(40),
                               shadowColor:
-                                  ColorsPallet.primaryBlueDark.withOpacity(0.2),
+                                  ColorPallet.primaryBlueDark.withOpacity(0.2),
                             ),
                             child: const Text(
                               'Update Attendance',
@@ -266,7 +266,7 @@ class AttendanceViewLayout extends StatelessWidget {
       children: [
         Icon(
           icon,
-          color: ColorsPallet.grey,
+          color: ColorPallet.grey,
           size: 18,
         ),
         const SizedBox(width: 10),

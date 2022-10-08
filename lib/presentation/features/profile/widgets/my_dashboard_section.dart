@@ -26,7 +26,7 @@ class ProfileMyDashboardSection extends StatelessWidget {
             'My Dashboard',
             style: textTheme.labelMedium?.copyWith(
               letterSpacing: 1,
-              color: ColorsPallet.grey,
+              color: ColorPallet.grey,
             ),
           ),
         ),
@@ -34,11 +34,11 @@ class ProfileMyDashboardSection extends StatelessWidget {
         ListTile(
           contentPadding: const EdgeInsets.symmetric(horizontal: 20),
           leading: CircleAvatar(
-            backgroundColor: ColorsPallet.primaryBlue.withOpacity(0.1),
+            backgroundColor: ColorPallet.primaryBlue.withOpacity(0.1),
             radius: 25,
             child: const Icon(
               Icons.class_outlined,
-              color: ColorsPallet.primaryBlue,
+              color: ColorPallet.primaryBlue,
             ),
           ),
           title: const Text('My classroom'),
@@ -49,11 +49,11 @@ class ProfileMyDashboardSection extends StatelessWidget {
         ListTile(
           contentPadding: const EdgeInsets.symmetric(horizontal: 20),
           leading: CircleAvatar(
-            backgroundColor: ColorsPallet.primaryBlue.withOpacity(0.1),
+            backgroundColor: ColorPallet.primaryBlue.withOpacity(0.1),
             radius: 25,
             child: const Icon(
               Icons.assignment_turned_in_outlined,
-              color: ColorsPallet.primaryBlue,
+              color: ColorPallet.primaryBlue,
             ),
           ),
           title: const Text('Attendance report'),
@@ -76,11 +76,11 @@ class ProfileMyDashboardSection extends StatelessWidget {
         ListTile(
           contentPadding: const EdgeInsets.symmetric(horizontal: 20),
           leading: CircleAvatar(
-            backgroundColor: ColorsPallet.primaryBlue.withOpacity(0.1),
+            backgroundColor: ColorPallet.primaryBlue.withOpacity(0.1),
             radius: 25,
             child: const Icon(
               Icons.assignment_outlined,
-              color: ColorsPallet.primaryBlue,
+              color: ColorPallet.primaryBlue,
             ),
           ),
           title: const Text('Exam results'),

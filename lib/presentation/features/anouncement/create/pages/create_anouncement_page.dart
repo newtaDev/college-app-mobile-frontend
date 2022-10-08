@@ -51,7 +51,7 @@ class _CreateAnouncementScreenState extends State<CreateAnouncementScreen> {
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: ColorsPallet.grey300),
+            borderSide: const BorderSide(color: ColorPallet.grey300),
           ),
           errorBorder: _errorBorder,
           focusedErrorBorder: _errorBorder.copyWith(
@@ -180,7 +180,7 @@ class _CreateAnouncementScreenState extends State<CreateAnouncementScreen> {
                             label: Text(
                               state.selectedClasses[index].name ?? 'N/A',
                             ),
-                            backgroundColor: ColorsPallet.grey200,
+                            backgroundColor: ColorPallet.grey200,
                             deleteIcon: const Icon(Icons.close, size: 18),
                             onDeleted: () {
                               anouncementCubit.removeSelectedClass(
@@ -244,7 +244,7 @@ class _CreateAnouncementScreenState extends State<CreateAnouncementScreen> {
                 ? Text(
                     'Choose classes',
                     style: textTheme.bodyLarge
-                        ?.copyWith(color: ColorsPallet.grey700),
+                        ?.copyWith(color: ColorPallet.grey700),
                     overflow: TextOverflow.ellipsis,
                   )
                 : Wrap(spacing: 10, children: multipleValues),
@@ -373,7 +373,7 @@ class SingleAnouncementImagePicker extends StatelessWidget {
                       );
                     }
                     return const ColoredBox(
-                      color: ColorsPallet.grey100,
+                      color: ColorPallet.grey100,
                       child: Icon(
                         Icons.add_a_photo_rounded,
                         color: Colors.grey,
@@ -431,7 +431,7 @@ class MultiAnouncementImagePicker extends StatelessWidget {
                               height: 100,
                               width: 100,
                               child: ColoredBox(
-                                color: ColorsPallet.grey100,
+                                color: ColorPallet.grey100,
                                 child: Icon(
                                   Icons.add_a_photo_rounded,
                                   color: Colors.grey,

@@ -90,7 +90,7 @@ class _ProfileViewState extends State<TwitterProfileView> {
                                       .textTheme
                                       .titleSmall!
                                       .copyWith(
-                                        color: ColorsPallet.grey,
+                                        color: ColorPallet.grey,
                                       ),
                                 ),
                                 Text(

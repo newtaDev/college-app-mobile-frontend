@@ -40,7 +40,7 @@ class MyProfileTeacherLayout extends StatelessWidget {
             'My Classes',
             style: textTheme.labelMedium?.copyWith(
               letterSpacing: 1,
-              color: ColorsPallet.grey,
+              color: ColorPallet.grey,
             ),
           ),
         ),
@@ -130,7 +130,7 @@ class OtherTeachersLayout extends StatelessWidget {
             'My Classes',
             style: textTheme.labelMedium?.copyWith(
               letterSpacing: 1,
-              color: ColorsPallet.grey,
+              color: ColorPallet.grey,
             ),
           ),
         ),
