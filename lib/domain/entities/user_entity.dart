@@ -3,6 +3,7 @@ library user_entity;
 import 'dart:convert';
 
 import '../../data/models/data_class/class_with_details.dart';
+import '../../data/models/data_class/subject_model.dart';
 import '../../shared/global/enums.dart';
 import '../../shared/helpers/user_helper.dart';
 import '../../utils/utils.dart';

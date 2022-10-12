@@ -9,9 +9,12 @@ import '../../../shared/extensions/extentions.dart';
 
 class SelectSubjectDialog extends StatefulWidget {
   final void Function(Subject subject) onSubjectSelected;
-  final String courseId;
-  const SelectSubjectDialog(
-      {super.key, required this.onSubjectSelected, required this.courseId});
+  final String? title;
+  const SelectSubjectDialog({
+    super.key,
+    required this.onSubjectSelected,
+    this.title,
+  });
 
   @override
   State<SelectSubjectDialog> createState() => _SelectSubjectDialogState();
@@ -20,9 +23,7 @@ class SelectSubjectDialog extends StatefulWidget {
 class _SelectSubjectDialogState extends State<SelectSubjectDialog> {
   @override
   void initState() {
-    context
-        .read<SelectionCubit>()
-        .getSubjectWithDetailsOfCourse(widget.courseId);
+    context.read<SelectionCubit>().getAndSetAssignedSubjectsOfTeacher();
     super.initState();
   }
 
@@ -35,50 +36,77 @@ class _SelectSubjectDialogState extends State<SelectSubjectDialog> {
         borderRadius: BorderRadius.circular(12),
         child: BlocBuilder<SelectionCubit, SelectionState>(
           buildWhen: (previous, current) =>
-              previous.courseSubjectSelectionStates.status !=
-              current.courseSubjectSelectionStates.status,
+              previous.assignedSubjectSelectionStates.status !=
+              current.assignedSubjectSelectionStates.status,
           builder: (context, state) {
-            if (state.courseSubjectSelectionStates.status.isInitial ||
-                state.courseSubjectSelectionStates.status.isLoading) {
+            if (state.assignedSubjectSelectionStates.status.isInitial ||
+                state.assignedSubjectSelectionStates.status.isLoading) {
               return const LoadingIndicator();
             }
-            if (state.courseSubjectSelectionStates.courseSubjects.isEmpty ||
-                state.courseSubjectSelectionStates.status.isError) {
+            if (state.assignedSubjectSelectionStates.subjects.isEmpty ||
+                state.assignedSubjectSelectionStates.status.isError) {
               return const Center(
                 child: Text('Subjects not found'),
               );
             }
-            return ShowSearchDialog<Subject>(
-              searchList: state.courseSubjectSelectionStates.courseSubjects,
-              searchCondition: (data, searchInput) {
-                return data.name!.toLowerCase().contains(
-                      searchInput.toLowerCase(),
-                    );
-              },
-              searchItemBuilder: (context, searchList, searchIndex) {
-                final subject = searchList[searchIndex];
-                return Column(
-                  children: [
-                    ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: Theme.of(context).primaryColorLight,
-                        child: Text(
-                          subject.name?.getInitials(takeUpto: 2) ?? 'N/A',
-                        ),
-                      ),
-                      title: Text(subject.name ?? 'N/A'),
-                      subtitle: subject.course?.name == null
-                          ? null
-                          : Text('course: ${subject.course!.name!}'),
-                      onTap: () {
-                        widget.onSubjectSelected(subject);
-                        Navigator.of(context).pop();
+            return Column(
+              children: [
+                if (widget.title != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20, left: 20),
+                    child: Text(
+                      widget.title!,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 20,
+                    ),
+                    child: ShowSearchDialog<Subject>(
+                      searchList: state.assignedSubjectSelectionStates.subjects,
+                      searchCondition: (data, searchInput) {
+                        return data.name!.toLowerCase().contains(
+                              searchInput.toLowerCase(),
+                            );
+                      },
+                      searchItemBuilder: (context, searchList, searchIndex) {
+                        final subject = searchList[searchIndex];
+                        return Column(
+                          children: [
+                            ListTile(
+                              leading: CircleAvatar(
+                                backgroundColor:
+                                    Theme.of(context).primaryColorLight,
+                                child: Text(
+                                  subject.name?.getInitials(takeUpto: 2) ??
+                                      'N/A',
+                                ),
+                              ),
+                              title: Text(subject.name ?? 'N/A'),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (subject.classDetails?.name != null)
+                                    Text(subject.classDetails!.name!),
+                                  if (subject.classDetails?.currentSem != null)
+                                    Text(
+                                      '${subject.classDetails!.currentSem!}${subject.classDetails!.currentSem!.getRankPosition} semester',
+                                    ),
+                                ],
+                              ),
+                              onTap: () => widget.onSubjectSelected(subject),
+                            ),
+                            const Divider(indent: 70)
+                          ],
+                        );
                       },
                     ),
-                    const Divider(indent: 70)
-                  ],
-                );
-              },
+                  ),
+                ),
+              ],
             );
           },
         ),

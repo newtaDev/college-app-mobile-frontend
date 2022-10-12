@@ -34,29 +34,26 @@ class _ShowSearchDialogState<T> extends State<ShowSearchDialog<T>> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        children: [
-          TextField(
-            controller: searchTextCtr,
-            decoration: const InputDecoration(
-              hintText: 'Search...',
-              prefixIcon: Icon(Icons.search),
-            ),
+    return Column(
+      children: [
+        TextField(
+          controller: searchTextCtr,
+          decoration: const InputDecoration(
+            hintText: 'Search...',
+            prefixIcon: Icon(Icons.search),
           ),
-          const SizedBox(height: 20),
-          Expanded(
-            child: SearchList<T>(
-              textController: searchTextCtr,
-              searchList: widget.searchList,
-              emptyWidget: widget.emptyWidget,
-              searchCondition: widget.searchCondition,
-              searchItemBuilder: widget.searchItemBuilder,
-            ),
+        ),
+        const SizedBox(height: 20),
+        Expanded(
+          child: SearchList<T>(
+            textController: searchTextCtr,
+            searchList: widget.searchList,
+            emptyWidget: widget.emptyWidget,
+            searchCondition: widget.searchCondition,
+            searchItemBuilder: widget.searchItemBuilder,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

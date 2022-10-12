@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:styles_lib/theme/themes.dart';
 import 'package:widgets_lib/widgets_lib.dart';
 
+import '../../../../../shared/extensions/extentions.dart';
 import '../../../../cubits/my_app/my_app_cubit.dart';
 import '../../../../cubits/selection/selection_cubit.dart';
 import '../../../../domain/entities/attendance_entity.dart';
 import '../../../../shared/extensions/extentions.dart';
 import '../../../../shared/global/enums.dart';
-import '../../../overlays/bottom_sheet/selection_bottom_sheet.dart';
 import '../../../router/routes.dart';
 import 'cubit/view_attendance_cubit.dart';
 
@@ -30,12 +29,12 @@ class _ViewAttendancePageState extends State<ViewAttendancePage> {
 
   void fetchAttendance() {
     final selectCubit = context.read<SelectionCubit>();
-    context.read<ViewAttendanceCubit>().getAllAttendance(
-          AllAttendanceWithQueryReq(
+    context.read<ViewAttendanceCubit>().getSubjectAttendances(
+          SubjectAttendanceWithQueryReq(
             classId: selectCubit
-                .state.assignedClassesSelectonStates.selectedClass?.id,
-            currentSem:
-                selectCubit.state.assignedClassesSelectonStates.selectedSem,
+                .state.assignedSubjectSelectionStates.selectedSubject!.classId!,
+            subjectId: selectCubit
+                .state.assignedSubjectSelectionStates.selectedSubject!.id!,
           ),
         );
   }
@@ -82,89 +81,92 @@ class AttendanceViewLayout extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-          child: BlocBuilder<SelectionCubit, SelectionState>(
-            // listenWhen: (previous, current) =>
-            //     previous.assignedClassesSelectonStates.selectedClass !=
-            //         current.assignedClassesSelectonStates.selectedClass ||
-            //     previous.assignedClassesSelectonStates.selectedSem !=
-            //         current.assignedClassesSelectonStates.selectedSem,
-            buildWhen: (previous, current) =>
-                previous.assignedClassesSelectonStates.selectedClass !=
-                    current.assignedClassesSelectonStates.selectedClass ||
-                previous.assignedClassesSelectonStates.selectedSem !=
-                    current.assignedClassesSelectonStates.selectedSem,
-            // listener: (context, state) {
-            //   context.read<ViewAttendanceCubit>().getAllAttendance(
-            //         AllAttendanceWithQueryReq(
-            //           classId:
-            //               state.assignedClassesSelectonStates.selectedClass?.id,
-            //           currentSem:
-            //               state.assignedClassesSelectonStates.selectedSem,
-            //         ),
-            //       );
-            // },
-            builder: (context, state) {
-              final selectedSem =
-                  state.assignedClassesSelectonStates.selectedSem ?? 0;
-              return Row(
-                children: [
-                  Expanded(
-                    child: RichText(
-                      text: TextSpan(
-                        text: state.assignedClassesSelectonStates.selectedClass
-                                ?.name ??
-                            'N/A',
-                        style: textTheme.titleSmall,
-                        children: [
-                          TextSpan(
-                            text:
-                                ' - $selectedSem${selectedSem.getRankPosition} Sem',
-                            style: textTheme.bodySmall,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      showModalBottomSheet<void>(
-                        context: context,
-                        isScrollControlled: true,
-                        builder: (bottomSheetContext) => SelectionBottomSheet(
-                          onContinue: () {
-                            Navigator.of(bottomSheetContext).pop();
-                          },
-                        ),
-                      ).then((value) {
-                        final selectionState = context
-                            .read<SelectionCubit>()
-                            .state
-                            .assignedClassesSelectonStates;
-                        if (selectionState !=
-                            state.assignedClassesSelectonStates) {
-                          context.read<ViewAttendanceCubit>().getAllAttendance(
-                                AllAttendanceWithQueryReq(
-                                  classId: selectionState.selectedClass?.id,
-                                  currentSem: selectionState.selectedSem,
-                                ),
-                              );
-                        }
-                      });
-                    },
-                    child: Text(
-                      'Change',
-                      style: textTheme.titleSmall
-                          ?.copyWith(color: ColorPallet.grey700),
-                    ),
-                  )
-                ],
-              );
-            },
-          ),
-        ),
-        const Divider(height: 1),
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+        //   child: BlocBuilder<SelectionCubit, SelectionState>(
+        //     // listenWhen: (previous, current) =>
+        //     //     previous.assignedClassesSelectonStates.selectedClass !=
+        //     //         current.assignedClassesSelectonStates.selectedClass ||
+        //     //     previous.assignedClassesSelectonStates.selectedSem !=
+        //     //         current.assignedClassesSelectonStates.selectedSem,
+        //     buildWhen: (previous, current) =>
+        //         previous.assignedClassesSelectonStates.selectedClass !=
+        //             current.assignedClassesSelectonStates.selectedClass ||
+        //         previous.assignedClassesSelectonStates.selectedSem !=
+        //             current.assignedClassesSelectonStates.selectedSem,
+        //     // listener: (context, state) {
+        //     //   context.read<ViewAttendanceCubit>().getAllAttendance(
+        //     //         AllAttendanceWithQueryReq(
+        //     //           classId:
+        //     //               state.assignedClassesSelectonStates.selectedClass?.id,
+        //     //           currentSem:
+        //     //               state.assignedClassesSelectonStates.selectedSem,
+        //     //         ),
+        //     //       );
+        //     // },
+        //     builder: (context, state) {
+        //       final selectedSem =
+        //           state.assignedClassesSelectonStates.selectedSem ?? 0;
+        //       return Row(
+        //         children: [
+        //           Expanded(
+        //             child: RichText(
+        //               text: TextSpan(
+        //                 text: state.assignedClassesSelectonStates.selectedClass
+        //                         ?.name ??
+        //                     'N/A',
+        //                 style: textTheme.titleSmall,
+        //                 children: [
+        //                   TextSpan(
+        //                     text:
+        //                         ' - $selectedSem${selectedSem.getRankPosition} Sem',
+        //                     style: textTheme.bodySmall,
+        //                   ),
+        //                 ],
+        //               ),
+        //             ),
+        //           ),
+        //           TextButton(
+        //             onPressed: () {
+        //               showModalBottomSheet<void>(
+        //                 context: context,
+        //                 isScrollControlled: true,
+        //                 builder: (bottomSheetContext) =>
+        //                     SelectClassAndSemBottomSheet(
+        //                   onContinue: () {
+        //                     Navigator.of(bottomSheetContext).pop();
+        //                   },
+        //                 ),
+        //               ).then((value) {
+        //                 final selectionState = context
+        //                     .read<SelectionCubit>()
+        //                     .state
+        //                     .assignedClassesSelectonStates;
+        //                 if (selectionState !=
+        //                     state.assignedClassesSelectonStates) {
+        //                   context
+        //                       .read<ViewAttendanceCubit>()
+        //                       .getClassAttendances(
+        //                         ClassAttendanceWithQueryReq(
+        //                           classId: selectionState.selectedClass!.id!,
+        //                           currentSem: selectionState.selectedSem!,
+        //                         ),
+        //                       );
+        //                 }
+        //               });
+        //             },
+        //             child: Text(
+        //               'Change',
+        //               style: textTheme.titleSmall
+        //                   ?.copyWith(color: ColorPallet.grey700),
+        //             ),
+        //           )
+        //         ],
+        //       );
+        //     },
+        //   ),
+        // ),
+        // const Divider(height: 1),
         BlocBuilder<ViewAttendanceCubit, ViewAttendanceState>(
           buildWhen: (previous, current) => previous.status != current.status,
           builder: (context, state) {
@@ -202,6 +204,10 @@ class AttendanceViewLayout extends StatelessWidget {
                             _attendanceData.subject?.name ?? 'N/A',
                             style: textTheme.titleMedium
                                 ?.copyWith(fontWeight: FontWeight.w600),
+                          ),
+                          Text(
+                            '${context.read<SelectionCubit>().state.assignedSubjectSelectionStates.selectedSubject?.classDetails?.name} - ${_attendanceData.currentSem}${_attendanceData.currentSem?.getRankPosition} Sem',
+                            style: textTheme.bodySmall,
                           ),
                           Text(
                             'Absent students: ${_attendanceData.absentStudentCount}',

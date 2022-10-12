@@ -28,7 +28,7 @@ class ReportsScreen extends StatelessWidget {
                 showModalBottomSheet<void>(
                   context: context,
                   isScrollControlled: true,
-                  builder: (context) => SelectionBottomSheet(
+                  builder: (context) => SelectClassAndSemBottomSheet(
                     onContinue: () {
                       Navigator.of(context).pop();
                       context.pushNamed(

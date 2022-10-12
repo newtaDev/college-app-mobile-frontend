@@ -33,6 +33,7 @@ class SelectableSemList extends StatelessWidget {
                   color: isSelected ? Colors.black : ColorPallet.grey400,
                 ),
                 style: OutlinedButton.styleFrom(
+                  minimumSize: const Size.fromWidth(50),
                   side: BorderSide(
                     color: isSelected ? Colors.black : ColorPallet.grey400,
                   ),

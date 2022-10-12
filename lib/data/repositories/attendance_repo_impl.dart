@@ -49,11 +49,11 @@ class AttendanceRepoImpl implements AttendanceRepository {
   }
 
   @override
-  Future<AttendanceWithCountRes> getAllAttendanceList(
-    AllAttendanceWithQueryReq req,
+  Future<AttendanceWithCountRes> getClassAttendanceList(
+    ClassAttendanceWithQueryReq req,
   ) async {
     try {
-      final res = await attendanceRds.getAllAttendanceWithQueries(req);
+      final res = await attendanceRds.getClassAttendanceWithQueries(req);
       return AttendanceWithCountRes.fromMap(res.data);
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;
@@ -113,6 +113,22 @@ class AttendanceRepoImpl implements AttendanceRepository {
     try {
       final res = await attendanceRds.getAbsentClassesReportOfStudent(req);
       return AbsentClassReportOfStudentRes.fromMap(res.data);
+    } on DioError catch (e) {
+      if (e.type != DioErrorType.response) rethrow;
+      final errorRes = ApiErrorRes.fromMap(e.response?.data);
+      throw errorRes;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<AttendanceWithCountRes> getSubjectAttendanceList(
+    SubjectAttendanceWithQueryReq req,
+  ) async {
+    try {
+      final res = await attendanceRds.getSubjectAttendanceWithQueries(req);
+      return AttendanceWithCountRes.fromMap(res.data);
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;
       final errorRes = ApiErrorRes.fromMap(e.response?.data);

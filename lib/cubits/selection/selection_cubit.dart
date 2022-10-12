@@ -3,10 +3,8 @@ import 'package:bloc/bloc.dart';
 import '../../../../../data/models/data_class/class_with_details.dart';
 import '../../../../../domain/repository/common_repository.dart';
 import '../../../../../shared/errors/api_errors.dart';
-import '../../../../../shared/extensions/extentions.dart';
 import '../../../../../utils/utils.dart';
 import '../../data/models/data_class/subject_model.dart';
-import '../../utils/utils.dart';
 import '../../utils/utils.dart';
 import '../user/user_cubit.dart';
 
@@ -72,10 +70,22 @@ class SelectionCubit extends Cubit<SelectionState> {
     }
   }
 
+  void getAndSetAssignedSubjectsOfTeacher() {
+    emit(
+      state.copyWith(
+        assignedSubjectSelectionStates:
+            state.assignedSubjectSelectionStates.copyWith(
+          status: CourseSubjectStatus.success,
+          subjects: userCubit.state.userAsTeacher?.assignedSubjects,
+        ),
+      ),
+    );
+  }
+
   Future<void> getSubjectWithDetailsOfCourse(String courseId) async {
     emit(
       state.copyWith(
-        courseSubjectSelectionStates: state.courseSubjectSelectionStates
+        assignedSubjectSelectionStates: state.assignedSubjectSelectionStates
             .copyWith(status: CourseSubjectStatus.loading),
       ),
     );
@@ -83,17 +93,17 @@ class SelectionCubit extends Cubit<SelectionState> {
       final res = await commonRepo.getSubjectsOfCourse(courseId);
       emit(
         state.copyWith(
-          courseSubjectSelectionStates:
-              state.courseSubjectSelectionStates.copyWith(
+          assignedSubjectSelectionStates:
+              state.assignedSubjectSelectionStates.copyWith(
             status: CourseSubjectStatus.success,
-            courseSubjects: res.responseData,
+            subjects: res.responseData,
           ),
         ),
       );
     } on ApiErrorRes catch (apiError) {
       emit(
         state.copyWith(
-          courseSubjectSelectionStates: state.courseSubjectSelectionStates
+          assignedSubjectSelectionStates: state.assignedSubjectSelectionStates
               .copyWith(status: CourseSubjectStatus.error),
           error: apiError,
         ),
@@ -103,7 +113,7 @@ class SelectionCubit extends Cubit<SelectionState> {
       emit(
         state
           ..copyWith(
-            courseSubjectSelectionStates: state.courseSubjectSelectionStates
+            assignedSubjectSelectionStates: state.assignedSubjectSelectionStates
                 .copyWith(status: CourseSubjectStatus.error),
             error: apiErrorRes,
           ),
@@ -134,11 +144,11 @@ class SelectionCubit extends Cubit<SelectionState> {
     );
   }
 
-  void setSelectedSubjectOfACourse(Subject subject) {
+  void setSelectedSubject(Subject subject) {
     emit(
       state.copyWith(
-        courseSubjectSelectionStates: state.courseSubjectSelectionStates
-            .copyWith(selectedCourseSubject: subject),
+        assignedSubjectSelectionStates: state.assignedSubjectSelectionStates
+            .copyWith(selectedSubject: subject),
       ),
     );
   }

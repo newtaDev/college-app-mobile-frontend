@@ -14,8 +14,11 @@ abstract class AttendanceRepository {
     AbsentClassReportOfStudentReq req,
   );
 
-  Future<AttendanceWithCountRes> getAllAttendanceList(
-    AllAttendanceWithQueryReq req,
+  Future<AttendanceWithCountRes> getClassAttendanceList(
+    ClassAttendanceWithQueryReq req,
+  );
+  Future<AttendanceWithCountRes> getSubjectAttendanceList(
+    SubjectAttendanceWithQueryReq req,
   );
 
   Future<bool> createAttendance(CreateAttendanceReq req);

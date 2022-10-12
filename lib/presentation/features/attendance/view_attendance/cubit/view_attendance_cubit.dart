@@ -11,10 +11,10 @@ class ViewAttendanceCubit extends Cubit<ViewAttendanceState> {
   ViewAttendanceCubit({required this.attendanceRepo})
       : super(const ViewAttendanceState.init());
 
-  Future<void> getAllAttendance(AllAttendanceWithQueryReq req) async {
+  Future<void> getSubjectAttendances(SubjectAttendanceWithQueryReq req) async {
     emit(state.copyWith(status: ViewAttendanceStatus.loading));
     try {
-      final res = await attendanceRepo.getAllAttendanceList(req);
+      final res = await attendanceRepo.getSubjectAttendanceList(req);
       emit(
         state.copyWith(
           status: ViewAttendanceStatus.success,
@@ -29,7 +29,38 @@ class ViewAttendanceCubit extends Cubit<ViewAttendanceState> {
         ),
       );
     } catch (e) {
-      final apiErrorRes = ApiErrorRes(devMessage: 'Fetching attendance failed');
+      final apiErrorRes =
+          ApiErrorRes(devMessage: 'Fetching subject attendance failed');
+      emit(
+        state.copyWith(
+          status: ViewAttendanceStatus.error,
+          error: apiErrorRes,
+        ),
+      );
+      rethrow;
+    }
+  }
+
+  Future<void> getClassAttendances(ClassAttendanceWithQueryReq req) async {
+    emit(state.copyWith(status: ViewAttendanceStatus.loading));
+    try {
+      final res = await attendanceRepo.getClassAttendanceList(req);
+      emit(
+        state.copyWith(
+          status: ViewAttendanceStatus.success,
+          attendanceWithCount: res.responseData,
+        ),
+      );
+    } on ApiErrorRes catch (apiError) {
+      emit(
+        state.copyWith(
+          status: ViewAttendanceStatus.error,
+          error: apiError,
+        ),
+      );
+    } catch (e) {
+      final apiErrorRes =
+          ApiErrorRes(devMessage: 'Fetching class attendance failed');
       emit(
         state.copyWith(
           status: ViewAttendanceStatus.error,

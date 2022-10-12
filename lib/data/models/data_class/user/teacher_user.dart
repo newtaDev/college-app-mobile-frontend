@@ -2,7 +2,9 @@ part of user_entity;
 
 class TeacherUser extends UserDetails {
   final List<ClassWithDetails> assignedClasses;
+  final List<Subject> assignedSubjects;
   final List<String> assignedClassIds;
+  final List<String> assignedSubjectIds;
   final int? phoneNumber;
   final String? currentAddress;
   final DateTime? dob;
@@ -14,6 +16,8 @@ class TeacherUser extends UserDetails {
     required super.userType,
     required this.assignedClasses,
     required this.assignedClassIds,
+    required this.assignedSubjects,
+    required this.assignedSubjectIds,
     this.phoneNumber,
     this.currentAddress,
     this.dob,
@@ -43,6 +47,16 @@ class TeacherUser extends UserDetails {
                     : data['assignedClasses']
                         .map<String>((dynamic e) => e.toString())
                         .toList(),
+        assignedSubjectIds:
+            data['assignedSubjects'] == null || data['assignedSubjects'].isEmpty
+                ? []
+                : data['assignedSubjects'][0] is Map<String, dynamic>
+                    ? data['assignedSubjects']
+                        .map<String>((dynamic e) => e['_id'].toString())
+                        .toList()
+                    : data['assignedSubjects']
+                        .map<String>((dynamic e) => e.toString())
+                        .toList(),
         assignedClasses:
             data['assignedClasses'] == null || data['assignedClasses'].isEmpty
                 ? []
@@ -50,6 +64,19 @@ class TeacherUser extends UserDetails {
                     ? (data['assignedClasses'] as List<dynamic>?)
                             ?.map(
                               (dynamic e) => ClassWithDetails.fromMap(
+                                e as Map<String, dynamic>,
+                              ),
+                            )
+                            .toList() ??
+                        []
+                    : [],
+        assignedSubjects:
+            data['assignedSubjects'] == null || data['assignedSubjects'].isEmpty
+                ? []
+                : data['assignedSubjects'][0] is Map<String, dynamic>
+                    ? (data['assignedSubjects'] as List<dynamic>?)
+                            ?.map(
+                              (dynamic e) => Subject.fromMap(
                                 e as Map<String, dynamic>,
                               ),
                             )
@@ -97,7 +124,9 @@ class TeacherUser extends UserDetails {
     String? collegeId,
     UserType? userType,
     List<ClassWithDetails>? assignedClasses,
+    List<Subject>? assignedSubjects,
     List<String>? assignedClassIds,
+    List<String>? assignedSubjectIds,
     String? username,
     bool? isProfileCompleted,
     String? id,
@@ -126,6 +155,8 @@ class TeacherUser extends UserDetails {
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       assignedClassIds: assignedClassIds ?? this.assignedClassIds,
+      assignedSubjectIds: assignedSubjectIds ?? this.assignedSubjectIds,
+      assignedSubjects: assignedSubjects ?? this.assignedSubjects,
     );
   }
 
@@ -140,6 +171,8 @@ class TeacherUser extends UserDetails {
       userType,
       assignedClasses,
       assignedClassIds,
+      assignedSubjectIds,
+      assignedSubjects,
       phoneNumber,
       currentAddress,
       dob,

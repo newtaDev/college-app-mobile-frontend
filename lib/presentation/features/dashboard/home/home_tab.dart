@@ -4,8 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:styles_lib/assets/assets.dart';
 import 'package:widgets_lib/widgets/widgets.dart';
 
+import '../../../../cubits/selection/selection_cubit.dart';
 import '../../../../cubits/user/user_cubit.dart';
 import '../../../overlays/bottom_sheet/selection_bottom_sheet.dart';
+import '../../../overlays/bottom_sheet/create_or_view_attendance_sheet.dart';
+import '../../../overlays/dialogs/select_subject_dialog.dart';
 import '../../../router/routes.dart';
 import '../../anouncement/view/widgets/anouncement_tabs.dart';
 import '../../anouncement/view/widgets/student_anouncement_tab_view.dart';
@@ -88,14 +91,9 @@ class _HomeTabState extends State<HomeTab> {
                               showModalBottomSheet<void>(
                                 context: context,
                                 isScrollControlled: true,
-                                builder: (context) => SelectionBottomSheet(
-                                  onContinue: () {
-                                    Navigator.of(context).pop();
-                                    context.goNamed(
-                                      Routes.viewAttendanceScreen.name,
-                                      params: RouteParams.withDashboard,
-                                    );
-                                  },
+                                builder: (context) =>
+                                    const CreateOrViewAttendanceBottomSheet(
+                                  title: 'Select a subject',
                                 ),
                               );
                             },

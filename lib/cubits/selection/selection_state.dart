@@ -22,14 +22,14 @@ class SelectionState extends MyEquatable {
   final List<ClassWithDetails> allClasses;
   final ClassWithDetails? selectedAllClasses;
   final AssignedClassesSelectonStates assignedClassesSelectonStates;
-  final CourseSubjectSelectionStates courseSubjectSelectionStates;
+  final AssignedSubjectSelectionStates assignedSubjectSelectionStates;
   final ApiErrorRes? error;
 
   const SelectionState({
     this.allClasses = const [],
     this.selectedAllClasses,
     required this.assignedClassesSelectonStates,
-    required this.courseSubjectSelectionStates,
+    required this.assignedSubjectSelectionStates,
     this.error,
   });
 
@@ -39,7 +39,7 @@ class SelectionState extends MyEquatable {
       allClasses,
       selectedAllClasses,
       assignedClassesSelectonStates,
-      courseSubjectSelectionStates,
+      assignedSubjectSelectionStates,
       error,
     ];
   }
@@ -48,8 +48,8 @@ class SelectionState extends MyEquatable {
       : allClasses = const [],
         assignedClassesSelectonStates =
             const AssignedClassesSelectonStates.empty(),
-        courseSubjectSelectionStates =
-            const CourseSubjectSelectionStates.empty(),
+        assignedSubjectSelectionStates =
+            const AssignedSubjectSelectionStates.empty(),
         error = null,
         selectedAllClasses = null;
 
@@ -57,7 +57,7 @@ class SelectionState extends MyEquatable {
     List<ClassWithDetails>? allClasses,
     ClassWithDetails? selectedAllClasses,
     AssignedClassesSelectonStates? assignedClassesSelectonStates,
-    CourseSubjectSelectionStates? courseSubjectSelectionStates,
+    AssignedSubjectSelectionStates? assignedSubjectSelectionStates,
     ApiErrorRes? error,
   }) {
     return SelectionState(
@@ -65,8 +65,8 @@ class SelectionState extends MyEquatable {
       selectedAllClasses: selectedAllClasses ?? this.selectedAllClasses,
       assignedClassesSelectonStates:
           assignedClassesSelectonStates ?? this.assignedClassesSelectonStates,
-      courseSubjectSelectionStates:
-          courseSubjectSelectionStates ?? this.courseSubjectSelectionStates,
+      assignedSubjectSelectionStates:
+          assignedSubjectSelectionStates ?? this.assignedSubjectSelectionStates,
       error: error ?? this.error,
     );
   }
@@ -76,7 +76,8 @@ class SelectionState extends MyEquatable {
       allClasses: allClasses,
       selectedAllClasses: selectedAllClasses,
       assignedClassesSelectonStates: assignedClassesSelectonStates,
-      courseSubjectSelectionStates: const CourseSubjectSelectionStates.empty(),
+      assignedSubjectSelectionStates:
+          const AssignedSubjectSelectionStates.empty(),
       error: error,
     );
   }
@@ -131,33 +132,33 @@ class AssignedClassesSelectonStates extends MyEquatable {
   }
 }
 
-class CourseSubjectSelectionStates extends MyEquatable {
+class AssignedSubjectSelectionStates extends MyEquatable {
   final CourseSubjectStatus status;
-  final List<Subject> courseSubjects;
-  final Subject? selectedCourseSubject;
-  const CourseSubjectSelectionStates({
+  final List<Subject> subjects;
+  final Subject? selectedSubject;
+  const AssignedSubjectSelectionStates({
     required this.status,
-    required this.courseSubjects,
-    this.selectedCourseSubject,
+    required this.subjects,
+    this.selectedSubject,
   });
-  const CourseSubjectSelectionStates.empty()
+  const AssignedSubjectSelectionStates.empty()
       : status = CourseSubjectStatus.initial,
-        courseSubjects = const [],
-        selectedCourseSubject = null;
+        subjects = const [],
+        selectedSubject = null;
 
-  CourseSubjectSelectionStates copyWith({
+  AssignedSubjectSelectionStates copyWith({
     CourseSubjectStatus? status,
-    List<Subject>? courseSubjects,
-    Subject? selectedCourseSubject,
+    List<Subject>? subjects,
+    Subject? selectedSubject,
   }) {
-    return CourseSubjectSelectionStates(
+    return AssignedSubjectSelectionStates(
       status: status ?? this.status,
-      courseSubjects: courseSubjects ?? this.courseSubjects,
-      selectedCourseSubject:
-          selectedCourseSubject ?? this.selectedCourseSubject,
+      subjects: subjects ?? this.subjects,
+      selectedSubject:
+          selectedSubject ?? this.selectedSubject,
     );
   }
 
   @override
-  List<Object?> get props => [status, courseSubjects, selectedCourseSubject];
+  List<Object?> get props => [status, subjects, selectedSubject];
 }

@@ -37,6 +37,16 @@ ElevatedButtonThemeData _elevatedButtonTheme() {
     ),
   );
 }
+OutlinedButtonThemeData _outlinedButtonTheme() {
+  return OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      minimumSize: const Size.fromHeight(60),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+    ),
+  );
+}
 
 PageTransitionsTheme _cupertionPageTransition() {
   return const PageTransitionsTheme(

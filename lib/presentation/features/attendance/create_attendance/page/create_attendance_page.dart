@@ -13,7 +13,6 @@ import '../../../../../cubits/user/user_cubit.dart';
 import '../../../../../data/models/data_class/subject_model.dart';
 import '../../../../../domain/entities/attendance_entity.dart';
 import '../../../../../domain/entities/user_entity.dart';
-import '../../../../../shared/extensions/extentions.dart';
 import '../../../../../shared/global/enums.dart';
 import '../../../../overlays/dialogs/select_subject_dialog.dart';
 import '../../../../router/routes.dart';
@@ -69,10 +68,10 @@ class _CreateAttendancePageState extends State<CreateAttendancePage> {
     final selectionCubit = context.read<SelectionCubit>();
     final createCubit = context.read<CreateAttendanceCubit>();
     final collegeId = context.read<UserCubit>().state.userDetails.collegeId;
-    final classId =
-        selectionCubit.state.assignedClassesSelectonStates.selectedClass!.id!;
-    final currentSem =
-        selectionCubit.state.assignedClassesSelectonStates.selectedSem!;
+    final classId = selectionCubit.state.assignedSubjectSelectionStates
+        .selectedSubject!.classDetails!.id!;
+    final currentSem = selectionCubit.state.assignedSubjectSelectionStates
+        .selectedSubject!.classDetails!.currentSem!;
     createCubit.setCreationInitialData(classId, collegeId, currentSem);
   }
 
@@ -253,14 +252,8 @@ class _CreateAttendanceLayoutState extends State<CreateAttendanceLayout> {
                                     context: context,
                                     builder: (_) {
                                       return SelectSubjectDialog(
-                                        courseId: context
-                                            .read<SelectionCubit>()
-                                            .state
-                                            .assignedClassesSelectonStates
-                                            .selectedClass!
-                                            .course!
-                                            .id!,
                                         onSubjectSelected: (subject) {
+                                          Navigator.of(context).pop();
                                           context
                                               .read<CreateAttendanceCubit>()
                                               .setSelectedSubject(subject);
@@ -510,7 +503,7 @@ class SearchStudentsListView extends StatelessWidget {
                           avatarSize: avatarSize,
                           traling: CupertinoSwitch(
                             value: !state.absentStudentIds.contains(student.id),
-                            activeColor: Colors.black,
+                            activeColor: Colors.green,
                             onChanged: (_) {
                               context
                                   .read<CreateAttendanceCubit>()

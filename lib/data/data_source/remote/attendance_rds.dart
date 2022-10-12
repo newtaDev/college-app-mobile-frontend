@@ -32,9 +32,20 @@ class AttendannceRemoteDataSource {
     );
   }
 
-  Future<Response> getAllAttendanceWithQueries(AllAttendanceWithQueryReq req) {
+  Future<Response> getClassAttendanceWithQueries(
+    ClassAttendanceWithQueryReq req,
+  ) {
     return client.get(
-      '/attendance',
+      '/attendance/queryByClass',
+      queryParameters: req.toMap(),
+    );
+  }
+
+  Future<Response> getSubjectAttendanceWithQueries(
+    SubjectAttendanceWithQueryReq req,
+  ) {
+    return client.get(
+      '/attendance/queryBySubject',
       queryParameters: req.toMap(),
     );
   }

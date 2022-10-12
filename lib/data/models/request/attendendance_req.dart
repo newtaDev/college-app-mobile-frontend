@@ -1,19 +1,39 @@
 part of attendance_entity;
 
-class AllAttendanceWithQueryReq extends MyEquatable {
-  final String? classId;
-  final int? currentSem;
-  const AllAttendanceWithQueryReq({
-    this.classId,
-    this.currentSem,
+class ClassAttendanceWithQueryReq extends MyEquatable {
+  final String classId;
+  final int currentSem;
+  const ClassAttendanceWithQueryReq({
+    required this.classId,
+    required this.currentSem,
   });
   @override
   List<Object?> get props => [classId, currentSem];
 
   Map<String, dynamic> toMap() {
     return {
-      if (classId != null) 'classId': classId,
-      if (currentSem != null) 'currentSem': currentSem,
+      'classId': classId,
+      'currentSem': currentSem,
+    };
+  }
+
+  String toJson() => json.encode(toMap());
+}
+
+class SubjectAttendanceWithQueryReq extends MyEquatable {
+  final String classId;
+  final String subjectId;
+  const SubjectAttendanceWithQueryReq({
+    required this.subjectId,
+    required this.classId,
+  });
+  @override
+  List<Object?> get props => [subjectId, classId];
+
+  Map<String, dynamic> toMap() {
+    return {
+      'classId': classId,
+      'subjectId': subjectId,
     };
   }
 

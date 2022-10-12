@@ -7,9 +7,9 @@ import '../../../cubits/selection/selection_cubit.dart';
 import '../dialogs/class_selection_dailog.dart';
 import 'widgets/selectable_sem_list.dart';
 
-class SelectionBottomSheet extends StatelessWidget {
+class SelectClassAndSemBottomSheet extends StatelessWidget {
   final VoidCallback onContinue;
-  const SelectionBottomSheet({super.key, required this.onContinue});
+  const SelectClassAndSemBottomSheet({super.key, required this.onContinue});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class SelectionBottomSheet extends StatelessWidget {
                 onTap: () {
                   showDialog<void>(
                     context: context,
-                    builder: (context) => ClassSelectionDialog(
+                    builder: (context) => AssignedClassSelectionDialog(
                       onClassSelected: selectionCubit.setSelectedAssignedClass,
                     ),
                   );

@@ -32,6 +32,7 @@ final lightTheme = FlexThemeData.light(
   inputDecorationTheme: _textInputDecorationTheme(isDarkMode: false),
   bottomNavigationBarTheme: _bottomNavBartheme(),
   elevatedButtonTheme: _elevatedButtonTheme(),
+  outlinedButtonTheme: _outlinedButtonTheme(),
   pageTransitionsTheme: _cupertionPageTransition(),
   appBarTheme: FlexThemeData.light(
     appBarStyle: FlexAppBarStyle.background,
