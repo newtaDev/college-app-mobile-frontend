@@ -33,9 +33,8 @@ class ProfileAvatarAndBgSliverAppbar extends StatelessWidget {
     final isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
     final size = MediaQuery.of(context).size;
-    const optionsHeight = 30.0;
     final minAppBarHeight =
-        minHeight ?? MediaQuery.of(context).padding.top + 80 + optionsHeight;
+        minHeight ?? MediaQuery.of(context).padding.top + 80;
     final maxAppBarHeight = maxHeight ??
         (isPortrait ? size.height * 0.25 : minAppBarHeight + size.height * 0.1);
 
@@ -103,22 +102,23 @@ class ProfileAvatarAndBgSliverAppbar extends StatelessWidget {
                     ...profileAvatharAndBg.reversed.toList()
                   else
                     ...profileAvatharAndBg,
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: SafeArea(
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          left: 20,
-                          right: 20,
-                          top: 10,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: options,
+                  if (!isAppbarActive)
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: SafeArea(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            left: 20,
+                            right: 20,
+                            top: 10,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: options,
+                          ),
                         ),
                       ),
-                    ),
-                  )
+                    )
                 ],
               );
             },
