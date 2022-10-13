@@ -163,7 +163,7 @@ class FabPopupContents extends StatelessWidget {
                 showModalBottomSheet<void>(
                   context: context,
                   isScrollControlled: true,
-                  builder: (context) => SelectClassAndSemBottomSheet(
+                  builder: (context) => ClassAndSemSelectionBottomSheet(
                     onContinue: () {
                       Navigator.of(context).pop();
                       context.goNamed(

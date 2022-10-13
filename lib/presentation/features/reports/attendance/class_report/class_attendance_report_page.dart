@@ -44,18 +44,39 @@ class _ClassAttendanceReportPageState extends State<ClassAttendanceReportPage> {
       ),
       body: ListView(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Subjects Report', style: textTheme.titleLarge),
-                Text('Report of all subjects', style: textTheme.bodySmall),
-                const Divider(),
-              ],
-            ),
+          BlocBuilder<ClassAttendanceReportCubit, ClassAttendanceReportState>(
+            buildWhen: (previous, current) =>
+                previous.studentStatus != current.studentStatus,
+            builder: (context, state) {
+              final _subjectReport = state.subjectReports.isNotEmpty
+                  ? state.subjectReports.firstWhere(
+                      (element) => element.subjectId == state.selectedSubjectId,
+                    )
+                  : null;
+              if (_subjectReport == null) {
+                /// No data available
+                return const SizedBox();
+              }
+              return Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${_subjectReport.subject?.name}',
+                      style: textTheme.titleLarge,
+                    ),
+                    Text(
+                      'Total attendance taken: ${_subjectReport.totalAttendanceTaken}',
+                      style: textTheme.bodySmall,
+                    ),
+                  ],
+                ),
+              );
+            },
           ),
           const SubjectsBarChart(),
+          const Divider(),
           Center(
             child: BlocBuilder<ClassAttendanceReportCubit,
                 ClassAttendanceReportState>(
@@ -81,19 +102,11 @@ class _ClassAttendanceReportPageState extends State<ClassAttendanceReportPage> {
                   return const SizedBox();
                 }
                 return Padding(
-                  padding: const EdgeInsets.all(20),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        '${_subjectReport.subject?.name}',
-                        style: textTheme.titleLarge,
-                      ),
-                      Text(
-                        'Total attendance taken: ${_subjectReport.totalAttendanceTaken}',
-                        style: textTheme.bodySmall,
-                      ),
-                      const Divider(),
                       Text(
                         'Present Students statistics',
                         style: textTheme.titleSmall,
@@ -104,17 +117,17 @@ class _ClassAttendanceReportPageState extends State<ClassAttendanceReportPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Maximum students present: ${_subjectReport.maxStudentPresent}',
+                              'Maximum students present: ${_subjectReport.maxStudentPresent?.toStringAsFixed(1)}',
                               style: textTheme.bodySmall,
                             ),
                             const SizedBox(height: 2),
                             Text(
-                              'Average students present: ${_subjectReport.avgStudentPresent}',
+                              'Average students present: ${_subjectReport.avgStudentPresent?.toStringAsFixed(1)}',
                               style: textTheme.bodySmall,
                             ),
                             const SizedBox(height: 2),
                             Text(
-                              'Minimum students present: ${_subjectReport.minStudentPresent}',
+                              'Minimum students present: ${_subjectReport.minStudentPresent?.toStringAsFixed(1)}',
                               style: textTheme.bodySmall,
                             ),
                           ],
@@ -131,17 +144,17 @@ class _ClassAttendanceReportPageState extends State<ClassAttendanceReportPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Maximum students absent: ${_subjectReport.maxStudentAbsent}',
+                              'Maximum students absent: ${_subjectReport.maxStudentAbsent?.toStringAsFixed(1)}',
                               style: textTheme.bodySmall,
                             ),
                             const SizedBox(height: 2),
                             Text(
-                              'Average students absent: ${_subjectReport.avgStudentAbsent}',
+                              'Average students absent: ${_subjectReport.avgStudentAbsent?.toStringAsFixed(1)}',
                               style: textTheme.bodySmall,
                             ),
                             const SizedBox(height: 2),
                             Text(
-                              'Minimum students absent: ${_subjectReport.minStudentAbsent}',
+                              'Minimum students absent: ${_subjectReport.minStudentAbsent?.toStringAsFixed(1)}',
                               style: textTheme.bodySmall,
                             ),
                           ],
@@ -215,7 +228,7 @@ class AbsentStudentsReport extends StatelessWidget {
                       backgroundColor: theme.primaryColorLight,
                       radius: sizedOfAvathar,
                       child: Text(
-                        data.student?.emoji??'👨🏻',
+                        data.student?.emoji ?? '👨🏻',
                         style: theme.textTheme.headlineMedium,
                       ),
                     ),
@@ -389,6 +402,8 @@ class _SubjectsBarChartState extends State<SubjectsBarChart> {
                   index,
                   (_subjects[index].totalAttendanceTaken ?? 0).toDouble(),
                   isTouched: touchedIndex == index,
+                  isSelected:
+                      _subjects[index].subjectId == state.selectedSubjectId,
                 ),
               ),
               gridData: FlGridData(show: false),
@@ -404,6 +419,7 @@ class _SubjectsBarChartState extends State<SubjectsBarChart> {
     int x,
     double y, {
     bool isTouched = false,
+    bool isSelected = false,
     Color? barColor,
     double width = 16,
     List<int> showTooltips = const [],
@@ -413,7 +429,7 @@ class _SubjectsBarChartState extends State<SubjectsBarChart> {
       barRods: [
         BarChartRodData(
           toY: isTouched ? y + 1 : y,
-          color: isTouched
+          color: isTouched || isSelected
               ? lightTheme.colorScheme.secondary
               : barColor ?? lightTheme.colorScheme.primary,
           width: width,

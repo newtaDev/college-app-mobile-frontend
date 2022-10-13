@@ -7,9 +7,9 @@ import '../../../cubits/selection/selection_cubit.dart';
 import '../dialogs/class_selection_dailog.dart';
 import 'widgets/selectable_sem_list.dart';
 
-class SelectClassAndSemBottomSheet extends StatelessWidget {
+class ClassAndSemSelectionBottomSheet extends StatelessWidget {
   final VoidCallback onContinue;
-  const SelectClassAndSemBottomSheet({super.key, required this.onContinue});
+  const ClassAndSemSelectionBottomSheet({super.key, required this.onContinue});
 
   @override
   Widget build(BuildContext context) {
