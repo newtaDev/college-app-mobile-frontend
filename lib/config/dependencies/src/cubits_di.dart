@@ -38,7 +38,10 @@ void registerCubitsDependencies() {
       () => ViewAttendanceCubit(attendanceRepo: getIt<AttendanceRepoImpl>()),
     )
     ..registerFactory(
-      () => CreateAttendanceCubit(attendanceRepo: getIt<AttendanceRepoImpl>()),
+      () => CreateAttendanceCubit(
+        attendanceRepo: getIt<AttendanceRepoImpl>(),
+        selectionCubit: getIt<SelectionCubit>(),
+      ),
     )
 
     /// home

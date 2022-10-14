@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import '../../../domain/entities/user_entity.dart';
 import '../../../utils/utils.dart';
 import 'class_with_details.dart';
 import 'course_model.dart';
@@ -9,6 +10,9 @@ class Subject extends MyEquatable {
   final String? name;
   final String? collegeId;
   final String? courseId;
+  final int? semester;
+  final String? assignedToId;
+  final TeacherUser? assignedTo;
   final Course? course;
   final ClassWithDetails? classDetails;
   final String? classId;
@@ -23,7 +27,10 @@ class Subject extends MyEquatable {
     this.courseId,
     this.course,
     this.classDetails,
+    this.semester,
     this.classId,
+    this.assignedToId,
+    this.assignedTo,
     this.isMainSubject,
     this.createdAt,
     this.updatedAt,
@@ -33,6 +40,15 @@ class Subject extends MyEquatable {
         id: data['_id'] as String?,
         name: data['name'] as String?,
         collegeId: data['collegeId'] as String?,
+        semester: data['semester'],
+        assignedToId: data['assignedTo'] != null &&
+                data['assignedTo'] is Map<String, dynamic>
+            ? data['assignedTo']['_id']
+            : data['assignedTo'],
+        assignedTo: data['assignedTo'] == null ||
+                data['assignedTo'] is! Map<String, dynamic>
+            ? null
+            : TeacherUser.fromMap(data['assignedTo'] as Map<String, dynamic>),
         classDetails: data['classId'] == null ||
                 data['classId'] is! Map<String, dynamic>
             ? null
@@ -83,6 +99,9 @@ class Subject extends MyEquatable {
     String? name,
     String? collegeId,
     String? courseId,
+    int? semester,
+    String? assignedToId,
+    TeacherUser? assignedTo,
     Course? course,
     ClassWithDetails? classDetails,
     String? classId,
@@ -95,6 +114,9 @@ class Subject extends MyEquatable {
       name: name ?? this.name,
       collegeId: collegeId ?? this.collegeId,
       courseId: courseId ?? this.courseId,
+      semester: semester ?? this.semester,
+      assignedToId: assignedToId ?? this.assignedToId,
+      assignedTo: assignedTo ?? this.assignedTo,
       course: course ?? this.course,
       classDetails: classDetails ?? this.classDetails,
       classId: classId ?? this.classId,
@@ -110,8 +132,11 @@ class Subject extends MyEquatable {
       id,
       name,
       collegeId,
-      course,
       courseId,
+      semester,
+      assignedToId,
+      assignedTo,
+      course,
       classDetails,
       classId,
       isMainSubject,

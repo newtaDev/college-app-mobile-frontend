@@ -40,7 +40,7 @@ class _CreateAttendancePageState extends State<CreateAttendancePage> {
     if (widget.updationData != null) {
       setUpUpdate();
     } else {
-      setUpCreation();
+      createCubit.setCreationInitialData();
     }
     createCubit.getAllStudentsInClass(createCubit.state.classId);
     super.initState();
@@ -64,16 +64,21 @@ class _CreateAttendancePageState extends State<CreateAttendancePage> {
     );
   }
 
-  void setUpCreation() {
-    final selectionCubit = context.read<SelectionCubit>();
-    final createCubit = context.read<CreateAttendanceCubit>();
-    final collegeId = context.read<UserCubit>().state.userDetails.collegeId;
-    final classId = selectionCubit.state.assignedSubjectSelectionStates
-        .selectedSubject!.classDetails!.id!;
-    final currentSem = selectionCubit.state.assignedSubjectSelectionStates
-        .selectedSubject!.classDetails!.currentSem!;
-    createCubit.setCreationInitialData(classId, collegeId, currentSem);
-  }
+  // void setUpCreation() {
+  //   final selectionCubit = context.read<SelectionCubit>();
+  //   final createCubit = context.read<CreateAttendanceCubit>();
+  //   final collegeId = selectionCubit
+  //       .state.assignedSubjectSelectionStates.selectedSubject!.collegeId!;
+  //   final classId = selectionCubit.state.assignedSubjectSelectionStates
+  //       .selectedSubject!.classDetails!.id!;
+  //   final currentSem = selectionCubit.state.assignedSubjectSelectionStates
+  //       .selectedSubject!.classDetails!.currentSem!;
+  //   createCubit
+  //     ..setCreationInitialData(classId, collegeId, currentSem)
+  //     ..setSelectedSubject(
+  //       selectionCubit.state.assignedSubjectSelectionStates.selectedSubject,
+  //     );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -443,7 +448,12 @@ class SearchStudentsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CreateAttendanceCubit, CreateAttendanceState>(
+    return BlocConsumer<CreateAttendanceCubit, CreateAttendanceState>(
+      listenWhen: (previous, current) =>
+          previous.selectedSubject?.id != current.selectedSubject?.id,
+      listener: (context, state) {
+        context.read<CreateAttendanceCubit>().onSubjectsChanged();
+      },
       buildWhen: (previous, current) =>
           previous.studentsInClasStatus != current.studentsInClasStatus,
       builder: (context, state) {

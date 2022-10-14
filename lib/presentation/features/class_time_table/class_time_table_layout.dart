@@ -59,9 +59,7 @@ class ClassTimeTableDayLayout extends StatelessWidget {
                       style: isCurrentTime ? textTheme.titleSmall : null,
                     ),
                     if ((_timeTable[times]?.length ?? 0) == 0)
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      const SizedBox(height: 10),
                     if ((_timeTable[times]?.length ?? 0) > 0)
                       Expanded(
                         child: Padding(

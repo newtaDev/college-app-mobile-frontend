@@ -100,7 +100,7 @@ class _CreateOrViewAttendanceBottomSheetState
                                     Text(subject.classDetails!.name!),
                                   if (subject.classDetails?.currentSem != null)
                                     Text(
-                                      '${subject.classDetails!.currentSem!}${subject.classDetails!.currentSem!.getRankPosition} semester',
+                                      '${subject.semester!}${subject.semester!.getRankPosition} semester',
                                     ),
                                 ],
                               ),
@@ -119,7 +119,8 @@ class _CreateOrViewAttendanceBottomSheetState
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
                 child: Row(
                   children: [
                     Expanded(
@@ -145,21 +146,10 @@ class _CreateOrViewAttendanceBottomSheetState
                                 null
                             ? null
                             : () {
-                                final selectedSubject = state
-                                    .assignedSubjectSelectionStates
-                                    .selectedSubject;
                                 Navigator.of(context).pop();
                                 context.pushNamed(
                                   Routes.createAttendanceScreen.name,
                                   params: RouteParams.withDashboard,
-                                  extra: AttendanceWithCount(
-                                    subjectId: selectedSubject?.id,
-                                    subject: selectedSubject,
-                                    currentSem: selectedSubject
-                                        ?.classDetails?.currentSem,
-                                    collegeId: selectedSubject?.collegeId,
-                                    classId: selectedSubject?.classId,
-                                  ),
                                 );
                               },
                         child: const Text('Create'),

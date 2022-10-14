@@ -93,7 +93,7 @@ class _SelectSubjectDialogState extends State<SelectSubjectDialog> {
                                     Text(subject.classDetails!.name!),
                                   if (subject.classDetails?.currentSem != null)
                                     Text(
-                                      '${subject.classDetails!.currentSem!}${subject.classDetails!.currentSem!.getRankPosition} semester',
+                                      '${subject.semester!}${subject.semester!.getRankPosition} semester',
                                     ),
                                 ],
                               ),

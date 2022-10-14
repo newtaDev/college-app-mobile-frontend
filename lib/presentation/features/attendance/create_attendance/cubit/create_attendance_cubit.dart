@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../cubits/selection/selection_cubit.dart';
 import '../../../../../data/models/data_class/subject_model.dart';
 import '../../../../../domain/entities/attendance_entity.dart';
 import '../../../../../domain/entities/user_entity.dart';
@@ -12,9 +13,12 @@ part 'create_attendance_state.dart';
 
 class CreateAttendanceCubit extends Cubit<CreateAttendanceState> {
   final AttendanceRepository attendanceRepo;
+  final SelectionCubit selectionCubit;
 
-  CreateAttendanceCubit({required this.attendanceRepo})
-      : super(CreateAttendanceState.init());
+  CreateAttendanceCubit({
+    required this.attendanceRepo,
+    required this.selectionCubit,
+  }) : super(CreateAttendanceState.init());
 
   Future<void> cretateOrUpdateAttendance(bool isUpdate) async {
     emit(state.copyWith(createStatus: CreateAttendanceStatus.loading));
@@ -115,11 +119,17 @@ class CreateAttendanceCubit extends Cubit<CreateAttendanceState> {
     return true;
   }
 
-  void setCreationInitialData(
-    String classId,
-    String collegeId,
-    int currentSem,
-  ) {
+  void setUpdationInitialData(CreateAttendanceState updateState) {
+    emit(updateState);
+  }
+
+  void setCreationInitialData() {
+    final collegeId = selectionCubit
+        .state.assignedSubjectSelectionStates.selectedSubject!.collegeId!;
+    final classId = selectionCubit
+        .state.assignedSubjectSelectionStates.selectedSubject!.classId!;
+    final currentSem = selectionCubit
+        .state.assignedSubjectSelectionStates.selectedSubject!.semester!;
     emit(
       state.copyWith(
         classId: classId,
@@ -127,10 +137,32 @@ class CreateAttendanceCubit extends Cubit<CreateAttendanceState> {
         currentSem: currentSem,
       ),
     );
+    setSelectedSubject(
+      selectionCubit.state.assignedSubjectSelectionStates.selectedSubject,
+    );
   }
 
-  void setUpdationInitialData(CreateAttendanceState updateState) {
-    emit(updateState);
+  void onSubjectsChanged() {
+    final collegeId = state.selectedSubject!.collegeId!;
+    final classId = state.selectedSubject!.classId!;
+    final currentSem = state.selectedSubject!.semester!;
+    emit(
+      state.copyWith(
+        classId: classId,
+        collegeId: collegeId,
+        currentSem: currentSem,
+
+        /// Clear absent studenta
+        absentStudentIds: [],
+      ),
+    );
+    // Invoke API only when classId of subjects changed
+    if (state.classId !=
+        selectionCubit
+            .state.assignedSubjectSelectionStates.selectedSubject!.classId) {
+      getAllStudentsInClass(state.classId);
+    }
+    selectionCubit.setSelectedSubject(state.selectedSubject!);
   }
 
   void setClassStartTime(TimeOfDay? startTime) {
