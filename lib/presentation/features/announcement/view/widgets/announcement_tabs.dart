@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TeacherAnouncementTabs extends StatelessWidget {
-  const TeacherAnouncementTabs({super.key});
+class TeacherAnnouncementTabs extends StatelessWidget {
+  const TeacherAnnouncementTabs({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -9,14 +9,14 @@ class TeacherAnouncementTabs extends StatelessWidget {
       isScrollable: true,
       tabs: [
         Tab(text: 'All'),
-        Tab(text: 'My anouncements'),
+        Tab(text: 'My announcements'),
       ],
     );
   }
 }
 
-class StudentAnouncementTabs extends StatelessWidget {
-  const StudentAnouncementTabs({super.key});
+class StudentAnnouncementTabs extends StatelessWidget {
+  const StudentAnnouncementTabs({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class StudentAnouncementTabs extends StatelessWidget {
       isScrollable: true,
       tabs: [
         Tab(text: 'All'),
-        Tab(text: 'My class anouncements'),
+        Tab(text: 'My class announcements'),
       ],
     );
   }

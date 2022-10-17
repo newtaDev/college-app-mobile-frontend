@@ -11,30 +11,30 @@ import '../../../../../shared/validators/form_validator.dart';
 import '../../../../overlays/dialogs/multi_select_my_classes_dialog.dart';
 import '../../../../router/routes.dart';
 import '../../../../widgets/rounded_close_button.dart';
-import '../../widgets/anouncement_cards.dart';
-import '../cubit/create_anouncement_cubit.dart';
+import '../../widgets/announcement_cards.dart';
+import '../cubit/create_announcement_cubit.dart';
 
-class CreateAnouncementScreen extends StatefulWidget {
-  const CreateAnouncementScreen({super.key});
+class CreateAnnouncementScreen extends StatefulWidget {
+  const CreateAnnouncementScreen({super.key});
 
   @override
-  State<CreateAnouncementScreen> createState() =>
-      _CreateAnouncementScreenState();
+  State<CreateAnnouncementScreen> createState() =>
+      _CreateAnnouncementScreenState();
 }
 
-class _CreateAnouncementScreenState extends State<CreateAnouncementScreen> {
-  late final CreateAnouncementCubit anouncementCubit;
+class _CreateAnnouncementScreenState extends State<CreateAnnouncementScreen> {
+  late final CreateAnnouncementCubit announcementCubit;
   final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
-    anouncementCubit = context.read<CreateAnouncementCubit>();
+    announcementCubit = context.read<CreateAnnouncementCubit>();
     super.initState();
   }
 
   @override
   void dispose() {
-    if (!anouncementCubit.isClosed) anouncementCubit.clearState();
+    if (!announcementCubit.isClosed) announcementCubit.clearState();
     super.dispose();
   }
 
@@ -62,20 +62,20 @@ class _CreateAnouncementScreenState extends State<CreateAnouncementScreen> {
           ),
           filled: false,
         );
-    final isImageWithTextLayout = anouncementCubit.state.layoutType ==
-        AnouncementLayoutType.imageWithText;
-    final isMultiImageLayout = anouncementCubit.state.layoutType ==
-        AnouncementLayoutType.multiImageWithText;
+    final isImageWithTextLayout = announcementCubit.state.layoutType ==
+        AnnouncementLayoutType.imageWithText;
+    final isMultiImageLayout = announcementCubit.state.layoutType ==
+        AnnouncementLayoutType.multiImageWithText;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Create Anouncement')),
+      appBar: AppBar(title: const Text('Create Announcement')),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(20),
-        child: BlocConsumer<CreateAnouncementCubit, CreateAnouncementState>(
+        child: BlocConsumer<CreateAnnouncementCubit, CreateAnnouncementState>(
           listenWhen: (previous, current) =>
-              current.status == CreateAnouncementStatus.success,
+              current.status == CreateAnnouncementStatus.success,
           listener: (context, state) {
-            showSnackBar('Anouncement created successfully');
+            showSnackBar('Announcement created successfully');
             context.goNamed(Routes.dashboardScreen.name);
           },
           buildWhen: (previous, current) => previous.status != current.status,
@@ -87,19 +87,19 @@ class _CreateAnouncementScreenState extends State<CreateAnouncementScreen> {
               onPressed: () {
                 if (_formKey.currentState?.validate() ?? false) {
                   FocusManager.instance.primaryFocus?.unfocus();
-                  switch (anouncementCubit.validateCreateAnoucenmentReq()) {
-                    case CreateAnouncementValidationStatus.success:
-                      anouncementCubit.createAnouncemnt();
+                  switch (announcementCubit.validateCreateAnoucenmentReq()) {
+                    case CreateAnnouncementValidationStatus.success:
+                      announcementCubit.createAnouncemnt();
                       break;
-                    case CreateAnouncementValidationStatus
+                    case CreateAnnouncementValidationStatus
                         .issueInAnounceToClasses:
-                      showSnackBar('Please choose anouncement classes');
+                      showSnackBar('Please choose announcement classes');
                       break;
-                    case CreateAnouncementValidationStatus.issueInMultiImage:
-                      showSnackBar('Please upload anouncement images');
+                    case CreateAnnouncementValidationStatus.issueInMultiImage:
+                      showSnackBar('Please upload announcement images');
                       break;
-                    case CreateAnouncementValidationStatus.issueInSingleImage:
-                      showSnackBar('Anouncement image is required');
+                    case CreateAnnouncementValidationStatus.issueInSingleImage:
+                      showSnackBar('Announcement image is required');
                       break;
                   }
                 }
@@ -120,17 +120,17 @@ class _CreateAnouncementScreenState extends State<CreateAnouncementScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (isImageWithTextLayout)
-                    const SingleAnouncementImagePicker(),
-                  if (isMultiImageLayout) const MultiAnouncementImagePicker(),
-                  Text('Anouncement Title', style: textTheme.titleMedium),
+                    const SingleAnnouncementImagePicker(),
+                  if (isMultiImageLayout) const MultiAnnouncementImagePicker(),
+                  Text('Announcement Title', style: textTheme.titleMedium),
                   const SizedBox(height: 10),
                   TextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: FormValidator.requiredFieldValidator,
                     decoration: const InputDecoration(
-                      hintText: 'Enter anouncement title',
+                      hintText: 'Enter announcement title',
                     ),
-                    onChanged: anouncementCubit.setAnouncementTitle,
+                    onChanged: announcementCubit.setAnnouncementTitle,
                   ),
                   const SizedBox(height: 20),
                   Text('Description', style: textTheme.titleMedium),
@@ -141,12 +141,12 @@ class _CreateAnouncementScreenState extends State<CreateAnouncementScreen> {
                     textInputAction: TextInputAction.newline,
                     maxLines: null,
                     decoration: const InputDecoration(
-                      hintText: 'Enter anouncement description...',
+                      hintText: 'Enter announcement description...',
                     ),
-                    onChanged: anouncementCubit.setAnouncementDescription,
+                    onChanged: announcementCubit.setAnnouncementDescription,
                   ),
                   const SizedBox(height: 20),
-                  BlocBuilder<CreateAnouncementCubit, CreateAnouncementState>(
+                  BlocBuilder<CreateAnnouncementCubit, CreateAnnouncementState>(
                     buildWhen: (previous, current) =>
                         previous.selectedClasses != current.selectedClasses,
                     builder: (_, state) {
@@ -167,7 +167,7 @@ class _CreateAnouncementScreenState extends State<CreateAnouncementScreen> {
                                 initialSelectedClasses: state.selectedClasses,
                                 classes: assignedClasses,
                                 onClassesSelected: (_, userSelectedClasses) {
-                                  anouncementCubit
+                                  announcementCubit
                                       .setSelectedClasses(userSelectedClasses);
                                 },
                               );
@@ -183,7 +183,7 @@ class _CreateAnouncementScreenState extends State<CreateAnouncementScreen> {
                             backgroundColor: ColorPallet.grey200,
                             deleteIcon: const Icon(Icons.close, size: 18),
                             onDeleted: () {
-                              anouncementCubit.removeSelectedClass(
+                              announcementCubit.removeSelectedClass(
                                 state.selectedClasses[index],
                               );
                             },
@@ -201,7 +201,7 @@ class _CreateAnouncementScreenState extends State<CreateAnouncementScreen> {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  const AnouncementPreviews(),
+                  const AnnouncementPreviews(),
                 ],
               ),
             ),
@@ -255,25 +255,25 @@ class _CreateAnouncementScreenState extends State<CreateAnouncementScreen> {
   }
 }
 
-class AnouncementPreviews extends StatelessWidget {
-  const AnouncementPreviews({super.key});
+class AnnouncementPreviews extends StatelessWidget {
+  const AnnouncementPreviews({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final anouncementCubit = context.read<CreateAnouncementCubit>();
-    const title = 'Anouncement card title';
+    final announcementCubit = context.read<CreateAnnouncementCubit>();
+    const title = 'Announcement card title';
     const description =
-        'This is the description of anouncement card, you can create description of any length. Description can contain charecters, symbols, emojis etc.';
+        'This is the description of announcement card, you can create description of any length. Description can contain charecters, symbols, emojis etc.';
     final by = context.read<UserCubit>().state.userAsTeacher?.name ?? 'user';
     final dateTime = DateTime.now();
-    switch (anouncementCubit.state.layoutType) {
-      case AnouncementLayoutType.onlyText:
-        return BlocBuilder<CreateAnouncementCubit, CreateAnouncementState>(
+    switch (announcementCubit.state.layoutType) {
+      case AnnouncementLayoutType.onlyText:
+        return BlocBuilder<CreateAnnouncementCubit, CreateAnnouncementState>(
           buildWhen: (previous, current) =>
               previous.title != current.title ||
               previous.description != current.description,
           builder: (context, state) {
-            return TextAnouncementCard(
+            return TextAnnouncementCard(
               title: state.title ?? title,
               description: state.description ?? description,
               by: by,
@@ -281,14 +281,14 @@ class AnouncementPreviews extends StatelessWidget {
             );
           },
         );
-      case AnouncementLayoutType.imageWithText:
-        return BlocBuilder<CreateAnouncementCubit, CreateAnouncementState>(
+      case AnnouncementLayoutType.imageWithText:
+        return BlocBuilder<CreateAnnouncementCubit, CreateAnnouncementState>(
           buildWhen: (previous, current) =>
               previous.title != current.title ||
               previous.description != current.description ||
               previous.image != current.image,
           builder: (context, state) {
-            return TextWithImageAnouncementCard(
+            return TextWithImageAnnouncementCard(
               title: state.title ?? title,
               description: state.description ?? description,
               by: by,
@@ -303,14 +303,14 @@ class AnouncementPreviews extends StatelessWidget {
             );
           },
         );
-      case AnouncementLayoutType.multiImageWithText:
-        return BlocBuilder<CreateAnouncementCubit, CreateAnouncementState>(
+      case AnnouncementLayoutType.multiImageWithText:
+        return BlocBuilder<CreateAnnouncementCubit, CreateAnnouncementState>(
           buildWhen: (previous, current) =>
               previous.title != current.title ||
               previous.description != current.description ||
               previous.multiImages != current.multiImages,
           builder: (context, state) {
-            return MutiImageAnouncementCard(
+            return MutiImageAnnouncementCard(
               title: state.title ?? title,
               description: state.description ?? description,
               by: by,
@@ -326,24 +326,24 @@ class AnouncementPreviews extends StatelessWidget {
   }
 }
 
-class SingleAnouncementImagePicker extends StatelessWidget {
-  const SingleAnouncementImagePicker({super.key});
+class SingleAnnouncementImagePicker extends StatelessWidget {
+  const SingleAnnouncementImagePicker({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final anouncementCubit = context.read<CreateAnouncementCubit>();
+    final announcementCubit = context.read<CreateAnnouncementCubit>();
     final textTheme = Theme.of(context).textTheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Anouncement Image', style: textTheme.titleMedium),
+        Text('Announcement Image', style: textTheme.titleMedium),
         Text('You can upload only 1 image', style: textTheme.bodySmall),
         const SizedBox(height: 10),
         Center(
           child: GestureDetector(
             onTap: () {
               FocusManager.instance.primaryFocus?.unfocus();
-              anouncementCubit.pickAndSetImage();
+              announcementCubit.pickAndSetImage();
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
@@ -351,7 +351,7 @@ class SingleAnouncementImagePicker extends StatelessWidget {
                 height: 100,
                 width: 100,
                 child:
-                    BlocBuilder<CreateAnouncementCubit, CreateAnouncementState>(
+                    BlocBuilder<CreateAnnouncementCubit, CreateAnnouncementState>(
                   buildWhen: (previous, current) =>
                       previous.image != current.image,
                   builder: (context, state) {
@@ -366,7 +366,7 @@ class SingleAnouncementImagePicker extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(5),
                             child: RoundedCloseButton(
-                              onTap: anouncementCubit.removeSingleImage,
+                              onTap: announcementCubit.removeSingleImage,
                             ),
                           ),
                         ],
@@ -391,24 +391,24 @@ class SingleAnouncementImagePicker extends StatelessWidget {
   }
 }
 
-class MultiAnouncementImagePicker extends StatelessWidget {
-  const MultiAnouncementImagePicker({super.key});
+class MultiAnnouncementImagePicker extends StatelessWidget {
+  const MultiAnnouncementImagePicker({super.key});
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final anouncementCubit = context.read<CreateAnouncementCubit>();
+    final announcementCubit = context.read<CreateAnnouncementCubit>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Anouncement Images', style: textTheme.titleMedium),
+        Text('Announcement Images', style: textTheme.titleMedium),
         Text('You can upload upto 5 images', style: textTheme.bodySmall),
         const SizedBox(height: 10),
         ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: SizedBox(
             height: 100,
-            child: BlocBuilder<CreateAnouncementCubit, CreateAnouncementState>(
+            child: BlocBuilder<CreateAnnouncementCubit, CreateAnnouncementState>(
               buildWhen: (previous, current) =>
                   previous.multiImages != current.multiImages,
               builder: (context, state) {
@@ -423,7 +423,7 @@ class MultiAnouncementImagePicker extends StatelessWidget {
                         child: GestureDetector(
                           onTap: () {
                             FocusManager.instance.primaryFocus?.unfocus();
-                            anouncementCubit.pickAndSetMultiImage();
+                            announcementCubit.pickAndSetMultiImage();
                           },
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(8),
@@ -459,7 +459,7 @@ class MultiAnouncementImagePicker extends StatelessWidget {
                                 padding: const EdgeInsets.all(5),
                                 child: RoundedCloseButton(
                                   onTap: () =>
-                                      anouncementCubit.removeMultiImage(index),
+                                      announcementCubit.removeMultiImage(index),
                                 ),
                               ),
                             ],

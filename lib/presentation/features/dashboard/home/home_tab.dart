@@ -10,9 +10,9 @@ import '../../../overlays/bottom_sheet/selection_bottom_sheet.dart';
 import '../../../overlays/bottom_sheet/create_or_view_attendance_sheet.dart';
 import '../../../overlays/dialogs/select_subject_dialog.dart';
 import '../../../router/routes.dart';
-import '../../anouncement/view/widgets/anouncement_tabs.dart';
-import '../../anouncement/view/widgets/student_anouncement_tab_view.dart';
-import '../../anouncement/view/widgets/teacher_anouncement_tab_view.dart';
+import '../../announcement/view/widgets/announcement_tabs.dart';
+import '../../announcement/view/widgets/student_announcement_tab_view.dart';
+import '../../announcement/view/widgets/teacher_announcement_tab_view.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -138,18 +138,18 @@ class _HomeTabState extends State<HomeTab> {
             ),
             SliverPersistentHeader(
               pinned: true,
-              delegate: AnouncementTabsDelegate(),
+              delegate: AnnouncementTabsDelegate(),
             )
           ],
           body: TabBarView(
             children: isStudent
                 ? const [
-                    AllAnouncementStudentTabView(),
-                    MyAnouncementStudentTabView(),
+                    AllAnnouncementStudentTabView(),
+                    MyAnnouncementStudentTabView(),
                   ]
                 : const [
-                    AllAnouncementTeacherTabView(),
-                    MyAnouncementTeacherTabView(),
+                    AllAnnouncementTeacherTabView(),
+                    MyAnnouncementTeacherTabView(),
                   ],
           ),
         ),
@@ -158,8 +158,8 @@ class _HomeTabState extends State<HomeTab> {
   }
 }
 
-class AnouncementTabsDelegate extends SliverPersistentHeaderDelegate {
-  AnouncementTabsDelegate();
+class AnnouncementTabsDelegate extends SliverPersistentHeaderDelegate {
+  AnnouncementTabsDelegate();
   double height = 90;
 
   @override
@@ -186,7 +186,7 @@ class AnouncementTabsDelegate extends SliverPersistentHeaderDelegate {
           Padding(
             padding: const EdgeInsets.only(left: 20),
             child: FittedText(
-              'Anouncements',
+              'Announcements',
               style: textTheme.headlineSmall?.copyWith(
                 fontFamily: FontAssets.raleway,
                 // fontStyle: FontStyle.italic,
@@ -200,8 +200,8 @@ class AnouncementTabsDelegate extends SliverPersistentHeaderDelegate {
             child: SizedBox(
               height: 40,
               child: isStudent
-                  ? const StudentAnouncementTabs()
-                  : const TeacherAnouncementTabs(),
+                  ? const StudentAnnouncementTabs()
+                  : const TeacherAnnouncementTabs(),
             ),
           ),
           const Divider(height: 1),

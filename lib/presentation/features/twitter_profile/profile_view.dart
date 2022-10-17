@@ -114,7 +114,7 @@ class _ProfileViewState extends State<TwitterProfileView> {
                     ),
                     SliverPersistentHeader(
                       pinned: true,
-                      delegate: AnouncementTabsDelegate(),
+                      delegate: AnnouncementTabsDelegate(),
                     )
                   ];
                 },

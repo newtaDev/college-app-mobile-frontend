@@ -1,4 +1,4 @@
-part of anouncement_entity;
+part of announcement_entity;
 
 class CreatedOrModifiedBy extends MyEquatable {
   final AnonymousUser? user;

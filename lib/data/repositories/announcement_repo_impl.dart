@@ -1,21 +1,21 @@
 import 'package:dio/dio.dart';
 
-import '../../domain/entities/anouncement_entity.dart';
-import '../../domain/repository/anouncement_repository.dart';
+import '../../domain/entities/announcement_entity.dart';
+import '../../domain/repository/announcement_repository.dart';
 import '../../shared/errors/api_errors.dart';
-import '../data_source/remote/anouncement_rds.dart';
-import '../models/request/anouncement_req.dart';
+import '../data_source/remote/announcement_rds.dart';
+import '../models/request/announcement_req.dart';
 
-class AnouncementRepoImpl implements AnouncementRepository {
-  final AnouncementRemoteDataSource anoucenementRds;
+class AnnouncementRepoImpl implements AnnouncementRepository {
+  final AnnouncementRemoteDataSource anoucenementRds;
 
-  AnouncementRepoImpl({required this.anoucenementRds});
+  AnnouncementRepoImpl({required this.anoucenementRds});
   @override
   Future<void> createImageWithTextAnouncemet(
-    ImageWithTextAnouncementReq req,
+    ImageWithTextAnnouncementReq req,
   ) async {
     try {
-      await anoucenementRds.createImageWithTextAnouncement(req);
+      await anoucenementRds.createImageWithTextAnnouncement(req);
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;
       final errorRes = ApiErrorRes.fromMap(e.response?.data);
@@ -26,11 +26,11 @@ class AnouncementRepoImpl implements AnouncementRepository {
   }
 
   @override
-  Future<void> createMultiImageWithTextAnouncement(
-    MultiImageWithTextAnouncementRq req,
+  Future<void> createMultiImageWithTextAnnouncement(
+    MultiImageWithTextAnnouncementRq req,
   ) async {
     try {
-      await anoucenementRds.createMultiImageWithTextAnouncement(req);
+      await anoucenementRds.createMultiImageWithTextAnnouncement(req);
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;
       final errorRes = ApiErrorRes.fromMap(e.response?.data);
@@ -41,9 +41,9 @@ class AnouncementRepoImpl implements AnouncementRepository {
   }
 
   @override
-  Future<void> createOnlyTextAnouncement(OnlyTextAnouncementReq req) async {
+  Future<void> createOnlyTextAnnouncement(OnlyTextAnnouncementReq req) async {
     try {
-      await anoucenementRds.createOnlyTextAnouncement(req);
+      await anoucenementRds.createOnlyTextAnnouncement(req);
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;
       final errorRes = ApiErrorRes.fromMap(e.response?.data);
@@ -54,16 +54,16 @@ class AnouncementRepoImpl implements AnouncementRepository {
   }
 
   @override
-  Future<AnouncementRes> getAnouncementForStudents({
+  Future<AnnouncementRes> getAnnouncementForStudents({
     required String anounceToClassId,
     bool showMyClassesOnly = false,
   }) async {
     try {
-      final res = await anoucenementRds.getAnouncementsForStudent(
+      final res = await anoucenementRds.getAnnouncementsForStudent(
         anounceToClassId: anounceToClassId,
         showMyClassesOnly: showMyClassesOnly,
       );
-      return AnouncementRes.fromMap(res.data);
+      return AnnouncementRes.fromMap(res.data);
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;
       final errorRes = ApiErrorRes.fromMap(e.response?.data);
@@ -74,16 +74,16 @@ class AnouncementRepoImpl implements AnouncementRepository {
   }
 
   @override
-  Future<AnouncementRes> getAnouncementForTeachers({
+  Future<AnnouncementRes> getAnnouncementForTeachers({
     required String teacherId,
-    bool showAnouncementsCreatedByMe = false,
+    bool showAnnouncementsCreatedByMe = false,
   }) async {
     try {
-      final res = await anoucenementRds.getAnouncementsForTeacher(
+      final res = await anoucenementRds.getAnnouncementsForTeacher(
         teacherId: teacherId,
-        showAnouncementsCreatedByMe: showAnouncementsCreatedByMe,
+        showAnnouncementsCreatedByMe: showAnnouncementsCreatedByMe,
       );
-      return AnouncementRes.fromMap(res.data);
+      return AnnouncementRes.fromMap(res.data);
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;
       final errorRes = ApiErrorRes.fromMap(e.response?.data);

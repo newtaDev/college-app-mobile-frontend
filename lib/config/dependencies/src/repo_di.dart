@@ -46,10 +46,10 @@ void registerRepositoryDependencies() {
         timeTableRds: getIt<TimeTableRemoteDataSource>(),
       ),
     )
-    // Anouncements
-    ..registerSingleton<AnouncementRepoImpl>(
-      AnouncementRepoImpl(
-        anoucenementRds: getIt<AnouncementRemoteDataSource>(),
+    // Announcements
+    ..registerSingleton<AnnouncementRepoImpl>(
+      AnnouncementRepoImpl(
+        anoucenementRds: getIt<AnnouncementRemoteDataSource>(),
       ),
     );
 }

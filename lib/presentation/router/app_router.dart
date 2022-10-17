@@ -12,10 +12,10 @@ import '../features/_init_/T&W_showcase/t_w_showcase_page.dart';
 import '../features/_init_/T&W_showcase/typography_page.dart';
 import '../features/_init_/T&W_showcase/widgets_page.dart';
 import '../features/_init_/splash/splash_screen.dart';
-import '../features/anouncement/create/pages/anouncement_formats_page.dart';
-import '../features/anouncement/create/pages/create_anouncement_page.dart';
-import '../features/anouncement/create/cubit/create_anouncement_cubit.dart';
-import '../features/anouncement/view/cubit/view_anouncement_cubit.dart';
+import '../features/announcement/create/pages/announcement_formats_page.dart';
+import '../features/announcement/create/pages/create_announcement_page.dart';
+import '../features/announcement/create/cubit/create_announcement_cubit.dart';
+import '../features/announcement/view/cubit/view_announcement_cubit.dart';
 import '../features/attendance/create_attendance/cubit/create_attendance_cubit.dart';
 import '../features/attendance/create_attendance/page/create_attendance_page.dart';
 import '../features/attendance/view_attendance/cubit/view_attendance_cubit.dart';
@@ -69,7 +69,7 @@ class AppRouter {
           /// Setting up selected tab
           RouteParams.selectedDashboardTab = tabName;
           return BlocProvider(
-            create: (context) => getIt<ViewAnouncementCubit>(),
+            create: (context) => getIt<ViewAnnouncementCubit>(),
             child: DashboardPage(tabName: tabName),
           );
         },
@@ -153,7 +153,7 @@ class AppRouter {
   );
 
   static List<GoRoute> get _dashboardRoutes {
-    CreateAnouncementCubit? anouncementCubit;
+    CreateAnnouncementCubit? announcementCubit;
     return [
       GoRoute(
         name: Routes.viewAttendanceScreen.name,
@@ -191,25 +191,25 @@ class AppRouter {
         ],
       ),
       GoRoute(
-        name: Routes.createAnouncementFormatsScreen.name,
-        path: 'anouncements',
+        name: Routes.createAnnouncementFormatsScreen.name,
+        path: 'announcements',
         builder: (context, state) {
-          anouncementCubit ??= getIt<CreateAnouncementCubit>();
-          if (anouncementCubit?.isClosed ?? false) {
-            anouncementCubit = getIt<CreateAnouncementCubit>();
+          announcementCubit ??= getIt<CreateAnnouncementCubit>();
+          if (announcementCubit?.isClosed ?? false) {
+            announcementCubit = getIt<CreateAnnouncementCubit>();
           }
           return BlocProvider(
-            create: (context) => anouncementCubit!,
-            child: const AnouncementFormatsPage(),
+            create: (context) => announcementCubit!,
+            child: const AnnouncementFormatsPage(),
           );
         },
         routes: [
           GoRoute(
-            name: Routes.createAnouncementScreen.name,
+            name: Routes.createAnnouncementScreen.name,
             path: 'create',
             builder: (context, state) => BlocProvider.value(
-              value: anouncementCubit!,
-              child: const CreateAnouncementScreen(),
+              value: announcementCubit!,
+              child: const CreateAnnouncementScreen(),
             ),
           )
         ],

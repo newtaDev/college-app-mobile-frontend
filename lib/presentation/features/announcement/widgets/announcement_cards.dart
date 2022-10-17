@@ -18,7 +18,7 @@ import '../../../../shared/helpers/helpers.dart';
 import '../../../router/routes.dart';
 import '../../pages/image_viewer_page.dart';
 
-class MutiImageAnouncementCard extends StatelessWidget {
+class MutiImageAnnouncementCard extends StatelessWidget {
   final String title;
   final String description;
   final String by;
@@ -27,7 +27,7 @@ class MutiImageAnouncementCard extends StatelessWidget {
   final List<File>? imageFiles;
   final DateTime createdOn;
   final void Function()? onTap;
-  const MutiImageAnouncementCard({
+  const MutiImageAnnouncementCard({
     super.key,
     required this.title,
     required this.description,
@@ -148,7 +148,7 @@ class MutiImageAnouncementCard extends StatelessWidget {
   }
 }
 
-class TextWithImageAnouncementCard extends StatelessWidget {
+class TextWithImageAnnouncementCard extends StatelessWidget {
   final String title;
   final String description;
   final String by;
@@ -157,7 +157,7 @@ class TextWithImageAnouncementCard extends StatelessWidget {
   final File? imageFile;
   final DateTime createdOn;
   final void Function()? onTap;
-  const TextWithImageAnouncementCard({
+  const TextWithImageAnnouncementCard({
     super.key,
     required this.title,
     required this.description,
@@ -301,14 +301,14 @@ class _CreateByCard extends StatelessWidget {
   }
 }
 
-class TextAnouncementCard extends StatelessWidget {
+class TextAnnouncementCard extends StatelessWidget {
   final String title;
   final String description;
   final String by;
   final DateTime createdOn;
   final void Function()? onTap;
 
-  const TextAnouncementCard({
+  const TextAnnouncementCard({
     super.key,
     required this.title,
     required this.description,

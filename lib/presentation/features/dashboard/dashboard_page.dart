@@ -136,7 +136,7 @@ class FabPopupContents extends StatelessWidget {
             color: Colors.white,
             child: ListTile(
               leading: const Icon(Icons.campaign_outlined),
-              title: const Text('Create Anouncement'),
+              title: const Text('Create Announcement'),
               minLeadingWidth: 5,
               onTap: () {
                 final state = fabKey.currentState;
@@ -144,7 +144,7 @@ class FabPopupContents extends StatelessWidget {
                   state.toggle();
                 }
                 context.goNamed(
-                  Routes.createAnouncementFormatsScreen.name,
+                  Routes.createAnnouncementFormatsScreen.name,
                   params: RouteParams.withDashboard,
                 );
               },
@@ -189,7 +189,7 @@ class FabPopupContents extends StatelessWidget {
             child: ListTile(
               leading: const Icon(Icons.my_library_books_outlined),
               minLeadingWidth: 5,
-              title: const Text('My Anouncements'),
+              title: const Text('My Announcements'),
               onTap: () {},
             ),
           ),

@@ -80,16 +80,16 @@ void registerCubitsDependencies() {
       ),
     )
 
-    /// Anouncement
+    /// Announcement
     ..registerFactory(
-      () => CreateAnouncementCubit(
-        anouncementRepo: getIt<AnouncementRepoImpl>(),
+      () => CreateAnnouncementCubit(
+        announcementRepo: getIt<AnnouncementRepoImpl>(),
         userCubit: getIt<UserCubit>(),
       ),
     )
     ..registerFactory(
-      () => ViewAnouncementCubit(
-        anouncementRepo: getIt<AnouncementRepoImpl>(),
+      () => ViewAnnouncementCubit(
+        announcementRepo: getIt<AnnouncementRepoImpl>(),
         userCubit: getIt<UserCubit>(),
       ),
     );

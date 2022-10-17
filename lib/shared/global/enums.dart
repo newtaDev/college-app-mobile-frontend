@@ -50,17 +50,17 @@ enum UserType {
   }
 }
 
-enum AnouncementLayoutType {
+enum AnnouncementLayoutType {
   imageWithText('IMAGE_WITH_TEXT'),
   multiImageWithText('MULTI_IMAGE_WITH_TEXT'),
   onlyText('ONLY_TEXT');
 
   final String value;
-  const AnouncementLayoutType(this.value);
+  const AnnouncementLayoutType(this.value);
 
-  static AnouncementLayoutType? fromName(String name) {
-    for (final AnouncementLayoutType enumVariant
-        in AnouncementLayoutType.values) {
+  static AnnouncementLayoutType? fromName(String name) {
+    for (final AnnouncementLayoutType enumVariant
+        in AnnouncementLayoutType.values) {
       if (enumVariant.value == name) return enumVariant;
     }
     return null;

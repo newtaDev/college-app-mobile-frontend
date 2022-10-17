@@ -5,19 +5,19 @@ import 'package:dio/dio.dart';
 
 import '../../../shared/global/enums.dart';
 
-class OnlyTextAnouncementReq {
+class OnlyTextAnnouncementReq {
   final String title;
   final String description;
   final AnounceTo anounceTo;
   final String collegeId;
-  final AnouncementLayoutType anouncementLayoutType;
+  final AnnouncementLayoutType announcementLayoutType;
   final List<String> anounceToClassIds;
-  OnlyTextAnouncementReq({
+  OnlyTextAnnouncementReq({
     required this.title,
     required this.description,
     required this.anounceTo,
     required this.collegeId,
-    required this.anouncementLayoutType,
+    required this.announcementLayoutType,
     required this.anounceToClassIds,
   });
   Map<String, dynamic> toMap() {
@@ -26,7 +26,7 @@ class OnlyTextAnouncementReq {
       'description': description,
       'anounceTo': anounceTo.value,
       'collegeId': collegeId,
-      'anouncementLayoutType': anouncementLayoutType.value,
+      'announcementLayoutType': announcementLayoutType.value,
       'anounceToClassIds[]': anounceToClassIds,
     };
   }
@@ -35,23 +35,23 @@ class OnlyTextAnouncementReq {
   FormData toFormData() => FormData.fromMap(toMap());
 }
 
-class ImageWithTextAnouncementReq {
+class ImageWithTextAnnouncementReq {
   final String title;
   final String description;
   final AnounceTo anounceTo;
   final String collegeId;
   final List<String> anounceToClassIds;
-  final AnouncementLayoutType anouncementLayoutType;
+  final AnnouncementLayoutType announcementLayoutType;
   final MultipartFile imageFile;
 
-  ImageWithTextAnouncementReq({
+  ImageWithTextAnnouncementReq({
     required this.title,
     required this.description,
     required this.imageFile,
     required this.anounceTo,
     required this.collegeId,
     required this.anounceToClassIds,
-    required this.anouncementLayoutType,
+    required this.announcementLayoutType,
   });
 
   Map<String, dynamic> toMap() {
@@ -60,7 +60,7 @@ class ImageWithTextAnouncementReq {
       'description': description,
       'anounceTo': anounceTo.value,
       'collegeId': collegeId,
-      'anouncementLayoutType': anouncementLayoutType.value,
+      'announcementLayoutType': announcementLayoutType.value,
       'anounceToClassIds[]': anounceToClassIds,
       'imageFile': imageFile,
     };
@@ -70,23 +70,23 @@ class ImageWithTextAnouncementReq {
   FormData toFormData() => FormData.fromMap(toMap());
 }
 
-class MultiImageWithTextAnouncementRq {
+class MultiImageWithTextAnnouncementRq {
   final String title;
   final String description;
   final AnounceTo anounceTo;
   final String collegeId;
   final List<String> anounceToClassIds;
-  final AnouncementLayoutType anouncementLayoutType;
+  final AnnouncementLayoutType announcementLayoutType;
   final List<MultipartFile> multipleFiles;
 
-  MultiImageWithTextAnouncementRq({
+  MultiImageWithTextAnnouncementRq({
     required this.title,
     required this.description,
     required this.multipleFiles,
     required this.anounceTo,
     required this.collegeId,
     required this.anounceToClassIds,
-    required this.anouncementLayoutType,
+    required this.announcementLayoutType,
   });
 
   Map<String, dynamic> toMap() {
@@ -95,7 +95,7 @@ class MultiImageWithTextAnouncementRq {
       'description': description,
       'anounceTo': anounceTo.value,
       'collegeId': collegeId,
-      'anouncementLayoutType': anouncementLayoutType.value,
+      'announcementLayoutType': announcementLayoutType.value,
       'anounceToClassIds[]': anounceToClassIds,
       'multipleFiles': multipleFiles,
     };

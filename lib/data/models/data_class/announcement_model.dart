@@ -1,12 +1,12 @@
-part of anouncement_entity;
+part of announcement_entity;
 
-class AnouncementModel extends MyEquatable {
+class AnnouncementModel extends MyEquatable {
   final String? id;
   final String? collegeId;
   final String? title;
   final String? description;
   final AnounceTo? anounceTo;
-  final AnouncementLayoutType? anouncementLayoutType;
+  final AnnouncementLayoutType? announcementLayoutType;
   final List<String>? anounceToClassIds;
   final List<String>? multipleImages;
   final String? image;
@@ -15,14 +15,14 @@ class AnouncementModel extends MyEquatable {
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  const AnouncementModel({
+  const AnnouncementModel({
     this.id,
     this.collegeId,
     this.title,
     this.image,
     this.description,
     this.anounceTo,
-    this.anouncementLayoutType,
+    this.announcementLayoutType,
     this.anounceToClassIds,
     this.multipleImages,
     this.createdBy,
@@ -31,15 +31,15 @@ class AnouncementModel extends MyEquatable {
     this.updatedAt,
   });
 
-  factory AnouncementModel.fromMap(Map<String, dynamic> data) =>
-      AnouncementModel(
+  factory AnnouncementModel.fromMap(Map<String, dynamic> data) =>
+      AnnouncementModel(
         id: data['_id'] as String?,
         collegeId: data['collegeId'] as String?,
         title: data['title'] as String?,
         description: data['description'] as String?,
         anounceTo: AnounceTo.fromName(data['anounceTo'] as String),
-        anouncementLayoutType: AnouncementLayoutType.fromName(
-          data['anouncementLayoutType'] as String,
+        announcementLayoutType: AnnouncementLayoutType.fromName(
+          data['announcementLayoutType'] as String,
         ),
         image: data['imageName'] as String?,
         anounceToClassIds: (data['anounceToClassIds'] as List<dynamic>?)
@@ -68,19 +68,19 @@ class AnouncementModel extends MyEquatable {
 
   /// `dart:convert`
   ///
-  /// Parses the string and returns the resulting Json object as [AnouncementModel].
-  factory AnouncementModel.fromJson(String data) {
-    return AnouncementModel.fromMap(json.decode(data) as Map<String, dynamic>);
+  /// Parses the string and returns the resulting Json object as [AnnouncementModel].
+  factory AnnouncementModel.fromJson(String data) {
+    return AnnouncementModel.fromMap(json.decode(data) as Map<String, dynamic>);
   }
 
-  AnouncementModel copyWith({
+  AnnouncementModel copyWith({
     String? id,
     String? collegeId,
     String? title,
     String? image,
     String? description,
     AnounceTo? anounceTo,
-    AnouncementLayoutType? anouncementLayoutType,
+    AnnouncementLayoutType? announcementLayoutType,
     List<String>? anounceToClassIds,
     List<String>? multipleImages,
     CreatedOrModifiedBy? createdBy,
@@ -88,15 +88,15 @@ class AnouncementModel extends MyEquatable {
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
-    return AnouncementModel(
+    return AnnouncementModel(
       id: id ?? this.id,
       collegeId: collegeId ?? this.collegeId,
       title: title ?? this.title,
       description: description ?? this.description,
       image: image ?? this.image,
       anounceTo: anounceTo ?? this.anounceTo,
-      anouncementLayoutType:
-          anouncementLayoutType ?? this.anouncementLayoutType,
+      announcementLayoutType:
+          announcementLayoutType ?? this.announcementLayoutType,
       anounceToClassIds: anounceToClassIds ?? this.anounceToClassIds,
       multipleImages: multipleImages ?? this.multipleImages,
       createdBy: createdBy ?? this.createdBy,
@@ -114,7 +114,7 @@ class AnouncementModel extends MyEquatable {
       title,
       description,
       anounceTo,
-      anouncementLayoutType,
+      announcementLayoutType,
       anounceToClassIds,
       multipleImages,
       createdBy,

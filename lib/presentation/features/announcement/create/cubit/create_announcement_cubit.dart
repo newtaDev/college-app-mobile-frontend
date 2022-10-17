@@ -9,24 +9,24 @@ import 'package:mime/mime.dart';
 
 import '../../../../../cubits/user/user_cubit.dart';
 import '../../../../../data/models/data_class/class_with_details.dart';
-import '../../../../../data/models/request/anouncement_req.dart';
-import '../../../../../domain/repository/anouncement_repository.dart';
+import '../../../../../data/models/request/announcement_req.dart';
+import '../../../../../domain/repository/announcement_repository.dart';
 import '../../../../../shared/errors/api_errors.dart';
 import '../../../../../shared/global/enums.dart';
 import '../../../attendance/create_attendance/cubit/create_attendance_cubit.dart';
-import '../pages/create_anouncement_page.dart';
+import '../pages/create_announcement_page.dart';
 
-part 'create_anouncement_state.dart';
+part 'create_announcement_state.dart';
 
-class CreateAnouncementCubit extends Cubit<CreateAnouncementState> {
-  final AnouncementRepository anouncementRepo;
+class CreateAnnouncementCubit extends Cubit<CreateAnnouncementState> {
+  final AnnouncementRepository announcementRepo;
   final UserCubit userCubit;
-  CreateAnouncementCubit({
-    required this.anouncementRepo,
+  CreateAnnouncementCubit({
+    required this.announcementRepo,
     required this.userCubit,
-  }) : super(const CreateAnouncementState.init());
+  }) : super(const CreateAnnouncementState.init());
 
-  void setUpLayout(AnouncementLayoutType type) {
+  void setUpLayout(AnnouncementLayoutType type) {
     emit(state.copyWith(layoutType: type));
   }
 
@@ -41,11 +41,11 @@ class CreateAnouncementCubit extends Cubit<CreateAnouncementState> {
     emit(state.copyWith(selectedClasses: removedClasses));
   }
 
-  void setAnouncementTitle(String val) {
+  void setAnnouncementTitle(String val) {
     emit(state.copyWith(title: val.trim()));
   }
 
-  void setAnouncementDescription(String val) {
+  void setAnnouncementDescription(String val) {
     emit(state.copyWith(description: val.trim()));
   }
 
@@ -85,31 +85,31 @@ class CreateAnouncementCubit extends Cubit<CreateAnouncementState> {
   void removeSingleImage() => emit(state.removeSingleImage());
 
   void clearState() {
-    emit(const CreateAnouncementState.init());
+    emit(const CreateAnnouncementState.init());
   }
 
   Future<void> createAnouncemnt() async {
-    emit(state.copyWith(status: CreateAnouncementStatus.loading));
+    emit(state.copyWith(status: CreateAnnouncementStatus.loading));
 
     try {
       switch (state.layoutType) {
-        case AnouncementLayoutType.onlyText:
-          await anouncementRepo.createOnlyTextAnouncement(
-            OnlyTextAnouncementReq(
+        case AnnouncementLayoutType.onlyText:
+          await announcementRepo.createOnlyTextAnnouncement(
+            OnlyTextAnnouncementReq(
               title: state.title!,
               description: state.description!,
               anounceTo: state.anounceTo,
               collegeId: userCubit.state.userDetails.collegeId,
-              anouncementLayoutType: state.layoutType,
+              announcementLayoutType: state.layoutType,
               anounceToClassIds:
                   state.selectedClasses.map((e) => e.id!).toList(),
             ),
           );
           break;
-        case AnouncementLayoutType.imageWithText:
+        case AnnouncementLayoutType.imageWithText:
           final fileName = state.image?.path.split('/').last;
-          await anouncementRepo.createImageWithTextAnouncemet(
-            ImageWithTextAnouncementReq(
+          await announcementRepo.createImageWithTextAnouncemet(
+            ImageWithTextAnnouncementReq(
               title: state.title!,
               description: state.description!,
               imageFile: await MultipartFile.fromFile(
@@ -120,13 +120,13 @@ class CreateAnouncementCubit extends Cubit<CreateAnouncementState> {
               ),
               anounceTo: state.anounceTo,
               collegeId: userCubit.state.userDetails.collegeId,
-              anouncementLayoutType: state.layoutType,
+              announcementLayoutType: state.layoutType,
               anounceToClassIds:
                   state.selectedClasses.map((e) => e.id!).toList(),
             ),
           );
           break;
-        case AnouncementLayoutType.multiImageWithText:
+        case AnnouncementLayoutType.multiImageWithText:
           final multiFiles = state.multiImages.map(
             (imgFile) {
               final fileName = imgFile.path.split('/').last;
@@ -137,13 +137,13 @@ class CreateAnouncementCubit extends Cubit<CreateAnouncementState> {
               );
             },
           ).toList();
-          await anouncementRepo.createMultiImageWithTextAnouncement(
-            MultiImageWithTextAnouncementRq(
+          await announcementRepo.createMultiImageWithTextAnnouncement(
+            MultiImageWithTextAnnouncementRq(
               title: state.title!,
               description: state.description!,
               anounceTo: state.anounceTo,
               collegeId: userCubit.state.userDetails.collegeId,
-              anouncementLayoutType: state.layoutType,
+              announcementLayoutType: state.layoutType,
               anounceToClassIds:
                   state.selectedClasses.map((e) => e.id!).toList(),
               multipleFiles: multiFiles,
@@ -154,22 +154,22 @@ class CreateAnouncementCubit extends Cubit<CreateAnouncementState> {
 
       emit(
         state.copyWith(
-          status: CreateAnouncementStatus.success,
+          status: CreateAnnouncementStatus.success,
         ),
       );
     } on ApiErrorRes catch (apiError) {
       emit(
         state.copyWith(
-          status: CreateAnouncementStatus.error,
+          status: CreateAnnouncementStatus.error,
           error: apiError,
         ),
       );
     } catch (e) {
       final apiErrorRes =
-          ApiErrorRes(devMessage: 'Creating anouncement failed');
+          ApiErrorRes(devMessage: 'Creating announcement failed');
       emit(
         state.copyWith(
-          status: CreateAnouncementStatus.error,
+          status: CreateAnnouncementStatus.error,
           error: apiErrorRes,
         ),
       );
@@ -177,23 +177,23 @@ class CreateAnouncementCubit extends Cubit<CreateAnouncementState> {
     }
   }
 
-  CreateAnouncementValidationStatus validateCreateAnoucenmentReq() {
+  CreateAnnouncementValidationStatus validateCreateAnoucenmentReq() {
     if (state.selectedClasses.isEmpty) {
-      return CreateAnouncementValidationStatus.issueInAnounceToClasses;
+      return CreateAnnouncementValidationStatus.issueInAnounceToClasses;
     }
     switch (state.layoutType) {
-      case AnouncementLayoutType.onlyText:
-        return CreateAnouncementValidationStatus.success;
-      case AnouncementLayoutType.imageWithText:
+      case AnnouncementLayoutType.onlyText:
+        return CreateAnnouncementValidationStatus.success;
+      case AnnouncementLayoutType.imageWithText:
         if (state.image == null) {
-          return CreateAnouncementValidationStatus.issueInSingleImage;
+          return CreateAnnouncementValidationStatus.issueInSingleImage;
         }
-        return CreateAnouncementValidationStatus.success;
-      case AnouncementLayoutType.multiImageWithText:
+        return CreateAnnouncementValidationStatus.success;
+      case AnnouncementLayoutType.multiImageWithText:
         if (state.multiImages.isEmpty) {
-          return CreateAnouncementValidationStatus.issueInMultiImage;
+          return CreateAnnouncementValidationStatus.issueInMultiImage;
         }
-        return CreateAnouncementValidationStatus.success;
+        return CreateAnnouncementValidationStatus.success;
     }
   }
 }

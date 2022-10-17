@@ -1,33 +1,33 @@
-part of 'create_anouncement_cubit.dart';
+part of 'create_announcement_cubit.dart';
 
-enum CreateAnouncementStatus { initial, loading, success, error }
+enum CreateAnnouncementStatus { initial, loading, success, error }
 
-enum CreateAnouncementValidationStatus {
+enum CreateAnnouncementValidationStatus {
   success,
   issueInMultiImage,
   issueInSingleImage,
   issueInAnounceToClasses
 }
 
-extension CreateAnouncementStatusX on CreateAnouncementStatus {
-  bool get isInitial => this == CreateAnouncementStatus.initial;
-  bool get isSuccess => this == CreateAnouncementStatus.success;
-  bool get isError => this == CreateAnouncementStatus.error;
-  bool get isLoading => this == CreateAnouncementStatus.loading;
+extension CreateAnnouncementStatusX on CreateAnnouncementStatus {
+  bool get isInitial => this == CreateAnnouncementStatus.initial;
+  bool get isSuccess => this == CreateAnnouncementStatus.success;
+  bool get isError => this == CreateAnnouncementStatus.error;
+  bool get isLoading => this == CreateAnnouncementStatus.loading;
 }
 
-class CreateAnouncementState extends Equatable {
-  final AnouncementLayoutType layoutType;
+class CreateAnnouncementState extends Equatable {
+  final AnnouncementLayoutType layoutType;
   final AnounceTo anounceTo;
   final List<ClassWithDetails> selectedClasses;
   final String? title;
   final String? description;
   final List<File> multiImages;
   final File? image;
-  final CreateAnouncementStatus status;
+  final CreateAnnouncementStatus status;
   final ApiErrorRes? error;
 
-  const CreateAnouncementState({
+  const CreateAnnouncementState({
     required this.layoutType,
     required this.anounceTo,
     required this.selectedClasses,
@@ -39,16 +39,16 @@ class CreateAnouncementState extends Equatable {
     this.error,
   });
 
-  const CreateAnouncementState.init()
+  const CreateAnnouncementState.init()
       : anounceTo = AnounceTo.students,
-        status = CreateAnouncementStatus.initial,
+        status = CreateAnnouncementStatus.initial,
         selectedClasses = const [],
         title = null,
         description = null,
         multiImages = const [],
         image = null,
         error = null,
-        layoutType = AnouncementLayoutType.onlyText;
+        layoutType = AnnouncementLayoutType.onlyText;
 
   @override
   List<Object?> get props => [
@@ -63,18 +63,18 @@ class CreateAnouncementState extends Equatable {
         error,
       ];
 
-  CreateAnouncementState copyWith({
-    AnouncementLayoutType? layoutType,
+  CreateAnnouncementState copyWith({
+    AnnouncementLayoutType? layoutType,
     AnounceTo? anounceTo,
     List<ClassWithDetails>? selectedClasses,
     String? title,
     String? description,
     List<File>? multiImages,
     File? image,
-    CreateAnouncementStatus? status,
+    CreateAnnouncementStatus? status,
     ApiErrorRes? error,
   }) {
-    return CreateAnouncementState(
+    return CreateAnnouncementState(
       layoutType: layoutType ?? this.layoutType,
       anounceTo: anounceTo ?? this.anounceTo,
       selectedClasses: selectedClasses ?? this.selectedClasses,
@@ -87,8 +87,8 @@ class CreateAnouncementState extends Equatable {
     );
   }
 
-  CreateAnouncementState removeSingleImage() {
-    return CreateAnouncementState(
+  CreateAnnouncementState removeSingleImage() {
+    return CreateAnnouncementState(
       layoutType: layoutType,
       anounceTo: anounceTo,
       selectedClasses: selectedClasses,

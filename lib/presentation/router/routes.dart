@@ -19,8 +19,8 @@ enum Routes {
   qrScannerScreen,
   profileScreen,
   myProfileEditScreen,
-  createAnouncementFormatsScreen,
-  createAnouncementScreen,
+  createAnnouncementFormatsScreen,
+  createAnnouncementScreen,
   imageViewerScreen,
   searchProfileScreen,
 

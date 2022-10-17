@@ -1,44 +1,44 @@
 import 'package:dio/dio.dart';
 
 import '../../../shared/helpers/network/dio_client.dart';
-import '../../models/request/anouncement_req.dart';
+import '../../models/request/announcement_req.dart';
 
-class AnouncementRemoteDataSource {
+class AnnouncementRemoteDataSource {
   final client = DioClient.getClient();
 
-  Future<Response> createImageWithTextAnouncement(
-    ImageWithTextAnouncementReq req,
+  Future<Response> createImageWithTextAnnouncement(
+    ImageWithTextAnnouncementReq req,
   ) {
     return client.post(
-      '/anouncements',
+      '/announcements',
       data: req.toFormData(),
     );
   }
 
-  Future<Response> createOnlyTextAnouncement(
-    OnlyTextAnouncementReq req,
+  Future<Response> createOnlyTextAnnouncement(
+    OnlyTextAnnouncementReq req,
   ) {
     return client.post(
-      '/anouncements',
+      '/announcements',
       data: req.toFormData(),
     );
   }
 
-  Future<Response> createMultiImageWithTextAnouncement(
-    MultiImageWithTextAnouncementRq req,
+  Future<Response> createMultiImageWithTextAnnouncement(
+    MultiImageWithTextAnnouncementRq req,
   ) {
     return client.post(
-      '/anouncements',
+      '/announcements',
       data: req.toFormData(),
     );
   }
 
-  Future<Response> getAnouncementsForStudent({
+  Future<Response> getAnnouncementsForStudent({
     required String anounceToClassId,
     bool showMyClassesOnly = false,
   }) {
     return client.get(
-      '/anouncements/students',
+      '/announcements/students',
       queryParameters: {
         'anounceToClassId': anounceToClassId,
         'showMyClassesOnly': showMyClassesOnly,
@@ -46,15 +46,15 @@ class AnouncementRemoteDataSource {
     );
   }
 
-  Future<Response> getAnouncementsForTeacher({
+  Future<Response> getAnnouncementsForTeacher({
     required String teacherId,
-    bool showAnouncementsCreatedByMe = false,
+    bool showAnnouncementsCreatedByMe = false,
   }) {
     return client.get(
-      '/anouncements/teachers',
+      '/announcements/teachers',
       queryParameters: {
         'teacherId': teacherId,
-        'showAnouncementsCreatedByMe': showAnouncementsCreatedByMe,
+        'showAnnouncementsCreatedByMe': showAnnouncementsCreatedByMe,
       },
     );
   }
