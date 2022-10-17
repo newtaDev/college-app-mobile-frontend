@@ -20,7 +20,7 @@ class ProfileBgFlexibleSpaceBar extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return ClipRect(
       child: DecoratedBox(
-        decoration:  BoxDecoration(
+        decoration: BoxDecoration(
           color: ColorPallet.grey200,
           // gradient: LinearGradient(
           //   begin: Alignment.topRight,

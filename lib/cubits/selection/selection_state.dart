@@ -154,8 +154,7 @@ class AssignedSubjectSelectionStates extends MyEquatable {
     return AssignedSubjectSelectionStates(
       status: status ?? this.status,
       subjects: subjects ?? this.subjects,
-      selectedSubject:
-          selectedSubject ?? this.selectedSubject,
+      selectedSubject: selectedSubject ?? this.selectedSubject,
     );
   }
 

@@ -99,16 +99,16 @@ class _ClassTimeTablePageState extends State<ClassTimeTablePage> {
             itemCount: state.thisWeekDates.length,
             controller: pageCtr,
             itemBuilder: (context, weekIndex) {
-              final _day = state.thisWeekDates[weekIndex];
+              final day = state.thisWeekDates[weekIndex];
               final ItemScrollController itemScrollController =
                   ItemScrollController();
               final ItemPositionsListener itemPositionsListener =
                   ItemPositionsListener.create();
-              final _timeTable =
+              final timeTable =
                   context.read<ClassTimeTableCubit>().getDayTimeTable(
-                        Week.values[_day.weekday - 1],
+                        Week.values[day.weekday - 1],
                       );
-              final sortedTimetableKeys = _timeTable.keys.toList()
+              final sortedTimetableKeys = timeTable.keys.toList()
                 ..sort(
                   (a, b) {
                     if (a.startTime.hour > b.startTime.hour) return 1;
@@ -117,14 +117,14 @@ class _ClassTimeTablePageState extends State<ClassTimeTablePage> {
                     return -1;
                   },
                 );
-              final isToday = _day.day == DateTime.now().day;
+              final isToday = day.day == DateTime.now().day;
 
-              final _currentTimes = sortedTimetableKeys.where(
+              final currentTimes = sortedTimetableKeys.where(
                 (element) => element.startTime.hour == TimeOfDay.now().hour,
               );
-              final currentTime = _currentTimes.lastWhere(
+              final currentTime = currentTimes.lastWhere(
                 (element) => element.startTime.minute <= TimeOfDay.now().minute,
-                orElse: () => _currentTimes.last,
+                orElse: () => currentTimes.last,
               );
 
               WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -146,8 +146,8 @@ class _ClassTimeTablePageState extends State<ClassTimeTablePage> {
                 itemPositionsListener: itemPositionsListener,
                 currentTime: currentTime,
                 isToday: isToday,
-                timeTable: _timeTable,
-                day: _day,
+                timeTable: timeTable,
+                day: day,
               );
             },
           );

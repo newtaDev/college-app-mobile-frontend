@@ -183,13 +183,13 @@ class AttendanceViewLayout extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                 itemCount: state.attendanceWithCount.length,
                 itemBuilder: (context, index) {
-                  final _attendanceData = state.attendanceWithCount[index];
+                  final attendanceData = state.attendanceWithCount[index];
                   // DateFormat('HH:mm').parse(
                   // final dateFormat = DateFormat('h:mm a');
-                  final _classStartTime =
-                      _attendanceData.classStartTime?.format(context);
-                  final _classEndTime =
-                      _attendanceData.classEndTime?.format(context);
+                  final classStartTime =
+                      attendanceData.classStartTime?.format(context);
+                  final classEndTime =
+                      attendanceData.classEndTime?.format(context);
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: BorderedBox(
@@ -201,32 +201,32 @@ class AttendanceViewLayout extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            _attendanceData.subject?.name ?? 'N/A',
+                            attendanceData.subject?.name ?? 'N/A',
                             style: textTheme.titleMedium
                                 ?.copyWith(fontWeight: FontWeight.w600),
                           ),
                           Text(
-                            '${context.read<SelectionCubit>().state.assignedSubjectSelectionStates.selectedSubject?.classDetails?.name} - ${_attendanceData.currentSem}${_attendanceData.currentSem?.getRankPosition} Sem',
+                            '${context.read<SelectionCubit>().state.assignedSubjectSelectionStates.selectedSubject?.classDetails?.name} - ${attendanceData.subject?.semester}${attendanceData.subject?.semester?.getRankPosition} Sem',
                             style: textTheme.bodySmall,
                           ),
                           Text(
-                            'Absent students: ${_attendanceData.absentStudentCount}',
+                            'Absent students: ${attendanceData.absentStudentCount}',
                             style: textTheme.bodyMedium
                                 ?.copyWith(color: ColorPallet.grey600),
                           ),
                           Text(
-                            'Present students: ${_attendanceData.presentStudentCount}',
+                            'Present students: ${attendanceData.presentStudentCount}',
                             style: textTheme.bodyMedium
                                 ?.copyWith(color: ColorPallet.grey600),
                           ),
                           const SizedBox(height: 5),
                           _textWithIcon(
                             icon: Icons.access_time_rounded,
-                            text: '$_classStartTime - $_classEndTime',
+                            text: '$classStartTime - $classEndTime',
                           ),
                           _textWithIcon(
                             icon: Icons.date_range_outlined,
-                            text: (_attendanceData.attendanceTakenOn ??
+                            text: (attendanceData.attendanceTakenOn ??
                                     DateTime.now())
                                 .toReadableString(),
                           ),
@@ -238,7 +238,7 @@ class AttendanceViewLayout extends StatelessWidget {
                                 params: {
                                   'tab_name': DashboardPageTabs.home.name,
                                 },
-                                extra: _attendanceData,
+                                extra: attendanceData,
                               );
                             },
                             style: ElevatedButton.styleFrom(

@@ -96,7 +96,9 @@ class ProfileRepoImpl implements ProfileRepository {
   }
 
   @override
-  Future<SearchUserProfilesRes> searchUserProfiles({required String searchText}) async {
+  Future<SearchUserProfilesRes> searchUserProfiles({
+    required String searchText,
+  }) async {
     try {
       final res = await userRds.searchUserProfiles(searchText: searchText);
       return SearchUserProfilesRes.fromMap(res.data);

@@ -37,6 +37,7 @@ ElevatedButtonThemeData _elevatedButtonTheme() {
     ),
   );
 }
+
 OutlinedButtonThemeData _outlinedButtonTheme() {
   return OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(

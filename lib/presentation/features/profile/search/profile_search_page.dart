@@ -126,7 +126,8 @@ class _ProfileSearchPageState extends State<ProfileSearchPage> {
                   child: ProfileListViewCard(
                     emoji: user.emoji ?? '🔍',
                     title: user.name,
-                    subtitle: user.username != null ? '@${user.username}' : null,
+                    subtitle:
+                        user.username != null ? '@${user.username}' : null,
                     avatarSize: 25,
                     emojiSize: 20,
                   ),

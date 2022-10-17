@@ -22,18 +22,18 @@ class ClassTimeTableViewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final TimeOfDay _startTime = classTimeTable.endingTime!;
+    final TimeOfDay startTime = classTimeTable.endingTime!;
     final TimeOfDay endTime = classTimeTable.startingTime!;
 
-    final double _doubleYourTime =
-        _startTime.hour.toDouble() + (_startTime.minute.toDouble() / 60);
-    final double _doubleNowTime =
+    final double doubleYourTime =
+        startTime.hour.toDouble() + (startTime.minute.toDouble() / 60);
+    final double doubleNowTime =
         endTime.hour.toDouble() + (endTime.minute.toDouble() / 60);
 
-    final double _timeDiff = _doubleYourTime - _doubleNowTime;
+    final double timeDiff = doubleYourTime - doubleNowTime;
 
-    final int _hr = _timeDiff.truncate();
-    final int _minute = ((_timeDiff - _timeDiff.truncate()) * 60).toInt();
+    final int hr = timeDiff.truncate();
+    final int minute = ((timeDiff - timeDiff.truncate()) * 60).toInt();
     final isStudent = context.read<UserCubit>().state.userDetails.isStudent;
 
     return BorderedBox(
@@ -79,7 +79,7 @@ class ClassTimeTableViewCard extends StatelessWidget {
               ),
               const SizedBox(width: 5),
               Text(
-                'Duration: ${_hr == 0 ? '' : '$_hr hours '}$_minute min',
+                'Duration: ${hr == 0 ? '' : '$hr hours '}$minute min',
                 style: textTheme.bodySmall,
               )
             ],

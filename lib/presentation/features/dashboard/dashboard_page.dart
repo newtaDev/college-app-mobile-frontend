@@ -4,13 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:widgets_lib/widgets_lib.dart';
 
+import '../../../cubits/selection/selection_cubit.dart';
 import '../../../cubits/user/user_cubit.dart';
 import '../../../shared/global/enums.dart';
+import '../../overlays/dialogs/select_subject_dialog.dart';
 import '../../router/routes.dart';
 import '../../overlays/bottom_sheet/selection_bottom_sheet.dart';
+import 'class_room/class_room_tab.dart';
 import 'home/home_tab.dart';
 import 'profile/profile_tab.dart';
-import 'settings/settings_tab.dart';
 
 class DashboardPage extends StatefulWidget {
   final DashboardPageTabs tabName;
@@ -111,7 +113,7 @@ class _DashboardPageState extends State<DashboardPage> {
       case DashboardPageTabs.profile:
         return const ProfileTab();
       case DashboardPageTabs.settings:
-        return const SettingsTab();
+        return const ClassRoomTab();
     }
   }
 }
@@ -160,18 +162,23 @@ class FabPopupContents extends StatelessWidget {
                 if (state != null) {
                   state.toggle();
                 }
-                showModalBottomSheet<void>(
+                showDialog<void>(
                   context: context,
-                  isScrollControlled: true,
-                  builder: (context) => ClassAndSemSelectionBottomSheet(
-                    onContinue: () {
-                      Navigator.of(context).pop();
-                      context.goNamed(
-                        Routes.viewAttendanceScreen.name,
-                        params: RouteParams.withDashboard,
-                      );
-                    },
-                  ),
+                  builder: (context) {
+                    return SelectSubjectDialog(
+                      title: 'Create Attendance',
+                      onSubjectSelected: (subject) {
+                        Navigator.of(context).pop();
+                        context
+                            .read<SelectionCubit>()
+                            .setSelectedSubject(subject);
+                        context.pushNamed(
+                          Routes.createAttendanceScreen.name,
+                          params: RouteParams.withDashboard,
+                        );
+                      },
+                    );
+                  },
                 );
               },
             ),

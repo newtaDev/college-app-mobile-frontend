@@ -291,7 +291,7 @@ class _CreateByCard extends StatelessWidget {
           child: Align(
             alignment: Alignment.centerRight,
             child: Text(
-              'By - $by',
+              '- $by',
               style: textTheme.bodySmall,
             ),
           ),
