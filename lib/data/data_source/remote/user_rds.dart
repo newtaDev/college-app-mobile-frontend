@@ -23,19 +23,7 @@ class UserRemoteDataSource {
     );
   }
 
-  Future<Response> checkUsernameExists({required String username}) {
-    return client.get(
-      '/user/validate',
-      queryParameters: {'username': username},
-    );
-  }
-
-  Future<Response> checkEmailExists({required String email}) {
-    return client.get(
-      '/user/validate',
-      queryParameters: {'email': email},
-    );
-  }
+ 
 
   Future<Response> updateStudentProfile(StudentUser student) {
     return client.put(

@@ -37,6 +37,7 @@ void registerRepositoryDependencies() {
     ..registerSingleton<ProfileRepoImpl>(
       ProfileRepoImpl(
         userRds: getIt<UserRemoteDataSource>(),
+        authRds: getIt<AuthRemoteDataSource>(),
       ),
     )
 

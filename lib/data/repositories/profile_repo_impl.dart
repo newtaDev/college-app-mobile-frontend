@@ -4,18 +4,21 @@ import '../../domain/entities/user_entity.dart';
 import '../../domain/repository/profile_repository.dart';
 import '../../shared/errors/api_errors.dart';
 import '../../shared/global/enums.dart';
+import '../data_source/remote/auth_rds.dart';
 import '../data_source/remote/user_rds.dart';
 
 class ProfileRepoImpl implements ProfileRepository {
   final UserRemoteDataSource userRds;
+  final AuthRemoteDataSource authRds;
   ProfileRepoImpl({
     required this.userRds,
+    required this.authRds,
   });
 
   @override
   Future<void> checkEmailExists(String email) async {
     try {
-      await userRds.checkEmailExists(email: email);
+      await authRds.checkEmailExists(email: email);
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;
       if (e.response?.statusCode == null) rethrow;
@@ -34,7 +37,7 @@ class ProfileRepoImpl implements ProfileRepository {
   @override
   Future<void> checkUsernameExists(String username) async {
     try {
-      await userRds.checkUsernameExists(username: username);
+      await authRds.checkUsernameExists(username: username);
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;
       if (e.response?.statusCode == null) rethrow;
