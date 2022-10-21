@@ -125,11 +125,11 @@ class CreateAttendanceCubit extends Cubit<CreateAttendanceState> {
 
   void setCreationInitialData() {
     final collegeId = selectionCubit
-        .state.assignedSubjectSelectionStates.selectedSubject!.collegeId!;
+        .state.accessibleSubjectStates.selectedSubject!.collegeId!;
     final classId = selectionCubit
-        .state.assignedSubjectSelectionStates.selectedSubject!.classId!;
+        .state.accessibleSubjectStates.selectedSubject!.classId!;
     final currentSem = selectionCubit
-        .state.assignedSubjectSelectionStates.selectedSubject!.semester!;
+        .state.accessibleSubjectStates.selectedSubject!.semester!;
     emit(
       state.copyWith(
         classId: classId,
@@ -138,7 +138,7 @@ class CreateAttendanceCubit extends Cubit<CreateAttendanceState> {
       ),
     );
     setSelectedSubject(
-      selectionCubit.state.assignedSubjectSelectionStates.selectedSubject,
+      selectionCubit.state.accessibleSubjectStates.selectedSubject,
     );
   }
 
@@ -159,7 +159,7 @@ class CreateAttendanceCubit extends Cubit<CreateAttendanceState> {
     // Invoke API only when classId of subjects changed
     if (state.classId !=
         selectionCubit
-            .state.assignedSubjectSelectionStates.selectedSubject!.classId) {
+            .state.accessibleSubjectStates.selectedSubject!.classId) {
       getAllStudentsInClass(state.classId);
     }
     selectionCubit.setSelectedSubject(state.selectedSubject!);

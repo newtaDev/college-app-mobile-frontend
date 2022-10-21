@@ -1,35 +1,26 @@
 part of 'selection_cubit.dart';
 
-enum AssignedClassesOfTeacherStatus { initial, loading, success, error }
+enum SelectionStatus { initial, loading, success, error }
 
-enum CourseSubjectStatus { initial, loading, success, error }
-
-extension AssignedClassesOfTeacherStatusX on AssignedClassesOfTeacherStatus {
-  bool get isInitial => this == AssignedClassesOfTeacherStatus.initial;
-  bool get isSuccess => this == AssignedClassesOfTeacherStatus.success;
-  bool get isError => this == AssignedClassesOfTeacherStatus.error;
-  bool get isLoading => this == AssignedClassesOfTeacherStatus.loading;
-}
-
-extension CourseSubjectStatusX on CourseSubjectStatus {
-  bool get isInitial => this == CourseSubjectStatus.initial;
-  bool get isSuccess => this == CourseSubjectStatus.success;
-  bool get isError => this == CourseSubjectStatus.error;
-  bool get isLoading => this == CourseSubjectStatus.loading;
+extension SelectionStatusX on SelectionStatus {
+  bool get isInitial => this == SelectionStatus.initial;
+  bool get isSuccess => this == SelectionStatus.success;
+  bool get isError => this == SelectionStatus.error;
+  bool get isLoading => this == SelectionStatus.loading;
 }
 
 class SelectionState extends MyEquatable {
   final List<ClassWithDetails> allClasses;
   final ClassWithDetails? selectedAllClasses;
-  final AssignedClassesSelectonStates assignedClassesSelectonStates;
-  final AssignedSubjectSelectionStates assignedSubjectSelectionStates;
+  final AccessibleClassesStates accessibleClassesStates;
+  final AccessibleSubjectStates accessibleSubjectStates;
   final ApiErrorRes? error;
 
   const SelectionState({
     this.allClasses = const [],
     this.selectedAllClasses,
-    required this.assignedClassesSelectonStates,
-    required this.assignedSubjectSelectionStates,
+    required this.accessibleClassesStates,
+    required this.accessibleSubjectStates,
     this.error,
   });
 
@@ -38,35 +29,33 @@ class SelectionState extends MyEquatable {
     return [
       allClasses,
       selectedAllClasses,
-      assignedClassesSelectonStates,
-      assignedSubjectSelectionStates,
+      accessibleClassesStates,
+      accessibleSubjectStates,
       error,
     ];
   }
 
   const SelectionState.init()
       : allClasses = const [],
-        assignedClassesSelectonStates =
-            const AssignedClassesSelectonStates.empty(),
-        assignedSubjectSelectionStates =
-            const AssignedSubjectSelectionStates.empty(),
+        accessibleClassesStates = const AccessibleClassesStates.empty(),
+        accessibleSubjectStates = const AccessibleSubjectStates.empty(),
         error = null,
         selectedAllClasses = null;
 
   SelectionState copyWith({
     List<ClassWithDetails>? allClasses,
     ClassWithDetails? selectedAllClasses,
-    AssignedClassesSelectonStates? assignedClassesSelectonStates,
-    AssignedSubjectSelectionStates? assignedSubjectSelectionStates,
+    AccessibleClassesStates? accessibleClassesStates,
+    AccessibleSubjectStates? accessibleSubjectStates,
     ApiErrorRes? error,
   }) {
     return SelectionState(
       allClasses: allClasses ?? this.allClasses,
       selectedAllClasses: selectedAllClasses ?? this.selectedAllClasses,
-      assignedClassesSelectonStates:
-          assignedClassesSelectonStates ?? this.assignedClassesSelectonStates,
-      assignedSubjectSelectionStates:
-          assignedSubjectSelectionStates ?? this.assignedSubjectSelectionStates,
+      accessibleClassesStates:
+          accessibleClassesStates ?? this.accessibleClassesStates,
+      accessibleSubjectStates:
+          accessibleSubjectStates ?? this.accessibleSubjectStates,
       error: error ?? this.error,
     );
   }
@@ -75,44 +64,42 @@ class SelectionState extends MyEquatable {
     return SelectionState(
       allClasses: allClasses,
       selectedAllClasses: selectedAllClasses,
-      assignedClassesSelectonStates: assignedClassesSelectonStates,
-      assignedSubjectSelectionStates:
-          const AssignedSubjectSelectionStates.empty(),
+      accessibleClassesStates: accessibleClassesStates,
+      accessibleSubjectStates: const AccessibleSubjectStates.empty(),
       error: error,
     );
   }
 }
 
-class AssignedClassesSelectonStates extends MyEquatable {
-  final List<ClassWithDetails> assignedClassesOfTeacher;
+class AccessibleClassesStates extends MyEquatable {
+  final List<ClassWithDetails> classes;
   final ClassWithDetails? selectedClass;
   final int? selectedSem;
   final int? totalSem;
-  final AssignedClassesOfTeacherStatus status;
-  const AssignedClassesSelectonStates({
-    required this.assignedClassesOfTeacher,
+  final SelectionStatus status;
+  const AccessibleClassesStates({
+    required this.classes,
     this.selectedClass,
     this.selectedSem,
     this.totalSem,
     required this.status,
   });
-  const AssignedClassesSelectonStates.empty()
-      : assignedClassesOfTeacher = const [],
-        status = AssignedClassesOfTeacherStatus.initial,
+  const AccessibleClassesStates.empty()
+      : classes = const [],
+        status = SelectionStatus.initial,
         selectedClass = null,
         selectedSem = null,
         totalSem = null;
 
-  AssignedClassesSelectonStates copyWith({
-    List<ClassWithDetails>? assignedClassesOfTeacher,
+  AccessibleClassesStates copyWith({
+    List<ClassWithDetails>? classes,
     ClassWithDetails? selectedClass,
     int? selectedSem,
     int? totalSem,
-    AssignedClassesOfTeacherStatus? status,
+    SelectionStatus? status,
   }) {
-    return AssignedClassesSelectonStates(
-      assignedClassesOfTeacher:
-          assignedClassesOfTeacher ?? this.assignedClassesOfTeacher,
+    return AccessibleClassesStates(
+      classes: classes ?? this.classes,
       selectedClass: selectedClass ?? this.selectedClass,
       selectedSem: selectedSem ?? this.selectedSem,
       totalSem: totalSem ?? this.totalSem,
@@ -123,7 +110,7 @@ class AssignedClassesSelectonStates extends MyEquatable {
   @override
   List<Object?> get props {
     return [
-      assignedClassesOfTeacher,
+      classes,
       selectedClass,
       selectedSem,
       totalSem,
@@ -132,26 +119,26 @@ class AssignedClassesSelectonStates extends MyEquatable {
   }
 }
 
-class AssignedSubjectSelectionStates extends MyEquatable {
-  final CourseSubjectStatus status;
+class AccessibleSubjectStates extends MyEquatable {
+  final SelectionStatus status;
   final List<Subject> subjects;
   final Subject? selectedSubject;
-  const AssignedSubjectSelectionStates({
+  const AccessibleSubjectStates({
     required this.status,
     required this.subjects,
     this.selectedSubject,
   });
-  const AssignedSubjectSelectionStates.empty()
-      : status = CourseSubjectStatus.initial,
+  const AccessibleSubjectStates.empty()
+      : status = SelectionStatus.initial,
         subjects = const [],
         selectedSubject = null;
 
-  AssignedSubjectSelectionStates copyWith({
-    CourseSubjectStatus? status,
+  AccessibleSubjectStates copyWith({
+    SelectionStatus? status,
     List<Subject>? subjects,
     Subject? selectedSubject,
   }) {
-    return AssignedSubjectSelectionStates(
+    return AccessibleSubjectStates(
       status: status ?? this.status,
       subjects: subjects ?? this.subjects,
       selectedSubject: selectedSubject ?? this.selectedSubject,

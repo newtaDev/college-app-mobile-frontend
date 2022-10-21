@@ -5,10 +5,15 @@ import '../../../shared/helpers/network/dio_client.dart';
 class ClassRoomRemoteDataSource {
   final client = DioClient.getClient();
 
-  Future<Response> getSubjectsOfClass(String classId) {
+  Future<Response> getAllSubjectResourcesWithCount(String subjectId) {
     return client.get(
-      '/subjects',
-      queryParameters: {'classId': classId},
+      '/subject-resources/getAllSubjectResourcesWithCount',
+      queryParameters: {'subjectId': subjectId},
+    );
+  }
+  Future<Response> getSubjectResourceDetails(String resourceId) {
+    return client.get(
+      '/subject-resources/$resourceId',
     );
   }
 }

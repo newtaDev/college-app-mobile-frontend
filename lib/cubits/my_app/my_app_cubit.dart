@@ -6,6 +6,7 @@ import '../../data/data_source/local/auth_lds.dart';
 import '../../domain/repository/token_repository.dart';
 import '../../shared/errors/api_errors.dart';
 import '../../utils/utils.dart';
+import '../selection/selection_cubit.dart';
 import '../user/user_cubit.dart';
 
 part 'my_app_state.dart';
@@ -13,10 +14,12 @@ part 'my_app_state.dart';
 class MyAppCubit extends Cubit<MyAppState> {
   final TokenRepository tokenRepo;
   final UserCubit userCubit;
+  final SelectionCubit selectionCubit;
   final AuthLocalDataSource authLds;
   MyAppCubit({
     required this.tokenRepo,
     required this.userCubit,
+    required this.selectionCubit,
     required this.authLds,
   }) : super(const MyAppState.init()) {
     _appInit();
@@ -40,6 +43,12 @@ class MyAppCubit extends Cubit<MyAppState> {
       await tokenRepo.reGenerateToken();
       await userCubit.setUpInitialUserData();
       log('-- Login Success --');
+      if (userCubit.state.isTeacher) {
+        await selectionCubit.getAccessibleSubjectsOfTeacher();
+      }
+      if (userCubit.state.isStudent) {
+        await selectionCubit.getAccessibleSubjectsOfStudents();
+      }
       emit(state.copyWith(splashStatus: SplashStatus.loginSuccess));
     } on ApiErrorRes catch (_) {
       emit(state.copyWith(splashStatus: SplashStatus.invalidUser));

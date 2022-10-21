@@ -1,9 +1,15 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:styles_lib/styles_lib.dart';
 import 'package:widgets_lib/widgets/widgets.dart';
 
 import '../../../cubits/user/user_cubit.dart';
+import '../../router/routes.dart';
 import 'cubit/class_room_cubit.dart';
+import 'pages/subject_resources_page.dart';
 import 'widgets/class_room_subject_card.dart';
 
 class MySubjectsClassRoomView extends StatefulWidget {
@@ -22,25 +28,21 @@ class _MySubjectsClassRoomViewState extends State<MySubjectsClassRoomView> {
     super.initState();
   }
 
-  Future<void> getSubjects() async {
-    final classRoomCubit = context.read<ClassRoomCubit>();
-    if (context.read<UserCubit>().state.isTeacher) {
-      classRoomCubit.setSubjectsForTeacher();
-    } else {
-      await classRoomCubit.getMySubjectsForStudents();
-    }
-  }
+  Future<void> getSubjects() async =>
+      context.read<ClassRoomCubit>().getMySubjects();
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ClassRoomCubit, ClassRoomState>(
-      buildWhen: (previous, current) => previous.status != current.status,
+      buildWhen: (previous, current) =>
+          previous.mySubjectStatus != current.mySubjectStatus,
       builder: (context, state) {
-        if (state.status.isInitial || state.status.isLoading) {
+        if (state.mySubjectStatus.isInitial ||
+            state.mySubjectStatus.isLoading) {
           return const LoadingIndicator();
         }
 
-        if (state.mySubjects.isEmpty || state.status.isError) {
+        if (state.mySubjects.isEmpty || state.mySubjectStatus.isError) {
           return const Center(child: Text('Subjects not found'));
         }
         return RefreshIndicator(
@@ -49,6 +51,8 @@ class _MySubjectsClassRoomViewState extends State<MySubjectsClassRoomView> {
             itemCount: state.mySubjects.length,
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             itemBuilder: (context, index) {
+              final genColor = ColorPallet.brightColors[
+                  Random().nextInt(ColorPallet.brightColors.length)];
               final subject = state.mySubjects[index];
               return ClassRoomSubjectCard(
                 assignedTo: subject.assignedToId ==
@@ -58,6 +62,17 @@ class _MySubjectsClassRoomViewState extends State<MySubjectsClassRoomView> {
                 className: subject.classDetails!.name!,
                 semester: subject.semester!,
                 subjectName: subject.name!,
+                genColor: genColor,
+                onTap: () {
+                  context.goNamed(
+                    Routes.subjectResourcesScreen.name,
+                    extra: SubjectResourcesPageParams(
+                      subject: subject,
+                      genColor: genColor,
+                    ),
+                    params: RouteParams.withDashboard,
+                  );
+                },
               );
             },
           ),

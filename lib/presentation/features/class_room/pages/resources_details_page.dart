@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:styles_lib/theme/themes.dart';
 import 'package:widgets_lib/widgets/common/fitted_text.dart';
 
+import '../../../../domain/entities/class_room_entity.dart';
 import '../../../../shared/extensions/extentions.dart';
 
-class ClassRoomResourceDetailsPage extends StatelessWidget {
-  const ClassRoomResourceDetailsPage({super.key});
+class SubjectResourceDetailsPage extends StatelessWidget {
+  final String resourceId;
+  const SubjectResourceDetailsPage({super.key, required this.resourceId});
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +134,10 @@ class ClassRoomResourceDetailsPage extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 10),
-                        Text(' Thisiis the comment of the user',style: textTheme.bodySmall,)
+                        Text(
+                          ' Thisiis the comment of the user',
+                          style: textTheme.bodySmall,
+                        )
                       ],
                     ),
                   ),

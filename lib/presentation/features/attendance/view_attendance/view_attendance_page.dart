@@ -31,9 +31,9 @@ class _ViewAttendancePageState extends State<ViewAttendancePage> {
     context.read<ViewAttendanceCubit>().getSubjectAttendances(
           SubjectAttendanceWithQueryReq(
             classId: selectCubit
-                .state.assignedSubjectSelectionStates.selectedSubject!.classId!,
+                .state.accessibleSubjectStates.selectedSubject!.classId!,
             subjectId: selectCubit
-                .state.assignedSubjectSelectionStates.selectedSubject!.id!,
+                .state.accessibleSubjectStates.selectedSubject!.id!,
           ),
         );
   }
@@ -205,7 +205,7 @@ class AttendanceViewLayout extends StatelessWidget {
                                 ?.copyWith(fontWeight: FontWeight.w600),
                           ),
                           Text(
-                            '${context.read<SelectionCubit>().state.assignedSubjectSelectionStates.selectedSubject?.classDetails?.name} - ${attendanceData.subject?.semester}${attendanceData.subject?.semester?.getRankPosition} Sem',
+                            '${context.read<SelectionCubit>().state.accessibleSubjectStates.selectedSubject?.classDetails?.name} - ${attendanceData.subject?.semester}${attendanceData.subject?.semester?.getRankPosition} Sem',
                             style: textTheme.bodySmall,
                           ),
                           Text(

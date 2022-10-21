@@ -4,6 +4,7 @@ import 'package:widgets_lib/overlays/overlays.dart';
 import 'package:widgets_lib/widgets/common/loading_indicator.dart';
 
 import '../../../cubits/selection/selection_cubit.dart';
+import '../../../cubits/user/user_cubit.dart';
 import '../../../data/models/data_class/subject_model.dart';
 import '../../../shared/extensions/extentions.dart';
 
@@ -23,7 +24,12 @@ class SelectSubjectDialog extends StatefulWidget {
 class _SelectSubjectDialogState extends State<SelectSubjectDialog> {
   @override
   void initState() {
-    context.read<SelectionCubit>().getAndSetAssignedSubjectsOfTeacher();
+    if (context.read<UserCubit>().state.isStudent) {
+      context.read<SelectionCubit>().getAccessibleSubjectsOfStudents();
+    }
+    if (context.read<UserCubit>().state.isTeacher) {
+      context.read<SelectionCubit>().getAccessibleSubjectsOfTeacher();
+    }
     super.initState();
   }
 
@@ -36,15 +42,15 @@ class _SelectSubjectDialogState extends State<SelectSubjectDialog> {
         borderRadius: BorderRadius.circular(12),
         child: BlocBuilder<SelectionCubit, SelectionState>(
           buildWhen: (previous, current) =>
-              previous.assignedSubjectSelectionStates.status !=
-              current.assignedSubjectSelectionStates.status,
+              previous.accessibleSubjectStates.status !=
+              current.accessibleSubjectStates.status,
           builder: (context, state) {
-            if (state.assignedSubjectSelectionStates.status.isInitial ||
-                state.assignedSubjectSelectionStates.status.isLoading) {
+            if (state.accessibleSubjectStates.status.isInitial ||
+                state.accessibleSubjectStates.status.isLoading) {
               return const LoadingIndicator();
             }
-            if (state.assignedSubjectSelectionStates.subjects.isEmpty ||
-                state.assignedSubjectSelectionStates.status.isError) {
+            if (state.accessibleSubjectStates.subjects.isEmpty ||
+                state.accessibleSubjectStates.status.isError) {
               return const Center(
                 child: Text('Subjects not found'),
               );
@@ -66,7 +72,7 @@ class _SelectSubjectDialogState extends State<SelectSubjectDialog> {
                       vertical: 20,
                     ),
                     child: ShowSearchDialog<Subject>(
-                      searchList: state.assignedSubjectSelectionStates.subjects,
+                      searchList: state.accessibleSubjectStates.subjects,
                       searchCondition: (data, searchInput) {
                         return data.name!.toLowerCase().contains(
                               searchInput.toLowerCase(),

@@ -23,6 +23,7 @@ import '../../data/repositories/common_repo_impl.dart';
 import '../../data/repositories/profile_repo_impl.dart';
 import '../../data/repositories/token_repo_impl.dart';
 import '../../domain/repository/class_room_repository.dart';
+import '../../domain/repository/common_repository.dart';
 import '../../domain/repository/profile_repository.dart';
 import '../../presentation/features/announcement/create/cubit/create_announcement_cubit.dart';
 import '../../presentation/features/announcement/view/cubit/view_announcement_cubit.dart';

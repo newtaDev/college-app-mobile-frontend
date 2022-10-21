@@ -70,4 +70,32 @@ class CommonRepoImpl implements CommonRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<SubjectsRes> getAssignedSubjectsOfTeacher(String assignedTo) async {
+    try {
+      final res = await commonRds.getAssignedSubjectsOfTeacher(assignedTo);
+      return SubjectsRes.fromMap(res.data);
+    } on DioError catch (e) {
+      if (e.type != DioErrorType.response) rethrow;
+      final errorRes = ApiErrorRes.fromMap(e.response?.data);
+      throw errorRes;
+    } catch (e) {
+      rethrow;
+    }
+  }
+ @override
+  Future<SubjectsRes> getSubjectsOfClass(String classId) async {
+    try {
+      final res = await commonRds.getSubjectsOfClass(classId);
+      return SubjectsRes.fromMap(res.data);
+    } on DioError catch (e) {
+      if (e.type != DioErrorType.response) rethrow;
+      final errorRes = ApiErrorRes.fromMap(e.response?.data);
+      throw errorRes;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
 }

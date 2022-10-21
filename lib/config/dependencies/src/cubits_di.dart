@@ -50,6 +50,7 @@ void registerCubitsDependencies() {
       MyAppCubit(
         tokenRepo: getIt<TokenRepoImpl>(),
         userCubit: getIt<UserCubit>(),
+        selectionCubit: getIt<SelectionCubit>(),
         authLds: getIt<AuthLocalDataSource>(),
       ),
     )
@@ -91,6 +92,7 @@ void registerCubitsDependencies() {
       () => ClassRoomCubit(
         userCubit: getIt<UserCubit>(),
         classRoomRepo: getIt<ClassRoomRepoImpl>(),
+        commonRepo: getIt<CommonRepoImpl>(),
       ),
     )
     ..registerFactory(

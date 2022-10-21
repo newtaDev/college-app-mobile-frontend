@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-
 import '../../shared/global/enums.dart';
-import 'app_router.dart';
 
 enum Routes {
   splashScreen,
@@ -23,6 +20,8 @@ enum Routes {
   createAnnouncementScreen,
   imageViewerScreen,
   searchProfileScreen,
+  subjectResourcesScreen,
+  subjectResourceDetailsScreen,
 
   /// Showcase screens
   schowcaseThemeAndWidgetsScreen,

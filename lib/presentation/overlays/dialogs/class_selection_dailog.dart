@@ -21,7 +21,7 @@ class _AssignedClassSelectionDialogState
     extends State<AssignedClassSelectionDialog> {
   @override
   void initState() {
-    context.read<SelectionCubit>().getAssignedClassesOfTeacherFromRemote();
+    context.read<SelectionCubit>().getAccessibleClassesOfTeacher();
     super.initState();
   }
 
@@ -34,17 +34,17 @@ class _AssignedClassSelectionDialogState
         borderRadius: BorderRadius.circular(12),
         child: BlocBuilder<SelectionCubit, SelectionState>(
           buildWhen: (previous, current) =>
-              previous.assignedClassesSelectonStates.status !=
-              current.assignedClassesSelectonStates.status,
+              previous.accessibleClassesStates.status !=
+              current.accessibleClassesStates.status,
           builder: (context, state) {
-            if (state.assignedClassesSelectonStates.status.isInitial ||
-                state.assignedClassesSelectonStates.status.isLoading) {
+            if (state.accessibleClassesStates.status.isInitial ||
+                state.accessibleClassesStates.status.isLoading) {
               return const LoadingIndicator();
             }
-            if (state.assignedClassesSelectonStates.status.isError) {
+            if (state.accessibleClassesStates.status.isError) {
               return const Center(child: Text('Classes not found'));
             }
-            if (state.assignedClassesSelectonStates.assignedClassesOfTeacher
+            if (state.accessibleClassesStates.classes
                 .isEmpty) {
               return const Center(
                 child: Text("You don't have access to any classes"),
@@ -55,7 +55,7 @@ class _AssignedClassSelectionDialogState
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
               child: ShowSearchDialog<ClassWithDetails>(
                 searchList: state
-                    .assignedClassesSelectonStates.assignedClassesOfTeacher,
+                    .accessibleClassesStates.classes,
                 searchCondition: (data, searchInput) {
                   return data.name!.toLowerCase().contains(
                         searchInput.toLowerCase(),

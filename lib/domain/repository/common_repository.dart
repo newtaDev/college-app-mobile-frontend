@@ -6,4 +6,6 @@ abstract class CommonRepository {
   Future<ClassWithDetailsRes> getAssignedClassesOfTeacher();
   Future<UserDetailsRes> getUserDetails();
   Future<SubjectsRes> getSubjectsOfCourse(String courseId);
+  Future<SubjectsRes> getSubjectsOfClass(String classId);
+  Future<SubjectsRes> getAssignedSubjectsOfTeacher(String assignedTo);
 }

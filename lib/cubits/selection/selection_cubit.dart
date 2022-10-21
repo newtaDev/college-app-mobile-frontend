@@ -18,42 +18,28 @@ class SelectionCubit extends Cubit<SelectionState> {
     required this.userCubit,
   }) : super(const SelectionState.init());
 
-  void getAssignedClassesOfTeacherFromMemory() {
+  Future<void> getAccessibleClassesOfTeacher() async {
     emit(
       state.copyWith(
-        assignedClassesSelectonStates:
-            state.assignedClassesSelectonStates.copyWith(
-          status: AssignedClassesOfTeacherStatus.success,
-          assignedClassesOfTeacher:
-              userCubit.state.userAsTeacher?.assignedClasses,
-        ),
-      ),
-    );
-  }
-
-  Future<void> getAssignedClassesOfTeacherFromRemote() async {
-    emit(
-      state.copyWith(
-        assignedClassesSelectonStates: state.assignedClassesSelectonStates
-            .copyWith(status: AssignedClassesOfTeacherStatus.loading),
+        accessibleClassesStates: state.accessibleClassesStates
+            .copyWith(status: SelectionStatus.loading),
       ),
     );
     try {
       final classRes = await commonRepo.getAssignedClassesOfTeacher();
       emit(
         state.copyWith(
-          assignedClassesSelectonStates:
-              state.assignedClassesSelectonStates.copyWith(
-            status: AssignedClassesOfTeacherStatus.success,
-            assignedClassesOfTeacher: classRes.responseData,
+          accessibleClassesStates: state.accessibleClassesStates.copyWith(
+            status: SelectionStatus.success,
+            classes: classRes.responseData,
           ),
         ),
       );
     } on ApiErrorRes catch (apiError) {
       emit(
         state.copyWith(
-          assignedClassesSelectonStates: state.assignedClassesSelectonStates
-              .copyWith(status: AssignedClassesOfTeacherStatus.error),
+          accessibleClassesStates: state.accessibleClassesStates
+              .copyWith(status: SelectionStatus.error),
           error: apiError,
         ),
       );
@@ -61,8 +47,8 @@ class SelectionCubit extends Cubit<SelectionState> {
       final apiErrorRes = ApiErrorRes(devMessage: 'Getting classses failed');
       emit(
         state.copyWith(
-          assignedClassesSelectonStates: state.assignedClassesSelectonStates
-              .copyWith(status: AssignedClassesOfTeacherStatus.error),
+          accessibleClassesStates: state.accessibleClassesStates
+              .copyWith(status: SelectionStatus.error),
           error: apiErrorRes,
         ),
       );
@@ -70,32 +56,97 @@ class SelectionCubit extends Cubit<SelectionState> {
     }
   }
 
-  void getAndSetAssignedSubjectsOfTeacher() {
+  Future<void> getAccessibleSubjectsOfTeacher() async {
     emit(
       state.copyWith(
-        assignedSubjectSelectionStates:
-            state.assignedSubjectSelectionStates.copyWith(
-          status: CourseSubjectStatus.success,
-          subjects: userCubit.state.userAsTeacher?.assignedSubjects,
-        ),
+        accessibleSubjectStates: state.accessibleSubjectStates
+            .copyWith(status: SelectionStatus.loading),
       ),
     );
+    try {
+      final subjectRes = await commonRepo
+          .getAssignedSubjectsOfTeacher(userCubit.state.userAsTeacher!.id);
+      emit(
+        state.copyWith(
+          accessibleSubjectStates: state.accessibleSubjectStates.copyWith(
+            status: SelectionStatus.success,
+            subjects: subjectRes.responseData,
+          ),
+        ),
+      );
+    } on ApiErrorRes catch (apiError) {
+      emit(
+        state.copyWith(
+          accessibleSubjectStates: state.accessibleSubjectStates
+              .copyWith(status: SelectionStatus.error),
+          error: apiError,
+        ),
+      );
+    } catch (e) {
+      final apiErrorRes = ApiErrorRes(devMessage: 'Getting classses failed');
+      emit(
+        state.copyWith(
+          accessibleSubjectStates: state.accessibleSubjectStates
+              .copyWith(status: SelectionStatus.error),
+          error: apiErrorRes,
+        ),
+      );
+      rethrow;
+    }
+  }
+
+  Future<void> getAccessibleSubjectsOfStudents() async {
+    emit(
+      state.copyWith(
+        accessibleSubjectStates: state.accessibleSubjectStates
+            .copyWith(status: SelectionStatus.loading),
+      ),
+    );
+    try {
+      final subjectRes = await commonRepo
+          .getSubjectsOfClass(userCubit.state.userAsStudent!.classId);
+      emit(
+        state.copyWith(
+          accessibleSubjectStates: state.accessibleSubjectStates.copyWith(
+            status: SelectionStatus.success,
+            subjects: subjectRes.responseData,
+          ),
+        ),
+      );
+    } on ApiErrorRes catch (apiError) {
+      emit(
+        state.copyWith(
+          accessibleSubjectStates: state.accessibleSubjectStates
+              .copyWith(status: SelectionStatus.error),
+          error: apiError,
+        ),
+      );
+    } catch (e) {
+      final apiErrorRes = ApiErrorRes(devMessage: 'Getting classses failed');
+      emit(
+        state.copyWith(
+          accessibleSubjectStates: state.accessibleSubjectStates
+              .copyWith(status: SelectionStatus.error),
+          error: apiErrorRes,
+        ),
+      );
+      rethrow;
+    }
   }
 
   Future<void> getSubjectWithDetailsOfCourse(String courseId) async {
     emit(
       state.copyWith(
-        assignedSubjectSelectionStates: state.assignedSubjectSelectionStates
-            .copyWith(status: CourseSubjectStatus.loading),
+        accessibleSubjectStates: state.accessibleSubjectStates
+            .copyWith(status: SelectionStatus.loading),
       ),
     );
     try {
       final res = await commonRepo.getSubjectsOfCourse(courseId);
       emit(
         state.copyWith(
-          assignedSubjectSelectionStates:
-              state.assignedSubjectSelectionStates.copyWith(
-            status: CourseSubjectStatus.success,
+          accessibleSubjectStates: state.accessibleSubjectStates.copyWith(
+            status: SelectionStatus.success,
             subjects: res.responseData,
           ),
         ),
@@ -103,8 +154,8 @@ class SelectionCubit extends Cubit<SelectionState> {
     } on ApiErrorRes catch (apiError) {
       emit(
         state.copyWith(
-          assignedSubjectSelectionStates: state.assignedSubjectSelectionStates
-              .copyWith(status: CourseSubjectStatus.error),
+          accessibleSubjectStates: state.accessibleSubjectStates
+              .copyWith(status: SelectionStatus.error),
           error: apiError,
         ),
       );
@@ -113,8 +164,8 @@ class SelectionCubit extends Cubit<SelectionState> {
       emit(
         state
           ..copyWith(
-            assignedSubjectSelectionStates: state.assignedSubjectSelectionStates
-                .copyWith(status: CourseSubjectStatus.error),
+            accessibleSubjectStates: state.accessibleSubjectStates
+                .copyWith(status: SelectionStatus.error),
             error: apiErrorRes,
           ),
       );
@@ -125,8 +176,7 @@ class SelectionCubit extends Cubit<SelectionState> {
   void setSelectedAssignedClass(ClassWithDetails selectedClass) {
     emit(
       state.copyWith(
-        assignedClassesSelectonStates:
-            state.assignedClassesSelectonStates.copyWith(
+        accessibleClassesStates: state.accessibleClassesStates.copyWith(
           selectedClass: selectedClass,
           totalSem: selectedClass.course?.totalSem,
           selectedSem: selectedClass.currentSem,
@@ -138,8 +188,8 @@ class SelectionCubit extends Cubit<SelectionState> {
   void setSelectedAssignedSemester(int selectedSem) {
     emit(
       state.copyWith(
-        assignedClassesSelectonStates: state.assignedClassesSelectonStates
-            .copyWith(selectedSem: selectedSem),
+        accessibleClassesStates:
+            state.accessibleClassesStates.copyWith(selectedSem: selectedSem),
       ),
     );
   }
@@ -147,8 +197,8 @@ class SelectionCubit extends Cubit<SelectionState> {
   void setSelectedSubject(Subject subject) {
     emit(
       state.copyWith(
-        assignedSubjectSelectionStates: state.assignedSubjectSelectionStates
-            .copyWith(selectedSubject: subject),
+        accessibleSubjectStates:
+            state.accessibleSubjectStates.copyWith(selectedSubject: subject),
       ),
     );
   }

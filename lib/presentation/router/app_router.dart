@@ -3,7 +3,9 @@ import 'package:go_router/go_router.dart';
 
 import '../../config/app_config.dart';
 import '../../cubits/user/user_cubit.dart';
+import '../../data/models/data_class/subject_model.dart';
 import '../../domain/entities/attendance_entity.dart';
+import '../../domain/entities/class_room_entity.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../shared/global/enums.dart';
 import '../../shared/helpers/go_router/page_transitions.dart';
@@ -22,6 +24,8 @@ import '../features/attendance/view_attendance/cubit/view_attendance_cubit.dart'
 import '../features/attendance/view_attendance/view_attendance_page.dart';
 import '../features/auth/sign_in/sign_in_page.dart';
 import '../features/class_room/cubit/class_room_cubit.dart';
+import '../features/class_room/pages/resources_details_page.dart';
+import '../features/class_room/pages/subject_resources_page.dart';
 import '../features/class_time_table/class_time_table_page.dart';
 import '../features/class_time_table/cubit/class_time_table_cubit.dart';
 import '../features/dashboard/dashboard_page.dart';
@@ -45,6 +49,7 @@ import 'routes.dart';
 class AppRouter {
   // static AuthCubit authCubit = getIt<AuthCubit>();
   // static AppCubit appCubit = getIt<AppCubit>();
+  static ClassRoomCubit? classRoomCubit;
   static final router = GoRouter(
     initialLocation: '/splash',
     debugLogDiagnostics: true,
@@ -69,13 +74,20 @@ class AppRouter {
 
           /// Setting up selected tab
           RouteParams.selectedDashboardTab = tabName;
+
+          /// setup ClassRoomCubit
+          classRoomCubit ??= getIt<ClassRoomCubit>();
+          if (classRoomCubit?.isClosed ?? false) {
+            classRoomCubit = getIt<ClassRoomCubit>();
+          }
+
           return MultiBlocProvider(
             providers: [
               BlocProvider(
                 create: (context) => getIt<ViewAnnouncementCubit>(),
               ),
-              BlocProvider(
-                create: (context) => getIt<ClassRoomCubit>(),
+              BlocProvider<ClassRoomCubit>(
+                create: (context) => classRoomCubit!,
               ),
             ],
             child: DashboardPage(tabName: tabName),
@@ -193,6 +205,28 @@ class AppRouter {
                 appBarName: 'Update Attendance',
                 isUpdate: true,
                 updationData: state.extra as AttendanceWithCount?,
+              ),
+            ),
+          ),
+        ],
+      ),
+      GoRoute(
+        name: Routes.subjectResourcesScreen.name,
+        path: 'subject-resources',
+        builder: (context, state) => BlocProvider.value(
+          value: classRoomCubit!,
+          child: SubjectResourcesPage(
+            param: state.extra! as SubjectResourcesPageParams,
+          ),
+        ),
+        routes: [
+          GoRoute(
+            name: Routes.subjectResourceDetailsScreen.name,
+            path: 'details/:resourceId',
+            builder: (context, state) => BlocProvider.value(
+              value: classRoomCubit!,
+              child: SubjectResourceDetailsPage(
+                resourceId: state.params['resourceId']!,
               ),
             ),
           ),

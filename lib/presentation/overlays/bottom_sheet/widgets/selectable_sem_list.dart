@@ -22,8 +22,8 @@ class SelectableSemList extends StatelessWidget {
           padding: const EdgeInsets.only(right: 10),
           child: BlocSelector<SelectionCubit, SelectionState, bool>(
             selector: (state) =>
-                state.assignedClassesSelectonStates.selectedSem != null &&
-                state.assignedClassesSelectonStates.selectedSem == index + 1,
+                state.accessibleClassesStates.selectedSem != null &&
+                state.accessibleClassesStates.selectedSem == index + 1,
             builder: (context, isSelected) {
               return OutlinedButton.icon(
                 icon: Icon(

@@ -25,13 +25,13 @@ class ClassAndSemSelectionBottomSheet extends StatelessWidget {
           const SizedBox(height: 20),
           BlocBuilder<SelectionCubit, SelectionState>(
             buildWhen: (previous, current) =>
-                previous.assignedClassesSelectonStates.selectedClass !=
-                current.assignedClassesSelectonStates.selectedClass,
+                previous.accessibleClassesStates.selectedClass !=
+                current.accessibleClassesStates.selectedClass,
             builder: (context, state) {
               return _selectableBox(
                 context: context,
                 hintText: 'Select a class',
-                value: state.assignedClassesSelectonStates.selectedClass?.name,
+                value: state.accessibleClassesStates.selectedClass?.name,
                 onTap: () {
                   showDialog<void>(
                     context: context,
@@ -46,7 +46,7 @@ class ClassAndSemSelectionBottomSheet extends StatelessWidget {
           // const Expanded(child: SelectableClassesList()),
           BlocSelector<SelectionCubit, SelectionState, int>(
             selector: (state) =>
-                state.assignedClassesSelectonStates.totalSem ?? 0,
+                state.accessibleClassesStates.totalSem ?? 0,
             builder: (context, totalSem) {
               return AnimatedCrossFade(
                 crossFadeState: totalSem > 0
@@ -72,8 +72,8 @@ class ClassAndSemSelectionBottomSheet extends StatelessWidget {
           const SizedBox(height: 20),
           BlocSelector<SelectionCubit, SelectionState, bool>(
             selector: (state) =>
-                state.assignedClassesSelectonStates.selectedClass != null &&
-                state.assignedClassesSelectonStates.selectedSem != null,
+                state.accessibleClassesStates.selectedClass != null &&
+                state.accessibleClassesStates.selectedSem != null,
             builder: (context, isTapabled) {
               return ElevatedButton(
                 onPressed: !isTapabled ? null : onContinue,

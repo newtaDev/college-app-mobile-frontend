@@ -11,32 +11,65 @@ extension ClassRoomStatusX on ClassRoomStatus {
 
 class ClassRoomState extends Equatable {
   final ApiErrorRes? error;
-  final ClassRoomStatus status;
+  final ClassRoomStatus mySubjectStatus;
+  final ClassRoomStatus allSubjectResourcesStatus;
+  final ClassRoomStatus subjectResourceDetailsStatus;
   final List<Subject> mySubjects;
+  final List<SubjectResource> allSubjectResources;
+  final SubjectResource? subjectResourceDetails;
 
   const ClassRoomState({
     this.error,
-    required this.status,
+    required this.mySubjectStatus,
+    required this.allSubjectResourcesStatus,
+    required this.subjectResourceDetailsStatus,
     required this.mySubjects,
+    required this.allSubjectResources,
+    required this.subjectResourceDetails,
   });
 
   const ClassRoomState.init()
-      : status = ClassRoomStatus.initial,
+      : mySubjectStatus = ClassRoomStatus.initial,
+        allSubjectResourcesStatus = ClassRoomStatus.initial,
+        subjectResourceDetailsStatus = ClassRoomStatus.initial,
         mySubjects = const [],
+        allSubjectResources = const [],
+        subjectResourceDetails = null,
         error = null;
 
   @override
-  List<Object?> get props => [status, error, mySubjects];
+  List<Object?> get props {
+    return [
+      error,
+      mySubjectStatus,
+      allSubjectResourcesStatus,
+      subjectResourceDetailsStatus,
+      mySubjects,
+      allSubjectResources,
+      subjectResourceDetails,
+    ];
+  }
 
   ClassRoomState copyWith({
     ApiErrorRes? error,
-    ClassRoomStatus? status,
+    ClassRoomStatus? mySubjectStatus,
+    ClassRoomStatus? allSubjectResourcesStatus,
+    ClassRoomStatus? subjectResourceDetailsStatus,
     List<Subject>? mySubjects,
+    List<SubjectResource>? allSubjectResources,
+    SubjectResource? subjectResourceDetails,
   }) {
     return ClassRoomState(
       error: error ?? this.error,
-      status: status ?? this.status,
+      mySubjectStatus: mySubjectStatus ?? this.mySubjectStatus,
+      allSubjectResourcesStatus:
+          allSubjectResourcesStatus ?? this.allSubjectResourcesStatus,
+      subjectResourceDetailsStatus:
+          subjectResourceDetailsStatus ?? this.subjectResourceDetailsStatus,
       mySubjects: mySubjects ?? this.mySubjects,
+      allSubjectResources: allSubjectResources ?? this.allSubjectResources,
+      subjectResourceDetails:
+          subjectResourceDetails ?? this.subjectResourceDetails,
     );
   }
 }

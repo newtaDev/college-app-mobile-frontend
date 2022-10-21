@@ -23,8 +23,6 @@ class UserRemoteDataSource {
     );
   }
 
- 
-
   Future<Response> updateStudentProfile(StudentUser student) {
     return client.put(
       '/user/students/${student.id}',

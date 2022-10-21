@@ -21,7 +21,8 @@ class AuthRemoteDataSource {
       data: req.toJson(),
     );
   }
-   Future<Response> checkUsernameExists({required String username}) {
+
+  Future<Response> checkUsernameExists({required String username}) {
     return client.get(
       '/user/auth/validate',
       queryParameters: {'username': username},

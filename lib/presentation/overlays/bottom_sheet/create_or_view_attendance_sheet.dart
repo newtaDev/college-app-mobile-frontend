@@ -27,7 +27,7 @@ class _CreateOrViewAttendanceBottomSheetState
     extends State<CreateOrViewAttendanceBottomSheet> {
   @override
   void initState() {
-    context.read<SelectionCubit>().getAndSetAssignedSubjectsOfTeacher();
+    context.read<SelectionCubit>().getAccessibleSubjectsOfTeacher();
     super.initState();
   }
 
@@ -37,17 +37,17 @@ class _CreateOrViewAttendanceBottomSheetState
       heightFactor: 0.8,
       child: BlocBuilder<SelectionCubit, SelectionState>(
         buildWhen: (previous, current) =>
-            previous.assignedSubjectSelectionStates.status !=
-                current.assignedSubjectSelectionStates.status ||
-            previous.assignedSubjectSelectionStates.selectedSubject !=
-                current.assignedSubjectSelectionStates.selectedSubject,
+            previous.accessibleSubjectStates.status !=
+                current.accessibleSubjectStates.status ||
+            previous.accessibleSubjectStates.selectedSubject !=
+                current.accessibleSubjectStates.selectedSubject,
         builder: (context, state) {
-          if (state.assignedSubjectSelectionStates.status.isInitial ||
-              state.assignedSubjectSelectionStates.status.isLoading) {
+          if (state.accessibleSubjectStates.status.isInitial ||
+              state.accessibleSubjectStates.status.isLoading) {
             return const LoadingIndicator();
           }
-          if (state.assignedSubjectSelectionStates.subjects.isEmpty ||
-              state.assignedSubjectSelectionStates.status.isError) {
+          if (state.accessibleSubjectStates.subjects.isEmpty ||
+              state.accessibleSubjectStates.status.isError) {
             return const Center(
               child: Text('Subjects not found'),
             );
@@ -67,7 +67,7 @@ class _CreateOrViewAttendanceBottomSheetState
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: ShowSearchDialog<Subject>(
-                    searchList: state.assignedSubjectSelectionStates.subjects,
+                    searchList: state.accessibleSubjectStates.subjects,
                     searchCondition: (data, searchInput) {
                       return data.name!.toLowerCase().contains(
                             searchInput.toLowerCase(),
@@ -79,7 +79,7 @@ class _CreateOrViewAttendanceBottomSheetState
                         children: [
                           ColoredBox(
                             color: subject.id ==
-                                    state.assignedSubjectSelectionStates
+                                    state.accessibleSubjectStates
                                         .selectedSubject?.id
                                 ? ColorPallet.grey100
                                 : Colors.transparent,
@@ -125,7 +125,7 @@ class _CreateOrViewAttendanceBottomSheetState
                   children: [
                     Expanded(
                       child: OutlinedButton(
-                        onPressed: state.assignedSubjectSelectionStates
+                        onPressed: state.accessibleSubjectStates
                                     .selectedSubject ==
                                 null
                             ? null
@@ -144,7 +144,7 @@ class _CreateOrViewAttendanceBottomSheetState
                     const SizedBox(width: 10),
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: state.assignedSubjectSelectionStates
+                        onPressed: state.accessibleSubjectStates
                                     .selectedSubject ==
                                 null
                             ? null
