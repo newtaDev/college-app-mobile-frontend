@@ -88,6 +88,12 @@ void registerCubitsDependencies() {
       ),
     )
     ..registerFactory(
+      () => ClassRoomCubit(
+        userCubit: getIt<UserCubit>(),
+        classRoomRepo: getIt<ClassRoomRepoImpl>(),
+      ),
+    )
+    ..registerFactory(
       () => ViewAnnouncementCubit(
         announcementRepo: getIt<AnnouncementRepoImpl>(),
         userCubit: getIt<UserCubit>(),

@@ -63,10 +63,12 @@ class ViewAnnouncementCubit extends Cubit<ViewAnnouncementState> {
   }) async {
     emit(
       state.copyWith(
-        allStatus:
-            showAnnouncementsCreatedByMe ? null : ViewAnnouncementStatus.loading,
-        myStatus:
-            showAnnouncementsCreatedByMe ? ViewAnnouncementStatus.loading : null,
+        allStatus: showAnnouncementsCreatedByMe
+            ? null
+            : ViewAnnouncementStatus.loading,
+        myStatus: showAnnouncementsCreatedByMe
+            ? ViewAnnouncementStatus.loading
+            : null,
       ),
     );
     try {
@@ -91,10 +93,12 @@ class ViewAnnouncementCubit extends Cubit<ViewAnnouncementState> {
     } on ApiErrorRes catch (apiError) {
       emit(
         state.copyWith(
-          allStatus:
-              showAnnouncementsCreatedByMe ? null : ViewAnnouncementStatus.error,
-          myStatus:
-              showAnnouncementsCreatedByMe ? ViewAnnouncementStatus.error : null,
+          allStatus: showAnnouncementsCreatedByMe
+              ? null
+              : ViewAnnouncementStatus.error,
+          myStatus: showAnnouncementsCreatedByMe
+              ? ViewAnnouncementStatus.error
+              : null,
           error: apiError,
         ),
       );
@@ -102,10 +106,12 @@ class ViewAnnouncementCubit extends Cubit<ViewAnnouncementState> {
       final apiErrorRes = ApiErrorRes(devMessage: 'Fetching Students failed');
       emit(
         state.copyWith(
-          allStatus:
-              showAnnouncementsCreatedByMe ? null : ViewAnnouncementStatus.error,
-          myStatus:
-              showAnnouncementsCreatedByMe ? ViewAnnouncementStatus.error : null,
+          allStatus: showAnnouncementsCreatedByMe
+              ? null
+              : ViewAnnouncementStatus.error,
+          myStatus: showAnnouncementsCreatedByMe
+              ? ViewAnnouncementStatus.error
+              : null,
           error: apiErrorRes,
         ),
       );

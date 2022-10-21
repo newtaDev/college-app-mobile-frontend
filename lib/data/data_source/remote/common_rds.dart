@@ -17,9 +17,7 @@ class CommonRemoteDataSource {
   Future<Response> getSubjectsOfCourse(String courseId) {
     return client.get(
       '/subjects',
-      queryParameters: {
-        'courseId': courseId,
-      },
+      queryParameters: {'courseId': courseId},
     );
   }
 }

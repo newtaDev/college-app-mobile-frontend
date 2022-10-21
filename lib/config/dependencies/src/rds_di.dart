@@ -21,6 +21,10 @@ void registerRemoteDataSourceDependencies() {
 
     // Time table
     ..registerSingleton<TimeTableRemoteDataSource>(TimeTableRemoteDataSource())
+
+    // Class room
+    ..registerSingleton<ClassRoomRemoteDataSource>(ClassRoomRemoteDataSource())
+
     // Announcements
     ..registerSingleton<AnnouncementRemoteDataSource>(
       AnnouncementRemoteDataSource(),

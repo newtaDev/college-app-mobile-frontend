@@ -63,4 +63,25 @@ class ColorPallet {
     const Color(0xFFFAE5FF),
     const Color(0xFFFBE9EC),
   ];
+  static List<Color> brightColors = [
+    const Color(0xFF8B8989),
+    const Color(0xFFCD5C5C),
+    const Color(0xFFEE6363),
+    const Color(0xFFFF3300),
+    const Color(0xFFFF6103),
+    const Color(0xFF7B3F00),
+    const Color(0xFFFFCC11),
+    const Color(0xFF615E3F),
+    const Color(0xFF308014),
+    const Color(0xFF458B00),
+    const Color(0xFF0FDDAF),
+    const Color(0xFF01C5BB),
+    const Color(0xFF00688B),
+    const Color(0xFF1D7CF2),
+    const Color(0xFF003EFF),
+    const Color(0xFF3232CD),
+    const Color(0xFFBF5FFF),
+    const Color(0xFFCC00FF),
+    const Color(0xFFDB2645),
+  ];
 }

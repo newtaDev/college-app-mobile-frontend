@@ -284,7 +284,7 @@ class _CreateByCard extends StatelessWidget {
         ),
         const SizedBox(width: 5),
         Text(
-          createdOn.toDayAgoWithDate(),
+          createdOn.toDaysAgoWithLimit(),
           style: textTheme.bodySmall,
         ),
         Expanded(

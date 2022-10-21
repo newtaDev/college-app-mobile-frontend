@@ -10,7 +10,8 @@ extension DateTimeX on DateTime {
   }
 
   String toTimeAgo() {
-    final int diffInHours = DateTime.now().difference(this).inHours;
+    final now = DateTime.now();
+    final int diffInHours = now.difference(this).inHours;
 
     String timeAgo = '';
     String timeUnit = '';
@@ -18,7 +19,7 @@ extension DateTimeX on DateTime {
     String? rawString;
 
     if (diffInHours < 1) {
-      final diffInMinutes = DateTime.now().difference(this).inMinutes;
+      final diffInMinutes = now.difference(this).inMinutes;
       timeValue = diffInMinutes;
       timeUnit = 'minute';
       if (timeValue <= 0) {
@@ -50,8 +51,10 @@ extension DateTimeX on DateTime {
     return rawString ?? '$timeAgo ago';
   }
 
-  String toDayAgoWithDate() {
-    final int diffInHours = DateTime.now().difference(this).inHours;
+  /// by default, `1 week / 7 days` dates are displayed as [ days ago] others are represented in [ d MMM y ]
+  String toDaysAgoWithLimit({int limitedDay = 7}) {
+    final now = DateTime.now();
+    final int diffInHours = now.difference(this).inHours;
 
     String timeAgo = '';
     String timeUnit = '';
@@ -59,7 +62,7 @@ extension DateTimeX on DateTime {
     String? rawString;
 
     if (diffInHours < 1) {
-      final diffInMinutes = DateTime.now().difference(this).inMinutes;
+      final diffInMinutes = now.difference(this).inMinutes;
       timeValue = diffInMinutes;
       timeUnit = 'minute';
       if (timeValue <= 0) {
@@ -68,11 +71,11 @@ extension DateTimeX on DateTime {
     } else if (diffInHours < 24) {
       timeValue = diffInHours;
       timeUnit = 'hour';
-    } else if (diffInHours >= 24 && diffInHours < 24 * 7) {
+    } else if (diffInHours >= 24 && diffInHours < 24 * limitedDay) {
       timeValue = (diffInHours / 24).floor();
       timeUnit = 'day';
     } else {
-      rawString = DateFormat.yMMMd().format(this);
+      rawString = DateFormat('d MMM y').format(this);
     }
 
     timeAgo = '$timeValue $timeUnit';

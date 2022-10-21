@@ -46,6 +46,13 @@ void registerRepositoryDependencies() {
         timeTableRds: getIt<TimeTableRemoteDataSource>(),
       ),
     )
+
+    /// Class Room
+    ..registerSingleton<ClassRoomRepoImpl>(
+      ClassRoomRepoImpl(
+        classRoomRds: getIt<ClassRoomRemoteDataSource>(),
+      ),
+    )
     // Announcements
     ..registerSingleton<AnnouncementRepoImpl>(
       AnnouncementRepoImpl(

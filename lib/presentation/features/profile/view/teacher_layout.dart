@@ -89,8 +89,9 @@ class TecherProfileClassList extends StatelessWidget {
                 ],
               ),
               child: SelectableSideBarCard(
-                barColor:
-                    Colors.primaries[Random().nextInt(Colors.primaries.length)].withOpacity(0.5),
+                barColor: Colors
+                    .primaries[Random().nextInt(Colors.primaries.length)]
+                    .withOpacity(0.5),
                 bgColor: Colors.white,
                 title: _class?.name ?? 'N/A',
                 subtitles: [

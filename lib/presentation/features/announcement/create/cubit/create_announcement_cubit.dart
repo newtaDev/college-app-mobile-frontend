@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
 
@@ -13,8 +13,7 @@ import '../../../../../data/models/request/announcement_req.dart';
 import '../../../../../domain/repository/announcement_repository.dart';
 import '../../../../../shared/errors/api_errors.dart';
 import '../../../../../shared/global/enums.dart';
-import '../../../attendance/create_attendance/cubit/create_attendance_cubit.dart';
-import '../pages/create_announcement_page.dart';
+import '../../../../../shared/services/file_services.dart';
 
 part 'create_announcement_state.dart';
 
@@ -50,24 +49,22 @@ class CreateAnnouncementCubit extends Cubit<CreateAnnouncementState> {
   }
 
   Future<void> pickAndSetImage() async {
-    final FilePickerResult? result =
-        await FilePicker.platform.pickFiles(type: FileType.image);
+    final FilePickerResult? result = await FileServices.pickSingleImage();
 
     if (result != null) {
-      final _file = File(result.files.single.path!);
-      emit(state.copyWith(image: _file));
+      final file = File(result.files.single.path!);
+      emit(state.copyWith(image: file));
     }
   }
 
   Future<void> pickAndSetMultiImage() async {
-    final FilePickerResult? result = await FilePicker.platform
-        .pickFiles(type: FileType.image, allowMultiple: true);
+    final FilePickerResult? result = await FileServices.pickMutipleImages();
 
     if (result != null) {
-      final _recentPickedFiles =
+      final recentPickedFiles =
           result.paths.map((path) => File(path!)).toList();
       final allFiles = List<File>.from(state.multiImages)
-        ..addAll(_recentPickedFiles);
+        ..addAll(recentPickedFiles);
       emit(
         state.copyWith(
           multiImages:

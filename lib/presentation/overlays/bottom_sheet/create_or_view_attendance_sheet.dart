@@ -135,6 +135,9 @@ class _CreateOrViewAttendanceBottomSheetState
                                   params: RouteParams.withDashboard,
                                 );
                               },
+                        style: OutlinedButton.styleFrom(
+                          minimumSize: const Size.fromHeight(60),
+                        ),
                         child: const Text('View'),
                       ),
                     ),

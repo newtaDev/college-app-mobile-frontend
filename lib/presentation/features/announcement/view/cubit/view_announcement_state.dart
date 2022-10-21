@@ -47,7 +47,8 @@ class ViewAnnouncementState extends MyEquatable {
     ApiErrorRes? error,
   }) {
     return ViewAnnouncementState(
-      allAnnouncementModels: allAnnouncementModels ?? this.allAnnouncementModels,
+      allAnnouncementModels:
+          allAnnouncementModels ?? this.allAnnouncementModels,
       myAnnouncementModels: myAnnouncementModels ?? this.myAnnouncementModels,
       allStatus: allStatus ?? this.allStatus,
       myStatus: myStatus ?? this.myStatus,

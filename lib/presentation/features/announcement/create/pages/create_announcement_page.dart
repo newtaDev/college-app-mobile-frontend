@@ -350,8 +350,8 @@ class SingleAnnouncementImagePicker extends StatelessWidget {
               child: SizedBox(
                 height: 100,
                 width: 100,
-                child:
-                    BlocBuilder<CreateAnnouncementCubit, CreateAnnouncementState>(
+                child: BlocBuilder<CreateAnnouncementCubit,
+                    CreateAnnouncementState>(
                   buildWhen: (previous, current) =>
                       previous.image != current.image,
                   builder: (context, state) {
@@ -408,7 +408,8 @@ class MultiAnnouncementImagePicker extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           child: SizedBox(
             height: 100,
-            child: BlocBuilder<CreateAnnouncementCubit, CreateAnnouncementState>(
+            child:
+                BlocBuilder<CreateAnnouncementCubit, CreateAnnouncementState>(
               buildWhen: (previous, current) =>
                   previous.multiImages != current.multiImages,
               builder: (context, state) {

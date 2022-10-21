@@ -21,6 +21,7 @@ import '../features/attendance/create_attendance/page/create_attendance_page.dar
 import '../features/attendance/view_attendance/cubit/view_attendance_cubit.dart';
 import '../features/attendance/view_attendance/view_attendance_page.dart';
 import '../features/auth/sign_in/sign_in_page.dart';
+import '../features/class_room/cubit/class_room_cubit.dart';
 import '../features/class_time_table/class_time_table_page.dart';
 import '../features/class_time_table/cubit/class_time_table_cubit.dart';
 import '../features/dashboard/dashboard_page.dart';
@@ -68,8 +69,15 @@ class AppRouter {
 
           /// Setting up selected tab
           RouteParams.selectedDashboardTab = tabName;
-          return BlocProvider(
-            create: (context) => getIt<ViewAnnouncementCubit>(),
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => getIt<ViewAnnouncementCubit>(),
+              ),
+              BlocProvider(
+                create: (context) => getIt<ClassRoomCubit>(),
+              ),
+            ],
             child: DashboardPage(tabName: tabName),
           );
         },

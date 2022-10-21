@@ -1,9 +1,16 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styles_lib/assets/assets.dart';
 import 'package:styles_lib/theme/themes.dart';
 import 'package:widgets_lib/widgets/widgets.dart';
+
+import '../../../../cubits/user/user_cubit.dart';
+import '../../../../shared/extensions/extentions.dart';
+import '../../class_room/my_subject_view.dart';
+import '../../class_room/pages/resources_details_page.dart';
+import '../../class_room/pages/subject_resources_page.dart';
 
 class ClassRoomTab extends StatelessWidget {
   const ClassRoomTab({super.key});
@@ -19,13 +26,15 @@ class ClassRoomTab extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FittedText(
-                      'Refrences',
-                      style: textTheme.headlineSmall?.copyWith(
-                        fontFamily: FontAssets.raleway,
-                        fontWeight: FontWeight.bold,
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: FittedText(
+                        'Refrences',
+                        style: textTheme.headlineSmall?.copyWith(
+                          fontFamily: FontAssets.raleway,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -34,9 +43,6 @@ class ClassRoomTab extends StatelessWidget {
                         Expanded(
                           child: OutlinedButton.icon(
                             onPressed: () {},
-                            style: OutlinedButton.styleFrom(
-                              minimumSize: const Size.fromHeight(40),
-                            ),
                             icon: const Icon(Icons.menu_book_rounded),
                             label: const Text('Syllabus'),
                           ),
@@ -45,9 +51,6 @@ class ClassRoomTab extends StatelessWidget {
                         Expanded(
                           child: OutlinedButton.icon(
                             icon: const Icon(Icons.library_books_rounded),
-                            style: OutlinedButton.styleFrom(
-                              minimumSize: const Size.fromHeight(40),
-                            ),
                             label: const FittedText('Question banks'),
                             onPressed: () {},
                           ),
@@ -57,9 +60,6 @@ class ClassRoomTab extends StatelessWidget {
                     const SizedBox(height: 5),
                     OutlinedButton.icon(
                       icon: const Icon(Icons.description),
-                      style: OutlinedButton.styleFrom(
-                        minimumSize: const Size.fromHeight(40),
-                      ),
                       label: const FittedText('Previous question papers'),
                       onPressed: () {},
                     )
@@ -72,75 +72,7 @@ class ClassRoomTab extends StatelessWidget {
               delegate: ClassRoomTitleDelegate(),
             ),
           ],
-          body: ListView(
-            padding: const EdgeInsets.all(20),
-            children: [
-              ClassRoomSubjectCard(),
-              ClassRoomSubjectCard(),
-              ClassRoomSubjectCard(),
-              ClassRoomSubjectCard(),
-              ClassRoomSubjectCard(),
-              ClassRoomSubjectCard(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ClassRoomSubjectCard extends StatelessWidget {
-  const ClassRoomSubjectCard({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 15),
-      child: BorderedBox(
-        // borderRadius: BorderRadius.circular(8),
-        // child: DecoratedBox(
-        //   decoration: BoxDecoration(
-        //     gradient: LinearGradient(
-        //       colors: [
-        //         ColorPallet.lightShadeColors[
-        //             Random().nextInt(ColorPallet.lightShadeColors.length)],
-        //         ColorPallet.lightShadeColors[
-        //             Random().nextInt(ColorPallet.lightShadeColors.length)],
-        //       ],
-        //     ),
-        //   ),
-        child: Row(
-          children: [
-            Image.asset(
-              ImgAssets.booksEmojiIcon,
-              height: 60,
-              width: 60,
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Subject Name',
-                    style: textTheme.titleMedium
-                        ?.copyWith(fontWeight: FontWeight.w500),
-                  ),
-                  Text('Bcom A ', style: textTheme.bodySmall),
-                  Text('1st semester ', style: textTheme.bodySmall),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: Text(
-                      '- Rajesh shetty',
-                      style: textTheme.bodySmall,
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
+          body: const MySubjectsClassRoomView(),
         ),
       ),
     );
