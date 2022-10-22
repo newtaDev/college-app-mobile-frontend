@@ -73,7 +73,7 @@ class _SubjectResourcesPageState extends State<SubjectResourcesPage> {
 
             if (state.allSubjectResources.isEmpty ||
                 state.allSubjectResourcesStatus.isError) {
-              return const Center(child: Text('Attendances not found'));
+              return const Center(child: Text('No resources found ̰'));
             }
             return ListView.builder(
               itemCount: state.allSubjectResources.length,

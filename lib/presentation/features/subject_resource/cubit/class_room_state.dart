@@ -14,8 +14,10 @@ class ClassRoomState extends Equatable {
   final ClassRoomStatus mySubjectStatus;
   final ClassRoomStatus allSubjectResourcesStatus;
   final ClassRoomStatus subjectResourceDetailsStatus;
+  final ClassRoomStatus commentStatus;
   final List<Subject> mySubjects;
   final List<SubjectResource> allSubjectResources;
+  final List<DowloadingAttachment> downloadingAttachments;
   final SubjectResource? subjectResourceDetails;
 
   const ClassRoomState({
@@ -23,8 +25,10 @@ class ClassRoomState extends Equatable {
     required this.mySubjectStatus,
     required this.allSubjectResourcesStatus,
     required this.subjectResourceDetailsStatus,
+    required this.commentStatus,
     required this.mySubjects,
     required this.allSubjectResources,
+    required this.downloadingAttachments,
     required this.subjectResourceDetails,
   });
 
@@ -32,7 +36,9 @@ class ClassRoomState extends Equatable {
       : mySubjectStatus = ClassRoomStatus.initial,
         allSubjectResourcesStatus = ClassRoomStatus.initial,
         subjectResourceDetailsStatus = ClassRoomStatus.initial,
+        commentStatus = ClassRoomStatus.initial,
         mySubjects = const [],
+        downloadingAttachments = const [],
         allSubjectResources = const [],
         subjectResourceDetails = null,
         error = null;
@@ -44,8 +50,10 @@ class ClassRoomState extends Equatable {
       mySubjectStatus,
       allSubjectResourcesStatus,
       subjectResourceDetailsStatus,
+      commentStatus,
       mySubjects,
       allSubjectResources,
+      downloadingAttachments,
       subjectResourceDetails,
     ];
   }
@@ -55,8 +63,10 @@ class ClassRoomState extends Equatable {
     ClassRoomStatus? mySubjectStatus,
     ClassRoomStatus? allSubjectResourcesStatus,
     ClassRoomStatus? subjectResourceDetailsStatus,
+    ClassRoomStatus? commentStatus,
     List<Subject>? mySubjects,
     List<SubjectResource>? allSubjectResources,
+    List<DowloadingAttachment>? downloadingAttachments,
     SubjectResource? subjectResourceDetails,
   }) {
     return ClassRoomState(
@@ -66,8 +76,11 @@ class ClassRoomState extends Equatable {
           allSubjectResourcesStatus ?? this.allSubjectResourcesStatus,
       subjectResourceDetailsStatus:
           subjectResourceDetailsStatus ?? this.subjectResourceDetailsStatus,
+      commentStatus: commentStatus ?? this.commentStatus,
       mySubjects: mySubjects ?? this.mySubjects,
       allSubjectResources: allSubjectResources ?? this.allSubjectResources,
+      downloadingAttachments:
+          downloadingAttachments ?? this.downloadingAttachments,
       subjectResourceDetails:
           subjectResourceDetails ?? this.subjectResourceDetails,
     );

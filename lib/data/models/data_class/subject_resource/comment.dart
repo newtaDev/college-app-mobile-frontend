@@ -1,6 +1,8 @@
 part of class_room_entity;
+
 class Comment extends MyEquatable {
   final String? userId;
+  final AnonymousUser? userDetails;
   final String? comment;
   final String? userType;
   final String? id;
@@ -9,6 +11,7 @@ class Comment extends MyEquatable {
 
   const Comment({
     this.userId,
+    this.userDetails,
     this.comment,
     this.userType,
     this.id,
@@ -17,7 +20,13 @@ class Comment extends MyEquatable {
   });
 
   factory Comment.fromMap(Map<String, dynamic> data) => Comment(
-        userId: data['userId'] as String?,
+        userId: data['userId'] != null && data['userId'] is Map<String, dynamic>
+            ? data['userId']['_id']
+            : data['userId'],
+        userDetails:
+            data['userId'] != null && data['userId'] is Map<String, dynamic>
+                ? AnonymousUser.fromMap(data['userId'] as Map<String, dynamic>)
+                : null,
         comment: data['comment'] as String?,
         userType: data['userType'] as String?,
         id: data['_id'] as String?,
@@ -52,8 +61,8 @@ class Comment extends MyEquatable {
 
   Comment copyWith({
     String? userId,
+    AnonymousUser? userDetails,
     String? comment,
-    String? modelName,
     String? userType,
     String? id,
     DateTime? updatedAt,
@@ -61,6 +70,7 @@ class Comment extends MyEquatable {
   }) {
     return Comment(
       userId: userId ?? this.userId,
+      userDetails: userDetails ?? this.userDetails,
       comment: comment ?? this.comment,
       userType: userType ?? this.userType,
       id: id ?? this.id,
@@ -76,6 +86,7 @@ class Comment extends MyEquatable {
       comment,
       userType,
       id,
+      userDetails,
       updatedAt,
       createdAt,
     ];

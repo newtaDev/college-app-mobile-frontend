@@ -1,20 +1,8 @@
 import 'package:file_picker/file_picker.dart';
 
-class FileServices {
-  static const imageExtensions = ['jpeg', 'png', 'jpg'];
-  static const docExtensions = [
-    'pdf',
-    'doc',
-    'docx',
-    'xls',
-    'xlsx',
-    'csv',
-    'ppt',
-    'pptx'
-  ];
-  static const audioExtensions = ['mp3', 'wav'];
-  static const videoExtensions = ['mp4'];
+import '../helpers/file_helpers.dart';
 
+class FileServices {
   static Future<FilePickerResult?> pickSingleImage() =>
       FilePicker.platform.pickFiles(
         type: FileType.image,
@@ -29,10 +17,10 @@ class FileServices {
       FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: [
-          ...imageExtensions,
-          ...audioExtensions,
-          ...videoExtensions,
-          ...docExtensions
+          ...FileHelpers.imageExtensions,
+          ...FileHelpers.audioExtensions,
+          ...FileHelpers.videoExtensions,
+          ...FileHelpers.docExtensions
         ],
         allowMultiple: true,
       );

@@ -2,6 +2,8 @@ library class_room_entity;
 
 import 'dart:convert';
 
+import 'package:college_app/domain/entities/user_entity.dart';
+
 import '../../utils/utils.dart';
 
 part '../../data/models/data_class/subject_resource/attachment.dart';

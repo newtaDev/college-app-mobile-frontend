@@ -49,14 +49,14 @@ class ClassWithDetails extends MyEquatable {
                 data['collegeId'] is Map<String, dynamic>
             ? data['collegeId']['_id']
             : data['collegeId'],
-        courseId:
-            data['courseId'] != null && data['courseId'] is Map<String, dynamic>
-                ? data['courseId']['_id']
-                : data['courseId'],
         college: data['collegeId'] != null &&
                 data['collegeId'] is Map<String, dynamic>
             ? College.fromMap(data['collegeId'] as Map<String, dynamic>)
             : null,
+        courseId:
+            data['courseId'] != null && data['courseId'] is Map<String, dynamic>
+                ? data['courseId']['_id']
+                : data['courseId'],
         course:
             data['courseId'] != null && data['courseId'] is Map<String, dynamic>
                 ? Course.fromMap(data['courseId'] as Map<String, dynamic>)
