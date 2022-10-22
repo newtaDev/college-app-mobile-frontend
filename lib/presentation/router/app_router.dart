@@ -23,9 +23,6 @@ import '../features/attendance/create_attendance/page/create_attendance_page.dar
 import '../features/attendance/view_attendance/cubit/view_attendance_cubit.dart';
 import '../features/attendance/view_attendance/view_attendance_page.dart';
 import '../features/auth/sign_in/sign_in_page.dart';
-import '../features/class_room/cubit/class_room_cubit.dart';
-import '../features/class_room/pages/resources_details_page.dart';
-import '../features/class_room/pages/subject_resources_page.dart';
 import '../features/class_time_table/class_time_table_page.dart';
 import '../features/class_time_table/cubit/class_time_table_cubit.dart';
 import '../features/dashboard/dashboard_page.dart';
@@ -42,6 +39,9 @@ import '../features/reports/attendance/class_report/cubit/class_attendance_repor
 import '../features/reports/attendance/student_report/cubit/student_attendance_report_cubit.dart';
 import '../features/reports/attendance/student_report/student_attendnce_report_page.dart';
 import '../features/reports/reports_screen.dart';
+import '../features/subject_resource/cubit/class_room_cubit.dart';
+import '../features/subject_resource/pages/resources_details_page.dart';
+import '../features/subject_resource/pages/subject_resources_page.dart';
 import '../overlays/bottom_sheet/selection_bottom_sheet.dart';
 import 'routes.dart';
 

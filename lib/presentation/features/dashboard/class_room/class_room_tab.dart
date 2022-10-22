@@ -8,9 +8,7 @@ import 'package:widgets_lib/widgets/widgets.dart';
 
 import '../../../../cubits/user/user_cubit.dart';
 import '../../../../shared/extensions/extentions.dart';
-import '../../class_room/my_subject_view.dart';
-import '../../class_room/pages/resources_details_page.dart';
-import '../../class_room/pages/subject_resources_page.dart';
+import 'widgets/my_subject_view.dart';
 
 class ClassRoomTab extends StatelessWidget {
   const ClassRoomTab({super.key});

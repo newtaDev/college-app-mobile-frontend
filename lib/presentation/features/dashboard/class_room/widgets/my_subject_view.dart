@@ -6,11 +6,11 @@ import 'package:go_router/go_router.dart';
 import 'package:styles_lib/styles_lib.dart';
 import 'package:widgets_lib/widgets/widgets.dart';
 
-import '../../../cubits/user/user_cubit.dart';
-import '../../router/routes.dart';
-import 'cubit/class_room_cubit.dart';
-import 'pages/subject_resources_page.dart';
-import 'widgets/class_room_subject_card.dart';
+import '../../../../../cubits/user/user_cubit.dart';
+import '../../../../router/routes.dart';
+import '../../../subject_resource/cubit/class_room_cubit.dart';
+import '../../../subject_resource/pages/subject_resources_page.dart';
+import 'class_room_subject_card.dart';
 
 class MySubjectsClassRoomView extends StatefulWidget {
   const MySubjectsClassRoomView({super.key});

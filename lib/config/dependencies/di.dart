@@ -29,13 +29,13 @@ import '../../presentation/features/announcement/create/cubit/create_announcemen
 import '../../presentation/features/announcement/view/cubit/view_announcement_cubit.dart';
 import '../../presentation/features/attendance/create_attendance/cubit/create_attendance_cubit.dart';
 import '../../presentation/features/attendance/view_attendance/cubit/view_attendance_cubit.dart';
-import '../../presentation/features/class_room/cubit/class_room_cubit.dart';
 import '../../presentation/features/class_time_table/cubit/class_time_table_cubit.dart';
 import '../../presentation/features/profile/edit/cubit/my_profile_edit_cubit.dart';
 import '../../presentation/features/profile/search/cubit/search_user_profile_cubit.dart';
 import '../../presentation/features/profile/view/cubit/profile_view_cubit.dart';
 import '../../presentation/features/reports/attendance/class_report/cubit/class_attendance_report_cubit.dart';
 import '../../presentation/features/reports/attendance/student_report/cubit/student_attendance_report_cubit.dart';
+import '../../presentation/features/subject_resource/cubit/class_room_cubit.dart';
 import '../app_config.dart';
 
 part 'src/rds_di.dart';
