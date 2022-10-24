@@ -464,7 +464,7 @@ class SubjectCommentCard extends StatelessWidget {
     return Card(
       shadowColor: Colors.black45,
       margin: const EdgeInsets.only(bottom: 10),
-      elevation: 6,
+      elevation: 10,
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(

@@ -36,6 +36,7 @@ class AppConfig {
       await dotenv.load();
       await DeviceIp.getDeviceIpAddress();
       await _registerHiveBoxes();
+
       /// register `isar` Schemas
       await _resisterIsarDbSchema();
 
