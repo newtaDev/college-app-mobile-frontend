@@ -93,6 +93,7 @@ void registerCubitsDependencies() {
         userCubit: getIt<UserCubit>(),
         classRoomRepo: getIt<ClassRoomRepoImpl>(),
         commonRepo: getIt<CommonRepoImpl>(),
+        downloadsLds: getIt<DownloadsLocalDataSource>(),
       ),
     )
     ..registerFactory(

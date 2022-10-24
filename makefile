@@ -34,6 +34,10 @@ format: ## Format the whole project.
 	@echo "╠ ---- Formatting the code ----"
 	@echo
 	@flutter format .
+
+build_runner: ## Generate code using build_runner
+	flutter pub run build_runner build --delete-conflicting-outputs
+
 # test: ## Test the whole project.
 # 	@echo "╠ Testing the project..."
 # 	@./scripts/test.sh 

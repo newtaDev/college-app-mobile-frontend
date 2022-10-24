@@ -82,4 +82,17 @@ class Attachment extends MyEquatable {
       updatedAt,
     ];
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'path': path,
+      'url': url,
+      'contentType': contentType,
+      'size': size,
+      'id': id,
+      'createdAt': createdAt?.millisecondsSinceEpoch,
+      'updatedAt': updatedAt?.millisecondsSinceEpoch,
+    };
+  }
 }

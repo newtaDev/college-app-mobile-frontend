@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -7,7 +8,9 @@ import '../../../../../cubits/user/user_cubit.dart';
 import '../../../../../data/models/data_class/subject_model.dart';
 import '../../../../../domain/repository/class_room_repository.dart';
 import '../../../../../shared/errors/api_errors.dart';
+import '../../../../data/data_source/local/downloads.lds.dart';
 import '../../../../data/models/data_class/downloading_attachment.dart';
+import '../../../../data/models/local/downloads.dart';
 import '../../../../data/models/request/comment_req.dart';
 import '../../../../domain/entities/class_room_entity.dart';
 import '../../../../domain/entities/common_entity.dart';
@@ -21,10 +24,12 @@ class ClassRoomCubit extends Cubit<ClassRoomState> {
   final ClassRoomRepository classRoomRepo;
   final CommonRepository commonRepo;
   final UserCubit userCubit;
+  final DownloadsLocalDataSource downloadsLds;
   ClassRoomCubit({
     required this.classRoomRepo,
     required this.commonRepo,
     required this.userCubit,
+    required this.downloadsLds,
   }) : super(const ClassRoomState.init());
 
   Future<void> getMySubjects() async {
@@ -160,59 +165,104 @@ class ClassRoomCubit extends Cubit<ClassRoomState> {
       rethrow;
     }
   }
+
+  /// Delete from [local db] ,[from directory], [from memory]
   //   Future deleteFile() async {
   //   final dir = await getApplicationDocumentsDirectory();
   //   var file = File('${dir.path}/image.jpg');
   //   await file.delete();
   // }
 
+  Future<void> openDownloadedFile(String attachmentId) async {
+    print('Open...');
+  }
+
+  bool isAttachmentDownloading(String attachmentId) {
+    return state.downloadingAttachments
+            .firstWhereSafe(
+              (element) => element.attachment.id == attachmentId,
+            )
+            ?.status ==
+        DownloadinAttachmentStatus.downloading;
+  }
+
   Future<void> downloadResources(Attachment attachment) async {
+    if (isAttachmentDownloading(attachment.id!)) return;
     final dir = await getApplicationDocumentsDirectory();
     final dio = Dio()..interceptors.add(DioClient.logReq());
     final downloadedFilePath = '${dir.path}/${attachment.path}';
+    final updatedAttachments = List<DowloadingAttachment>.from(
+      state.downloadingAttachments,
+    )..add(
+        DowloadingAttachment(
+          attachment: attachment,
+          progress: 0,
+          path: downloadedFilePath,
+          status: DownloadinAttachmentStatus.downloading,
+        ),
+      );
+    emit(state.copyWith(downloadingAttachments: updatedAttachments));
     await dio.download(
       attachment.url!,
       downloadedFilePath,
-      onReceiveProgress: (count, total) {
+      onReceiveProgress: (count, total) async {
         final progress = (count / total) * 100;
         final downloadingAttachment =
             state.downloadingAttachments.firstWhereSafe(
           (element) => element.attachment.id == attachment.id,
         );
 
-        /// if already exists
+        /// if already exists || downloading started
         if (downloadingAttachment != null) {
           final updatedAttachments = List<DowloadingAttachment>.from(
             state.downloadingAttachments,
           )
+
+            /// replace
             ..removeWhere(
               (element) =>
                   element.attachment.id == downloadingAttachment.attachment.id,
             )
             ..add(
               downloadingAttachment.copyWith(
-                progress: progress,
+                progress: progress.floor(),
                 status: progress == 100
                     ? DownloadinAttachmentStatus.downloaded
                     : DownloadinAttachmentStatus.downloading,
               ),
             );
-          emit(state.copyWith(downloadingAttachments: updatedAttachments));
-        } else {
-          final updatedAttachments = List<DowloadingAttachment>.from(
-            state.downloadingAttachments,
-          )..add(
-              DowloadingAttachment(
-                attachment: attachment,
-                progress: progress,
-                path: downloadedFilePath,
-                status: DownloadinAttachmentStatus.downloading,
-              ),
+          if (progress == 100) {
+            await addAttachmentToDownloads(
+              attachment: attachment,
+              downloadedPath: downloadedFilePath,
             );
+          }
           emit(state.copyWith(downloadingAttachments: updatedAttachments));
         }
       },
     );
+  }
+
+  Future<bool> isDownloadedFileExists(String attachmentId) {
+    return downloadsLds.isDownloadedFileExits(attachmentId);
+  }
+
+  Future<void> addAttachmentToDownloads({
+    required String downloadedPath,
+    required Attachment attachment,
+  }) async {
+    final isDownloaded = await isDownloadedFileExists(attachment.id!);
+
+    if (!isDownloaded) {
+      await downloadsLds.addToDownloads(
+        Downloads(
+          localPath: downloadedPath,
+          subjectId: state.subjectResourceDetails!.subjectId,
+          downloadedAt: DateTime.now(),
+          downloadedFrom: DownloadedFrom.fromMap(attachment.toMap()),
+        ),
+      );
+    }
   }
 
   void setSubjectsForTeacher() {

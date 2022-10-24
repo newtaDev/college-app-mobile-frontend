@@ -84,7 +84,8 @@ class CommonRepoImpl implements CommonRepository {
       rethrow;
     }
   }
- @override
+
+  @override
   Future<SubjectsRes> getSubjectsOfClass(String classId) async {
     try {
       final res = await commonRds.getSubjectsOfClass(classId);
@@ -97,5 +98,4 @@ class CommonRepoImpl implements CommonRepository {
       rethrow;
     }
   }
-
 }

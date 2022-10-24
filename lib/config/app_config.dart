@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:isar/isar.dart';
 
+import '../data/models/local/downloads.dart';
 import '../shared/global/hive_keys.dart';
 import '../shared/helpers/network/device_ip.dart';
 import 'dependencies/di.dart';
@@ -34,6 +36,8 @@ class AppConfig {
       await dotenv.load();
       await DeviceIp.getDeviceIpAddress();
       await _registerHiveBoxes();
+      /// register `isar` Schemas
+      await _resisterIsarDbSchema();
 
       /// Configuring get_it dependencies
       registerGetItDependencies(this);
@@ -43,6 +47,15 @@ class AppConfig {
     } catch (e) {
       _configStatus = 'ERROR';
       log(toString());
+      rethrow;
+    }
+  }
+
+  Future<void> _resisterIsarDbSchema() async {
+    try {
+      await Isar.open([DownloadsSchema]);
+    } catch (e) {
+      log('Error: isar schema registration');
       rethrow;
     }
   }

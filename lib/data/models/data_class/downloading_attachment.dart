@@ -12,7 +12,7 @@ extension DownloadinAttachmentStatusX on DownloadinAttachmentStatus {
 
 class DowloadingAttachment extends MyEquatable {
   final Attachment attachment;
-  final double progress;
+  final int progress;
   final String path;
   final DownloadinAttachmentStatus status;
   const DowloadingAttachment({
@@ -24,7 +24,7 @@ class DowloadingAttachment extends MyEquatable {
 
   DowloadingAttachment copyWith({
     Attachment? attachment,
-    double? progress,
+    int? progress,
     String? path,
     DownloadinAttachmentStatus? status,
   }) {

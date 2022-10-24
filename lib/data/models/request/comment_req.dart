@@ -5,7 +5,7 @@ class SubjectResourceCommentReq {
   final String userId;
   final String comment;
   final String userType;
-  
+
   SubjectResourceCommentReq({
     required this.resourceId,
     required this.userId,

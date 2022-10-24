@@ -19,10 +19,8 @@ class ClassAttendanceReportCubit extends Cubit<ClassAttendanceReportState> {
   Future<void> getReportOfSubjectsAndStudents() async {
     emit(state.copyWith(subjectStatus: ClassAttendanceReportStatus.loading));
     final subjectReq = SubjectReportReq(
-      classId:
-          selectionCubit.state.accessibleClassesStates.selectedClass!.id!,
-      currentSem:
-          selectionCubit.state.accessibleClassesStates.selectedSem!,
+      classId: selectionCubit.state.accessibleClassesStates.selectedClass!.id!,
+      currentSem: selectionCubit.state.accessibleClassesStates.selectedSem!,
     );
     try {
       final subjectRes =
@@ -72,10 +70,9 @@ class ClassAttendanceReportCubit extends Cubit<ClassAttendanceReportState> {
         ),
       );
       final studentReq = EachStudentReportReq(
-        classId: selectionCubit
-            .state.accessibleClassesStates.selectedClass!.id!,
-        currentSem:
-            selectionCubit.state.accessibleClassesStates.selectedSem!,
+        classId:
+            selectionCubit.state.accessibleClassesStates.selectedClass!.id!,
+        currentSem: selectionCubit.state.accessibleClassesStates.selectedSem!,
         subjectId: state.selectedSubjectId!,
       );
       final studentRes =

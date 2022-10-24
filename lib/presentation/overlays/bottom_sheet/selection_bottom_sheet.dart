@@ -45,8 +45,7 @@ class ClassAndSemSelectionBottomSheet extends StatelessWidget {
           ),
           // const Expanded(child: SelectableClassesList()),
           BlocSelector<SelectionCubit, SelectionState, int>(
-            selector: (state) =>
-                state.accessibleClassesStates.totalSem ?? 0,
+            selector: (state) => state.accessibleClassesStates.totalSem ?? 0,
             builder: (context, totalSem) {
               return AnimatedCrossFade(
                 crossFadeState: totalSem > 0

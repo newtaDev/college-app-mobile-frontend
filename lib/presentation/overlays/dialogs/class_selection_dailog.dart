@@ -44,8 +44,7 @@ class _AssignedClassSelectionDialogState
             if (state.accessibleClassesStates.status.isError) {
               return const Center(child: Text('Classes not found'));
             }
-            if (state.accessibleClassesStates.classes
-                .isEmpty) {
+            if (state.accessibleClassesStates.classes.isEmpty) {
               return const Center(
                 child: Text("You don't have access to any classes"),
               );
@@ -54,8 +53,7 @@ class _AssignedClassSelectionDialogState
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
               child: ShowSearchDialog<ClassWithDetails>(
-                searchList: state
-                    .accessibleClassesStates.classes,
+                searchList: state.accessibleClassesStates.classes,
                 searchCondition: (data, searchInput) {
                   return data.name!.toLowerCase().contains(
                         searchInput.toLowerCase(),

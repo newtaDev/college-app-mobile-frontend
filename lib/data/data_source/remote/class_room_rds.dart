@@ -27,5 +27,4 @@ class ClassRoomRemoteDataSource {
       data: commentReq.toJson(),
     );
   }
-  
 }

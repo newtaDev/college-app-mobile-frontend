@@ -294,107 +294,120 @@ class SubjectAttachmentCard extends StatelessWidget {
     }
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
-      child: BorderedBox(
-        child: Row(
-          children: [
-            CircleAvatar(
-              backgroundColor: fileColor.withOpacity(0.1),
-              child: Icon(
-                getIconFromContentType(attachment.contentType),
-                color: fileColor,
+      child: GestureDetector(
+        onTap: () async {
+          final clasRoomCubit = context.read<ClassRoomCubit>();
+          if (await clasRoomCubit.isDownloadedFileExists(attachment.id!)) {
+            await clasRoomCubit.openDownloadedFile(attachment.id!);
+          } else {
+            await clasRoomCubit.downloadResources(attachment);
+          }
+        },
+        behavior: HitTestBehavior.opaque,
+        child: BorderedBox(
+          child: Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: fileColor.withOpacity(0.1),
+                child: Icon(
+                  getIconFromContentType(attachment.contentType),
+                  color: fileColor,
+                ),
               ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    attachment.name ?? 'N/A',
-                    style: textTheme.titleSmall,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        attachment.size!.convertBytesToReadableSize(),
-                        style: textTheme.bodySmall,
-                      ),
-                      const SizedBox(width: 5),
-                      const Icon(
-                        Icons.circle,
-                        size: 6,
-                        color: ColorPallet.grey400,
-                      ),
-                      const SizedBox(width: 5),
-                      Text(
-                        attachment.name?.split('.').last ?? 'N/A',
-                        style: textTheme.bodySmall,
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-            const SizedBox(width: 10),
-            BlocBuilder<ClassRoomCubit, ClassRoomState>(
-              buildWhen: (previous, current) =>
-                  previous.downloadingAttachments.firstWhereSafe(
-                    (element) => element.attachment.id == attachment.id,
-                  ) !=
-                  current.downloadingAttachments.firstWhereSafe(
-                    (element) => element.attachment.id == attachment.id,
-                  ),
-              builder: (context, state) {
-                final downloadingAttachment =
-                    state.downloadingAttachments.firstWhereSafe(
-                  (element) => element.attachment.id == attachment.id,
-                );
-                if (downloadingAttachment?.status.isDownloading ?? false) {
-                  return Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      CircularProgressIndicator(
-                        value: (downloadingAttachment?.progress ?? 0) / 100,
-                        strokeWidth: 2,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(2),
-                        child: FittedText(
-                          '${downloadingAttachment?.progress.toInt()}',
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      attachment.name ?? 'N/A',
+                      style: textTheme.titleSmall,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          attachment.size!.convertBytesToReadableSize(),
                           style: textTheme.bodySmall,
                         ),
-                      )
-                    ],
+                        const SizedBox(width: 5),
+                        const Icon(
+                          Icons.circle,
+                          size: 6,
+                          color: ColorPallet.grey400,
+                        ),
+                        const SizedBox(width: 5),
+                        Text(
+                          attachment.name?.split('.').last ?? 'N/A',
+                          style: textTheme.bodySmall,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(width: 10),
+              FutureBuilder<bool>(
+                future: context
+                    .read<ClassRoomCubit>()
+                    .isDownloadedFileExists(attachment.id!),
+                builder: (context, snapshot) {
+                  return BlocBuilder<ClassRoomCubit, ClassRoomState>(
+                    buildWhen: (previous, current) =>
+                        previous.downloadingAttachments.firstWhereSafe(
+                          (element) => element.attachment.id == attachment.id,
+                        ) !=
+                        current.downloadingAttachments.firstWhereSafe(
+                          (element) => element.attachment.id == attachment.id,
+                        ),
+                    builder: (context, state) {
+                      final isFileFoundInDownloads = snapshot.data ?? false;
+                      final downloadingAttachment =
+                          state.downloadingAttachments.firstWhereSafe(
+                        (element) => element.attachment.id == attachment.id,
+                      );
+                      if (downloadingAttachment?.status.isDownloading ??
+                          false) {
+                        return Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            CircularProgressIndicator(
+                              value:
+                                  (downloadingAttachment?.progress ?? 0) / 100,
+                              strokeWidth: 2,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(2),
+                              child: FittedText(
+                                '${downloadingAttachment?.progress}',
+                                style: textTheme.bodySmall,
+                              ),
+                            )
+                          ],
+                        );
+                      }
+                      if ((downloadingAttachment?.status.isDownloaded ??
+                              false) ||
+                          isFileFoundInDownloads) {
+                        return const Icon(
+                          Icons.check_circle,
+                          color: Colors.green,
+                        );
+                      }
+                      return CircleAvatar(
+                        backgroundColor: Colors.black.withOpacity(0.1),
+                        child: const Icon(
+                          Icons.file_download_outlined,
+                          color: Colors.black,
+                        ),
+                      );
+                    },
                   );
-                }
-                if (downloadingAttachment?.status.isDownloaded ?? false) {
-                  return CircleAvatar(
-                    backgroundColor: Colors.green.withOpacity(0.1),
-                    child: const Icon(
-                      Icons.check,
-                      color: Colors.green,
-                    ),
-                  );
-                }
-                return GestureDetector(
-                  onTap: () {
-                    context
-                        .read<ClassRoomCubit>()
-                        .downloadResources(attachment);
-                  },
-                  child: CircleAvatar(
-                    backgroundColor: Colors.black.withOpacity(0.1),
-                    child: const Icon(
-                      Icons.file_download_outlined,
-                      color: Colors.black,
-                    ),
-                  ),
-                );
-              },
-            ),
-          ],
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

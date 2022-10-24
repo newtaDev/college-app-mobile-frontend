@@ -32,8 +32,8 @@ class _ViewAttendancePageState extends State<ViewAttendancePage> {
           SubjectAttendanceWithQueryReq(
             classId: selectCubit
                 .state.accessibleSubjectStates.selectedSubject!.classId!,
-            subjectId: selectCubit
-                .state.accessibleSubjectStates.selectedSubject!.id!,
+            subjectId:
+                selectCubit.state.accessibleSubjectStates.selectedSubject!.id!,
           ),
         );
   }

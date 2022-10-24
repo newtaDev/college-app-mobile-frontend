@@ -25,6 +25,9 @@ void registerRemoteDataSourceDependencies() {
     // Class room
     ..registerSingleton<ClassRoomRemoteDataSource>(ClassRoomRemoteDataSource())
 
+    // Downloads
+    ..registerSingleton<DownloadsLocalDataSource>(DownloadsLocalDataSource())
+
     // Announcements
     ..registerSingleton<AnnouncementRemoteDataSource>(
       AnnouncementRemoteDataSource(),

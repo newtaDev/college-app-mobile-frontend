@@ -6,6 +6,7 @@ import '../../cubits/my_app/my_app_cubit.dart';
 import '../../cubits/selection/selection_cubit.dart';
 import '../../cubits/user/user_cubit.dart';
 import '../../data/data_source/local/auth_lds.dart';
+import '../../data/data_source/local/downloads.lds.dart';
 import '../../data/data_source/remote/announcement_rds.dart';
 import '../../data/data_source/remote/attendance_rds.dart';
 import '../../data/data_source/remote/auth_rds.dart';

@@ -125,16 +125,16 @@ class _CreateOrViewAttendanceBottomSheetState
                   children: [
                     Expanded(
                       child: OutlinedButton(
-                        onPressed: state.accessibleSubjectStates
-                                    .selectedSubject ==
-                                null
-                            ? null
-                            : () {
-                                context.goNamed(
-                                  Routes.viewAttendanceScreen.name,
-                                  params: RouteParams.withDashboard,
-                                );
-                              },
+                        onPressed:
+                            state.accessibleSubjectStates.selectedSubject ==
+                                    null
+                                ? null
+                                : () {
+                                    context.goNamed(
+                                      Routes.viewAttendanceScreen.name,
+                                      params: RouteParams.withDashboard,
+                                    );
+                                  },
                         style: OutlinedButton.styleFrom(
                           minimumSize: const Size.fromHeight(60),
                         ),
@@ -144,17 +144,17 @@ class _CreateOrViewAttendanceBottomSheetState
                     const SizedBox(width: 10),
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: state.accessibleSubjectStates
-                                    .selectedSubject ==
-                                null
-                            ? null
-                            : () {
-                                Navigator.of(context).pop();
-                                context.pushNamed(
-                                  Routes.createAttendanceScreen.name,
-                                  params: RouteParams.withDashboard,
-                                );
-                              },
+                        onPressed:
+                            state.accessibleSubjectStates.selectedSubject ==
+                                    null
+                                ? null
+                                : () {
+                                    Navigator.of(context).pop();
+                                    context.pushNamed(
+                                      Routes.createAttendanceScreen.name,
+                                      params: RouteParams.withDashboard,
+                                    );
+                                  },
                         child: const Text('Create'),
                       ),
                     )
