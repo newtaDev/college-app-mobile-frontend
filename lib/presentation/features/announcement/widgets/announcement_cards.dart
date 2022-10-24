@@ -336,6 +336,12 @@ class TextAnnouncementCard extends StatelessWidget {
                   textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500),
             ),
             const SizedBox(height: 2),
+            // MarkdownBody(
+            //   data: description,
+            //   onTapLink: (text, href, title) {
+            //     if (href != null) launchUrlString(href);
+            //   },
+            // ),
             Linkify(
               text: description,
               style: textTheme.bodySmall,

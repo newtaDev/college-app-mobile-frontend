@@ -27,4 +27,25 @@ class DownloadsLocalDataSource {
         .findFirst();
     return downloads;
   }
+
+  Future<bool> deleteDownloadedFile(Downloads downloadedFile) async {
+    return isar.writeTxn<bool>(() async {
+      return isar.downloads.delete(downloadedFile.id);
+    });
+  }
+
+  Future<List<Downloads>> getAllDownloadsOfSubject(String subjectId) async {
+    final downloads = await isar.downloads
+        .filter()
+        .subjectIdEqualTo(subjectId)
+        .sortByDownloadedAtDesc()
+        .findAll();
+    return downloads;
+  }
+
+  Future<List<Downloads>> getAllDownloads() async {
+    final downloads =
+        await isar.downloads.where().sortByDownloadedAtDesc().findAll();
+    return downloads;
+  }
 }

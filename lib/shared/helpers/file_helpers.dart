@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class FileHelpers {
   static const imageContentTypes = ['image/jpeg', 'image/png', 'image/webp'];
   static const docsContentTypes = [
@@ -32,4 +34,40 @@ class FileHelpers {
   ];
   static const audioExtensions = ['mp3', 'wav'];
   static const videoExtensions = ['mp4'];
+
+  static IconData getIconFromContentType(String? contentType) {
+    if (docsContentTypes.contains(contentType)) {
+      return Icons.description_rounded;
+    }
+    if (videoContentTypes.contains(contentType)) {
+      return Icons.play_arrow_rounded;
+    }
+    if (audioContentTypes.contains(contentType)) {
+      return Icons.audiotrack_rounded;
+    }
+    if (imageContentTypes.contains(contentType)) {
+      return Icons.image;
+    }
+
+    /// default
+    return Icons.file_present_rounded;
+  }
+
+  static Color getColorFromContentType(String? contentType) {
+    if (docsContentTypes.contains(contentType)) {
+      return Colors.blue;
+    }
+    if (videoContentTypes.contains(contentType)) {
+      return Colors.red;
+    }
+    if (audioContentTypes.contains(contentType)) {
+      return Colors.green;
+    }
+    if (imageContentTypes.contains(contentType)) {
+      return Colors.purple;
+    }
+
+    /// default
+    return Colors.black;
+  }
 }

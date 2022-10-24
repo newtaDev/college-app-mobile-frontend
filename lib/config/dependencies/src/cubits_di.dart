@@ -96,6 +96,13 @@ void registerCubitsDependencies() {
         downloadsLds: getIt<DownloadsLocalDataSource>(),
       ),
     )
+
+    /// downloads
+    ..registerFactory(
+      () => DownloadsCubit(
+        downloadsLds: getIt<DownloadsLocalDataSource>(),
+      ),
+    )
     ..registerFactory(
       () => ViewAnnouncementCubit(
         announcementRepo: getIt<AnnouncementRepoImpl>(),

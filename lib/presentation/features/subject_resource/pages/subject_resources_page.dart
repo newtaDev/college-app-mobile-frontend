@@ -12,6 +12,7 @@ import '../../../../data/models/data_class/subject_model.dart';
 import '../../../../domain/entities/class_room_entity.dart';
 import '../../../../shared/extensions/extentions.dart';
 import '../../../router/routes.dart';
+import '../../downloads/downloads_page.dart';
 import '../cubit/class_room_cubit.dart';
 
 class SubjectResourcesPageParams {
@@ -262,7 +263,23 @@ class SubjectResourceHeader extends StatelessWidget {
                         const BackButton(),
                         const Spacer(),
                         OutlinedButton.icon(
-                          onPressed: () {},
+                          onPressed: () {
+                            context.pushNamed(
+                              Routes.downloadsScreen.name,
+                              params: RouteParams.withDashboard,
+                              extra: DownloadsPageParam(
+                                onDownloadsDeleted: (downloadedFile) {
+                                  context
+                                      .read<ClassRoomCubit>()
+                                      .deleteDownloadedFileFromMemory(
+                                        downloadedFile
+                                            .downloadedFrom.attachmentId!,
+                                      );
+                                },
+                                subjectId: subject.id,
+                              ),
+                            );
+                          },
                           icon: const Icon(Icons.download_outlined),
                           label: Text(
                             'My downloads',

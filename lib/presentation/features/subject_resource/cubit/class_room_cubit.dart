@@ -166,12 +166,17 @@ class ClassRoomCubit extends Cubit<ClassRoomState> {
     }
   }
 
-  /// Delete from [local db] ,[from directory], [from memory]
-  //   Future deleteFile() async {
-  //   final dir = await getApplicationDocumentsDirectory();
-  //   var file = File('${dir.path}/image.jpg');
-  //   await file.delete();
-  // }
+  void deleteDownloadedFileFromMemory(String attachmentId) {
+    final updatedAttachments = List<DowloadingAttachment>.from(
+      state.downloadingAttachments,
+    )
+
+      /// replace
+      ..removeWhere(
+        (element) => element.attachment.id == attachmentId,
+      );
+    emit(state.copyWith(downloadingAttachments: updatedAttachments));
+  }
 
   Future<void> openDownloadedFile(String attachmentId) async {
     print('Open...');

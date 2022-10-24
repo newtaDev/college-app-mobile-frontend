@@ -22,6 +22,7 @@ enum Routes {
   searchProfileScreen,
   subjectResourcesScreen,
   subjectResourceDetailsScreen,
+  downloadsScreen,
 
   /// Showcase screens
   schowcaseThemeAndWidgetsScreen,

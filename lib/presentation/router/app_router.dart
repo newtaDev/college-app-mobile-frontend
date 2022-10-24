@@ -26,6 +26,8 @@ import '../features/auth/sign_in/sign_in_page.dart';
 import '../features/class_time_table/class_time_table_page.dart';
 import '../features/class_time_table/cubit/class_time_table_cubit.dart';
 import '../features/dashboard/dashboard_page.dart';
+import '../features/downloads/cubit/downloads_cubit.dart';
+import '../features/downloads/downloads_page.dart';
 import '../features/pages/image_viewer_page.dart';
 import '../features/profile/edit/edit_profile_page.dart';
 import '../features/profile/search/cubit/search_user_profile_cubit.dart';
@@ -209,6 +211,14 @@ class AppRouter {
             ),
           ),
         ],
+      ),
+      GoRoute(
+        path: 'downloads',
+        name: Routes.downloadsScreen.name,
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<DownloadsCubit>(),
+          child: DownloadsPage(params: state.extra! as DownloadsPageParam),
+        ),
       ),
       GoRoute(
         name: Routes.subjectResourcesScreen.name,

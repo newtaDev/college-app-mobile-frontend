@@ -60,7 +60,9 @@ class ClassRoomTab extends StatelessWidget {
                       icon: const Icon(Icons.description),
                       label: const FittedText('Previous question papers'),
                       onPressed: () {},
-                    )
+                    ),
+                    const SizedBox(height: 10),
+                    const Divider(height: 1),
                   ],
                 ),
               ),
@@ -79,7 +81,7 @@ class ClassRoomTab extends StatelessWidget {
 
 class ClassRoomTitleDelegate extends SliverPersistentHeaderDelegate {
   ClassRoomTitleDelegate();
-  double height = 50;
+  double height = 60;
 
   @override
   double get maxExtent => height;

@@ -221,7 +221,8 @@ class SubjectAttachmentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final fileColor = getColorFromContentType(attachment.contentType);
+    final fileColor =
+        FileHelpers.getColorFromContentType(attachment.contentType);
     if (FileHelpers.imageContentTypes.contains(attachment.contentType)) {
       return Padding(
         padding: const EdgeInsets.only(bottom: 10),
@@ -310,7 +311,7 @@ class SubjectAttachmentCard extends StatelessWidget {
               CircleAvatar(
                 backgroundColor: fileColor.withOpacity(0.1),
                 child: Icon(
-                  getIconFromContentType(attachment.contentType),
+                  FileHelpers.getIconFromContentType(attachment.contentType),
                   color: fileColor,
                 ),
               ),
@@ -411,42 +412,6 @@ class SubjectAttachmentCard extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  IconData getIconFromContentType(String? contentType) {
-    if (FileHelpers.docsContentTypes.contains(contentType)) {
-      return Icons.description_rounded;
-    }
-    if (FileHelpers.videoContentTypes.contains(contentType)) {
-      return Icons.play_arrow_rounded;
-    }
-    if (FileHelpers.audioContentTypes.contains(contentType)) {
-      return Icons.audiotrack_rounded;
-    }
-    if (FileHelpers.imageContentTypes.contains(contentType)) {
-      return Icons.image;
-    }
-
-    /// default
-    return Icons.file_present_rounded;
-  }
-
-  Color getColorFromContentType(String? contentType) {
-    if (FileHelpers.docsContentTypes.contains(contentType)) {
-      return Colors.blue;
-    }
-    if (FileHelpers.videoContentTypes.contains(contentType)) {
-      return Colors.red;
-    }
-    if (FileHelpers.audioContentTypes.contains(contentType)) {
-      return Colors.green;
-    }
-    if (FileHelpers.imageContentTypes.contains(contentType)) {
-      return Colors.purple;
-    }
-
-    /// default
-    return Colors.black;
   }
 }
 
