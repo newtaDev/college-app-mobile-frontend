@@ -1,3 +1,4 @@
+import 'package:better_open_file/better_open_file.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -178,8 +179,15 @@ class ClassRoomCubit extends Cubit<ClassRoomState> {
     emit(state.copyWith(downloadingAttachments: updatedAttachments));
   }
 
-  Future<void> openDownloadedFile(String attachmentId) async {
-    print('Open...');
+  Future<String?> openDownloadedFile(String attachmentId) async {
+    // final downloadedFile = await downloadsLds.getDownloadedFile(attachmentId);
+    final downloadedFile = state.downloadingAttachments.firstWhereSafe(
+      (element) => element.attachment.id == attachmentId,
+    );
+    if (downloadedFile == null) return 'Downloaded file not found';
+    final result = await OpenFile.open(downloadedFile.path);
+    if (result.type != ResultType.done) return result.message;
+    return null;
   }
 
   bool isAttachmentDownloading(String attachmentId) {
@@ -248,7 +256,7 @@ class ClassRoomCubit extends Cubit<ClassRoomState> {
     );
   }
 
-  Future<bool> isDownloadedFileExists(String attachmentId) {
+  bool isDownloadedFileExists(String attachmentId) {
     return downloadsLds.isDownloadedFileExits(attachmentId);
   }
 
@@ -256,7 +264,7 @@ class ClassRoomCubit extends Cubit<ClassRoomState> {
     required String downloadedPath,
     required Attachment attachment,
   }) async {
-    final isDownloaded = await isDownloadedFileExists(attachment.id!);
+    final isDownloaded = isDownloadedFileExists(attachment.id!);
 
     if (!isDownloaded) {
       await downloadsLds.addToDownloads(

@@ -1,0 +1,4 @@
+enum HiveBoxes {
+  auth,
+  downloads,
+}

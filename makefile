@@ -38,6 +38,9 @@ format: ## Format the whole project.
 build_runner: ## Generate code using build_runner
 	flutter pub run build_runner build --delete-conflicting-outputs
 
+clean_ios: ## Clean pod file
+	cd ios && pod deintegrate --verbose && pod install
+
 # test: ## Test the whole project.
 # 	@echo "╠ Testing the project..."
 # 	@./scripts/test.sh 

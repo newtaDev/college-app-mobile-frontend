@@ -3,9 +3,8 @@ import 'dart:developer';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:isar/isar.dart';
-
 import '../data/models/local/downloads.dart';
+import '../shared/global/hive_boxes.dart';
 import '../shared/global/hive_keys.dart';
 import '../shared/helpers/network/device_ip.dart';
 import 'dependencies/di.dart';
@@ -35,7 +34,7 @@ class AppConfig {
       /// All Configurations
       await dotenv.load();
       await DeviceIp.getDeviceIpAddress();
-      await _registerHiveBoxes();
+      await _registerHive();
 
       /// register `isar` Schemas
       await _resisterIsarDbSchema();
@@ -54,16 +53,24 @@ class AppConfig {
 
   Future<void> _resisterIsarDbSchema() async {
     try {
-      await Isar.open([DownloadsSchema]);
+      // await Isar.open([DownloadsSchema]);
     } catch (e) {
       log('Error: isar schema registration');
       rethrow;
     }
   }
 
-  Future<void> _registerHiveBoxes() async {
+  Future<void> _registerHive() async {
     await Hive.initFlutter();
-    await Hive.openBox<dynamic>(HiveKeys.authBox);
+    _registerHiveAdapters();
+    await Hive.openBox<dynamic>(HiveBoxes.auth.name);
+    await Hive.openBox<Downloads>(HiveBoxes.downloads.name);
+  }
+
+  void _registerHiveAdapters() {
+    Hive
+      ..registerAdapter(DownloadsAdapter())
+      ..registerAdapter(DownloadedFromAdapter());
   }
 
   @override

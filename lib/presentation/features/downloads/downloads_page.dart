@@ -51,10 +51,7 @@ class _DownloadsPageState extends State<DownloadsPage> {
             return const LoadingIndicator();
           }
 
-          if (state.status.isError) {
-            return  Center(child: Text(state.error?.message??'Oops... Something went wrong'));
-          }
-          if (state.downloads.isEmpty ) {
+          if (state.downloads.isEmpty) {
             return const Center(child: Text('No downloads found'));
           }
           return ListView.builder(
@@ -74,10 +71,11 @@ class _DownloadsPageState extends State<DownloadsPage> {
 class DownloadedAttachmentCard extends StatelessWidget {
   final Downloads downloadedFile;
   final void Function(Downloads downloadedFile) onDownloadsDeleted;
-  const DownloadedAttachmentCard(
-      {super.key,
-      required this.downloadedFile,
-      required this.onDownloadsDeleted});
+  const DownloadedAttachmentCard({
+    super.key,
+    required this.downloadedFile,
+    required this.onDownloadsDeleted,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +86,16 @@ class DownloadedAttachmentCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: GestureDetector(
-        onTap: () async {},
+        onTap: () async {
+          final message = await context
+              .read<DownloadsCubit>()
+              .openDownloadedFile(downloadedFile);
+          if (message != null) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(content: Text(message)));
+          }
+        },
         behavior: HitTestBehavior.opaque,
         child: BorderedBox(
           child: Row(

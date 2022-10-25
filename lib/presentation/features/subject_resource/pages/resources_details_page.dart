@@ -116,7 +116,9 @@ class _SubjectResourceDetailsPageState
                     ),
                     SliverPadding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 10),
+                        horizontal: 20,
+                        vertical: 10,
+                      ),
                       sliver: (state
                                   .subjectResourceDetails?.comments?.isEmpty ??
                               true)
@@ -298,8 +300,14 @@ class SubjectAttachmentCard extends StatelessWidget {
       child: GestureDetector(
         onTap: () async {
           final clasRoomCubit = context.read<ClassRoomCubit>();
-          if (await clasRoomCubit.isDownloadedFileExists(attachment.id!)) {
-            await clasRoomCubit.openDownloadedFile(attachment.id!);
+          if (clasRoomCubit.isDownloadedFileExists(attachment.id!)) {
+            final message =
+                await clasRoomCubit.openDownloadedFile(attachment.id!);
+            if (message != null) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(content: Text(message)));
+            }
           } else {
             await clasRoomCubit.downloadResources(attachment);
           }
@@ -349,61 +357,53 @@ class SubjectAttachmentCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 10),
-              FutureBuilder<bool>(
-                future: context
-                    .read<ClassRoomCubit>()
-                    .isDownloadedFileExists(attachment.id!),
-                builder: (context, snapshot) {
-                  return BlocBuilder<ClassRoomCubit, ClassRoomState>(
-                    buildWhen: (previous, current) =>
-                        previous.downloadingAttachments.firstWhereSafe(
-                          (element) => element.attachment.id == attachment.id,
-                        ) !=
-                        current.downloadingAttachments.firstWhereSafe(
-                          (element) => element.attachment.id == attachment.id,
+              BlocBuilder<ClassRoomCubit, ClassRoomState>(
+                buildWhen: (previous, current) =>
+                    previous.downloadingAttachments.firstWhereSafe(
+                      (element) => element.attachment.id == attachment.id,
+                    ) !=
+                    current.downloadingAttachments.firstWhereSafe(
+                      (element) => element.attachment.id == attachment.id,
+                    ),
+                builder: (context, state) {
+                  final isFileFoundInDownloads = context
+                      .read<ClassRoomCubit>()
+                      .isDownloadedFileExists(attachment.id!);
+                  final downloadingAttachment =
+                      state.downloadingAttachments.firstWhereSafe(
+                    (element) => element.attachment.id == attachment.id,
+                  );
+                  if (downloadingAttachment?.status.isDownloading ?? false) {
+                    return Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        CircularProgressIndicator(
+                          value: (downloadingAttachment?.progress ?? 0) / 100,
+                          strokeWidth: 2,
                         ),
-                    builder: (context, state) {
-                      final isFileFoundInDownloads = snapshot.data ?? false;
-                      final downloadingAttachment =
-                          state.downloadingAttachments.firstWhereSafe(
-                        (element) => element.attachment.id == attachment.id,
-                      );
-                      if (downloadingAttachment?.status.isDownloading ??
-                          false) {
-                        return Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            CircularProgressIndicator(
-                              value:
-                                  (downloadingAttachment?.progress ?? 0) / 100,
-                              strokeWidth: 2,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(2),
-                              child: FittedText(
-                                '${downloadingAttachment?.progress}',
-                                style: textTheme.bodySmall,
-                              ),
-                            )
-                          ],
-                        );
-                      }
-                      if ((downloadingAttachment?.status.isDownloaded ??
-                              false) ||
-                          isFileFoundInDownloads) {
-                        return const Icon(
-                          Icons.check_circle,
-                          color: Colors.green,
-                        );
-                      }
-                      return CircleAvatar(
-                        backgroundColor: Colors.black.withOpacity(0.1),
-                        child: const Icon(
-                          Icons.file_download_outlined,
-                          color: Colors.black,
-                        ),
-                      );
-                    },
+                        Padding(
+                          padding: const EdgeInsets.all(2),
+                          child: FittedText(
+                            '${downloadingAttachment?.progress}',
+                            style: textTheme.bodySmall,
+                          ),
+                        )
+                      ],
+                    );
+                  }
+                  if ((downloadingAttachment?.status.isDownloaded ?? false) ||
+                      isFileFoundInDownloads) {
+                    return const Icon(
+                      Icons.check_circle,
+                      color: Colors.green,
+                    );
+                  }
+                  return CircleAvatar(
+                    backgroundColor: Colors.black.withOpacity(0.1),
+                    child: const Icon(
+                      Icons.file_download_outlined,
+                      color: Colors.black,
+                    ),
                   );
                 },
               ),

@@ -29,6 +29,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.9.0"
+  better_open_file:
+    dependency: "direct main"
+    description:
+      name: better_open_file
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.6.4"
   bloc:
     dependency: transitive
     description:
@@ -176,13 +183,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.4"
-  dartx:
-    dependency: transitive
-    description:
-      name: dartx
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.0"
   dartz:
     dependency: "direct main"
     description:
@@ -359,6 +359,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  hive_generator:
+    dependency: "direct dev"
+    description:
+      name: hive_generator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   http_multi_server:
     dependency: transitive
     description:
@@ -387,27 +394,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
-  isar:
-    dependency: "direct main"
-    description:
-      name: isar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.2"
-  isar_flutter_libs:
-    dependency: "direct main"
-    description:
-      name: isar_flutter_libs
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.2"
-  isar_generator:
-    dependency: "direct dev"
-    description:
-      name: isar_generator
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.2"
   js:
     dependency: transitive
     description:
@@ -672,6 +658,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.6"
+  source_helper:
+    dependency: transitive
+    description:
+      name: source_helper
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.3.3"
   source_span:
     dependency: transitive
     description:
@@ -728,13 +721,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.12"
-  time:
-    dependency: transitive
-    description:
-      name: time
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.3"
   timing:
     dependency: transitive
     description:
@@ -861,13 +847,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.0"
-  xxh3:
-    dependency: transitive
-    description:
-      name: xxh3
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
   yaml:
     dependency: transitive
     description:

@@ -64,13 +64,13 @@ class AppRouter {
       GoRoute(
         name: Routes.dashboardScreen.name,
         path: '/',
-        redirect: (state) => '/dashboard/home',
+        redirect: (state) => '/dashboard/${DashboardPageTabs.home.name}',
       ),
       GoRoute(
         path: '/dashboard/:tab_name',
         builder: (context, state) {
           final tabName = DashboardPageTabs.fromName(
-                state.params['tab_name']!.toLowerCase(),
+                state.params['tab_name']!,
               ) ??
               RouteParams.selectedDashboardTab;
 

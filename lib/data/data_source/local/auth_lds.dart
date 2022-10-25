@@ -2,12 +2,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../domain/entities/auth_entitie.dart';
 import '../../../shared/global/enums.dart';
+import '../../../shared/global/hive_boxes.dart';
 import '../../../shared/global/hive_keys.dart';
 import '../../../utils/utils.dart';
 
 // local db services
 class AuthLocalDataSource {
-  final box = Hive.box<dynamic>(HiveKeys.authBox);
+  final box = Hive.box<dynamic>(HiveBoxes.auth.name);
 
   bool get isLogedIn => box.containsKey(HiveKeys.accessToken);
 

@@ -1,13 +1,15 @@
-import 'package:isar/isar.dart';
-
+import 'package:hive/hive.dart';
 part 'downloads.g.dart';
 
-@collection
+@HiveType(typeId: 0)
 class Downloads {
-  Id id = Isar.autoIncrement;
+  @HiveField(0)
   late String localPath;
+  @HiveField(1)
   String? subjectId;
+  @HiveField(2)
   late DateTime downloadedAt;
+  @HiveField(3)
   late DownloadedFrom downloadedFrom;
   Downloads({
     required this.localPath,
@@ -31,15 +33,23 @@ class Downloads {
   }
 }
 
-@embedded
+@HiveType(typeId: 1)
 class DownloadedFrom {
+  @HiveField(0)
   String? attachmentId;
+  @HiveField(1)
   String? name;
+  @HiveField(2)
   String? s3path;
+  @HiveField(3)
   String? url;
+  @HiveField(4)
   String? contentType;
+  @HiveField(5)
   int? size;
+  @HiveField(6)
   DateTime? createdAt;
+  @HiveField(7)
   DateTime? updatedAt;
   DownloadedFrom({
     this.attachmentId,

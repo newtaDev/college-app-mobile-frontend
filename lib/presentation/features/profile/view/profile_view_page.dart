@@ -47,9 +47,12 @@ class ProfileViewPage extends StatelessWidget {
                     params: RouteParams.withDashboard,
                   );
                 } else {
+                  final user =
+                      context.read<ProfileViewCubit>().state.userDetails;
+                  if (user == null) return;
                   context.pushNamed(
                     Routes.qrViewerScreen.name,
-                    extra: context.read<ProfileViewCubit>().state.userDetails,
+                    extra: user,
                     params: RouteParams.withDashboard,
                   );
                 }

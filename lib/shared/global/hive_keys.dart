@@ -1,7 +1,4 @@
 class HiveKeys {
-  /// Box Keys
-  static const String authBox = 'auth-box';
-
   /// Keys
   static const String email = 'user-email';
   static const String collegeId = 'user-collegeId';

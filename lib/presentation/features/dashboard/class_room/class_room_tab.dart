@@ -2,12 +2,16 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:styles_lib/assets/assets.dart';
 import 'package:styles_lib/theme/themes.dart';
 import 'package:widgets_lib/widgets/widgets.dart';
 
 import '../../../../cubits/user/user_cubit.dart';
 import '../../../../shared/extensions/extentions.dart';
+import '../../../router/routes.dart';
+import '../../downloads/downloads_page.dart';
+import '../../subject_resource/cubit/class_room_cubit.dart';
 import 'widgets/my_subject_view.dart';
 
 class ClassRoomTab extends StatelessWidget {
@@ -17,6 +21,30 @@ class ClassRoomTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          context.pushNamed(
+            Routes.downloadsScreen.name,
+            params: RouteParams.withDashboard,
+            extra: DownloadsPageParam(
+              onDownloadsDeleted: (downloadedFile) {
+                context.read<ClassRoomCubit>().deleteDownloadedFileFromMemory(
+                      downloadedFile.downloadedFrom.attachmentId!,
+                    );
+              },
+            ),
+          );
+        },
+        icon: const Icon(
+          Icons.file_download_outlined,
+          color: Colors.white,
+        ),
+        label: Text(
+          'My downloads',
+          style: textTheme.titleMedium
+              ?.copyWith(color: Colors.white, fontWeight: FontWeight.w500),
+        ),
+      ),
       body: SafeArea(
         child: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => [

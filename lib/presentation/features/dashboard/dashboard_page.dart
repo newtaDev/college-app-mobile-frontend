@@ -23,7 +23,6 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  final _fabKey = GlobalKey<FabPopupMenuState>();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -36,7 +35,7 @@ class _DashboardPageState extends State<DashboardPage> {
         return true;
       },
       child: Scaffold(
-        body: _buildTabViews(context),
+        body: _buildTabViews(),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: widget.tabName.index,
           onTap: (int index) {
@@ -62,138 +61,141 @@ class _DashboardPageState extends State<DashboardPage> {
           ],
         ),
         floatingActionButtonLocation: FabPopupMenu.location,
-        floatingActionButton: context.read<UserCubit>().state.isStudent
-            ? null
-            : FabPopupMenu(
-                key: _fabKey,
-                type: FabPopupMenuType.up,
-                overlayStyle: const FabPopupMenuOverlayStyle(blur: 8),
-                distance: 60,
-                icon: const Icon(Icons.add, color: Colors.white),
-                closeButtonStyle: const FabPopupMenuCloseButtonStyle(
-                  child: Icon(Icons.close, color: Colors.white),
-                ),
-                content: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: DecoratedBox(
-                    decoration: const BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 6,
-                          spreadRadius: 1,
-                          color: Colors.black26,
-                        )
-                      ],
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          maxWidth:
-                              MediaQuery.of(context).size.width * 0.7 > 400
-                                  ? 400
-                                  : MediaQuery.of(context).size.width * 0.7,
-                          maxHeight: MediaQuery.of(context).size.height / 2,
-                        ),
-                        child: FabPopupContents(fabKey: _fabKey),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+        floatingActionButton: context.read<UserCubit>().state.isTeacher &&
+                widget.tabName == DashboardPageTabs.home
+            ? const TeachersHomeTabFab()
+            : null,
       ),
     );
   }
 
-  Widget _buildTabViews(BuildContext context) {
+  Widget _buildTabViews() {
     switch (widget.tabName) {
       case DashboardPageTabs.home:
         return const HomeTab();
       case DashboardPageTabs.profile:
         return const ProfileTab();
-      case DashboardPageTabs.settings:
+      case DashboardPageTabs.classRoom:
         return const ClassRoomTab();
     }
   }
 }
 
-class FabPopupContents extends StatelessWidget {
-  const FabPopupContents({
+class TeachersHomeTabFab extends StatefulWidget {
+  const TeachersHomeTabFab({
     super.key,
-    required this.fabKey,
   });
 
-  final GlobalKey<FabPopupMenuState> fabKey;
+  @override
+  State<TeachersHomeTabFab> createState() => _TeachersHomeTabFabState();
+}
+
+class _TeachersHomeTabFabState extends State<TeachersHomeTabFab> {
+  final _fabKey = GlobalKey<FabPopupMenuState>();
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ColoredBox(
-            color: Colors.white,
-            child: ListTile(
-              leading: const Icon(Icons.campaign_outlined),
-              title: const Text('Create Announcement'),
-              minLeadingWidth: 5,
-              onTap: () {
-                final state = fabKey.currentState;
-                if (state != null) {
-                  state.toggle();
-                }
-                context.goNamed(
-                  Routes.createAnnouncementFormatsScreen.name,
-                  params: RouteParams.withDashboard,
-                );
-              },
+    return FabPopupMenu(
+      key: _fabKey,
+      type: FabPopupMenuType.up,
+      overlayStyle: const FabPopupMenuOverlayStyle(blur: 8),
+      distance: 60,
+      icon: const Icon(Icons.add, color: Colors.white),
+      closeButtonStyle: const FabPopupMenuCloseButtonStyle(
+        child: Icon(Icons.close, color: Colors.white),
+      ),
+      content: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: DecoratedBox(
+          decoration: const BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 6,
+                spreadRadius: 1,
+                color: Colors.black26,
+              )
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: MediaQuery.of(context).size.width * 0.7 > 400
+                    ? 400
+                    : MediaQuery.of(context).size.width * 0.7,
+                maxHeight: MediaQuery.of(context).size.height / 2,
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ColoredBox(
+                      color: Colors.white,
+                      child: ListTile(
+                        leading: const Icon(Icons.campaign_outlined),
+                        title: const Text('Create Announcement'),
+                        minLeadingWidth: 5,
+                        onTap: () {
+                          final state = _fabKey.currentState;
+                          if (state != null) {
+                            state.toggle();
+                          }
+                          context.goNamed(
+                            Routes.createAnnouncementFormatsScreen.name,
+                            params: RouteParams.withDashboard,
+                          );
+                        },
+                      ),
+                    ),
+                    const Divider(height: 1),
+                    ColoredBox(
+                      color: Colors.white,
+                      child: ListTile(
+                        leading: const Icon(Icons.post_add_rounded),
+                        minLeadingWidth: 5,
+                        title: const Text('Create Attendance'),
+                        onTap: () {
+                          final state = _fabKey.currentState;
+                          if (state != null) {
+                            state.toggle();
+                          }
+                          showDialog<void>(
+                            context: context,
+                            builder: (context) {
+                              return SelectSubjectDialog(
+                                title: 'Create Attendance',
+                                onSubjectSelected: (subject) {
+                                  Navigator.of(context).pop();
+                                  context
+                                      .read<SelectionCubit>()
+                                      .setSelectedSubject(subject);
+                                  context.pushNamed(
+                                    Routes.createAttendanceScreen.name,
+                                    params: RouteParams.withDashboard,
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                    const Divider(height: 1),
+                    ColoredBox(
+                      color: Colors.white,
+                      child: ListTile(
+                        leading: const Icon(Icons.my_library_books_outlined),
+                        minLeadingWidth: 5,
+                        title: const Text('My Announcements'),
+                        onTap: () {},
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
-          const Divider(height: 1),
-          ColoredBox(
-            color: Colors.white,
-            child: ListTile(
-              leading: const Icon(Icons.post_add_rounded),
-              minLeadingWidth: 5,
-              title: const Text('Create Attendance'),
-              onTap: () {
-                final state = fabKey.currentState;
-                if (state != null) {
-                  state.toggle();
-                }
-                showDialog<void>(
-                  context: context,
-                  builder: (context) {
-                    return SelectSubjectDialog(
-                      title: 'Create Attendance',
-                      onSubjectSelected: (subject) {
-                        Navigator.of(context).pop();
-                        context
-                            .read<SelectionCubit>()
-                            .setSelectedSubject(subject);
-                        context.pushNamed(
-                          Routes.createAttendanceScreen.name,
-                          params: RouteParams.withDashboard,
-                        );
-                      },
-                    );
-                  },
-                );
-              },
-            ),
-          ),
-          const Divider(height: 1),
-          ColoredBox(
-            color: Colors.white,
-            child: ListTile(
-              leading: const Icon(Icons.my_library_books_outlined),
-              minLeadingWidth: 5,
-              title: const Text('My Announcements'),
-              onTap: () {},
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

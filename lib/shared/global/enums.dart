@@ -1,6 +1,6 @@
 enum DashboardPageTabs {
   home,
-  settings,
+  classRoom,
   profile;
 
   static DashboardPageTabs? fromName(String name) {
