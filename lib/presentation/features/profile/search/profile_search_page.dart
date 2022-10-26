@@ -57,6 +57,10 @@ class _ProfileSearchPageState extends State<ProfileSearchPage> {
                         decoration: const InputDecoration(
                           hintText: 'Search...',
                           prefixIcon: Icon(Icons.search),
+                           filled: true,
+                            border: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            focusedBorder:  InputBorder.none,
                         ),
                         onChanged: (value) {
                           if (value.isEmpty ||

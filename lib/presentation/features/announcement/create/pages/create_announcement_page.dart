@@ -41,27 +41,7 @@ class _CreateAnnouncementScreenState extends State<CreateAnnouncementScreen> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final _errorBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
-      borderSide: BorderSide(color: lightColorScheme.error),
-    );
-    final textFieldTheme = Theme.of(context).inputDecorationTheme.copyWith(
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: ColorPallet.grey300),
-          ),
-          errorBorder: _errorBorder,
-          focusedErrorBorder: _errorBorder.copyWith(
-            borderSide: BorderSide(
-              color: darkColorScheme.error,
-              width: 1.5,
-            ),
-          ),
-          filled: false,
-        );
+    
     final isImageWithTextLayout = announcementCubit.state.layoutType ==
         AnnouncementLayoutType.imageWithText;
     final isMultiImageLayout = announcementCubit.state.layoutType ==
@@ -109,101 +89,98 @@ class _CreateAnnouncementScreenState extends State<CreateAnnouncementScreen> {
           },
         ),
       ),
-      body: Theme(
-        data: Theme.of(context).copyWith(inputDecorationTheme: textFieldTheme),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (isImageWithTextLayout)
-                    const SingleAnnouncementImagePicker(),
-                  if (isMultiImageLayout) const MultiAnnouncementImagePicker(),
-                  Text('Announcement Title', style: textTheme.titleMedium),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: FormValidator.requiredFieldValidator,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter announcement title',
-                    ),
-                    onChanged: announcementCubit.setAnnouncementTitle,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (isImageWithTextLayout)
+                  const SingleAnnouncementImagePicker(),
+                if (isMultiImageLayout) const MultiAnnouncementImagePicker(),
+                Text('Announcement Title', style: textTheme.titleMedium),
+                const SizedBox(height: 10),
+                TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: FormValidator.requiredFieldValidator,
+                  decoration: const InputDecoration(
+                    hintText: 'Enter announcement title',
                   ),
-                  const SizedBox(height: 20),
-                  Text('Description', style: textTheme.titleMedium),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: FormValidator.requiredFieldValidator,
-                    textInputAction: TextInputAction.newline,
-                    maxLines: null,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter announcement description...',
-                    ),
-                    onChanged: announcementCubit.setAnnouncementDescription,
+                  onChanged: announcementCubit.setAnnouncementTitle,
+                ),
+                const SizedBox(height: 20),
+                Text('Description', style: textTheme.titleMedium),
+                const SizedBox(height: 10),
+                TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: FormValidator.requiredFieldValidator,
+                  textInputAction: TextInputAction.newline,
+                  maxLines: null,
+                  decoration: const InputDecoration(
+                    hintText: 'Enter announcement description...',
                   ),
-                  const SizedBox(height: 20),
-                  BlocBuilder<CreateAnnouncementCubit, CreateAnnouncementState>(
-                    buildWhen: (previous, current) =>
-                        previous.selectedClasses != current.selectedClasses,
-                    builder: (_, state) {
-                      return _multiSelectBoxWithTitle(
-                        title: 'Anounce to',
-                        onTap: () {
-                          final assignedClasses = context
-                                  .read<UserCubit>()
-                                  .state
-                                  .userAsTeacher
-                                  ?.assignedClasses ??
-                              [];
-                          FocusManager.instance.primaryFocus?.unfocus();
-                          showDialog<void>(
-                            context: context,
-                            builder: (_) {
-                              return MutliSelectMyClassesDialog(
-                                initialSelectedClasses: state.selectedClasses,
-                                classes: assignedClasses,
-                                onClassesSelected: (_, userSelectedClasses) {
-                                  announcementCubit
-                                      .setSelectedClasses(userSelectedClasses);
-                                },
-                              );
-                            },
-                          );
-                        },
-                        multipleValues: List.generate(
-                          state.selectedClasses.length,
-                          (index) => Chip(
-                            label: Text(
-                              state.selectedClasses[index].name ?? 'N/A',
-                            ),
-                            backgroundColor: ColorPallet.grey200,
-                            deleteIcon: const Icon(Icons.close, size: 18),
-                            onDeleted: () {
-                              announcementCubit.removeSelectedClass(
-                                state.selectedClasses[index],
-                              );
-                            },
+                  onChanged: announcementCubit.setAnnouncementDescription,
+                ),
+                const SizedBox(height: 20),
+                BlocBuilder<CreateAnnouncementCubit, CreateAnnouncementState>(
+                  buildWhen: (previous, current) =>
+                      previous.selectedClasses != current.selectedClasses,
+                  builder: (_, state) {
+                    return _multiSelectBoxWithTitle(
+                      title: 'Anounce to',
+                      onTap: () {
+                        final assignedClasses = context
+                                .read<UserCubit>()
+                                .state
+                                .userAsTeacher
+                                ?.assignedClasses ??
+                            [];
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        showDialog<void>(
+                          context: context,
+                          builder: (_) {
+                            return MutliSelectMyClassesDialog(
+                              initialSelectedClasses: state.selectedClasses,
+                              classes: assignedClasses,
+                              onClassesSelected: (_, userSelectedClasses) {
+                                announcementCubit
+                                    .setSelectedClasses(userSelectedClasses);
+                              },
+                            );
+                          },
+                        );
+                      },
+                      multipleValues: List.generate(
+                        state.selectedClasses.length,
+                        (index) => Chip(
+                          label: Text(
+                            state.selectedClasses[index].name ?? 'N/A',
                           ),
+                          backgroundColor: ColorPallet.grey200,
+                          deleteIcon: const Icon(Icons.close, size: 18),
+                          onDeleted: () {
+                            announcementCubit.removeSelectedClass(
+                              state.selectedClasses[index],
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    children: [
-                      const Expanded(child: Divider(endIndent: 20)),
-                      Text('Preview', style: textTheme.bodySmall),
-                      const Expanded(child: Divider(indent: 20)),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  const AnnouncementPreviews(),
-                ],
-              ),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    const Expanded(child: Divider(endIndent: 20)),
+                    Text('Preview', style: textTheme.bodySmall),
+                    const Expanded(child: Divider(indent: 20)),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                const AnnouncementPreviews(),
+              ],
             ),
           ),
         ),

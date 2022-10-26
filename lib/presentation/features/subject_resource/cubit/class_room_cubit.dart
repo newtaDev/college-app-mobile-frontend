@@ -181,11 +181,9 @@ class ClassRoomCubit extends Cubit<ClassRoomState> {
 
   Future<String?> openDownloadedFile(String attachmentId) async {
     // final downloadedFile = await downloadsLds.getDownloadedFile(attachmentId);
-    final downloadedFile = state.downloadingAttachments.firstWhereSafe(
-      (element) => element.attachment.id == attachmentId,
-    );
+    final downloadedFile = await downloadsLds.getDownloadedFile(attachmentId);
     if (downloadedFile == null) return 'Downloaded file not found';
-    final result = await OpenFile.open(downloadedFile.path);
+    final result = await OpenFile.open(downloadedFile.localPath);
     if (result.type != ResultType.done) return result.message;
     return null;
   }

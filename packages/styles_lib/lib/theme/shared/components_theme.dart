@@ -6,22 +6,23 @@ BottomNavigationBarThemeData _bottomNavBartheme() =>
 InputDecorationTheme _textInputDecorationTheme({required bool isDarkMode}) {
   final _withoutBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(8),
-    borderSide: BorderSide.none,
+    borderSide: const BorderSide(color: ColorPallet.grey300),
   );
-  final _errorBorder = UnderlineInputBorder(
+  final _errorBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(8),
     borderSide: BorderSide(color: darkColorScheme.error),
   );
   return InputDecorationTheme(
-    focusedBorder: _withoutBorder,
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+    ),
     enabledBorder: _withoutBorder,
     border: _withoutBorder,
     errorBorder: _errorBorder,
     disabledBorder: _withoutBorder,
     focusedErrorBorder: _errorBorder.copyWith(
-      borderSide: BorderSide(color: lightColorScheme.error, width: 2),
+      borderSide: BorderSide(color: lightColorScheme.error, width: 1.5),
     ),
-    filled: true,
     fillColor: isDarkMode ? ColorPallet.darkGrey : ColorPallet.grey80,
     contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
   );
