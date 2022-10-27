@@ -58,7 +58,7 @@ class _HomeTabState extends State<HomeTab> {
                             filled: true,
                             border: InputBorder.none,
                             enabledBorder: InputBorder.none,
-                            focusedBorder:  InputBorder.none,
+                            focusedBorder: InputBorder.none,
                           ),
                           readOnly: true,
                           onTap: () {

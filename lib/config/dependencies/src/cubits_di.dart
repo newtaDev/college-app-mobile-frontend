@@ -45,7 +45,6 @@ void registerCubitsDependencies() {
     )
 
     /// home
-    ..registerSingleton<HomeCubit>(HomeCubit())
     ..registerSingleton<MyAppCubit>(
       MyAppCubit(
         tokenRepo: getIt<TokenRepoImpl>(),

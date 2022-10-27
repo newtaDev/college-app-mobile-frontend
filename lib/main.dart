@@ -4,7 +4,6 @@ import 'package:styles_lib/theme/themes.dart';
 
 import 'config/app_config.dart';
 import 'cubits/auth/auth_cubit.dart';
-import 'cubits/home/home_cubit.dart';
 import 'cubits/my_app/my_app_cubit.dart';
 import 'cubits/selection/selection_cubit.dart';
 import 'cubits/user/user_cubit.dart';
@@ -27,7 +26,6 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(lazy: false, create: (context) => getIt<AuthCubit>()),
         BlocProvider(lazy: false, create: (context) => getIt<MyAppCubit>()),
-        BlocProvider(create: (context) => getIt<HomeCubit>()),
         BlocProvider(create: (context) => getIt<SelectionCubit>()),
         BlocProvider(create: (context) => getIt<UserCubit>()),
       ],

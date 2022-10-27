@@ -1,7 +1,6 @@
 library app_dependencies;
 
 import '../../cubits/auth/auth_cubit.dart';
-import '../../cubits/home/home_cubit.dart';
 import '../../cubits/my_app/my_app_cubit.dart';
 import '../../cubits/selection/selection_cubit.dart';
 import '../../cubits/user/user_cubit.dart';
