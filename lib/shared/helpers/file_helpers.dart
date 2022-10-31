@@ -33,7 +33,7 @@ class FileHelpers {
     'pptx'
   ];
   static const audioExtensions = ['mp3', 'wav'];
-  static const videoExtensions = ['mp4'];
+  static const videoExtensions = ['mp4','mov'];
 
   static IconData getIconFromContentType(String? contentType) {
     if (docsContentTypes.contains(contentType)) {

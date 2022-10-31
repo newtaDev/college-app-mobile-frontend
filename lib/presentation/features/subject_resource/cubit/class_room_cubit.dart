@@ -1,8 +1,13 @@
+import 'dart:async';
+
 import 'package:better_open_file/better_open_file.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http_parser/http_parser.dart';
+import 'package:mime/mime.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../../../../cubits/user/user_cubit.dart';
@@ -183,7 +188,11 @@ class ClassRoomCubit extends Cubit<ClassRoomState> {
     // final downloadedFile = await downloadsLds.getDownloadedFile(attachmentId);
     final downloadedFile = await downloadsLds.getDownloadedFile(attachmentId);
     if (downloadedFile == null) return 'Downloaded file not found';
-    final result = await OpenFile.open(downloadedFile.localPath);
+    return openFileFromPath(downloadedFile.localPath);
+  }
+
+  Future<String?> openFileFromPath(String path) async {
+    final result = await OpenFile.open(path);
     if (result.type != ResultType.done) return result.message;
     return null;
   }
@@ -254,6 +263,72 @@ class ClassRoomCubit extends Cubit<ClassRoomState> {
     );
   }
 
+  Future<void> uploadResources({
+    required String title,
+    required String subjectId,
+    String? description,
+  }) async {
+    emit(
+      state.copyWith(
+        uploadingResourcesStatus: UploadingResourcesStatus.uploading,
+      ),
+    );
+    try {
+      final uploadingAttachments = state.uploadingAttachments.map(
+        (file) {
+          final fileName = file.path!.split('/').last;
+          return MultipartFile.fromFileSync(
+            file.path!,
+            filename: fileName,
+            contentType: MediaType.parse(lookupMimeType(file.path!)!),
+          );
+        },
+      ).toList();
+      await classRoomRepo.uploadSubjectResource(
+        req: UploadSubjectResourceReq(
+          title: title,
+          subjectId: subjectId,
+          description: description,
+          userId: userCubit.state.userDetails.id,
+          attachments: uploadingAttachments,
+        ),
+      );
+      emit(
+        state.copyWith(
+          uploadingResourcesStatus: UploadingResourcesStatus.uploaded,
+        ),
+      );
+    } on ApiErrorRes catch (apiError) {
+      emit(
+        state.copyWith(
+          uploadingResourcesStatus: UploadingResourcesStatus.error,
+          error: apiError,
+        ),
+      );
+    } catch (e) {
+      final apiErrorRes = ApiErrorRes(message: 'Uploading Resources Failed');
+      emit(
+        state.copyWith(
+          uploadingResourcesStatus: UploadingResourcesStatus.error,
+          error: apiErrorRes,
+        ),
+      );
+      rethrow;
+    }
+  }
+
+  void resetUploadingResource() {
+    if (state.uploadingResourcesStatus == UploadingResourcesStatus.uploading) {
+      return;
+    }
+    emit(
+      state.copyWith(
+        uploadingResourcesStatus: UploadingResourcesStatus.initial,
+        uploadingAttachments: [],
+      ),
+    );
+  }
+
   bool isDownloadedFileExists(String attachmentId) {
     return downloadsLds.isDownloadedFileExits(attachmentId);
   }
@@ -274,6 +349,18 @@ class ClassRoomCubit extends Cubit<ClassRoomState> {
         ),
       );
     }
+  }
+
+  void addUploadingAttachments(PlatformFile files) {
+    final uploadingFiles = List<PlatformFile>.from(state.uploadingAttachments)
+      ..add(files);
+    emit(state.copyWith(uploadingAttachments: uploadingFiles));
+  }
+
+  void removeUploadingAttachments(int index) {
+    final deleteingFiles = List<PlatformFile>.from(state.uploadingAttachments)
+      ..removeAt(index);
+    emit(state.copyWith(uploadingAttachments: deleteingFiles));
   }
 
   void setSubjectsForTeacher() {

@@ -10,4 +10,8 @@ abstract class ClassRoomRepository {
     String resourceId,
   );
   Future<void> addCommentToResource(SubjectResourceCommentReq comment);
+  Future<void> uploadSubjectResource({
+    required UploadSubjectResourceReq req,
+    void Function(int count, int total)? onUploadProgress,
+  });
 }

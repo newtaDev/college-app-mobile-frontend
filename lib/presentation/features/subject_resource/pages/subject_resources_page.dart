@@ -1,19 +1,27 @@
-import 'dart:math';
+import 'dart:developer';
+import 'dart:io';
 
+import 'package:bot_toast/bot_toast.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mime/mime.dart';
 import 'package:styles_lib/styles_lib.dart';
 import 'package:widgets_lib/widgets_lib.dart';
 
+import '../../../../cubits/user/user_cubit.dart';
 import '../../../../data/models/data_class/subject_model.dart';
 import '../../../../domain/entities/class_room_entity.dart';
 import '../../../../shared/extensions/extentions.dart';
+import '../../../../shared/helpers/file_helpers.dart';
 import '../../../router/routes.dart';
 import '../../downloads/downloads_page.dart';
+import '../../pages/image_viewer_page.dart';
 import '../cubit/class_room_cubit.dart';
+import '../../../overlays/bottom_sheet/upload_resources.dart';
 
 class SubjectResourcesPageParams {
   final Subject subject;
@@ -45,15 +53,31 @@ class _SubjectResourcesPageState extends State<SubjectResourcesPage> {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        icon: const Icon(Icons.upload_outlined, color: Colors.white),
-        onPressed: () {},
-        label: Text(
-          'Upload classes',
-          style: textTheme.button
-              ?.copyWith(fontWeight: FontWeight.w600, color: Colors.white),
-        ),
-      ),
+      floatingActionButton: !context.read<UserCubit>().state.isTeacher
+          ? null
+          : FloatingActionButton.extended(
+              icon: const Icon(Icons.upload_outlined, color: Colors.white),
+              onPressed: () {
+                final classRoomCubit = context.read<ClassRoomCubit>();
+                showModalBottomSheet<void>(
+                  context: context,
+                  isScrollControlled: true,
+                  constraints: BoxConstraints(maxHeight: size.height * 0.9),
+                  builder: (context) => BlocProvider.value(
+                    value: classRoomCubit,
+                    child: UploadSubjectResourcesBottomSheet(
+                      subjectId: widget.param.subject.id!,
+                      onFilesPicked: onFilesPicked,
+                    ),
+                  ),
+                );
+              },
+              label: Text(
+                'Upload classes',
+                style: textTheme.button?.copyWith(
+                    fontWeight: FontWeight.w600, color: Colors.white),
+              ),
+            ),
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
@@ -76,21 +100,27 @@ class _SubjectResourcesPageState extends State<SubjectResourcesPage> {
                 state.allSubjectResourcesStatus.isError) {
               return const Center(child: Text('No resources found ̰'));
             }
-            return ListView.builder(
-              itemCount: state.allSubjectResources.length,
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-              itemBuilder: (context, index) => Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: SubjectResourceCard(
-                  bgColor: widget.param.genColor,
-                  subjectResource: state.allSubjectResources[index],
-                  onTap: () => context.goNamed(
-                    Routes.subjectResourceDetailsScreen.name,
-                    extra: widget.param,
-                    params: {
-                      ...RouteParams.withDashboard,
-                      'resourceId': state.allSubjectResources[index].id!
-                    },
+            return RefreshIndicator(
+              onRefresh: () => context
+                  .read<ClassRoomCubit>()
+                  .getAllSubjectResources(widget.param.subject.id!),
+              child: ListView.builder(
+                itemCount: state.allSubjectResources.length,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+                itemBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: SubjectResourceCard(
+                    bgColor: widget.param.genColor,
+                    subjectResource: state.allSubjectResources[index],
+                    onTap: () => context.goNamed(
+                      Routes.subjectResourceDetailsScreen.name,
+                      extra: widget.param,
+                      params: {
+                        ...RouteParams.withDashboard,
+                        'resourceId': state.allSubjectResources[index].id!
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -99,6 +129,27 @@ class _SubjectResourcesPageState extends State<SubjectResourcesPage> {
         ),
       ),
     );
+  }
+
+  void onFilesPicked(FilePickerResult? pickedFiles) {
+    if (pickedFiles == null) return;
+    final classRoomCubit = context.read<ClassRoomCubit>();
+    log(classRoomCubit.state.uploadingAttachments.length.toString());
+
+    for (int i = 0; i < pickedFiles.files.length; i++) {
+      final sizeInMb = pickedFiles.files[i].size / (1024 * 1024);
+
+      if (sizeInMb >= 50) {
+        BotToast.showText(text: 'File size should not be greater than 50 Mb');
+        return;
+      }
+      if ((classRoomCubit.state.uploadingAttachments.length + 1) > 5) {
+        BotToast.showText(text: 'Only 5 attachments are allowed.');
+        return;
+      }
+      classRoomCubit.addUploadingAttachments(pickedFiles.files[i]);
+    }
+    log(classRoomCubit.state.uploadingAttachments.length.toString());
   }
 }
 
@@ -135,7 +186,9 @@ class SubjectResourceCard extends StatelessWidget {
                     ),
                     child: Center(
                       child: Icon(
-                        Icons.description_rounded,
+                        (subjectResource.totalAttachments == 0)
+                            ? Icons.chat_rounded
+                            : Icons.description_rounded,
                         color: bgColor,
                       ),
                     ),

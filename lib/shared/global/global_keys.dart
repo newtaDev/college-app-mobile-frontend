@@ -1,10 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class GlobalKeys {
 //  Navigator key
 
 //  Scaffold key
-
+  static GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+      GlobalKey<ScaffoldMessengerState>();
 // Widget keys
 
 // .env

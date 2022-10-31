@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -44,6 +45,7 @@ import '../features/reports/reports_screen.dart';
 import '../features/subject_resource/cubit/class_room_cubit.dart';
 import '../features/subject_resource/pages/resources_details_page.dart';
 import '../features/subject_resource/pages/subject_resources_page.dart';
+import '../overlays/bottom_sheet/upload_resources.dart';
 import '../overlays/bottom_sheet/selection_bottom_sheet.dart';
 import 'routes.dart';
 
@@ -55,6 +57,7 @@ class AppRouter {
   static final router = GoRouter(
     initialLocation: '/splash',
     debugLogDiagnostics: true,
+    observers: [BotToastNavigatorObserver()],
     routes: [
       GoRoute(
         name: Routes.splashScreen.name,

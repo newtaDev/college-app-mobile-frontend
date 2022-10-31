@@ -13,6 +13,22 @@ class FileServices {
         type: FileType.image,
         allowMultiple: true,
       );
+  static Future<FilePickerResult?> pickMutipleAudios() =>
+      FilePicker.platform.pickFiles(
+        type: FileType.audio,
+        allowMultiple: true,
+      );
+  static Future<FilePickerResult?> pickMutipleVideos() =>
+      FilePicker.platform.pickFiles(
+        type: FileType.video,
+        allowMultiple: true,
+      );
+  static Future<FilePickerResult?> pickMutipleDocs() =>
+      FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowMultiple: true,
+        allowedExtensions: FileHelpers.docExtensions,
+      );
   static Future<FilePickerResult?> pickMutipleFiles() =>
       FilePicker.platform.pickFiles(
         type: FileType.custom,

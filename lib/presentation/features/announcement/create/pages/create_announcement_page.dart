@@ -41,7 +41,7 @@ class _CreateAnnouncementScreenState extends State<CreateAnnouncementScreen> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    
+
     final isImageWithTextLayout = announcementCubit.state.layoutType ==
         AnnouncementLayoutType.imageWithText;
     final isMultiImageLayout = announcementCubit.state.layoutType ==

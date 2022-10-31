@@ -64,6 +64,8 @@ dependencies:
   photo_view: ^0.14.0
   path_provider: ^2.0.11
   better_open_file: ^3.6.4
+  bot_toast: ^4.0.3
+  lottie: ^1.4.3
 
 dev_dependencies:
   build_runner: ^2.3.2

@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styles_lib/theme/themes.dart';
@@ -8,6 +9,7 @@ import 'cubits/my_app/my_app_cubit.dart';
 import 'cubits/selection/selection_cubit.dart';
 import 'cubits/user/user_cubit.dart';
 import 'presentation/router/app_router.dart';
+import 'shared/global/global_keys.dart';
 import 'utils/utils.dart';
 
 void main() async {
@@ -34,6 +36,8 @@ class MyApp extends StatelessWidget {
         theme: lightTheme,
         darkTheme: darkTheme,
         themeMode: ThemeMode.light,
+        scaffoldMessengerKey: GlobalKeys.scaffoldMessengerKey,
+        builder: BotToastInit(),
         routeInformationParser: AppRouter.router.routeInformationParser,
         routerDelegate: AppRouter.router.routerDelegate,
         routeInformationProvider: AppRouter.router.routeInformationProvider,

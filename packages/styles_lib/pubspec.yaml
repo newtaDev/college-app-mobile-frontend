@@ -24,6 +24,7 @@ flutter:
     - assets/icons/
     - assets/images/
     - assets/svg/
+    - assets/lottie/
   fonts:
     - family: Raleway
       fonts:
