@@ -91,15 +91,20 @@ class ClassRoomState extends Equatable {
     return ClassRoomState(
       error: error ?? this.error,
       mySubjectStatus: mySubjectStatus ?? this.mySubjectStatus,
-      allSubjectResourcesStatus: allSubjectResourcesStatus ?? this.allSubjectResourcesStatus,
-      subjectResourceDetailsStatus: subjectResourceDetailsStatus ?? this.subjectResourceDetailsStatus,
-      uploadingResourcesStatus: uploadingResourcesStatus ?? this.uploadingResourcesStatus,
+      allSubjectResourcesStatus:
+          allSubjectResourcesStatus ?? this.allSubjectResourcesStatus,
+      subjectResourceDetailsStatus:
+          subjectResourceDetailsStatus ?? this.subjectResourceDetailsStatus,
+      uploadingResourcesStatus:
+          uploadingResourcesStatus ?? this.uploadingResourcesStatus,
       commentStatus: commentStatus ?? this.commentStatus,
       mySubjects: mySubjects ?? this.mySubjects,
       uploadingAttachments: uploadingAttachments ?? this.uploadingAttachments,
       allSubjectResources: allSubjectResources ?? this.allSubjectResources,
-      downloadingAttachments: downloadingAttachments ?? this.downloadingAttachments,
-      subjectResourceDetails: subjectResourceDetails ?? this.subjectResourceDetails,
+      downloadingAttachments:
+          downloadingAttachments ?? this.downloadingAttachments,
+      subjectResourceDetails:
+          subjectResourceDetails ?? this.subjectResourceDetails,
     );
   }
 }

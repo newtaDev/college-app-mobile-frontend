@@ -57,12 +57,13 @@ class ClassRoomRepoImpl implements ClassRoomRepository {
   }
 
   @override
-  Future<void> uploadSubjectResource(
-    {required UploadSubjectResourceReq req,
-    void Function(int count, int total)? onUploadProgress,}
-  ) async {
+  Future<void> uploadSubjectResource({
+    required UploadSubjectResourceReq req,
+    void Function(int count, int total)? onUploadProgress,
+  }) async {
     try {
-      await classRoomRds.uploadSubjectResource(req:req, onUploadProgress:onUploadProgress);
+      await classRoomRds.uploadSubjectResource(
+          req: req, onUploadProgress: onUploadProgress);
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;
       final errorRes = ApiErrorRes.fromMap(e.response?.data);

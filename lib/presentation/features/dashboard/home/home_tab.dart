@@ -95,7 +95,10 @@ class _HomeTabState extends State<HomeTab> {
                               showModalBottomSheet<void>(
                                 context: context,
                                 isScrollControlled: true,
-                                constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height*0.9),
+                                constraints: BoxConstraints(
+                                    maxHeight:
+                                        MediaQuery.of(context).size.height *
+                                            0.9),
                                 builder: (context) =>
                                     const CreateOrViewAttendanceBottomSheet(
                                   title: 'Select a subject',

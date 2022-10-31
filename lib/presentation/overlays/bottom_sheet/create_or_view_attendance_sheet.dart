@@ -77,8 +77,8 @@ class _CreateOrViewAttendanceBottomSheetState
                       children: [
                         ColoredBox(
                           color: subject.id ==
-                                  state.accessibleSubjectStates
-                                      .selectedSubject?.id
+                                  state.accessibleSubjectStates.selectedSubject
+                                      ?.id
                               ? ColorPallet.grey100
                               : Colors.transparent,
                           child: ListTile(
@@ -86,8 +86,7 @@ class _CreateOrViewAttendanceBottomSheetState
                               backgroundColor:
                                   Theme.of(context).primaryColorLight,
                               child: Text(
-                                subject.name?.getInitials(takeUpto: 2) ??
-                                    'N/A',
+                                subject.name?.getInitials(takeUpto: 2) ?? 'N/A',
                               ),
                             ),
                             title: Text(subject.name ?? 'N/A'),
@@ -117,15 +116,13 @@ class _CreateOrViewAttendanceBottomSheetState
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
               child: Row(
                 children: [
                   Expanded(
                     child: OutlinedButton(
                       onPressed:
-                          state.accessibleSubjectStates.selectedSubject ==
-                                  null
+                          state.accessibleSubjectStates.selectedSubject == null
                               ? null
                               : () {
                                   context.goNamed(
@@ -143,8 +140,7 @@ class _CreateOrViewAttendanceBottomSheetState
                   Expanded(
                     child: ElevatedButton(
                       onPressed:
-                          state.accessibleSubjectStates.selectedSubject ==
-                                  null
+                          state.accessibleSubjectStates.selectedSubject == null
                               ? null
                               : () {
                                   Navigator.of(context).pop();

@@ -11,7 +11,7 @@ class UploadSubjectResourceReq {
     required this.title,
     required this.subjectId,
     required this.userId,
-     this.description,
+    this.description,
     required this.attachments,
   });
 
