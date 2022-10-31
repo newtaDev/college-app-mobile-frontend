@@ -5,7 +5,6 @@ import '../../../../../../cubits/user/user_cubit.dart';
 import '../../../../../../domain/entities/user_entity.dart';
 import '../../../../../../domain/repository/profile_repository.dart';
 import '../../../../../../shared/errors/api_errors.dart';
-import '../../../../../../shared/global/enums.dart';
 
 part 'my_profile_edit_state.dart';
 

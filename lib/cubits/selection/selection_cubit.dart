@@ -5,7 +5,6 @@ import '../../../../../domain/repository/common_repository.dart';
 import '../../../../../shared/errors/api_errors.dart';
 import '../../../../../utils/utils.dart';
 import '../../data/models/data_class/subject_model.dart';
-import '../../utils/utils.dart';
 import '../user/user_cubit.dart';
 
 part 'selection_state.dart';

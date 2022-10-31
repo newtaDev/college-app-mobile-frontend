@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 
 import '../../domain/entities/class_room_entity.dart';
-import '../../domain/entities/common_entity.dart';
 import '../../domain/repository/class_room_repository.dart';
 import '../../shared/errors/api_errors.dart';
 import '../data_source/remote/class_room_rds.dart';
@@ -63,7 +62,9 @@ class ClassRoomRepoImpl implements ClassRoomRepository {
   }) async {
     try {
       await classRoomRds.uploadSubjectResource(
-          req: req, onUploadProgress: onUploadProgress);
+        req: req,
+        onUploadProgress: onUploadProgress,
+      );
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;
       final errorRes = ApiErrorRes.fromMap(e.response?.data);

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widgets_lib/overlays/overlays.dart';
 
-import '../../../cubits/user/user_cubit.dart';
 import '../../../data/models/data_class/class_with_details.dart';
 
 class MutliSelectMyClassesDialog extends StatefulWidget {

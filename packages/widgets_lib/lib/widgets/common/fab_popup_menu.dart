@@ -48,7 +48,9 @@ class _FabPopupMenuLocation extends StandardFabLocation {
 
   @override
   double getOffsetX(
-      ScaffoldPrelayoutGeometry scaffoldGeometry, double adjustment) {
+    ScaffoldPrelayoutGeometry scaffoldGeometry,
+    double adjustment,
+  ) {
     Future.microtask(() {
       this.scaffoldGeometry.value = scaffoldGeometry;
     });
@@ -57,7 +59,9 @@ class _FabPopupMenuLocation extends StandardFabLocation {
 
   @override
   double getOffsetY(
-      ScaffoldPrelayoutGeometry scaffoldGeometry, double adjustment) {
+    ScaffoldPrelayoutGeometry scaffoldGeometry,
+    double adjustment,
+  ) {
     return 0;
   }
 }

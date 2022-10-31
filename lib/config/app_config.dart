@@ -5,7 +5,6 @@ import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../data/models/local/downloads.dart';
 import '../shared/global/hive_boxes.dart';
-import '../shared/global/hive_keys.dart';
 import '../shared/helpers/network/device_ip.dart';
 import 'dependencies/di.dart';
 import 'env/env_config.dart';

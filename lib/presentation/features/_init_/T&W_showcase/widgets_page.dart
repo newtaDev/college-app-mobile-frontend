@@ -437,10 +437,11 @@ class _PopupMenuButton extends StatelessWidget {
       child: AbsorbPointer(
         child: ElevatedButton.icon(
           style: ElevatedButton.styleFrom(
+            foregroundColor: scheme.onPrimary,
             elevation: 0,
-            primary: scheme.primary,
-            onPrimary: scheme.onPrimary,
-            onSurface: scheme.onSurface,
+            backgroundColor: scheme.primary,
+            disabledForegroundColor: scheme.onSurface.withOpacity(0.38),
+            disabledBackgroundColor: scheme.onSurface.withOpacity(0.12),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(radius ?? 8)),
             ),

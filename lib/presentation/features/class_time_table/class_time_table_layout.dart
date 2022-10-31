@@ -1,10 +1,10 @@
-import 'package:college_app/presentation/features/class_time_table/widgets/class_time_table_view_card.dart';
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:widgets_lib/widgets/common/doted_lines.dart';
 
 import '../../../data/models/data_class/class_time_table.dart';
 import 'cubit/class_time_table_cubit.dart';
+import 'widgets/class_time_table_view_card.dart';
 
 class ClassTimeTableDayLayout extends StatelessWidget {
   const ClassTimeTableDayLayout({

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:styles_lib/theme/themes.dart';
-import 'package:widgets_lib/widgets/common/fitted_text.dart';
 import 'package:widgets_lib/widgets/widgets.dart';
 
 import '../../../../cubits/user/user_cubit.dart';
@@ -11,7 +10,6 @@ import '../../../../data/models/request/comment_req.dart';
 import '../../../../domain/entities/class_room_entity.dart';
 import '../../../../shared/extensions/extentions.dart';
 import '../../../../shared/helpers/file_helpers.dart';
-import '../../../../shared/services/file_services.dart';
 import '../../../router/routes.dart';
 import '../../pages/image_viewer_page.dart';
 import '../../subject_resource/cubit/class_room_cubit.dart';

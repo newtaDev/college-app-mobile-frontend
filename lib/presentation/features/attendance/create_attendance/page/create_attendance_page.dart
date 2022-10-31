@@ -6,14 +6,10 @@ import 'package:intl/intl.dart';
 import 'package:styles_lib/theme/themes.dart';
 import 'package:widgets_lib/widgets_lib.dart';
 
-import '../../../../../config/app_config.dart';
 import '../../../../../cubits/my_app/my_app_cubit.dart';
-import '../../../../../cubits/selection/selection_cubit.dart';
-import '../../../../../cubits/user/user_cubit.dart';
 import '../../../../../data/models/data_class/subject_model.dart';
 import '../../../../../domain/entities/attendance_entity.dart';
 import '../../../../../domain/entities/user_entity.dart';
-import '../../../../../shared/global/enums.dart';
 import '../../../../overlays/dialogs/select_subject_dialog.dart';
 import '../../../../router/routes.dart';
 import '../cubit/create_attendance_cubit.dart';

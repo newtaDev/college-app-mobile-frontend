@@ -4,8 +4,8 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:widgets_lib/widgets_lib.dart';
 
 import '../../../cubits/user/user_cubit.dart';
-import '../../../shared/helpers/helpers.dart';
 import '../../../shared/global/enums.dart';
+import '../../../shared/helpers/helpers.dart';
 import 'class_time_table_layout.dart';
 import 'cubit/class_time_table_cubit.dart';
 import 'widgets/time_table_week_box.dart';

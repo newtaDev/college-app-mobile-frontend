@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 
 import '../../../../../../data/models/data_class/class_with_details.dart';
 import '../../../../../../domain/entities/reports_entity.dart';

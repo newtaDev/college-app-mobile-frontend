@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widgets_lib/widgets/common/loading_indicator.dart';
 
-import '../../../../../domain/entities/announcement_entity.dart';
-import '../../../../../shared/global/enums.dart';
 import '../../widgets/announcement_card_switcher.dart';
-import '../../widgets/announcement_cards.dart';
 import '../cubit/view_announcement_cubit.dart';
 
 class AllAnnouncementTeacherTabView extends StatefulWidget {

@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:styles_lib/styles_lib.dart';
 
 import '../../../cubits/user/user_cubit.dart';
-import '../../../shared/global/enums.dart';
 import '../../overlays/bottom_sheet/selection_bottom_sheet.dart';
 import '../../router/routes.dart';
 

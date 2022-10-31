@@ -145,19 +145,21 @@ class ProfileViewTabs extends StatelessWidget {
       child: TabBarView(
         children: [
           ListView.builder(
-              padding: const EdgeInsets.all(0),
-              itemBuilder: ((context, index) {
-                return ListTile(
-                  title: Text("Tweet ${index + 1}"),
-                );
-              })),
+            padding: const EdgeInsets.all(0),
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text('Tweet ${index + 1}'),
+              );
+            },
+          ),
           ListView.builder(
-              padding: const EdgeInsets.all(0),
-              itemBuilder: ((context, index) {
-                return ListTile(
-                  title: Text("Replies ${index + 1}"),
-                );
-              })),
+            padding: const EdgeInsets.all(0),
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text('Replies ${index + 1}'),
+              );
+            },
+          ),
         ],
       ),
     );

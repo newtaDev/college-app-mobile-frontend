@@ -8,7 +8,6 @@ import 'package:widgets_lib/widgets/cards/src/selectable_side_bar_card.dart';
 import '../../../../cubits/user/user_cubit.dart';
 import '../../../../domain/entities/user_entity.dart';
 import '../widgets/my_account_section.dart';
-import '../widgets/my_dashboard_section.dart';
 import '../widgets/profile_with_bio.dart';
 
 class MyProfileTeacherLayout extends StatelessWidget {

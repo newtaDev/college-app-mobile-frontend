@@ -1,7 +1,6 @@
 import '../entities/attendance_entity.dart';
-import '../entities/students_entity.dart';
-import '../entities/user_entity.dart';
 import '../entities/reports_entity.dart';
+import '../entities/students_entity.dart';
 
 abstract class AttendanceRepository {
   Future<SubjectReportRes> getAttendancesReportOfSubjects(

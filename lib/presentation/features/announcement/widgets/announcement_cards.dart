@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
@@ -6,15 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:styles_lib/assets/assets.dart';
 import 'package:styles_lib/theme/themes.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:widgets_lib/widgets/cards/src/bordered_box.dart';
 
 import '../../../../shared/extensions/extentions.dart';
-import '../../../../shared/helpers/helpers.dart';
 import '../../../router/routes.dart';
 import '../../pages/image_viewer_page.dart';
 

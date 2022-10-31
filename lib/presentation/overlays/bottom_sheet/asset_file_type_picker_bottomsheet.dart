@@ -1,9 +1,5 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/widgets.dart';
-import 'package:styles_lib/theme/themes.dart';
 
 import '../../../shared/helpers/file_helpers.dart';
 import '../../../shared/services/file_services.dart';

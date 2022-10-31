@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widgets_lib/widgets_lib.dart';
 
@@ -168,8 +166,9 @@ class _ProfileEditFormState extends State<_ProfileEditForm> {
                     buildWhen: (previous, current) =>
                         previous.usernameStatus != current.usernameStatus,
                     builder: (context, state) {
-                      if (state.usernameStatus.isInitial)
+                      if (state.usernameStatus.isInitial) {
                         return const SizedBox();
+                      }
                       return SizedBox(
                         width: 30,
                         child: Builder(
@@ -184,7 +183,8 @@ class _ProfileEditFormState extends State<_ProfileEditForm> {
                               return GestureDetector(
                                 onTap: () {
                                   _errorTooltip = errorTooltip(
-                                      state.usernameError!.message);
+                                    state.usernameError!.message,
+                                  );
                                   _errorTooltip?.show(context);
                                 },
                                 child: const Icon(

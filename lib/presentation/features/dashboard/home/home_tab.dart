@@ -4,11 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:styles_lib/assets/assets.dart';
 import 'package:widgets_lib/widgets/widgets.dart';
 
-import '../../../../cubits/selection/selection_cubit.dart';
 import '../../../../cubits/user/user_cubit.dart';
-import '../../../overlays/bottom_sheet/selection_bottom_sheet.dart';
 import '../../../overlays/bottom_sheet/create_or_view_attendance_sheet.dart';
-import '../../../overlays/dialogs/select_subject_dialog.dart';
 import '../../../router/routes.dart';
 import '../../announcement/view/widgets/announcement_tabs.dart';
 import '../../announcement/view/widgets/student_announcement_tab_view.dart';
@@ -96,9 +93,9 @@ class _HomeTabState extends State<HomeTab> {
                                 context: context,
                                 isScrollControlled: true,
                                 constraints: BoxConstraints(
-                                    maxHeight:
-                                        MediaQuery.of(context).size.height *
-                                            0.9),
+                                  maxHeight:
+                                      MediaQuery.of(context).size.height * 0.9,
+                                ),
                                 builder: (context) =>
                                     const CreateOrViewAttendanceBottomSheet(
                                   title: 'Select a subject',

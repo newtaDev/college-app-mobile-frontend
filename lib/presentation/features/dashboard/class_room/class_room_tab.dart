@@ -1,14 +1,9 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:styles_lib/assets/assets.dart';
-import 'package:styles_lib/theme/themes.dart';
 import 'package:widgets_lib/widgets/widgets.dart';
 
-import '../../../../cubits/user/user_cubit.dart';
-import '../../../../shared/extensions/extentions.dart';
 import '../../../router/routes.dart';
 import '../../downloads/downloads_page.dart';
 import '../../subject_resource/cubit/class_room_cubit.dart';

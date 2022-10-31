@@ -1,15 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:styles_lib/theme/themes.dart';
 import 'package:widgets_lib/widgets/common/double_circular_border.dart';
 
-import '../../../../cubits/user/user_cubit.dart';
 import '../../../../domain/entities/user_entity.dart';
 import '../../../router/routes.dart';
 

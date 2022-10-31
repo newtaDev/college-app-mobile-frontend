@@ -31,7 +31,8 @@ class AbsentClassReportOfStudent extends MyEquatable {
   /// Parses the string and returns the resulting Json object as [AbsentClassReportOfStudent].
   factory AbsentClassReportOfStudent.fromJson(String data) {
     return AbsentClassReportOfStudent.fromMap(
-        json.decode(data) as Map<String, dynamic>);
+      json.decode(data) as Map<String, dynamic>,
+    );
   }
 
   /// `dart:convert`

@@ -9,8 +9,10 @@ import '../../../shared/extensions/extentions.dart';
 
 class AssignedClassSelectionDialog extends StatefulWidget {
   final void Function(ClassWithDetails classes) onClassSelected;
-  const AssignedClassSelectionDialog(
-      {super.key, required this.onClassSelected});
+  const AssignedClassSelectionDialog({
+    super.key,
+    required this.onClassSelected,
+  });
 
   @override
   State<AssignedClassSelectionDialog> createState() =>

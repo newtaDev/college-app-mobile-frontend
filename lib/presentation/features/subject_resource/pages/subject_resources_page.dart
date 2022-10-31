@@ -1,14 +1,10 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mime/mime.dart';
 import 'package:styles_lib/styles_lib.dart';
 import 'package:widgets_lib/widgets_lib.dart';
 
@@ -16,12 +12,10 @@ import '../../../../cubits/user/user_cubit.dart';
 import '../../../../data/models/data_class/subject_model.dart';
 import '../../../../domain/entities/class_room_entity.dart';
 import '../../../../shared/extensions/extentions.dart';
-import '../../../../shared/helpers/file_helpers.dart';
+import '../../../overlays/bottom_sheet/upload_resources.dart';
 import '../../../router/routes.dart';
 import '../../downloads/downloads_page.dart';
-import '../../pages/image_viewer_page.dart';
 import '../cubit/class_room_cubit.dart';
-import '../../../overlays/bottom_sheet/upload_resources.dart';
 
 class SubjectResourcesPageParams {
   final Subject subject;
@@ -75,7 +69,9 @@ class _SubjectResourcesPageState extends State<SubjectResourcesPage> {
               label: Text(
                 'Upload classes',
                 style: textTheme.button?.copyWith(
-                    fontWeight: FontWeight.w600, color: Colors.white),
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
               ),
             ),
       body: NestedScrollView(
@@ -274,18 +270,19 @@ class SubjectResourceHeader extends StatelessWidget {
                 height: bgHeight,
                 width: size.width,
                 child: DecoratedBox(
-                  decoration: BoxDecoration(color: genColor.withOpacity(0.1)
-                      // gradient: LinearGradient(
-                      //   colors: [
-                      //     ColorPallet.lightShadeColors[Random().nextInt(
-                      //       ColorPallet.lightShadeColors.length,
-                      //     )],
-                      //     ColorPallet.lightShadeColors[Random().nextInt(
-                      //       ColorPallet.lightShadeColors.length,
-                      //     )],
-                      //   ],
-                      // ),
-                      ),
+                  decoration: BoxDecoration(
+                    color: genColor.withOpacity(0.1),
+                    // gradient: LinearGradient(
+                    //   colors: [
+                    //     ColorPallet.lightShadeColors[Random().nextInt(
+                    //       ColorPallet.lightShadeColors.length,
+                    //     )],
+                    //     ColorPallet.lightShadeColors[Random().nextInt(
+                    //       ColorPallet.lightShadeColors.length,
+                    //     )],
+                    //   ],
+                    // ),
+                  ),
                 ),
               ),
               Positioned(

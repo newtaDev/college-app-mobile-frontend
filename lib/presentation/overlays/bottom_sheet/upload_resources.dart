@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
@@ -14,7 +12,6 @@ import 'package:styles_lib/theme/themes.dart';
 import 'package:widgets_lib/widgets/widgets.dart';
 
 import '../../../shared/extensions/extentions.dart';
-import '../../../shared/global/global_keys.dart';
 import '../../../shared/helpers/file_helpers.dart';
 import '../../../shared/validators/form_validator.dart';
 import '../../features/pages/image_viewer_page.dart';

@@ -7,7 +7,6 @@ import 'package:widgets_lib/widgets/common/loading_indicator.dart';
 
 import '../../../cubits/selection/selection_cubit.dart';
 import '../../../data/models/data_class/subject_model.dart';
-import '../../../domain/entities/attendance_entity.dart';
 import '../../../shared/extensions/extentions.dart';
 import '../../router/routes.dart';
 

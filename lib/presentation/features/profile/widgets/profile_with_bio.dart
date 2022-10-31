@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:styles_lib/theme/themes.dart';
 import 'package:widgets_lib/widgets/common/profile_avathar.dart';
 
-import '../../../../cubits/user/user_cubit.dart';
 import '../../../../domain/entities/user_entity.dart';
 
 class ProfileWithBio extends StatelessWidget {

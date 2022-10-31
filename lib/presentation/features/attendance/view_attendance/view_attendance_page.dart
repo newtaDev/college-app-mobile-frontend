@@ -241,8 +241,8 @@ class AttendanceViewLayout extends StatelessWidget {
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                              onPrimary: ColorPallet.primaryBlueDark,
-                              primary:
+                              foregroundColor: ColorPallet.primaryBlueDark,
+                              backgroundColor:
                                   ColorPallet.primaryBlueDark.withOpacity(0.1),
                               elevation: 0,
                               minimumSize: const Size.fromHeight(40),

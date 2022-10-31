@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 
 import '../../../../../../cubits/user/user_cubit.dart';
 import '../../../../../../domain/entities/user_entity.dart';
