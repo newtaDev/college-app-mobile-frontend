@@ -30,9 +30,9 @@ class CommonRepoImpl implements CommonRepository {
   }
 
   @override
-  Future<ClassWithDetailsRes> getAssignedClassesOfTeacher() async {
+  Future<ClassWithDetailsRes> getAccessibleClassesOfTeacher() async {
     try {
-      final res = await userRds.getAssignedClassesOfTeacher();
+      final res = await userRds.getAccessibleClassesOfTeacher();
       return ClassWithDetailsRes.fromMap(res.data);
     } on DioError catch (e) {
       if (e.type != DioErrorType.response) rethrow;

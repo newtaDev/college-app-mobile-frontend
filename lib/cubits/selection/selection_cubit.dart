@@ -25,7 +25,7 @@ class SelectionCubit extends Cubit<SelectionState> {
       ),
     );
     try {
-      final classRes = await commonRepo.getAssignedClassesOfTeacher();
+      final classRes = await commonRepo.getAccessibleClassesOfTeacher();
       emit(
         state.copyWith(
           accessibleClassesStates: state.accessibleClassesStates.copyWith(

@@ -90,7 +90,7 @@ class _UploadSubjectResourcesBottomSheetState
                           Navigator.of(context).pop();
                           context
                               .read<ClassRoomCubit>()
-                              .getAllSubjectResources(widget.subjectId);
+                              .getAllSubjectResources(subjectId: widget.subjectId);
                         },
                         child: const Text('continue'),
                       )

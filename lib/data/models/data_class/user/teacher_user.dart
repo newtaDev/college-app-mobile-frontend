@@ -1,7 +1,7 @@
 part of user_entity;
 
 class TeacherUser extends UserDetails {
-  final List<ClassWithDetails> assignedClasses;
+  final List<ClassWithDetails> accessibleClasses;
   final List<Subject> assignedSubjects;
   final List<String> assignedClassIds;
   final List<String> assignedSubjectIds;
@@ -14,7 +14,7 @@ class TeacherUser extends UserDetails {
     super.email,
     required super.collegeId,
     required super.userType,
-    required this.assignedClasses,
+    required this.accessibleClasses,
     required this.assignedClassIds,
     required this.assignedSubjects,
     required this.assignedSubjectIds,
@@ -38,13 +38,13 @@ class TeacherUser extends UserDetails {
         collegeId: data['collegeId'] as String,
         userType: UserType.fromName(data['userType'])!,
         assignedClassIds:
-            data['assignedClasses'] == null || data['assignedClasses'].isEmpty
+            data['accessibleClasses'] == null || data['accessibleClasses'].isEmpty
                 ? []
-                : data['assignedClasses'][0] is Map<String, dynamic>
-                    ? data['assignedClasses']
+                : data['accessibleClasses'][0] is Map<String, dynamic>
+                    ? data['accessibleClasses']
                         .map<String>((dynamic e) => e['_id'].toString())
                         .toList()
-                    : data['assignedClasses']
+                    : data['accessibleClasses']
                         .map<String>((dynamic e) => e.toString())
                         .toList(),
         assignedSubjectIds:
@@ -57,11 +57,11 @@ class TeacherUser extends UserDetails {
                     : data['assignedSubjects']
                         .map<String>((dynamic e) => e.toString())
                         .toList(),
-        assignedClasses:
-            data['assignedClasses'] == null || data['assignedClasses'].isEmpty
+        accessibleClasses:
+            data['accessibleClasses'] == null || data['accessibleClasses'].isEmpty
                 ? []
-                : data['assignedClasses'][0] is Map<String, dynamic>
-                    ? (data['assignedClasses'] as List<dynamic>?)
+                : data['accessibleClasses'][0] is Map<String, dynamic>
+                    ? (data['accessibleClasses'] as List<dynamic>?)
                             ?.map(
                               (dynamic e) => ClassWithDetails.fromMap(
                                 e as Map<String, dynamic>,
@@ -123,7 +123,7 @@ class TeacherUser extends UserDetails {
     String? email,
     String? collegeId,
     UserType? userType,
-    List<ClassWithDetails>? assignedClasses,
+    List<ClassWithDetails>? accessibleClasses,
     List<Subject>? assignedSubjects,
     List<String>? assignedClassIds,
     List<String>? assignedSubjectIds,
@@ -145,7 +145,7 @@ class TeacherUser extends UserDetails {
       bio: bio ?? this.bio,
       collegeId: collegeId ?? this.collegeId,
       userType: userType ?? this.userType,
-      assignedClasses: assignedClasses ?? this.assignedClasses,
+      accessibleClasses: accessibleClasses ?? this.accessibleClasses,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       currentAddress: currentAddress ?? this.currentAddress,
       dob: dob ?? this.dob,
@@ -169,7 +169,7 @@ class TeacherUser extends UserDetails {
       bio,
       collegeId,
       userType,
-      assignedClasses,
+      accessibleClasses,
       assignedClassIds,
       assignedSubjectIds,
       assignedSubjects,

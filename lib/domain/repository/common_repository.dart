@@ -3,7 +3,7 @@ import '../entities/user_entity.dart';
 
 abstract class CommonRepository {
   Future<ClassWithDetailsRes> getAllClassesWithDetails();
-  Future<ClassWithDetailsRes> getAssignedClassesOfTeacher();
+  Future<ClassWithDetailsRes> getAccessibleClassesOfTeacher();
   Future<UserDetailsRes> getUserDetails();
   Future<SubjectsRes> getSubjectsOfCourse(String courseId);
   Future<SubjectsRes> getSubjectsOfClass(String classId);

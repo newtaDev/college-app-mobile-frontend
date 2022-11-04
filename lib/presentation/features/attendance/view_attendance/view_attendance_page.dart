@@ -84,34 +84,34 @@ class AttendanceViewLayout extends StatelessWidget {
         //   padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
         //   child: BlocBuilder<SelectionCubit, SelectionState>(
         //     // listenWhen: (previous, current) =>
-        //     //     previous.assignedClassesSelectonStates.selectedClass !=
-        //     //         current.assignedClassesSelectonStates.selectedClass ||
-        //     //     previous.assignedClassesSelectonStates.selectedSem !=
-        //     //         current.assignedClassesSelectonStates.selectedSem,
+        //     //     previous.accessibleClassesSelectonStates.selectedClass !=
+        //     //         current.accessibleClassesSelectonStates.selectedClass ||
+        //     //     previous.accessibleClassesSelectonStates.selectedSem !=
+        //     //         current.accessibleClassesSelectonStates.selectedSem,
         //     buildWhen: (previous, current) =>
-        //         previous.assignedClassesSelectonStates.selectedClass !=
-        //             current.assignedClassesSelectonStates.selectedClass ||
-        //         previous.assignedClassesSelectonStates.selectedSem !=
-        //             current.assignedClassesSelectonStates.selectedSem,
+        //         previous.accessibleClassesSelectonStates.selectedClass !=
+        //             current.accessibleClassesSelectonStates.selectedClass ||
+        //         previous.accessibleClassesSelectonStates.selectedSem !=
+        //             current.accessibleClassesSelectonStates.selectedSem,
         //     // listener: (context, state) {
         //     //   context.read<ViewAttendanceCubit>().getAllAttendance(
         //     //         AllAttendanceWithQueryReq(
         //     //           classId:
-        //     //               state.assignedClassesSelectonStates.selectedClass?.id,
+        //     //               state.accessibleClassesSelectonStates.selectedClass?.id,
         //     //           currentSem:
-        //     //               state.assignedClassesSelectonStates.selectedSem,
+        //     //               state.accessibleClassesSelectonStates.selectedSem,
         //     //         ),
         //     //       );
         //     // },
         //     builder: (context, state) {
         //       final selectedSem =
-        //           state.assignedClassesSelectonStates.selectedSem ?? 0;
+        //           state.accessibleClassesSelectonStates.selectedSem ?? 0;
         //       return Row(
         //         children: [
         //           Expanded(
         //             child: RichText(
         //               text: TextSpan(
-        //                 text: state.assignedClassesSelectonStates.selectedClass
+        //                 text: state.accessibleClassesSelectonStates.selectedClass
         //                         ?.name ??
         //                     'N/A',
         //                 style: textTheme.titleSmall,
@@ -140,9 +140,9 @@ class AttendanceViewLayout extends StatelessWidget {
         //                 final selectionState = context
         //                     .read<SelectionCubit>()
         //                     .state
-        //                     .assignedClassesSelectonStates;
+        //                     .accessibleClassesSelectonStates;
         //                 if (selectionState !=
-        //                     state.assignedClassesSelectonStates) {
+        //                     state.accessibleClassesSelectonStates) {
         //                   context
         //                       .read<ViewAttendanceCubit>()
         //                       .getClassAttendances(

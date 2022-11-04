@@ -74,7 +74,7 @@ class ClassRoomCubit extends Cubit<ClassRoomState> {
     }
   }
 
-  Future<void> getAllSubjectResources(String subjectId) async {
+  Future<void> getAllSubjectResources({required String subjectId}) async {
     emit(state.copyWith(allSubjectResourcesStatus: ClassRoomStatus.loading));
     try {
       final res =

@@ -68,11 +68,11 @@ class TecherProfileClassList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: teacher?.assignedClasses.length,
+      itemCount: teacher?.accessibleClasses.length,
       padding: const EdgeInsets.only(left: 20),
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
-        final _class = teacher?.assignedClasses[index];
+        final _class = teacher?.accessibleClasses[index];
         return Padding(
           padding: const EdgeInsets.only(right: 20, top: 10, bottom: 10),
           child: SizedBox(

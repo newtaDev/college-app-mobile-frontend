@@ -37,7 +37,7 @@ class _SubjectResourcesPageState extends State<SubjectResourcesPage> {
   void initState() {
     context
         .read<ClassRoomCubit>()
-        .getAllSubjectResources(widget.param.subject.id!);
+        .getAllSubjectResources(subjectId: widget.param.subject.id!);
     super.initState();
   }
 
@@ -86,6 +86,10 @@ class _SubjectResourcesPageState extends State<SubjectResourcesPage> {
           ];
         },
         body: BlocBuilder<ClassRoomCubit, ClassRoomState>(
+          buildWhen: (previous, current) =>
+              previous.allSubjectResourcesStatus !=
+                  current.allSubjectResourcesStatus ||
+              previous.allSubjectResources != current.allSubjectResources,
           builder: (context, state) {
             if (state.allSubjectResourcesStatus.isInitial ||
                 state.allSubjectResourcesStatus.isLoading) {
@@ -99,7 +103,7 @@ class _SubjectResourcesPageState extends State<SubjectResourcesPage> {
             return RefreshIndicator(
               onRefresh: () => context
                   .read<ClassRoomCubit>()
-                  .getAllSubjectResources(widget.param.subject.id!),
+                  .getAllSubjectResources(subjectId: widget.param.subject.id!),
               child: ListView.builder(
                 itemCount: state.allSubjectResources.length,
                 padding:

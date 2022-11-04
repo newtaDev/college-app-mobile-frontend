@@ -131,11 +131,11 @@ class _CreateAnnouncementScreenState extends State<CreateAnnouncementScreen> {
                     return _multiSelectBoxWithTitle(
                       title: 'Anounce to',
                       onTap: () {
-                        final assignedClasses = context
+                        final accessibleClasses = context
                                 .read<UserCubit>()
                                 .state
                                 .userAsTeacher
-                                ?.assignedClasses ??
+                                ?.accessibleClasses ??
                             [];
                         FocusManager.instance.primaryFocus?.unfocus();
                         showDialog<void>(
@@ -143,7 +143,7 @@ class _CreateAnnouncementScreenState extends State<CreateAnnouncementScreen> {
                           builder: (_) {
                             return MutliSelectMyClassesDialog(
                               initialSelectedClasses: state.selectedClasses,
-                              classes: assignedClasses,
+                              classes: accessibleClasses,
                               onClassesSelected: (_, userSelectedClasses) {
                                 announcementCubit
                                     .setSelectedClasses(userSelectedClasses);
