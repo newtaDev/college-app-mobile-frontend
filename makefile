@@ -12,10 +12,10 @@ help: ## This help dialog.
 		printf "%-30s %s\n" $$help_command $$help_info ; \
 	done
 
-cleanup: ## Format clean and install the project.
+ ## Format clean and install the project.
 cleanup: format clean install
 
-install: ## Install the whole project.
+install: ## Install pub dep in each project.
 	@./scripts/install.sh 
 
 analyze: ## Analyze the whole project.
@@ -33,7 +33,7 @@ format: ## Format the whole project.
 	@echo
 	@echo "╠ ---- Formatting the code ----"
 	@echo
-	@flutter format .
+	@dart format .
 
 build_runner: ## Generate code using build_runner
 	flutter pub run build_runner build --delete-conflicting-outputs

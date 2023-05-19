@@ -37,16 +37,16 @@ class TeacherUser extends UserDetails {
         bio: data['bio'] as String?,
         collegeId: data['collegeId'] as String,
         userType: UserType.fromName(data['userType'])!,
-        assignedClassIds:
-            data['accessibleClasses'] == null || data['accessibleClasses'].isEmpty
-                ? []
-                : data['accessibleClasses'][0] is Map<String, dynamic>
-                    ? data['accessibleClasses']
-                        .map<String>((dynamic e) => e['_id'].toString())
-                        .toList()
-                    : data['accessibleClasses']
-                        .map<String>((dynamic e) => e.toString())
-                        .toList(),
+        assignedClassIds: data['accessibleClasses'] == null ||
+                data['accessibleClasses'].isEmpty
+            ? []
+            : data['accessibleClasses'][0] is Map<String, dynamic>
+                ? data['accessibleClasses']
+                    .map<String>((dynamic e) => e['_id'].toString())
+                    .toList()
+                : data['accessibleClasses']
+                    .map<String>((dynamic e) => e.toString())
+                    .toList(),
         assignedSubjectIds:
             data['assignedSubjects'] == null || data['assignedSubjects'].isEmpty
                 ? []
@@ -57,19 +57,19 @@ class TeacherUser extends UserDetails {
                     : data['assignedSubjects']
                         .map<String>((dynamic e) => e.toString())
                         .toList(),
-        accessibleClasses:
-            data['accessibleClasses'] == null || data['accessibleClasses'].isEmpty
-                ? []
-                : data['accessibleClasses'][0] is Map<String, dynamic>
-                    ? (data['accessibleClasses'] as List<dynamic>?)
-                            ?.map(
-                              (dynamic e) => ClassWithDetails.fromMap(
-                                e as Map<String, dynamic>,
-                              ),
-                            )
-                            .toList() ??
-                        []
-                    : [],
+        accessibleClasses: data['accessibleClasses'] == null ||
+                data['accessibleClasses'].isEmpty
+            ? []
+            : data['accessibleClasses'][0] is Map<String, dynamic>
+                ? (data['accessibleClasses'] as List<dynamic>?)
+                        ?.map(
+                          (dynamic e) => ClassWithDetails.fromMap(
+                            e as Map<String, dynamic>,
+                          ),
+                        )
+                        .toList() ??
+                    []
+                : [],
         assignedSubjects:
             data['assignedSubjects'] == null || data['assignedSubjects'].isEmpty
                 ? []

@@ -37,6 +37,12 @@ class ClassTimeTableViewCard extends StatelessWidget {
     final isStudent = context.read<UserCubit>().state.userDetails.isStudent;
 
     return BorderedBox(
+      borderRadius: const BorderRadius.only(
+        topRight: Radius.circular(8),
+        bottomLeft: Radius.circular(8),
+        bottomRight: Radius.circular(8),
+      ),
+      padding: const EdgeInsets.all(8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

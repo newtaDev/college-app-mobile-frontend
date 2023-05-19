@@ -72,7 +72,7 @@ class _CreateAnnouncementScreenState extends State<CreateAnnouncementScreen> {
                       announcementCubit.createAnouncemnt();
                       break;
                     case CreateAnnouncementValidationStatus
-                        .issueInAnounceToClasses:
+                          .issueInAnounceToClasses:
                       showSnackBar('Please choose announcement classes');
                       break;
                     case CreateAnnouncementValidationStatus.issueInMultiImage:

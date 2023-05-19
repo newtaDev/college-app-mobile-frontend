@@ -1652,7 +1652,7 @@ class CustomDropdownButtonFormField<T> extends FormField<T> {
       'behaviour related to auto validation. '
       'This feature was deprecated after v1.19.0.',
     )
-        bool autovalidate = false,
+    bool autovalidate = false,
     AutovalidateMode? autovalidateMode,
     double? menuMaxHeight,
   })  : assert(

@@ -88,9 +88,8 @@ class _UploadSubjectResourcesBottomSheetState
                       ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).pop();
-                          context
-                              .read<ClassRoomCubit>()
-                              .getAllSubjectResources(subjectId: widget.subjectId);
+                          context.read<ClassRoomCubit>().getAllSubjectResources(
+                              subjectId: widget.subjectId);
                         },
                         child: const Text('continue'),
                       )
